@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+}
+nav {
+    background-color: #555;
+    color: #fff;
+}
+nav a {
+    color: #fff;
+}
+.navbar-toggler-icon {
+    border: 2px solid #fff; /* Icon color */
+}
+.navbar-toggler-icon span {
+    background-color: #fff; /* Lines color */
+}
+.nav-link i {
+    margin-right: 5px;
+}

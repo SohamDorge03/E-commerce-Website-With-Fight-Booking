@@ -1,0 +1,271 @@
+-- Table for Users
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20),
+    gender VARCHAR(10), 
+    confirmed_email BOOLEAN NOT NULL DEFAULT false,
+    profile_pic_url VARCHAR(255), 
+    address VARCHAR(255),
+    city VARCHAR(50),
+    state VARCHAR(50),
+    pincode VARCHAR(50)
+);
+
+<<<<<<< Updated upstream
+-- Table for Admins
+=======
+-- HEAD
+-- Table for Admins
+
+=======
+-- ed861e5d4c6b29b5df53d3bcb423382efd9ea9e6
+>>>>>>> Stashed changes
+CREATE TABLE admins (
+    admin_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+<<<<<<< Updated upstream
+-- Table for Vendors
+=======
+-- HEAD
+-- Table for Vendors
+=======
+-- ed861e5d4c6b29b5df53d3bcb423382efd9ea9e6
+
+>>>>>>> Stashed changes
+CREATE TABLE vendors (
+    vendor_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    confirmed_email BOOLEAN NOT NULL DEFAULT false,
+    company_name VARCHAR(100),  
+    phone_number VARCHAR(20),  
+    website_url VARCHAR(255),  
+    profile_pic_url VARCHAR(255),  
+    address VARCHAR(255),
+    city VARCHAR(50),
+    state VARCHAR(50)
+);
+
+-- Table for Airline Users
+CREATE TABLE airline_users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    confirmed_email BOOLEAN NOT NULL DEFAULT false,
+    airline_id INT NOT NULL,
+    profile_pic_url VARCHAR(255),
+    address VARCHAR(255),
+    city VARCHAR(50),
+    state VARCHAR(50)
+);
+
+-- Table for Wishlists
+CREATE TABLE wishlists (
+    wishlist_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+<<<<<<< Updated upstream
+-- Table for Categories
+=======
+-- HEAD
+
+-- Updated upstream
+-- Table for Categories
+=======
+-- ed861e5d4c6b29b5df53d3bcb423382efd9ea9e6
+>>>>>>> Stashed changes
+CREATE TABLE categories (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+
+<<<<<<< Updated upstream
+-- Table for Subcategories
+=======
+-- HEAD
+-- Table for Subcategories
+=======
+-- ed861e5d4c6b29b5df53d3bcb423382efd9ea9e6
+>>>>>>> Stashed changes
+CREATE TABLE subcategories (
+    subcategory_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+<<<<<<< Updated upstream
+-- Table for Products
+=======
+-- HEAD
+=======
+-- Stashed changes
+-- Table for Products
+=======
+
+-- ed861e5d4c6b29b5df53d3bcb423382efd9ea9e6
+>>>>>>> Stashed changes
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    vendor_id INT,
+    name VARCHAR(100) NOT NULL,
+    img1 VARCHAR(255)  NOT NULL,
+    img2 VARCHAR(255)  NOT NULL,
+    img3 VARCHAR(255),
+    img4 VARCHAR(255),
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    stock_quantity INT NOT NULL DEFAULT 0,
+    discount_price DECIMAL(10, 2),
+    category_id INT,
+    subcategory_id INT,
+    FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id),
+    FOREIGN KEY (subcategory_id) REFERENCES subcategories(subcategory_id)
+);
+
+<<<<<<< Updated upstream
+-- Table for Cart
+=======
+
+CREATE TABLE product_images (
+    image_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+
+-- HEAD
+-- Table for Ratings
+CREATE TABLE ratings (
+    rating_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    rating DECIMAL(3, 2) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Table for Cart
+=======
+-- ed861e5d4c6b29b5df53d3bcb423382efd9ea9e6
+>>>>>>> Stashed changes
+CREATE TABLE cart (
+    cart_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Table for Orders
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    payment_status VARCHAR(20) NOT NULL,
+    transaction_id VARCHAR(100) UNIQUE,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Table for Order Items
+CREATE TABLE order_items (
+    order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Table for Book Demo
+CREATE TABLE book_demo (
+    demo_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    demo_date DATETIME NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Table for Report Issue
+CREATE TABLE report_issue (
+    issue_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    description TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Table for Airports
+CREATE TABLE airports (
+    airport_id INT PRIMARY KEY AUTO_INCREMENT,
+    airport_name VARCHAR(255) NOT NULL,
+    airport_code CHAR(3) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    location VARCHAR(100) NOT NULL
+);
+
+-- Table for Airlines
+CREATE TABLE airlines (
+    email VARCHAR(40) PRIMARY KEY,
+    pass VARCHAR(40) NOT NULL,
+    airline_name VARCHAR(40) DEFAULT NULL,
+    logo VARCHAR(40) DEFAULT NULL
+);
+
+-- Table for Flights
+CREATE TABLE flights (
+    flight_id INT PRIMARY KEY AUTO_INCREMENT,
+    flight_code VARCHAR(40) NOT NULL,
+    source_date DATE DEFAULT NULL,
+    source_time TIME DEFAULT NULL,
+    dest_date DATE DEFAULT NULL,
+    dest_time TIME DEFAULT NULL,
+    dep_airport_id INT(11) DEFAULT NULL,
+    arr_airport_id INT(11) DEFAULT NULL,
+    seats INT(11) DEFAULT NULL,
+    price DECIMAL(12,2) DEFAULT NULL,
+    email VARCHAR(40) DEFAULT NULL,
+    FOREIGN KEY (dep_airport_id) REFERENCES airports(airport_id),
+    FOREIGN KEY (arr_airport_id) REFERENCES airports(airport_id),
+    FOREIGN KEY (email) REFERENCES airlines(email)
+);
+
+-- Table for Booked Flights
+CREATE TABLE booked_flights (
+    booking_id INT PRIMARY KEY AUTO_INCREMENT,
+    flight_id INT NOT NULL,
+    user_id INT NOT NULL,
+    take_seats INT NOT NULL,
+    flight_class VARCHAR(40) DEFAULT NULL,
+    FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
