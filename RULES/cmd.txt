@@ -39,6 +39,9 @@ CREATE TABLE `airlines` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airlines` VALUES ('emirates989@gmail.com','989','Emirates','./image/Emirates.png');
 INSERT INTO `airlines` VALUES ('indigo898@gimail.com','898','Indigo','./image/IndiGo-Logo.png');
+INSERT INTO `airlines` VALUES ('Vistara777@gmail.com','777','Vistara','./image/vistara.png');
+INSERT INTO `airlines` VALUES ('AirAsia333@gmail.com','333','Air Asia','./image/Air Asia.png');
+INSERT INTO `airlines` VALUES ('QatarAirways786@gmail.com','786','Qatar Airways','./image/Qatar.png');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airports` (
