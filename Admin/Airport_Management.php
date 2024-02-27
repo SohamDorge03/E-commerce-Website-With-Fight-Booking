@@ -1,7 +1,7 @@
 <?php
 include("./include/connection.php"); // Include your database connection file
 
-// Check if the form is submitted
+// Check if the form is submitted for adding or updating
 if (isset($_POST['submit'])) {
     // Retrieve form data
     $state = isset($_POST["state"]) ? $_POST["state"] : "";
@@ -10,14 +10,21 @@ if (isset($_POST['submit'])) {
     $airport_code = isset($_POST["airport_code"]) ? $_POST["airport_code"] : "";
     $location = isset($_POST["location"]) ? $_POST["location"] : "";
 
-    // Prepare SQL statement to insert data into the database
-    $sql = "INSERT INTO airports (state, city, airport_name, airport_code, location) 
-            VALUES ('$state', '$city', '$airport_name', '$airport_code', '$location')";
+    if ($_POST['submit'] == 'Add') {
+        // Prepare SQL statement to insert data into the database
+        $sql = "INSERT INTO airports (state, city, airport_name, airport_code, location) 
+                VALUES ('$state', '$city', '$airport_name', '$airport_code', '$location')";
+    } elseif ($_POST['submit'] == 'Update') {
+        // Prepare SQL statement to update data in the database
+        $sql = "UPDATE airports 
+                SET state='$state', city='$city', airport_name='$airport_name', location='$location' 
+                WHERE airport_code='$airport_code'";
+    }
 
     // Execute SQL statement
     if ($conn->query($sql) === TRUE) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                  New record created successfully
+                  Record ' . ($_POST['submit'] == 'Add' ? 'added' : 'updated') . ' successfully
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -70,19 +77,20 @@ if(isset($_POST['delete'])){
     <div class="container mt-5">
         <h1>Airport Management</h1>
 
-        <!-- Button to Open the Modal -->
-        <button type="button" class="btn btn-primary btn-lg" id="button-add" data-toggle="modal" data-target="#airportModal">
+        <!-- Button to Open the Add Airport Modal -->
+        <button type="button" class="btn btn-primary btn-lg" id="button-add" data-toggle="modal"
+            data-target="#airportModal">
             Add Airport
         </button>
     </div>
-    <!-- The Modal -->
+    <!-- The Add & Update Modal -->
     <div class="modal" id="airportModal">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Airport</h4>
+                    <h4 class="modal-title">Airport Details</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -109,7 +117,8 @@ if(isset($_POST['delete'])){
                             <label for="location">Location:</label>
                             <input type="text" class="form-control" id="location" name="location" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        <button type="submit" class="btn btn-primary" name="submit" value="Add">Add</button>
+                        <button type="submit" class="btn btn-success" name="submit" value="Update">Update</button>
                     </form>
                 </div>
 
@@ -146,10 +155,18 @@ if(isset($_POST['delete'])){
                         echo "<td>" . $row["city"] . "</td>";
                         echo "<td>" . $row["location"] . "</td>";
                         echo "<td>
-                                  <form method='post'>
-                                    <input type='hidden' name='airport_code' value='" . $row["airport_code"] . "'>
-                                    <button type='submit' class='btn btn-danger btn-sm' name='delete'>Delete</button>
-                                  </form>
+                                  <button type='button' class='btn btn-primary btn-sm' 
+                                    data-toggle='modal' data-target='#airportModal'
+                                    data-state='" . $row["state"] . "'
+                                    data-city='" . $row["city"] . "'
+                                    data-airport-name='" . $row["airport_name"] . "'
+                                    data-airport-code='" . $row["airport_code"] . "'
+                                    data-location='" . $row["location"] . "'
+                                    onclick='populateForm(this)'>Edit</button>
+                                    <form method='post' style='display:inline;'>
+                                        <input type='hidden' name='airport_code' value='" . $row["airport_code"] . "'>
+                                        <button type='submit' class='btn btn-danger btn-sm' name='delete'>Delete</button>
+                                    </form>
                               </td>";
                         echo "</tr>";
                     }
@@ -165,6 +182,20 @@ if(isset($_POST['delete'])){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to populate form fields for editing
+        function populateForm(button) {
+            var modal = $('#airportModal');
+            modal.find('#state').val(button.getAttribute('data-state'));
+            modal.find('#city').val(button.getAttribute('data-city'));
+            modal.find('#airport_name').val(button.getAttribute('data-airport-name'));
+            modal.find('#airport_code').val(button.getAttribute('data-airport-code'));
+            modal.find('#location').val(button.getAttribute('data-location'));
+            // Change the submit button value to Update
+            modal.find('[name=submit]').val('Update');
+        }
+    </script>
 
 </body>
 
