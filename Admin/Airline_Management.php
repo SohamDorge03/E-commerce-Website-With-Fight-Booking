@@ -13,26 +13,36 @@ if (isset($_POST['submit'])) {
     if(isset($_FILES['logo'])){
         $logo_tmp_name = $_FILES['logo']['tmp_name'];
         $logo_name = $_FILES['logo']['name'];
-        $logo_path = "./admin/upload/" . $logo_name; // Make sure the directory path is correct
+        $logo_path = "./image/" . $logo_name; // Make sure the directory path is correct
         move_uploaded_file($logo_tmp_name, $logo_path); // Move uploaded file to designated directory
     } else {
         $logo_path = null;
     }
+                 
+    // Check if the email already exists in the database
+    $check_email_sql = "SELECT email FROM airlines WHERE email = '$email'";
+    $result = $conn->query($check_email_sql);
 
-    // Prepare SQL statement to insert data into the database
-    $sql = "INSERT INTO airlines (email, pass, airline_name, logo) 
-            VALUES ('$email', '$password', '$airline_name', '$logo_path')";
-
-    // Execute SQL statement
-    if ($conn->query($sql) === TRUE) {
-        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                  New airline added successfully
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>';
+    if ($result->num_rows > 0) {
+        // Email already exists, display an error message
+        echo '<div class="alert alert-danger" role="alert">Error: Email already exists.</div>';
     } else {
-        echo '<div class="alert alert-danger" role="alert">Error: ' . $sql . '<br>' . $conn->error . '</div>';
+        // Email does not exist, proceed with insertion
+        // Prepare SQL statement to insert data into the database
+        $sql = "INSERT INTO airlines (email, pass, airline_name, logo) 
+                VALUES ('$email', '$password', '$airline_name', '$logo_path')";
+
+        // Execute SQL statement
+        if ($conn->query($sql) === TRUE) {
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                      New airline added successfully
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>';
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Error: ' . $sql . '<br>' . $conn->error . '</div>';
+        }
     }
 }
 
