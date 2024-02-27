@@ -2,13 +2,18 @@
 // Include database connection
 include("./include/connection.php");
 
+// Function to sanitize input data
+function sanitize($data) {
+    return htmlspecialchars(stripslashes(trim($data)));
+}
+
 // Check if the form is submitted for adding an airline
 if (isset($_POST['submit'])) {
-    // Retrieve form data
-    $email = isset($_POST["email"]) ? $_POST["email"] : "";
-    $password = isset($_POST["password"]) ? $_POST["password"] : "";
-    $airline_name = isset($_POST["name"]) ? $_POST["name"] : "";
-    
+    // Retrieve form data and sanitize
+    $email = sanitize($_POST["email"]);
+    $password = sanitize($_POST["password"]);
+    $airline_name = sanitize($_POST["name"]);
+
     // Check if a file is uploaded
     if(isset($_FILES['logo'])){
         $logo_tmp_name = $_FILES['logo']['tmp_name'];
@@ -18,7 +23,7 @@ if (isset($_POST['submit'])) {
     } else {
         $logo_path = null;
     }
-                 
+
     // Check if the email already exists in the database
     $check_email_sql = "SELECT email FROM airlines WHERE email = '$email'";
     $result = $conn->query($check_email_sql);
@@ -27,8 +32,6 @@ if (isset($_POST['submit'])) {
         // Email already exists, display an error message
         echo '<div class="alert alert-danger" role="alert">Error: Email already exists.</div>';
     } else {
-        // Email does not exist, proceed with insertion
-        // Prepare SQL statement to insert data into the database
         $sql = "INSERT INTO airlines (email, pass, airline_name, logo) 
                 VALUES ('$email', '$password', '$airline_name', '$logo_path')";
 
@@ -49,7 +52,7 @@ if (isset($_POST['submit'])) {
 // Check if delete button is clicked
 if(isset($_POST['delete'])){
     // Retrieve airline email to be deleted
-    $email = isset($_POST['email']) ? $_POST['email'] : "";
+    $email = sanitize($_POST['email']);
 
     // Prepare SQL statement to delete data from the database
     $delete_sql = "DELETE FROM airlines WHERE email = '$email'";
@@ -64,6 +67,39 @@ if(isset($_POST['delete'])){
               </div>';
     } else {
         echo '<div class="alert alert-danger" role="alert">Error deleting airline: ' . $conn->error . '</div>';
+    }
+}
+
+// Check if update button is clicked
+if(isset($_POST['update'])){
+    // Retrieve form data and sanitize
+    $email = sanitize($_POST["email"]);
+    $password = sanitize($_POST["password"]);
+    $airline_name = sanitize($_POST["name"]);
+    
+    // Check if a file is uploaded
+    if(isset($_FILES['logo'])){
+        $logo_tmp_name = $_FILES['logo']['tmp_name'];
+        $logo_name = $_FILES['logo']['name'];
+        $logo_path = "./image/" . $logo_name; // Make sure the directory path is correct
+        move_uploaded_file($logo_tmp_name, $logo_path); // Move uploaded file to designated directory
+    } else {
+        $logo_path = null;
+    }
+
+    // Prepare SQL statement to update data in the database
+    $update_sql = "UPDATE airlines SET pass = '$password', airline_name = '$airline_name', logo = '$logo_path' WHERE email = '$email'";
+
+    // Execute SQL statement
+    if ($conn->query($update_sql) === TRUE) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Airline details updated successfully
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>';
+    } else {
+        echo '<div class="alert alert-danger" role="alert">Error updating airline details: ' . $conn->error . '</div>';
     }
 }
 ?>
@@ -160,12 +196,44 @@ if(isset($_POST['delete'])){
                             echo "<td>No logo</td>";
                         }
                         echo "<td>
+                                  <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal" . $row['email'] . "'>Edit</button>
                                   <form method='post'>
                                     <input type='hidden' name='email' value='" . $row["email"] . "'>
                                     <button type='submit' class='btn btn-danger' name='delete'>Delete</button>
                                   </form>
                               </td>";
                         echo "</tr>";
+
+                        // Edit Modal
+                        echo "<div class='modal fade' id='editModal" . $row['email'] . "' tabindex='-1' role='dialog' aria-labelledby='editModalLabel" . $row['email'] . "' aria-hidden='true'>
+                                    <div class='modal-dialog' role='document'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <h5 class='modal-title' id='editModalLabel" . $row['email'] . "'>Edit Airline</h5>
+                                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                                    <span aria-hidden='true'>&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class='modal-body'>
+                                                <form method='post' enctype='multipart/form-data'>
+                                                    <div class='form-group'>
+                                                        <label>Password:</label>
+                                                        <input type='password' class='form-control' name='password' required>
+                                                    </div>
+                                                    <div class='form-group'>
+                                                        <label>Airline Name:</label>
+                                                        <input type='text' class='form-control' name='name' value='" . $row["airline_name"] . "'>
+                                                    </div>
+                                                    <div class='form-group'>
+                                                        <label>Logo:</label>
+                                                        <input type='file' class='form-control-file' name='logo'>
+                                                    </div>
+                                                    <button type='submit' class='btn btn-primary' name='update'>Update</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>";
                     }
                 } else {
                     echo "<tr><td colspan='4'>No airlines found</td></tr>";
