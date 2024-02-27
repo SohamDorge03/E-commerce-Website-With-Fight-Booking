@@ -53,8 +53,7 @@ CREATE TABLE `airports` (
   PRIMARY KEY (`airport_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `airports` VALUES (11,'Ahemdabad airport ','AHM','Gujarat','Ahemdabad ','Ahemdabad');
-INSERT INTO `airports` VALUES (8,'Chhatrapti shivaji maharaj airport','BOM','maharashtra ','mumbai','mumbai');
+INSERT INTO `airports` VALUES (8,'Chhatrapti shivaji maharaj airport','BOM','Maharashtra ','mumbai','mumbai');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `book_demo` (
