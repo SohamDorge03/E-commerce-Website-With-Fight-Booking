@@ -102,8 +102,6 @@ if ($result->num_rows > 0) {
     echo "</div>";
 }
 
-// Close the database connection
-$conn->close();
 ?>
 
 <!-- Bootstrap JS and jQuery (necessary for Bootstrap's JavaScript plugins) -->
