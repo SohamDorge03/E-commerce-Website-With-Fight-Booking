@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     if (isset($_FILES['logo'])) {
         $logo_tmp_name = $_FILES['logo']['tmp_name'];
         $logo_name = $_FILES['logo']['name'];
-        $logo_path = "./image3" . $logo_name;
+        $logo_path = "./image3/" . $logo_name;
         move_uploaded_file($logo_tmp_name, $logo_path);
     } else {
         $logo_path = null;
@@ -156,6 +156,48 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 
+    <!-- Edit Airline Modal -->
+    <?php
+    // Fetch data from the database for editing
+    $edit_sql = "SELECT * FROM airlines";
+    $edit_result = $conn->query($edit_sql);
+
+    if ($edit_result->num_rows > 0) {
+        while ($edit_row = $edit_result->fetch_assoc()) {
+            echo "<div class='modal fade' id='editModal" . $edit_row['email'] . "' tabindex='-1' role='dialog' aria-labelledby='editModalLabel" . $edit_row['email'] . "' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='editModalLabel" . $edit_row['email'] . "'>Edit Airline</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form method='post' enctype='multipart/form-data'>
+                                        <div class='form-group'>
+                                            <label>Password:</label>
+                                            <input type='password' class='form-control' name='password' required>
+                                        </div>
+                                        <div class='form-group'>
+                                            <label>Airline Name:</label>
+                                            <input type='text' class='form-control' name='name' value='" . $edit_row["airline_name"] . "'>
+                                        </div>
+                                        <div class='form-group'>
+                                            <label>Logo:</label>
+                                            <input type='file' class='form-control-file' name='logo'>
+                                        </div>
+                                        <button type='submit' class='btn btn-primary' name='update'>Update</button>
+                                        <input type='hidden' name='email' value='" . $edit_row["email"] . "'>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+        }
+    }
+    ?>
+
     <!-- Displaying Airline Data in a Table -->
     <div class="container mt-5">
         <table class="table">
@@ -192,38 +234,6 @@ if (isset($_POST['update'])) {
                                   </form>
                               </td>";
                         echo "</tr>";
-
-                        // Edit Modal
-                        echo "<div class='modal fade' id='editModal" . $row['email'] . "' tabindex='-1' role='dialog' aria-labelledby='editModalLabel" . $row['email'] . "' aria-hidden='true'>
-                                    <div class='modal-dialog' role='document'>
-                                        <div class='modal-content'>
-                                            <div class='modal-header'>
-                                                <h5 class='modal-title' id='editModalLabel" . $row['email'] . "'>Edit Airline</h5>
-                                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                                    <span aria-hidden='true'>&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class='modal-body'>
-                                                <form method='post' enctype='multipart/form-data'>
-                                                    <div class='form-group'>
-                                                        <label>Password:</label>
-                                                        <input type='password' class='form-control' name='password' required>
-                                                    </div>
-                                                    <div class='form-group'>
-                                                        <label>Airline Name:</label>
-                                                        <input type='text' class='form-control' name='name' value='" . $row["airline_name"] . "'>
-                                                    </div>
-                                                    <div class='form-group'>
-                                                        <label>Logo:</label>
-                                                        <input type='file' class='form-control-file' name='logo'>
-                                                    </div>
-                                                    <button type='submit' class='btn btn-primary' name='update'>Update</button>
-                                                    <input type='hidden' name='email' value='" . $row["email"] . "'>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>";
                     }
                 } else {
                     echo "<tr><td colspan='4'>No airlines found</td></tr>";
