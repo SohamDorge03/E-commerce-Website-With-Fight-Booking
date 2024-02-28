@@ -29,11 +29,41 @@
             <th>Payment Status</th>
             <th>Booking Status</th>
             <th>Booking Date</th>
-            
           </tr>
         </thead>
         <tbody>
-          <!-- Data will be dynamically populated here -->
+          <?php
+          // Include your database connection file
+          include "fetch_data.php";
+
+          // Fetch data from database and populate the table
+          $query = "SELECT * FROM booked_flights"; // Change to your actual table name
+          $result = mysqli_query($conn, $query);
+
+          if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo "<tr>";
+              echo "<td>" . $row['booking_id'] . "</td>";
+              echo "<td>" . $row['flight_code'] . "</td>";
+              echo "<td>" . $row['user_name'] . "</td>";
+              echo "<td>" . $row['user_email'] . "</td>";
+              echo "<td>" . $row['user_username'] . "</td>";
+              echo "<td>" . $row['source'] . "</td>";
+              echo "<td>" . $row['departure_time'] . "</td>";
+              echo "<td>" . $row['destination'] . "</td>";
+              echo "<td>" . $row['arrival_time'] . "</td>";
+              echo "<td>" . $row['airline'] . "</td>";
+              echo "<td>" . $row['class'] . "</td>";
+              echo "<td>" . $row['seats'] . "</td>";
+              echo "<td>" . $row['payment_status'] . "</td>";
+              echo "<td>" . $row['booking_status'] . "</td>";
+              echo "<td>" . $row['booking_date'] . "</td>";
+              echo "</tr>";
+            }
+          } else {
+            echo "<tr><td colspan='15'>No data available</td></tr>";
+          }
+          ?>
         </tbody>
       </table>
     </div>
@@ -43,44 +73,6 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <!-- JavaScript to fetch and populate data -->
-  <script>
-    $(document).ready(function() {
-      $.ajax({
-        url: 'fetch_data.php', // Change to the URL of your backend script to fetch data
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-          if (data && data.length > 0) {
-            var rows = '';
-            $.each(data, function(index, item) {
-              rows += '<tr>';
-              rows += '<td>' + item.booking_id + '</td>';
-              rows += '<td>' + item.flight_code + '</td>';
-              rows += '<td>' + item.dep_airport + ' (' + item.source_date + ' ' + item.source_time + ')' + '</td>';
-              rows += '<td>' + item.dest_airport + ' (' + item.dest_date + ' ' + item.dest_time + ')' + '</td>';
-              rows += '<td>' + item.airline_name + '</td>';
-              rows += '<td>' + item.flight_class + '</td>';
-              rows += '<td>' + item.take_seats + '</td>';
-              rows += '<td>' + item.payment_status + '</td>';
-              rows += '<td>' + item.book_status + '</td>';
-              rows += '<td>' + item.booking_date + '</td>';
-              rows += '<td>' + item.user_name + '</td>';
-              rows += '<td>' + item.user_email + '</td>';
-              rows += '<td>' + item.user_username + '</td>';
-              rows += '</tr>';
-            });
-            $('tbody').html(rows);
-          } else {
-            $('tbody').html('<tr><td colspan="15">No data available</td></tr>');
-          }
-        },
-        error: function(xhr, status, error) {
-          console.error(xhr.responseText);
-        }
-      });
-    });
-  </script>
 </body>
 </html>
+
