@@ -1,100 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Bookings</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Optional CSS customizations */
-        body {
-            margin: 20px;
-        }
-        table {
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booked Flights</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2>Manage Bookings</h2>
-        <div class="table-responsive">
-            <?php
-            // Database connection
-            include("./include/connection.php");
-
-            // Function to confirm booking
-            if(isset($_POST['confirm_booking'])) {
-                $booking_id = $_POST['booking_id'];
-                $sql = "UPDATE manage_booking SET status='Confirmed' WHERE booking_id='$booking_id'";
-                if ($conn->query($sql) === TRUE) {
-                    echo "<div class='alert alert-success'>Booking confirmed successfully.</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Error confirming booking: " . $conn->error . "</div>";
-                }
-            }
-
-            // Function to delete booking
-            if(isset($_POST['delete_booking'])) {
-                $booking_id = $_POST['booking_id'];
-                $sql = "DELETE FROM manage_booking WHERE booking_id='$booking_id'";
-                if ($conn->query($sql) === TRUE) {
-                    echo "<div class='alert alert-success'>Booking deleted successfully.</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Error deleting booking: " . $conn->error . "</div>";
-                }
-            }
-
-            // Fetch data from the database
-            $sql = "SELECT booking_id, passenger_name, flight_no, gender, date, food FROM manage_booking";
-            $result = $conn->query($sql);
-
-            if ($result === false) {
-                echo "<div class='alert alert-danger'>Error fetching data: " . $conn->error . "</div>";
-            } else {
-                if ($result->num_rows > 0) {
-                    echo "<table class='table table-striped table-bordered'>
-                    <thead>
-                    <tr>
-                    <th>Booking ID</th>
-                    <th>Passenger Name</th>
-                    <th>Flight Number</th>
-                    <th>Gender</th>
-                    <th>Date</th>
-                    <th>Food</th>
-                    <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>";
-
-                    // Output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                        <td>" . $row["booking_id"] . "</td>
-                        <td>" . $row["passenger_name"] . "</td>
-                        <td>" . $row["flight_no"] . "</td>
-                        <td>" . $row["gender"] . "</td>
-                        <td>" . $row["date"] . "</td>
-                        <td>" . $row["food"] . "</td>
-                        <td>
-                        <form action='manage_booking.php' method='post'>
-                        <input type='hidden' name='booking_id' value='" . $row["booking_id"] . "'>
-                        <button type='submit' name='confirm_booking' class='btn btn-success'>Confirm</button>
-                        <button type='submit' name='delete_booking' class='btn btn-danger'>Delete</button>
-                        </form>
-                        </td>
-                        </tr>";
-                    }
-                    echo "</tbody></table>";
-                } else {
-                    echo "<div class='alert alert-warning'>0 results</div>";
-                }
-            }
-
-            $conn->close();
-            ?>
-        </div>
+  <div class="container mt-5">
+    <h2>Booked Flights</h2>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Flight Code</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>User Username</th>
+            <th>Source</th>
+            <th>Departure Time</th>
+            <th>Destination</th>
+            <th>Arrival Time</th>
+            <th>Airline</th>
+            <th>Class</th>
+            <th>Seats</th>
+            <th>Payment Status</th>
+            <th>Booking Status</th>
+            <th>Booking Date</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be dynamically populated here -->
+        </tbody>
+      </table>
     </div>
+  </div>
+
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- JavaScript to fetch and populate data -->
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: 'fetch_data.php', // Change to the URL of your backend script to fetch data
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          if (data && data.length > 0) {
+            var rows = '';
+            $.each(data, function(index, item) {
+              rows += '<tr>';
+              rows += '<td>' + item.booking_id + '</td>';
+              rows += '<td>' + item.flight_code + '</td>';
+              rows += '<td>' + item.dep_airport + ' (' + item.source_date + ' ' + item.source_time + ')' + '</td>';
+              rows += '<td>' + item.dest_airport + ' (' + item.dest_date + ' ' + item.dest_time + ')' + '</td>';
+              rows += '<td>' + item.airline_name + '</td>';
+              rows += '<td>' + item.flight_class + '</td>';
+              rows += '<td>' + item.take_seats + '</td>';
+              rows += '<td>' + item.payment_status + '</td>';
+              rows += '<td>' + item.book_status + '</td>';
+              rows += '<td>' + item.booking_date + '</td>';
+              rows += '<td>' + item.user_name + '</td>';
+              rows += '<td>' + item.user_email + '</td>';
+              rows += '<td>' + item.user_username + '</td>';
+              rows += '</tr>';
+            });
+            $('tbody').html(rows);
+          } else {
+            $('tbody').html('<tr><td colspan="15">No data available</td></tr>');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
