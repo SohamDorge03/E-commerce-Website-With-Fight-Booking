@@ -49,6 +49,8 @@ if(isset($_POST['login'])){
             font-family: 'Poppins', sans-serif;
             background: #ffffff;
             background-image: url("./image/background.png");
+             /* background-repeat:no-repeat; */
+           
         }
 
         .container {
