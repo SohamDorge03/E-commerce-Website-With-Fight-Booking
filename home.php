@@ -220,6 +220,10 @@
             <!-- Add more product cards here -->
         </div>
     </section>
+    <section>
+
+    
+    </section>
 
     <footer class="bg-dark text-white text-center text-lg-start">
         <div class="container p-4">
