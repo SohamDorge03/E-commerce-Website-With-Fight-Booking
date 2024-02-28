@@ -1,6 +1,6 @@
 <?php
 
-include("/wamp64/www/major project/Admin/include/connection.php");
+include("./include/connection.php");
 session_start();
 
 $_SESSION = array();

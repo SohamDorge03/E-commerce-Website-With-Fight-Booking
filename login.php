@@ -1,3 +1,33 @@
+<?php
+session_start(); // Start the session
+
+include("./include/connection.php");
+
+if(isset($_POST['login'])){
+    // Escape user inputs for security
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    // Your SQL query to check if the user data exists in the database
+    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) == 1) { // If user data exists
+        // User login successful, set session variables
+        $_SESSION['username'] = $username;
+        // Redirect to user dashboard or any other desired page
+        header("Location: user_dashboard.php");
+        exit();
+    } else {
+        echo "Invalid username or password.";
+    }
+
+    // Close connection
+    mysqli_close($conn);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,23 +43,13 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Prevents scroll bars */
-            margin: 0;
-            padding: 0;
-        }
-
-        .blur-background {
             background: url('your_background_image.jpg') no-repeat center center fixed;
             background-size: cover;
-            filter: blur(10px); /* Apply blur effect to the background */
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.7);
             color: #fff;
             position: relative;
             z-index: 1;
@@ -45,7 +65,7 @@
 
         ::placeholder {
             font-size: 16px;
-            color: #ccc; /* Placeholder text color */
+            color: #ccc;
         }
 
         .rounded-4 {
@@ -75,8 +95,6 @@
 
 <body>
 
-    <div class="blur-background"></div>
-
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
 
         <div class="row border rounded-5 p-3 bg-dark shadow box-area">
@@ -91,7 +109,7 @@
             <div class="col-md-6 right-box" id="right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
-                        <h2 class="text-light">Hello, Admin</h2>
+                        <h2 class="text-light">Hello, User</h2>
                         <p class="text-light">We are happy to have you back.</p>
                     </div>
                     <form action="" method="POST">
