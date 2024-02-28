@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     if (isset($_FILES['logo'])) {
         $logo_tmp_name = $_FILES['logo']['tmp_name'];
         $logo_name = $_FILES['logo']['name'];
-        $logo_path = "./image/" . $logo_name;
+        $logo_path = "./image3" . $logo_name;
         move_uploaded_file($logo_tmp_name, $logo_path);
     } else {
         $logo_path = null;
