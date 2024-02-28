@@ -1,51 +1,69 @@
+<?php
+session_start();
+
+// Database connection settings
+include("./include/connection.php");
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $inputEmail = $_POST["email"];
+    $inputPassword = $_POST["password"];
+
+    // Query to fetch admin data
+    $sql = "SELECT * FROM admins WHERE email = '$inputEmail'";
+    $result = $conn->query($sql);
+
+    // Check if admin exists and password matches
+    if ($result->num_rows == 1) {
+        $adminData = $result->fetch_assoc();
+        if (password_verify($inputPassword, $adminData["password"])) {
+            // Admin is valid, set session variable
+            $_SESSION["admin"] = true;
+            // Redirect to admin panel or any other page
+            header("Location: dashboard.php");
+            exit;
+        } else {
+            // Invalid password
+            $error = "Invalid password";
+        }
+    } else {
+        // Admin not found
+        $error = "Admin not found";
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <title>Shopflix Login</title>
+    <link rel="stylesheet" href="sty.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Shopflix Login |</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
         body {
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Prevents scroll bars */
-            margin: 0;
-            padding: 0;
-        }
-
-        .blur-background {
-            background: url('your_background_image.jpg') no-repeat center center fixed;
-            background-size: cover;
-            filter: blur(10px); /* Apply blur effect to the background */
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
-            color: #fff;
-            position: relative;
-            z-index: 1;
+            background: #ececec;
         }
 
         .box-area {
-            width: 850px;
+            width: 800px;
         }
 
-        #right-box {
+        .right-box {
             padding: 40px 30px 40px 40px;
         }
 
         ::placeholder {
             font-size: 16px;
-            color: #ccc; /* Placeholder text color */
         }
 
         .rounded-4 {
@@ -56,7 +74,10 @@
             border-radius: 30px;
         }
 
+        /*------------ For small screens------------*/
+
         @media only screen and (max-width: 768px) {
+
             .box-area {
                 margin: 0 10px;
             }
@@ -66,68 +87,80 @@
                 overflow: hidden;
             }
 
-            #right-box {
+            .right-box {
                 padding: 20px;
             }
+
         }
     </style>
 </head>
-
 <body>
 
-    <div class="blur-background"></div>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
 
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
 
-        <div class="row border rounded-5 p-3 bg-dark shadow box-area">
-
-            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box left-box1">
-                <div class="featured-image mb-3">
-                    <img src="./image/login.png" class="img-fluid" style="width: 250px;" alt="Login">
-                </div>
-                <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">SHOPFLIX</p>
-                <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Security is not a Product, But a Process.</small>
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+             style="background: #480938;">
+            <div class="featured-image mb-3">
+                <img src="./image3/login.png" class="img-fluid" style="width: 250px;">
             </div>
-            <div class="col-md-6 right-box" id="right-box">
-                <div class="row align-items-center">
-                    <div class="header-text mb-4">
-                        <h2 class="text-light">Hello, Admin</h2>
-                        <p class="text-light">We are happy to have you back.</p>
+            <p class="text-white fs-2"
+               style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
+            <small class="text-white text-wrap text-center"
+                   style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Designers
+                on this platform.
+            </small>
+        </div>
+
+        <div class="col-md-6 right-box">
+            <div class="row align-items-center">
+                <div class="header-text mb-4">
+                    <h2>Hello, Admin</h2>
+                    <p>We are happy to have you back.</p>
+                </div>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="email"
+                               placeholder="Email address" required>
                     </div>
-                    <form action="" method="POST">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control form-control-lg bg-dark text-light fs-6 rounded-4" placeholder="Username" name="username" required>
-                        </div>
-                        <div class="input-group mb-1">
-                            <input type="password" class="form-control form-control-lg bg-dark text-light fs-6 rounded-4" placeholder="Password" name="password" required>
-                        </div>
-                        <div class="input-group mb-4 d-flex justify-content-between">
-                            <div class="form-group">
-                                <div class="input-group mb-1">
-                                    <input type="text" class="form-control form-control-lg bg-dark text-light fs-6 rounded-4" id="captcha" name="captcha" placeholder="Captcha" required>
-                                    <div class="input-group-append">
-                                        <img src="./include/captcha.php?rand=<?php echo uniqid(); ?>" alt="CAPTCHA" id="captcha_image" />
-                                        <button class="btn btn-outline-light rounded-4" type="button" id="refresh_captcha">
-                                            <i class="fas fa-sync-alt"></i> <!-- Refresh icon -->
-                                            Refresh
-                                        </button>
-                                    </div>
+                    <div class="input-group mb-1">
+                        <input type="password" class="form-control form-control-lg bg-light fs-6" name="password"
+                               placeholder="Password" required>
+                    </div>
+                    <?php if (isset($error)) { ?>
+                        <div class="alert alert-danger"><?php echo $error; ?></div>
+                    <?php } ?>
+                    <div class="input-group mb-4 d-flex justify-content-between">
+                        <div class="form-group">
+                            <div class="input-group mb-1">
+                                <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4"
+                                       id="captcha" name="captcha" placeholder="Captcha" required>
+                                <div class="input-group-append">
+                                    <img src="./include/captcha.php?rand=<?php echo uniqid(); ?>" alt="CAPTCHA"
+                                         id="captcha_image"/>
+                                    <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
+                                        <i class="fas fa-sync-alt"></i> <!-- Refresh icon -->
+                                        Refresh
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="input-group mb-3">
-                            <button type="submit" name="login" class="btn btn-lg btn-primary w-100 fs-6 rounded-4">Login</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-    <script>
-        document.getElementById('refresh_captcha').addEventListener('click', function() {
-            document.getElementById('captcha_image').src = './include/captcha.php?rand=' + new Date().getTime();
-        });
-    </script>
-</body>
 
+    </div>
+</div>
+
+<script>
+    document.getElementById('refresh_captcha').addEventListener('click', function () {
+        document.getElementById('captcha_image').src = './include/captcha.php?rand=' + new Date().getTime();
+    });
+</script>
+</body>
 </html>

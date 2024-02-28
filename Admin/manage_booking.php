@@ -1,78 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booked Flights</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Bookings</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Optional CSS customizations */
+        body {
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h2>Booked Flights</h2>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Booking ID</th>
-            <th>Flight Code</th>
-            <th>User Name</th>
-            <th>User Email</th>
-            <th>User Username</th>
-            <th>Source</th>
-            <th>Departure Time</th>
-            <th>Destination</th>
-            <th>Arrival Time</th>
-            <th>Airline</th>
-            <th>Class</th>
-            <th>Seats</th>
-            <th>Payment Status</th>
-            <th>Booking Status</th>
-            <th>Booking Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          // Include your database connection file
-          include "./include/connection.php";
+    <div class="container">
+        <h2>Manage Bookings</h2>
+        <div class="table-responsive">
+            <?php
+            // Database connection
+            include("./include/connection.php");
 
-          // Fetch data from database and populate the table
-          $query = "SELECT * FROM booked_flights"; // Change to your actual table name
-          $result = mysqli_query($conn, $query);
-
-          if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-              echo "<tr>";
-              echo "<td>" . $row['booking_id'] . "</td>";
-              echo "<td>" . $row['flight_code'] . "</td>";
-              echo "<td>" . $row['user_name'] . "</td>";
-              echo "<td>" . $row['user_email'] . "</td>";
-              echo "<td>" . $row['user_username'] . "</td>";
-              echo "<td>" . $row['source'] . "</td>";
-              echo "<td>" . $row['departure_time'] . "</td>";
-              echo "<td>" . $row['destination'] . "</td>";
-              echo "<td>" . $row['arrival_time'] . "</td>";
-              echo "<td>" . $row['airline'] . "</td>";
-              echo "<td>" . $row['class'] . "</td>";
-              echo "<td>" . $row['seats'] . "</td>";
-              echo "<td>" . $row['payment_status'] . "</td>";
-              echo "<td>" . $row['booking_status'] . "</td>";
-              echo "<td>" . $row['booking_date'] . "</td>";
-              echo "</tr>";
+            // Function to confirm booking
+            if(isset($_POST['confirm_booking'])) {
+                $booking_id = $_POST['booking_id'];
+                $sql = "UPDATE manage_booking SET status='Confirmed' WHERE booking_id='$booking_id'";
+                if ($conn->query($sql) === TRUE) {
+                    echo "<div class='alert alert-success'>Booking confirmed successfully.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Error confirming booking: " . $conn->error . "</div>";
+                }
             }
-          } else {
-            echo "<tr><td colspan='15'>No data available</td></tr>";
-          }
-          ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
 
-  <!-- Bootstrap JS and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            // Function to delete booking
+            if(isset($_POST['delete_booking'])) {
+                $booking_id = $_POST['booking_id'];
+                $sql = "DELETE FROM manage_booking WHERE booking_id='$booking_id'";
+                if ($conn->query($sql) === TRUE) {
+                    echo "<div class='alert alert-success'>Booking deleted successfully.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Error deleting booking: " . $conn->error . "</div>";
+                }
+            }
+
+            // Fetch data from the database
+            $sql = "SELECT booking_id, passenger_name, flight_no, gender, date, food FROM manage_booking";
+            $result = $conn->query($sql);
+
+            if ($result === false) {
+                echo "<div class='alert alert-danger'>Error fetching data: " . $conn->error . "</div>";
+            } else {
+                if ($result->num_rows > 0) {
+                    echo "<table class='table table-striped table-bordered'>
+                    <thead>
+                    <tr>
+                    <th>Booking ID</th>
+                    <th>Passenger Name</th>
+                    <th>Flight Number</th>
+                    <th>Gender</th>
+                    <th>Date</th>
+                    <th>Food</th>
+                    <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>";
+
+                    // Output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                        <td>" . $row["booking_id"] . "</td>
+                        <td>" . $row["passenger_name"] . "</td>
+                        <td>" . $row["flight_no"] . "</td>
+                        <td>" . $row["gender"] . "</td>
+                        <td>" . $row["date"] . "</td>
+                        <td>" . $row["food"] . "</td>
+                        <td>
+                        <form action='manage_booking.php' method='post'>
+                        <input type='hidden' name='booking_id' value='" . $row["booking_id"] . "'>
+                        <button type='submit' name='confirm_booking' class='btn btn-success'>Confirm</button>
+                        <button type='submit' name='delete_booking' class='btn btn-danger'>Delete</button>
+                        </form>
+                        </td>
+                        </tr>";
+                    }
+                    echo "</tbody></table>";
+                } else {
+                    echo "<div class='alert alert-warning'>0 results</div>";
+                }
+            }
+
+            $conn->close();
+            ?>
+        </div>
+    </div>
 </body>
 </html>
-
