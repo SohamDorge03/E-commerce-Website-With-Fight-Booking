@@ -108,12 +108,35 @@ if ($emailVerificationResult) {
         </div>
     </section>
 
+
     <section>
 
     </section>
 
     <section>
-
+        <h2 style="text-align: center;">Support's</h2>
+        <div>
+            <i class="fas fa-shipping-fast"></i>
+            <h4>Free-Shipping</h4>
+            <h6>Free-Shipping On Order Over $100</h6>
+        </div>
+        <div>
+            <i class="fa-solid fa-timer"></i>
+            <h4>Support 24/7</h4>
+            <h6>Contact us 24 hours a day, 7 days a week</h6>
+           
+        </div>
+        <div>
+            <h4>Secure Payment</h4>
+            <h6>We Ensure Secure Payment </h6>
+        </div>
+        <div>
+            
+            <h4>30 day Returns</h4>
+           <h6>
+           Simply return it within 30 days for an exchange.
+           </h6> 
+        </div>
     </section>
 
     <footer>
