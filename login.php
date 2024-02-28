@@ -3,24 +3,28 @@ session_start(); // Start the session
 
 include("./include/connection.php");
 
+$message = "";
+
 if(isset($_POST['login'])){
     // Escape user inputs for security
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    // Your SQL query to check if the user data exists in the database
+    // Your SQL query to check user credentials and fetch user ID
     $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-
     $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) == 1) { // If user data exists
-        // User login successful, set session variables
+    if (mysqli_num_rows($result) == 1) {
+        // Login successful, fetch user ID and set session variables
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['username'] = $username;
+        
         // Redirect to user dashboard or any other desired page
-        header("Location: user_dashboard.php");
+        header("Location: home.php");
         exit();
     } else {
-        echo "Invalid username or password.";
+        $message = "Invalid username or password";
     }
 
     // Close connection
@@ -37,25 +41,25 @@ if(isset($_POST['login'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <title>Shopflix Login</title>
+    <title>User Login</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: url('your_background_image.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: #ffffff;
+            background-image: url("./image/background.png");
         }
 
         .container {
-            backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.7);
+           
             color: #fff;
             position: relative;
             z-index: 1;
         }
 
         .box-area {
+            backdrop-filter: blur(1rem);
             width: 850px;
         }
 
@@ -97,55 +101,48 @@ if(isset($_POST['login'])){
 
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
 
-        <div class="row border rounded-5 p-3 bg-dark shadow box-area">
+        <div class="row border rounded-5 p-3  shadow box-area">
 
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box left-box1">
                 <div class="featured-image mb-3">
-                    <img src="./image/login.png" class="img-fluid" style="width: 250px;" alt="Login">
+                    <img src="./image/login.png" class="img-fluid" style="width: 250px;" alt="Register">
                 </div>
                 <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">SHOPFLIX</p>
-                <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Security is not a Product, But a Process.</small>
+                <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join us and start shopping today!</small>
             </div>
             <div class="col-md-6 right-box" id="right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
-                        <h2 class="text-light">Hello, User</h2>
-                        <p class="text-light">We are happy to have you back.</p>
+                        <h2 class="text-dark">Welcome to Shopflix</h2>
+                        <p class="text-dark">Login to your account to get started.</p>
                     </div>
+
+                    <?php if(!empty($message)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo $message; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+
                     <form action="" method="POST">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control form-control-lg bg-dark text-light fs-6 rounded-4" placeholder="Username" name="username" required>
-                        </div>
-                        <div class="input-group mb-1">
-                            <input type="password" class="form-control form-control-lg bg-dark text-light fs-6 rounded-4" placeholder="Password" name="password" required>
-                        </div>
-                        <div class="input-group mb-4 d-flex justify-content-between">
-                            <div class="form-group">
-                                <div class="input-group mb-1">
-                                    <input type="text" class="form-control form-control-lg bg-dark text-light fs-6 rounded-4" id="captcha" name="captcha" placeholder="Captcha" required>
-                                    <div class="input-group-append">
-                                        <img src="./include/captcha.php?rand=<?php echo uniqid(); ?>" alt="CAPTCHA" id="captcha_image" />
-                                        <button class="btn btn-outline-light rounded-4" type="button" id="refresh_captcha">
-                                            <i class="fas fa-sync-alt"></i> <!-- Refresh icon -->
-                                            Refresh
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Username" name="username" required>
                         </div>
                         <div class="input-group mb-3">
+                            <input type="password" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Password" name="password" required>
+                        </div>
+                        <div class="input-group mb-3 d-flex justify-content-between">
                             <button type="submit" name="login" class="btn btn-lg btn-primary w-100 fs-6 rounded-4">Login</button>
+                            <a href="register.php" class="btn btn-lg btn-outline-dark w-100 fs-6 mt-3 rounded-4">New user? Register</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('refresh_captcha').addEventListener('click', function() {
-            document.getElementById('captcha_image').src = './include/captcha.php?rand=' + new Date().getTime();
-        });
-    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
