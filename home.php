@@ -4,7 +4,6 @@ session_start();
 include("./include/connection.php");
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
