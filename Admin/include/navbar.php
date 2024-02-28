@@ -124,7 +124,7 @@
         <div class="sidebar">
             <h2>Admin Dashboard</h2>
             <ul>
-                <li><a href="manage_users.php"><i class="fas fa-users"></i> Manage Users</a></li>
+                <li><a href="Manage_users.php"><i class="fas fa-users"></i> Manage Users</a></li>
                 <li><a href="manage_products.php"><i class="fas fa-box"></i> Manage Products</a></li>
                 <li><a href="manage_orders.php"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
                 <li><a href="manage_appointments.php"><i class="fas fa-calendar-alt"></i> Manage Appointments</a></li>
