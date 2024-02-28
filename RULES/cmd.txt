@@ -73,6 +73,8 @@ CREATE TABLE `booked_flights` (
   `user_id` int NOT NULL,
   `take_seats` int NOT NULL,
   `flight_class` varchar(40) DEFAULT NULL,
+  `payment _status` varchar(255) NOT NULL,
+  `book_status` varchar(255) NOT NULL,
   PRIMARY KEY (`booking_id`),
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`)
