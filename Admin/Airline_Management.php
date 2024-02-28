@@ -1,10 +1,12 @@
 <?php
 include("./include/connection.php");
 
+// Function to sanitize input data
 function sanitize($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
 
+// Check if the form is submitted for adding an airline
 if (isset($_POST['submit'])) {
     // Retrieve form data and sanitize
     $email = sanitize($_POST["email"]);
@@ -12,11 +14,11 @@ if (isset($_POST['submit'])) {
     $airline_name = sanitize($_POST["name"]);
 
     // Check if a file is uploaded
-    if(isset($_FILES['logo'])){
+    if (isset($_FILES['logo'])) {
         $logo_tmp_name = $_FILES['logo']['tmp_name'];
         $logo_name = $_FILES['logo']['name'];
-        $logo_path = "./image/" . $logo_name; // Make sure the directory path is correct
-        move_uploaded_file($logo_tmp_name, $logo_path); // Move uploaded file to designated directory
+        $logo_path = "./image/" . $logo_name;
+        move_uploaded_file($logo_tmp_name, $logo_path);
     } else {
         $logo_path = null;
     }
@@ -26,13 +28,11 @@ if (isset($_POST['submit'])) {
     $result = $conn->query($check_email_sql);
 
     if ($result->num_rows > 0) {
-        // Email already exists, display an error message
         echo '<div class="alert alert-danger" role="alert">Error: Email already exists.</div>';
     } else {
         $sql = "INSERT INTO airlines (email, pass, airline_name, logo) 
                 VALUES ('$email', '$password', '$airline_name', '$logo_path')";
 
-        // Execute SQL statement
         if ($conn->query($sql) === TRUE) {
             echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                       New airline added successfully
@@ -47,14 +47,10 @@ if (isset($_POST['submit'])) {
 }
 
 // Check if delete button is clicked
-if(isset($_POST['delete'])){
-    // Retrieve airline email to be deleted
+if (isset($_POST['delete'])) {
     $email = sanitize($_POST['email']);
-
-    // Prepare SQL statement to delete data from the database
     $delete_sql = "DELETE FROM airlines WHERE email = '$email'";
 
-    // Execute SQL statement
     if ($conn->query($delete_sql) === TRUE) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                   Airline deleted successfully
@@ -68,26 +64,22 @@ if(isset($_POST['delete'])){
 }
 
 // Check if update button is clicked
-if(isset($_POST['update'])){
-    // Retrieve form data and sanitize
+if (isset($_POST['update'])) {
     $email = sanitize($_POST["email"]);
     $password = sanitize($_POST["password"]);
     $airline_name = sanitize($_POST["name"]);
-    
-    // Check if a file is uploaded
-    if(isset($_FILES['logo'])){
+
+    if (isset($_FILES['logo'])) {
         $logo_tmp_name = $_FILES['logo']['tmp_name'];
         $logo_name = $_FILES['logo']['name'];
-        $logo_path = "./image/" . $logo_name; // Make sure the directory path is correct
-        move_uploaded_file($logo_tmp_name, $logo_path); // Move uploaded file to designated directory
+        $logo_path = "./image3/" . $logo_name;
+        move_uploaded_file($logo_tmp_name, $logo_path);
     } else {
         $logo_path = null;
     }
 
-    // Prepare SQL statement to update data in the database
     $update_sql = "UPDATE airlines SET pass = '$password', airline_name = '$airline_name', logo = '$logo_path' WHERE email = '$email'";
 
-    // Execute SQL statement
     if ($conn->query($update_sql) === TRUE) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                   Airline details updated successfully
@@ -178,7 +170,7 @@ if(isset($_POST['update'])){
             <tbody>
                 <?php
                 // Fetch data from the database
-                $sql = "SELECT email, airline_name, logo FROM airlines";
+                $sql = "SELECT * FROM airlines";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -194,7 +186,7 @@ if(isset($_POST['update'])){
                         }
                         echo "<td>
                                   <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal" . $row['email'] . "'>Edit</button>
-                                  <form method='post'>
+                                  <form method='post' style='display:inline;'>
                                     <input type='hidden' name='email' value='" . $row["email"] . "'>
                                     <button type='submit' class='btn btn-danger' name='delete'>Delete</button>
                                   </form>
@@ -226,6 +218,7 @@ if(isset($_POST['update'])){
                                                         <input type='file' class='form-control-file' name='logo'>
                                                     </div>
                                                     <button type='submit' class='btn btn-primary' name='update'>Update</button>
+                                                    <input type='hidden' name='email' value='" . $row["email"] . "'>
                                                 </form>
                                             </div>
                                         </div>
