@@ -74,6 +74,7 @@ if(isset($_POST['delete'])){
 </head>
 
 <body>
+    
     <div class="container mt-5">
         <h1>Airport Management</h1>
 

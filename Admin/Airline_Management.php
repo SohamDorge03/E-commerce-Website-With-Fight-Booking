@@ -1,13 +1,10 @@
 <?php
-// Include database connection
 include("./include/connection.php");
 
-// Function to sanitize input data
 function sanitize($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
 
-// Check if the form is submitted for adding an airline
 if (isset($_POST['submit'])) {
     // Retrieve form data and sanitize
     $email = sanitize($_POST["email"]);
