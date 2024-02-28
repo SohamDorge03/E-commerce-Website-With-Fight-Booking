@@ -1,162 +1,160 @@
-<!DOCTYPE html>
+;l. !DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Shopflix</title>
-    <!-- Add Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ShopFlix - Your Online Shopping Destination</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add your custom CSS file if you have one -->
     <style>
+        /* Add your custom styles here */
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            transition: background-color 0.3s ease;
+            padding-top: 56px; /* Adjust the padding based on the navbar height */
         }
-        
-        .container {
-            display: flex;
-            margin: 0;
-            padding: 0;
+
+        /* Mega Menu Styles */
+        .mega-menu {
+            position: absolute !important;
+            width: 100% !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: none;
+            margin-top: 0;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: #fff; /* Background color for the dropdown menu */
+            padding: 20px; /* Padding for the dropdown menu */
+            transition: all 0.3s ease; /* Smooth transition effect */
         }
-        .sidebar {
-            width: 250px;
-            background-color: #44688f;
-            color: #fff;
-            height: 100vh;
-            overflow-y: auto;
-            padding-top: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-            transform: translateX(0);
-        }
-        .sidebar.hide {
-            transform: translateX(-100%);
-            width: 0;
-            transition: width 0.3s ease;
-        }
-        .sidebar h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .sidebar ul li {
-            margin-bottom: 10px;
-        }
-        .sidebar ul li a {
+
+        .mega-menu a {
+            color: #333;
             display: block;
-            padding: 10px;
-            color: #fff;
+            padding: 5px 0;
+            transition: color 0.3s ease; /* Smooth transition effect for link color */
+        }
+
+        .mega-menu a:hover {
+            color: #007bff; /* Hover color for links */
+        }
+
+        .nav-item:hover .mega-menu {
+            display: block;
+        }
+
+        /* Show more categories link */
+        .show-more-link {
+            color: #007bff;
             text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        .sidebar ul li a i {
-            margin-right: 10px;
-        }
-        .sidebar ul li a:hover {
-            background-color: #5c87b7;
-        }
-        main {
-            flex: 1;
-            background-color: #fff;
-            transition: margin-left 0.3s ease;
-        }
-        main.full-width {
-            margin-left: 0;
-        }
-        header {
-            background-color: #44688f;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        header .menu-toggle {
-            color: #fff;
-            font-size: 24px;
             cursor: pointer;
-            padding-right: 20px;
         }
-        @media only screen and (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                transform: translateX(-100%);
-                position: absolute;
-                z-index: 1;
-            }
-            .sidebar.hide {
-                transform: translateX(0);
-            }
-            main {
-                margin-left: 0;
-            }
-            main.full-width {
-                margin-left: 0;
-            }
-            header {
-                position: fixed;
-                width: 100%;
-                z-index: 2;
-            }
+
+        /* Increase font size for better readability */
+        .navbar-nav .nav-link {
+            font-size: 18px;
         }
+
+        /* Optional: Add more styles based on your design preferences */
     </style>
-    </head>
+</head>
+
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Admin Dashboard</h2>
-            <ul>
-                <li><a href="Manage_users.php"><i class="fas fa-users"></i> Manage Users</a></li>
-                <li><a href="manage_products.php"><i class="fas fa-box"></i> Manage Products</a></li>
-                <li><a href="manage_orders.php"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
-                <li><a href="manage_appointments.php"><i class="fas fa-calendar-alt"></i> Manage Appointments</a></li>
-                <li><a href="manage_warranty.php"><i class="fas fa-shield-alt"></i> Manage Warranty</a></li>
-                <li><a href="manage_demos.php"><i class="fas fa-video"></i> Manage Demos</a></li>
-                <li><a href="Airport_Management.php"><i class="fas fa-plane-arrival"></i> Airport Management</a></li>
-                <li><a href="Airline_Management.php"><i class="fas fa-plane-departure"></i> Airline Management</a></li>
-                <li><a href="manage_flights.php"><i class="fas fa-fighter-jet"></i> Manage Flights</a></li>
-                <li><a href="admin_settings.php"><i class="fas fa-cog"></i> Admin Settings</a></li>
-                <li><a href="manage_booking.php"><i class="fas fa-cog"></i>manage booking</a></li>
-                <div>
-                    <li class="menu-item-has-children">
-                        <a class="nav-link" href="logout.php"><i class="fa fa-power-off"></i>Logout</a>
-                    </li>
-                </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">ShopFlix</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Flight Booking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Report an Issue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Book a Demo</a>
+                </li>
+                <li class="nav-item dropdown mega-menu-container">
+                    <a class="nav-link dropdown-toggle" href="#" id="megaMenuDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categories
+                    </a>
+                    <div class="dropdown-menu mega-menu" aria-labelledby="megaMenuDropdown">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Electronics</h5>
+                                    <a href="#" class="dropdown-item">Smartphones</a>
+                                    <a href="#" class="dropdown-item">Laptops</a>
+                                    <a href="#" class="dropdown-item">Cameras</a>
+                                    <a href="#" class="dropdown-item">Headphones</a>
+                                    <a href="#" class="dropdown-item">Accessories</a>
+                                    <a href="#" class="dropdown-item d-none">More Categories...</a>
+                                </div>
+                                <div class="col">
+                                    <h5>Clothing</h5>
+                                    <a href="#" class="dropdown-item">Men's Fashion</a>
+                                    <a href="#" class="dropdown-item">Women's Fashion</a>
+                                </div>
+                                <div class="col">
+                                    <h5>Home & Furniture</h5>
+                                    <a href="#" class="dropdown-item">Living Room</a>
+                                    <a href="#" class="dropdown-item">Bedroom</a>
+                                    <a href="#" class="dropdown-item">Kitchen</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav ml-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cart <i class="fas fa-shopping-cart"></i>
+                        <span class="badge badge-danger">3</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">Orders</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Logout</a>
+                    </div>
+                </li>
             </ul>
         </div>
-        <main>
-            <header>
-                <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-                <h1>Welcome to Shopflix Admin Dashboard</h1>
-               
-            </header>
-            <div class="content">
-            
-            </div>
-        </main>
-        <script>
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('hide');
-            document.querySelector('main').classList.toggle('full-width');
-        });
-    </script>
+    </nav>
+
+    <!-- Your content goes here -->
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome for the shopping cart icon -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+
 </body>
+
 </html>
