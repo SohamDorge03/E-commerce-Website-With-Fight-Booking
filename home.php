@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ShopFlix - Your Online Shopping Destination</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Add your custom CSS file if you have one -->
     <style>
         /* Adjust carousel height and image size */
         #carouselExampleIndicators {
@@ -32,7 +30,6 @@
         .carousel-indicators li {
             background-color: #000000;
         }
-
         .carousel-indicators .active {
             background-color: #ffffff;
         }
@@ -41,7 +38,6 @@
         .card {
             margin-bottom: 30px;
         }
-
         .card img {
             max-height: 250px;
             object-fit: cover;
@@ -53,16 +49,13 @@
             color: #ffffff;
             padding: 40px 0;
         }
-
         footer a {
             color: #ffffff;
         }
-
         /* Custom Navbar Styling */
         .navbar-brand {
             font-size: 1.5rem;
         }
-
         .navbar-nav .nav-link {
             font-size: 1.2rem;
             color: #ffffff;
@@ -132,7 +125,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Book Flights</a>
                     </li>
-                                   </ul>
+                  </ul>
                 <form class="form-inline my-2 my-lg-0 search-form">
                     <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search"
                         aria-label="Search">
