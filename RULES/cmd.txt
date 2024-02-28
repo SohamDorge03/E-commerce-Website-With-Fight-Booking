@@ -228,7 +228,11 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+<<<<<<< Updated upstream
 INSERT INTO `users` VALUES (5,'lalan','saw','vishal','sawvishal2004@gmail.com','12345678','1245455665657','Male',1,NULL,NULL,NULL,NULL,NULL,'525346');
+=======
+INSERT INTO `users` VALUES (5,'soham','dorge','soham','sohamdorge45@gmail.com','123456','7778889990','Male',1,NULL,NULL,NULL,NULL,NULL,'319061');
+>>>>>>> Stashed changes
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vendors` (
