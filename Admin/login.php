@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 // Database connection settings
 include("./include/connection.php");
@@ -103,7 +103,7 @@ $conn->close();
         <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
              style="background: #480938;">
             <div class="featured-image mb-3">
-                <img src="./image3/login.png" class="img-fluid" style="width: 250px;">
+                <img src="./image/login.png" class="img-fluid" style="width: 250px;">
             </div>
             <p class="text-white fs-2"
                style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
