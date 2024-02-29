@@ -15,12 +15,12 @@
             transition: background-color 0.3s ease;
         }
         
-        .container {
+        #container {
             display: flex;
             margin: 0;
             padding: 0;
         }
-        .sidebar {
+        #sidebar {
             width: 250px;
             background-color: #44688f;
             color: #fff;
@@ -31,46 +31,46 @@
             transition: transform 0.3s ease;
             transform: translateX(0);
         }
-        .sidebar.hide {
+        #sidebar.hide {
             transform: translateX(-100%);
             width: 0;
             transition: width 0.3s ease;
         }
-        .sidebar h2 {
+        #sidebar h2 {
             font-size: 24px;
             margin-bottom: 20px;
             text-align: center;
         }
-        .sidebar ul {
+        #sidebar ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
-        .sidebar ul li {
+        #sidebar ul li {
             margin-bottom: 10px;
         }
-        .sidebar ul li a {
+        #sidebar ul li a {
             display: block;
             padding: 10px;
             color: #fff;
             text-decoration: none;
             transition: background-color 0.3s ease;
         }
-        .sidebar ul li a i {
+        #sidebar ul li a i {
             margin-right: 10px;
         }
-        .sidebar ul li a:hover {
+        #sidebar ul li a:hover {
             background-color: #5c87b7;
         }
-        main {
+        #main {
             flex: 1;
             background-color: #fff;
             transition: margin-left 0.3s ease;
         }
-        main.full-width {
+        #main.full-width {
             margin-left: 0;
         }
-        header {
+        #header {
             background-color: #44688f;
             color: #fff;
             padding: 20px;
@@ -81,81 +81,50 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        header h1 {
+        #header h1 {
             margin: 0;
             font-size: 24px;
         }
-        header .menu-toggle {
+        #header .menu-toggle {
             color: #fff;
             font-size: 24px;
             cursor: pointer;
             padding-right: 20px;
         }
         @media only screen and (max-width: 768px) {
-            .container {
+            #container {
                 flex-direction: column;
             }
-            .sidebar {
+            #sidebar {
                 width: 100%;
                 height: auto;
                 transform: translateX(-100%);
                 position: absolute;
                 z-index: 1;
             }
-            .sidebar.hide {
+            #sidebar.hide {
                 transform: translateX(0);
             }
-            main {
+            #main {
                 margin-left: 0;
             }
-            main.full-width {
+            #main.full-width {
                 margin-left: 0;
             }
-            header {
+            #header {
                 position: fixed;
                 width: 100%;
                 z-index: 2;
             }
         }
     </style>
-    </head>
+</head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Admin Dashboard</h2>
-            <ul>
-                <li><a href="Manage_users.php"><i class="fas fa-users"></i> Manage Users</a></li>
-                <li><a href="manage_products.php"><i class="fas fa-box"></i> Manage Products</a></li>
-                <li><a href="manage_orders.php"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
-                <li><a href="manage_appointments.php"><i class="fas fa-calendar-alt"></i> Manage Appointments</a></li>
-                <li><a href="manage_warranty.php"><i class="fas fa-shield-alt"></i> Manage Warranty</a></li>
-                <li><a href="manage_demos.php"><i class="fas fa-video"></i> Manage Demos</a></li>
-                <li><a href="Airport_Management.php"><i class="fas fa-plane-arrival"></i> Airport Management</a></li>
-                <li><a href="Airline_Management.php"><i class="fas fa-plane-departure"></i> Airline Management</a></li>
-                <li><a href="manage_flights.php"><i class="fas fa-fighter-jet"></i> Manage Flights</a></li>
-                <li><a href="admin_settings.php"><i class="fas fa-cog"></i> Admin Settings</a></li>
-                <li><a href="manage_booking.php"><i class="fas fa-cog"></i>manage booking</a></li>
-                <div>
-                    <li class="menu-item-has-children">
-                        <a class="nav-link" href="logout.php"><i class="fa fa-power-off"></i>Logout</a>
-                    </li>
-                </div>
-            </ul>
-        </div>
-        <main>
-            <header>
-                <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-                <h1>Welcome to Shopflix Admin Dashboard</h1>
-               
-            </header>
-            <div class="content">
-            
-            </div>
-        </main>
-        <script>
+   
+    <script>
         document.getElementById('menu-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('hide');
-            document.querySelector('main').classList.toggle('full-width');
+            document.getElementById('sidebar').classList.toggle('hide');
+            document.getElementById('main').classList.toggle('full-width');
         });
     </script>
 </body>
