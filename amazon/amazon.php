@@ -44,6 +44,7 @@
                 <i class="fa-solid fa-cart-shopping"></i>
                 Cart
             </div>
+          <a href="#" class="logi">Login</a>
         </div>
     </header>
 
@@ -75,44 +76,41 @@
         <div class="sidebar-left-part">
             <div class="sidebar-top">
                 <i class="fa-solid fa-circle-user"></i>
-                <h2>Hello, <span>sign in</span></h2>
+                <h2>Hello, <span>ShopFlix Users</span></h2>
             </div>
             <div class="sidebar-wrap">
                 <div class="sidebar-item">
                     <h2>Trending</h2>
                     <p>Best Sellers</p>
                     <p>New Releases</p>
-                    <p>Movers and Shakers</p>
+                    <!-- <p>Movers and Shakers</p> -->
                 </div>
                 <div class="sidebar-item">
-                    <h2>Digital Content And Devices</h2>
-                    <p>Echo & Alexa</p>
-                    <p>Fire TV</p>
-                    <p>Kindle E-Readers & eBooks</p>
-                    <p>Audible Audiobooks</p>
-                    <p>Amazon Prime Video</p>
-                    <p>Amazon Prime Music</p>
+                    <h2>Electronic</h2>
+                    <p>Washing Machin</p>
+                    <p>Smart TV</p>
+                    <p>Fridge</p>
+                    <p>Microwave</p>
+                    <p>Mobile</p>
                 </div>
                 <div class="sidebar-item">
-                    <h2>Shop By Category</h2>
-                    <p>Mobiles, Computes</p>
-                    <p>TV, Appliances, Electronic</p>
-                    <p>Men's Fashion</p>
-                    <p>Women's Fashion</p>
-                    <p>See All</p>
+                    <h2>Furniture</h2>
+                    <p>Sofa</p>
+                    <p>Chair</p>
+                    <p>Bed</p>
+                    <p>Table</p>
                 </div>
                 <div class="sidebar-item">
-                    <h2>Programs & Features</h2>
-                    <p>Gift Cards & Mobile Recharges</p>
-                    <p>Flight Tickets</p>
-                    <p>#Foundlt-OnAmazon</p>
-                    <p>Clearance store</p>
+                    <h2>Gym Eqipment</h2>
+                    <p>Dumballes</p>
+                    <p>Trademeal</p>
+                    <p>skipping rope</p>
                 </div>
                 <div class="sidebar-item">
                     <h2>Help & Settings</h2>
                     <p>Your Account</p>
                     <p>Customer Service</p>
-                    <p>Sign in</p>
+                    <p>Log Out</p>
                 </div>
             </div>
         </div>
@@ -445,18 +443,7 @@
             </div>
         </div>
     </section>
-
     </main>
-
-
-    
-
-
-
-
-
-
-
     <script src="javascript.js" type="module"></script>
 </body>
 

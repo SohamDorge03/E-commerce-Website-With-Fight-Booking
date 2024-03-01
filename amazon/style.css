@@ -17,7 +17,11 @@ body {
     color: white;
 }
 
-
+.logi{
+    text-decoration: none;
+    color:white;
+    padding: 30px;
+}
 /* layout**/
 .container {
     width: 99%;
