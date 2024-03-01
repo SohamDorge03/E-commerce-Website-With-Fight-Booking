@@ -1,234 +1,114 @@
-
-
-
 <?php
-include("./include/navbar.php");
 include("./include/connection.php");
+include("./include/navbar.php"); 
 
-// Function to sanitize input data
-function sanitize($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
-}
-
-// Check if the form is submitted for adding an airline
 if (isset($_POST['submit'])) {
-    // Retrieve form data and sanitize
-    $email = sanitize($_POST["email"]);
-    $password = sanitize($_POST["password"]);
-    $airline_name = sanitize($_POST["name"]);
+    
+    $email = isset($_POST["email"]) ? $_POST["email"] : "";
+    $pass = isset($_POST["pass"]) ? $_POST["pass"] : "";
+    $airline_name = isset($_POST["airline_name"]) ? $_POST["airline_name"] : "";
+    $logo = isset($_POST["logo"]) ? $_POST["logo"] : "";
 
-    // Check if a file is uploaded
-    if (isset($_FILES['logo'])) {
-        $logo_tmp_name = $_FILES['logo']['tmp_name'];
-        $logo_name = $_FILES['logo']['name'];
-        $logo_path = "./image3/" . $logo_name;
-        move_uploaded_file($logo_tmp_name, $logo_path);
-    } else {
-        $logo_path = null;
+    if ($_POST['submit'] == 'Add') {
+        
+        $sql = "INSERT INTO airlines (email, pass, airline_name, logo) 
+                VALUES ('$email', '$pass', '$airline_name', '$logo')";
+    } elseif ($_POST['submit'] == 'Update') {
+        
+        $airline_id = isset($_POST['airline_id']) ? $_POST['airline_id'] : "";
+        $sql = "UPDATE airlines 
+                SET email='$email', pass='$pass', airline_name='$airline_name', logo='$logo' 
+                WHERE airline_id='$airline_id'";
     }
 
-    // Check if the email already exists in the database
-    $check_email_sql = "SELECT email FROM airlines WHERE email = '$email'";
-    $result = $conn->query($check_email_sql);
-
-    if ($result->num_rows > 0) {
-        echo '<div class="alert alert-danger" role="alert">Error: Email already exists.</div>';
+    // Execute SQL statement
+    if ($conn->query($sql) === TRUE) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Record ' . ($_POST['submit'] == 'Add' ? 'added' : 'updated') . ' successfully
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>';
     } else {
-        $sql = "INSERT INTO airlines (email, pass, airline_name, logo) 
-                VALUES ('$email', '$password', '$airline_name', '$logo_path')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                      New airline added successfully
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>';
-        } else {
-            echo '<div class="alert alert-danger" role="alert">Error: ' . $sql . '<br>' . $conn->error . '</div>';
-        }
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $sql . '<br>' . $conn->error . '</div>';
     }
 }
 
-// Check if delete button is clicked
-if (isset($_POST['delete'])) {
-    $email = sanitize($_POST['email']);
-    $delete_sql = "DELETE FROM airlines WHERE email = '$email'";
+if(isset($_POST['delete'])){
+    $airline_id = isset($_POST['airline_id']) ? $_POST['airline_id'] : "";
+
+    $delete_sql = "DELETE FROM airlines WHERE airline_id = '$airline_id'";
 
     if ($conn->query($delete_sql) === TRUE) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                  Airline deleted successfully
+                  Record deleted successfully
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>';
     } else {
-        echo '<div class="alert alert-danger" role="alert">Error deleting airline: ' . $conn->error . '</div>';
-    }
-}
-
-// Check if update button is clicked
-if (isset($_POST['update'])) {
-    $email = sanitize($_POST["email"]);
-    $password = sanitize($_POST["password"]);
-    $airline_name = sanitize($_POST["name"]);
-
-    if (isset($_FILES['logo'])) {
-        $logo_tmp_name = $_FILES['logo']['tmp_name'];
-        $logo_name = $_FILES['logo']['name'];
-        $logo_path = "./image3/" . $logo_name;
-        move_uploaded_file($logo_tmp_name, $logo_path);
-    } else {
-        $logo_path = null;
-    }
-
-    $update_sql = "UPDATE airlines SET pass = '$password', airline_name = '$airline_name', logo = '$logo_path' WHERE email = '$email'";
-
-    if ($conn->query($update_sql) === TRUE) {
-        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                  Airline details updated successfully
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>';
-    } else {
-        echo '<div class="alert alert-danger" role="alert">Error updating airline details: ' . $conn->error . '</div>';
+        echo '<div class="alert alert-danger" role="alert">Error deleting record: ' . $conn->error . '</div>';
     }
 }
 ?>
- <div id="container">
-        <div id="sidebar">
-            <h2>Admin Dashboard</h2>
-            <ul>
-                <li><a href="Manage_users.php"><i class="fas fa-users"></i> Manage Users</a></li>
-                <li><a href="manage_products.php"><i class="fas fa-box"></i> Manage Products</a></li>
-                <li><a href="manage_orders.php"><i class="fas fa-shopping-cart"></i> Manage Orders</a></li>
-                <li><a href="manage_appointments.php"><i class="fas fa-calendar-alt"></i> Manage Appointments</a></li>
-                <li><a href="manage_warranty.php"><i class="fas fa-shield-alt"></i> Manage Warranty</a></li>
-                <li><a href="manage_demos.php"><i class="fas fa-video"></i> Manage Demos</a></li>
-                <li><a href="Airport_Management.php"><i class="fas fa-plane-arrival"></i> Airport Management</a></li>
-                <li><a href="Airline_Management.php"><i class="fas fa-plane-departure"></i> Airline Management</a></li>
-                <li><a href="manage_flights.php"><i class="fas fa-fighter-jet"></i> Manage Flights</a></li>
-                <li><a href="admin_settings.php"><i class="fas fa-cog"></i> Admin Settings</a></li>
-                <li><a href="manage_booking.php"><i class="fas fa-cog"></i>manage booking</a></li>
-                <div>
-                    <li class="menu-item-has-children">
-                        <a class="nav-link" href="logout.php"><i class="fa fa-power-off"></i>Logout</a>
-                    </li>
-                </div>
-            </ul>
-        </div>
-        <div id="main">
-            <header id="header">
-                <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-                <h1>Welcome to Shopflix Admin Dashboard</h1>
-            </header>
-            <div class="content">
-            
-     
-
+                       
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .h1 {
-            color: navy;
-            margin-bottom: 30px;
-        }
-    </style>
+
 
 <body>
+    
     <div class="container mt-5">
         <h1>Airline Management</h1>
 
-        <!-- Button to Open the Add Airline Modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAirlineModal">
+        <button type="button" class="btn btn-primary btn-lg" id="button-add" data-toggle="modal"
+            data-target="#airlineModal">
             Add Airline
         </button>
     </div>
-
-    <!-- Add Airline Modal -->
-    <div class="modal fade" id="addAirlineModal" tabindex="-1" role="dialog" aria-labelledby="addAirlineModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal" id="airlineModal">
+        <div class="modal-dialog">
             <div class="modal-content">
+
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addAirlineModalLabel">Add Airline</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h4 class="modal-title">Airline Details</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
+
                 <div class="modal-body">
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post">
                         <div class="form-group">
-                            <label>Email:</label>
-                            <input type="email" class="form-control" name="email" required>
+                            <label for="email">Email:</label>
+                            <input type="text" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Password:</label>
-                            <input type="password" class="form-control" name="password" required>
+                            <label for="pass">Password:</label>
+                            <input type="text" class="form-control" id="pass" name="pass" required>
                         </div>
                         <div class="form-group">
-                            <label>Airline Name:</label>
-                            <input type="text" class="form-control" name="name">
+                            <label for="airline_name">Airline Name:</label>
+                            <input type="text" class="form-control" id="airline_name" name="airline_name" required>
                         </div>
+        
                         <div class="form-group">
-                            <label>Logo:</label>
-                            <input type="file" class="form-control-file" name="logo">
+                            <label for="logo">Logo:</label>
+                            <input type="file" class="form-control" id="logo" name="logo" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        <input type="hidden" id="airline_id" name="airline_id" value="">
+                        <button type="submit" class="btn btn-primary" name="submit" value="Add">Add</button>
+                        <button type="submit" class="btn btn-success" name="submit" value="Update">Update</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <!-- Edit Airline Modal -->
-    <?php
-    // Fetch data from the database for editing
-    $edit_sql = "SELECT * FROM airlines";
-    $edit_result = $conn->query($edit_sql);
-
-    if ($edit_result->num_rows > 0) {
-        while ($edit_row = $edit_result->fetch_assoc()) {
-            echo "<div class='modal fade' id='editModal" . $edit_row['email'] . "' tabindex='-1' role='dialog' aria-labelledby='editModalLabel" . $edit_row['email'] . "' aria-hidden='true'>
-                        <div class='modal-dialog' role='document'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title' id='editModalLabel" . $edit_row['email'] . "'>Edit Airline</h5>
-                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                        <span aria-hidden='true'>&times;</span>
-                                    </button>
-                                </div>
-                                <div class='modal-body'>
-                                    <form method='post' enctype='multipart/form-data'>
-                                        <div class='form-group'>
-                                            <label>Password:</label>
-                                            <input type='password' class='form-control' name='password' required>
-                                        </div>
-                                        <div class='form-group'>
-                                            <label>Airline Name:</label>
-                                            <input type='text' class='form-control' name='name' value='" . $edit_row["airline_name"] . "'>
-                                        </div>
-                                        <div class='form-group'>
-                                            <label>Logo:</label>
-                                            <input type='file' class='form-control-file' name='logo'>
-                                        </div>
-                                        <button type='submit' class='btn btn-primary' name='update'>Update</button>
-                                        <input type='hidden' name='email' value='" . $edit_row["email"] . "'>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>";
-        }
-    }
-    ?>
-
-    <!-- Displaying Airline Data in a Table -->
     <div class="container mt-5">
         <table class="table">
             <thead>
                 <tr>
                     <th>Email</th>
+                    <th>Password</th>
                     <th>Airline Name</th>
                     <th>Logo</th>
                     <th>Action</th>
@@ -236,44 +116,62 @@ if (isset($_POST['update'])) {
             </thead>
             <tbody>
                 <?php
-                // Fetch data from the database
+ 
                 $sql = "SELECT * FROM airlines";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                    // Output data of each row
+                
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $row["email"] . "</td>";
+                        echo "<td>" . $row["pass"] . "</td>";
                         echo "<td>" . $row["airline_name"] . "</td>";
-                        if ($row["logo"]) {
-                            echo "<td><img src='" . $row['logo'] . "' alt='logo' style='max-width: 100px; max-height: 100px;'></td>";
-                        } else {
-                            echo "<td>No logo</td>";
-                        }
+                        echo "<td><img src='" . $row["logo"] . "' alt='Airline Logo' style='max-width: 100px; max-height: 100px;'></td>";
                         echo "<td>
-                                  <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal" . $row['email'] . "'>Edit</button>
-                                  <form method='post' style='display:inline;'>
-                                    <input type='hidden' name='email' value='" . $row["email"] . "'>
-                                    <button type='submit' class='btn btn-danger' name='delete'>Delete</button>
-                                  </form>
+                                  <button type='button' class='btn btn-primary btn-sm' 
+                                    data-toggle='modal' data-target='#airlineModal'
+                                    data-email='" . $row["email"] . "'
+                                    data-pass='" . $row["pass"] . "'
+                                    data-airline-name='" . $row["airline_name"] . "'
+                                    data-logo='" . $row["logo"] . "'
+                                    data-airline-id='" . $row["airline_id"] . "'
+                                    onclick='populateForm(this)'>Edit</button>
+                                    <form method='post' style='display:inline;'>
+                                        <input type='hidden' name='airline_id' value='" . $row["airline_id"] . "'>
+                                        <button type='submit' class='btn btn-danger btn-sm' name='delete'>Delete</button>
+                                    </form>
                               </td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='4'>No airlines found</td></tr>";
+                    echo "<tr><td colspan='6'>No airlines found</td></tr>";
                 }
                 ?>
             </tbody>
         </table>
     </div>
-   
+
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script>
+  
+        function populateForm(button) {
+            var modal = $('#airlineModal');
+            modal.find('#email').val(button.getAttribute('data-email'));
+            modal.find('#pass').val(button.getAttribute('data-pass'));
+            modal.find('#airline_name').val(button.getAttribute('data-airline-name'));
+            modal.find('#logo').val(button.getAttribute('data-logo'));
+            modal.find('#airline_id').val(button.getAttribute('data-airline-id')); 
+            modal.find('[name=submit]').val('Update');
+        }
+    </script>
+
 </body>
+
 </div>
         </div>
     </div>
