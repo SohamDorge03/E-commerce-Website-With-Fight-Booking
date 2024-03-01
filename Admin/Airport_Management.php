@@ -1,6 +1,7 @@
 <?php
 include("./include/connection.php"); // Include your database connection file
 include("./include/navbar.php"); 
+
 // Check if the form is submitted for adding or updating
 if (isset($_POST['submit'])) {
     // Retrieve form data
@@ -86,15 +87,8 @@ if(isset($_POST['delete'])){
             <div class="content">
             
            
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .h1 {
-            color: navy;
-            margin-bottom: 30px;
-        }
-    </style>
+   
 
-<body>
     <div class="container mt-5">
         <h1>Airport Management</h1>
 
