@@ -23,21 +23,16 @@
         <div class="container container-header">
             <div class="logo-container border-white">
                 <!-- <div class="logo">ShopFlix</div> -->
-                <span class="logo">Shop</span><span class="logo" style="color:rgb(207, 4, 247)">Flix</span>
+                <span class="logo">Shop</span><span class="logo" style="color:rgb(154, 121, 204)">Flix</span>
                 <!-- <span class="dotin">.in</span> -->
             </div>
-
-            <div class="address-container border-white">
-                <p class="hello">Hello</p>
-                <div class="icon-address">
-                    <i class="fa-solid fa-location-dot icon-location"></i>
-                    <p>Select your address</p>
-                </div>
-            </div>
-
             <div class="search-container">
                 <select class="search-select">
-                    <option>All</option>
+                    <option value="All">All</option>
+                    <option value="Electronic">Electronic</option>
+                    <option value="Furnitutre">Furnitutre</option>
+                    <option value="Gym Equipment">Gym Equipment</option>
+                    <option value="Flight Booking">flight Booking</option>
                 </select>
                 <input type="text" class="search-input" />
                 <div class="search-icon">
@@ -45,26 +40,6 @@
                 </div>
 
             </div>
-
-             <div class="language-container border-white">
-                <p>English</p>
-                <div class="lauguge-image">
-                    <img
-                        src="https://media.istockphoto.com/vectors/vector-flag-of-the-republic-of-india-proportion-23-the-national-flag-vector-id1051236720?k=20&m=1051236720&s=612x612&w=0&h=ATObRTHmTosADa9zaB2dQPn_VAQmG1XYH2x92kzc304=" />
-                </div>
-            </div>
-
-            <div class="login-container border-white">
-                <p>Hello,<span>sign in</span></p>
-                <p class="account">Account & Lists</p>
-            </div>
-
-            <div class="return-order-container">
-                <p>Returns
-                <div class="order">& Orders</div>
-                </p>
-            </div> 
-
             <div class="cart-container border-white">
                 <i class="fa-solid fa-cart-shopping"></i>
                 Cart
@@ -90,19 +65,8 @@
                 <li class="border-white"><a href="#">Furniture</a></li>
                 <li class="border-white"><a href="../air">Flight Booking</a></li>
                 <li class="border-white"><a href="#">About Us</a></li>
-                <li class="border-white prime-image-hover">
-                    <!-- <a href="#">Prime</a>
-                    <div class="prime-image">
-                        <img
-                            src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.jpg" /> -->
-                    </div>
-
                 </li>
             </ul>
-            <!-- <div class="nav-right-image-amazon-prime">
-                <img
-                    src="https://m.media-amazon.com/images/G/31/img17/Home/AmazonTV/Ravina/Desktop/Watch-Entertainment-for-FREE_400-x39._CB605460886_.jpg" />
-            </div> -->
         </div>
     </nav>
  
