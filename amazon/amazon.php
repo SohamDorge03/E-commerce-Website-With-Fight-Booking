@@ -123,8 +123,8 @@
 
 
     <!-- image slider -->
-    <section>
-        <div class="image-container">
+    <section style="margin-top:100x;">
+        <div class="image-container" style="margin-top: 20x;">
             <div class="image-list">
                 <div class="image-item">
                     <img src="https://m.media-amazon.com/images/I/71cp9PVuTfL._SX3000_.jpg" />
