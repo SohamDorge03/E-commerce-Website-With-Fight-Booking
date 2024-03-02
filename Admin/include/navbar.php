@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopFlix Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
+  
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 
         :root {
             --header-height: 3rem;
@@ -18,8 +21,8 @@
             --first-color: #6923d9;
             --first-color-light: #AFA5D9;
             --white-color: #F7F6FB;
-            --body-font: 'Nunito', sans-serif;
-            --normal-font-size: 1rem;
+            --body-font: 'poppins', sans-serif;
+            --normal-font-size: 16px;
             --z-fixed: 100;
         }
 
@@ -93,7 +96,7 @@
         .header_title {
             color: var(--first-color);
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
 
         .l-navbar {
@@ -214,7 +217,7 @@
             <div class="header_img">
                 <img src="https://i.imgur.com/hczKIze.jpg" alt="ShopFlix Logo">
             </div>
-            <div class="header_title">ShopFlix Admin</div>
+            <div class="header_title">admin name </div>
         </div>
     </header>
 
@@ -222,60 +225,58 @@
         <nav class="nav">
             <div>
                 <div class="nav_logo">
-                    <i class='bx bx-shop nav_logo-icon'>sf</i>
+                    <i class="fas fa-store nav_logo-icon"></i>
                     <span class="nav_logo-name">ShopFlix Admin </span>
                 </div>
                 <div class="nav_list">
                     <a href="dashboard.php" class="nav_link active">
-                        <i class='bx bx-grid-alt nav_icon'></i>
+                        <i class="fas fa-th-large nav_icon"></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
                     <a href="Manage_users.php" class="nav_link">
-                        <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Manage Users</span>
+                        <i class="fas fa-user nav_icon"></i>
+                        <span class="nav_name">Users</span>
                     </a>
                     <a href="#" class="nav_link">
-                        <i class='bx bx-box nav_icon'></i>
-                        <span class="nav_name">Manage Products</span>
+                        <i class="fas fa-box nav_icon"></i>
+                        <span class="nav_name">Products</span>
                     </a>
                     <a href="#" class="nav_link">
-                        <i class='bx bx-shopping-bag nav_icon'></i>
-                        <span class="nav_name">Manage Orders</span>
+                        <i class="fas fa-shopping-bag nav_icon"></i>
+                        <span class="nav_name">Orders</span>
                     </a>
                     <a href="#" class="nav_link">
-                        <i class='bx bx-calendar-event nav_icon'></i>
-                        <span class="nav_name">Manage Appointments</span>
+                        <i class="fas fa-calendar-alt nav_icon"></i>
+                        <span class="nav_name">Appointments</span>
                     </a>
                     <a href="#" class="nav_link">
-                        <i class='bx bx-shield nav_icon'></i>
-                        <span class="nav_name">Manage Warranty</span>
+                        <i class="fas fa-shield-alt nav_icon"></i>
+                        <span class="nav_name">Warranty</span>
                     </a>
                     <a href="#" class="nav_link">
-                        <i class='bx bx-demo nav_icon'></i>
-                        <span class="nav_name">Manage Demos</span>
+                        <i class="fas fa-cogs nav_icon"></i>
+                        <span class="nav_name">Demos</span>
                     </a>
+
                     <a href="Airport_management.php" class="nav_link">
-                        <i class='bx bx-map nav_icon'></i>
-                        <span class="nav_name">Airport Management</span>
+                        <i class="fas fa-map nav_icon"></i>
+                        <span class="nav_name">Airport</span>
                     </a>
                     <a href="Airline_management.php" class="nav_link">
-                        <i class='bx bx-plane-alt nav_icon'></i>
-                        <span class="nav_name">Airline Management</span>
+                        <i class="fas fa-plane nav_icon"></i>
+                        <span class="nav_name">Airline</span>
                     </a>
                     <a href="#" class="nav_link">
-                        <i class='bx bx-flight-takeoff nav_icon'></i>
-                        <span class="nav_name">Manage Flights</span>
+                        <i class="fas fa-plane-departure nav_icon"></i>
+                        <span class="nav_name">Flights</span>
                     </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-setting nav_icon'></i>
-                        <span class="nav_name">Admin Settings</span>
-                    </a>
+
                     <a href="manage_booking.php" class="nav_link">
-                        <i class='bx bx-book nav_icon'></i>
-                        <span class="nav_name">Manage Booking</span>
+                        <i class="fas fa-book nav_icon"></i>
+                        <span class="nav_name">Booking</span>
                     </a>
                     <a href="#" class="nav_link">
-                        <i class='bx bx-log-out nav_icon'></i>
+                        <i class="fas fa-sign-out-alt nav_icon"></i>
                         <span class="nav_name">Logout</span>
                     </a>
                 </div>

@@ -55,7 +55,7 @@ if ($vendorResult === false) {
             width: 100%;
             margin-bottom: 1rem;
             border-radius: 0.25rem;
-            overflow-x: auto; /* Make tables responsive */
+            overflow-x: auto;  
         }
 
         th,
@@ -77,19 +77,11 @@ if ($vendorResult === false) {
         }
 
         .section-heading {
-            position: relative;
+            
             margin-top: 20px;
         }
 
-        .section-heading::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #800080; /* Purple color */
-        }
+       
     </style>
 </head>
 
