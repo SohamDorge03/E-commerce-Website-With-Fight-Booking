@@ -1,39 +1,65 @@
 <?php
-// session_start();
+    session_start(); // Start session to store user data
 
-// Database connection settings
-include("./include/connection.php");
+    // Include database connection
+    include("./include/connection.php");
 
-// Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $inputEmail = $_POST["email"];
-    $inputPassword = $_POST["password"];
-
-    // Query to fetch admin data
-    $sql = "SELECT * FROM admins WHERE email = '$inputEmail'";
-    $result = $conn->query($sql);
-
-    // Check if admin exists and password matches
-    if ($result->num_rows == 1) {
-        $adminData = $result->fetch_assoc();
-        if (password_verify($inputPassword, $adminData["password"])) {
-            // Admin is valid, set session variable
-            $_SESSION["admin"] = true;
-            // Redirect to admin panel or any other page
-            header("Location: dashboard.php");
-            exit;
+    // Function to verify CAPTCHA
+    function verifyCaptcha($userCaptcha) {
+        if(isset($_SESSION['captcha']) && strtolower($userCaptcha) == strtolower($_SESSION['captcha'])) {
+            return true;
         } else {
-            // Invalid password
-            $error = "Invalid password";
+            return false;
         }
-    } else {
-        // Admin not found
-        $error = "Admin not found";
     }
-}
 
-$conn->close();
+    // Check if form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve user input
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $captcha = $_POST["captcha"];
+
+        // Validate user input (You should also add more validation as needed)
+        if (!empty($email) && !empty($password) && !empty($captcha)) {
+            // Verify CAPTCHA
+            if (verifyCaptcha($captcha)) {
+                // Prepare SQL statement to fetch user from database
+                $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ? AND password = ?");
+                $stmt->bind_param("ss", $email, $password);
+
+                // Execute SQL statement
+                $stmt->execute();
+
+                // Get result
+                $result = $stmt->get_result();
+
+                // Check if user exists
+                if ($result->num_rows == 1) {
+                    // User exists, redirect to dashboard
+                    $_SESSION["email"] = $email; // Store user email in session
+                    header("Location: dashboard.php");
+                    exit();
+                } else {
+                    // User does not exist or invalid credentials
+                    $error = "Invalid email or password.";
+                }
+            } else {
+                // CAPTCHA verification failed
+                $error = "Invalid CAPTCHA, please try again.";
+            }
+        } else {
+            // Invalid input
+            $error = "Please enter email, password, and CAPTCHA.";
+        }
+    }
+
+    // Generate CAPTCHA
+    $randomNumber = substr(rand(),0,5); // Generate random number
+    $_SESSION['captcha'] = $randomNumber; // Store random number in session
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +145,7 @@ $conn->close();
                     <h2>Hello, Admin</h2>
                     <p>We are happy to have you back.</p>
                 </div>
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <form method="post" action="">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="email"
                                placeholder="Email address" required>

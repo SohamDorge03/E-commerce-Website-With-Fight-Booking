@@ -275,7 +275,7 @@
                         <i class="fas fa-book nav_icon"></i>
                         <span class="nav_name">Booking</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="/logout.php" class="nav_link">
                         <i class="fas fa-sign-out-alt nav_icon"></i>
                         <span class="nav_name">Logout</span>
                     </a>

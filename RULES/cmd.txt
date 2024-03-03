@@ -38,9 +38,8 @@ CREATE TABLE `airlines` (
   PRIMARY KEY (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `airlines` VALUES (2,'Vistara777@gmail.com','777','Vistara','./image/vistara.png');
-INSERT INTO `airlines` VALUES (3,'AirAsia333@gmail.com','333','Air Asia','./image/Air Asia.png');
-INSERT INTO `airlines` VALUES (4,'QatarAirways786@gmail.com','786','Qatar Airways','./image/Qatar.png');
+INSERT INTO `airlines` VALUES (2,'Vistara777@gmail.com','123456','Vistara','./upload/vistara.png');
+INSERT INTO `airlines` VALUES (3,'AirAsia333@gmail.com','123456','Air Asia','./upload/Air Asia.png');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airports` (
