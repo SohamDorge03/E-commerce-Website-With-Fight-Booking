@@ -1,5 +1,6 @@
 <?php
-    session_start(); // Start session to store user data
+// Start the session
+session_start();
 
     // Include database connection
     include("./include/connection.php");
@@ -71,7 +72,7 @@
     <link rel="stylesheet" href="sty.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <title>Shopflix Login |</title>
+    <title>Shopflix Login</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
@@ -100,10 +101,7 @@
             border-radius: 30px;
         }
 
-        /*------------ For small screens------------*/
-
         @media only screen and (max-width: 768px) {
-
             .box-area {
                 margin: 0 10px;
             }
@@ -116,7 +114,6 @@
             .right-box {
                 padding: 20px;
             }
-
         }
     </style>
 </head>
@@ -166,7 +163,7 @@
                                     <img src="./include/captcha.php?rand=<?php echo uniqid(); ?>" alt="CAPTCHA"
                                          id="captcha_image"/>
                                     <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
-                                        <i class="fas fa-sync-alt"></i> <!-- Refresh icon -->
+                                        <i class="fas fa-sync-alt"></i>
                                         Refresh
                                     </button>
                                 </div>

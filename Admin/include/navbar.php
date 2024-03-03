@@ -109,7 +109,7 @@
             padding: .5rem 1rem 0 0;
             transition: .5s;
             z-index: var(--z-fixed);
-            overflow-y: auto;
+           
         }
 
         .nav {
@@ -119,7 +119,7 @@
             justify-content: space-between;
             
         }
-
+        
         .nav_logo,
         .nav_link {
             display: grid;
@@ -283,51 +283,7 @@
             </div>
         </nav>
     </div>
-    <div class="container">
-        <!-- here pages load by include or any -->
-    </div>
-    <script>
-    $(document).ready(function() {
-        const showNavbar = (toggleId, navId, bodyId, headerId) => {
-            const toggle = $("#" + toggleId),
-                nav = $("#" + navId),
-                bodypd = $("#" + bodyId),
-                headerpd = $("#" + headerId);
-
-            // Validate that all variables exist
-            if (toggle.length && nav.length && bodypd.length && headerpd.length) {
-                toggle.click(() => {
-                    // Toggle navbar
-                    nav.toggleClass('show');
-                    // Toggle icon
-                    toggle.toggleClass('bx-x');
-                    // Toggle padding for body and header
-                    bodypd.toggleClass('body-pd');
-                    headerpd.toggleClass('body-pd');
-                });
-            }
-        }
-
-        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
-
-        /*===== LINK ACTIVE =====*/
-        $('.nav_link').click(function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            
-            // Remove 'active' class from all links
-            $('.nav_link').removeClass('active');
-            
-            // Add 'active' class to the clicked link
-            $(this).addClass('active');
-
-            // Load page content dynamically
-            const url = $(this).attr('href'); // Get URL from the clicked link
-            $('#page-content').load(url); // Load page content into container
-        });
-    });
-</script>
-
-
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Container Main end -->

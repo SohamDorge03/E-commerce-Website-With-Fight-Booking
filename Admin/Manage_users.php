@@ -144,12 +144,12 @@ if ($vendorResult === false) {
             <table class="table custom-table">
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                         <th>Airline ID</th>
                         <th>Username</th>
                         <th>Email</th>
                         <th>Password</th>
                         <th>Confirmed Email</th>
-                        <th>Airline ID</th>
+                       
                         <th>Profile Pic URL</th>
                         <th>Address</th>
                         <th>City</th>
@@ -162,12 +162,11 @@ if ($vendorResult === false) {
                     if ($airlineResult->num_rows > 0) {
                         while ($row = $airlineResult->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td>" . $row["user_id"] . "</td>";
+                            echo "<td>" . $row["airline_id"] . "</td>";
                             echo "<td>" . $row["username"] . "</td>";
                             echo "<td>" . $row["email"] . "</td>";
                             echo "<td>" . $row["password"] . "</td>";
                             echo "<td>" . ($row["confirmed_email"] ? "Yes" : "No") . "</td>";
-                            echo "<td>" . $row["airline_id"] . "</td>";
                             echo "<td>" . $row["profile_pic_url"] . "</td>";
                             echo "<td>" . $row["address"] . "</td>";
                             echo "<td>" . $row["city"] . "</td>";

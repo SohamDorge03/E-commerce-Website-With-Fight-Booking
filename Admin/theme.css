@@ -1,0 +1,21 @@
+:root {
+
+    --p-color: #6ea8ff; /* Light Blue */
+    --s-color: #ffffff; /* White */
+    --bg-color: #f8f9fa; /* Light Grey */
+    --text-color: #333333; /* Dark Grey */
+    --font-family: 'Roboto', sans-serif; /* Change to your preferred font family */
+  
+}
+
+.s-btn {
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+    color: var(--s-color);
+    font-size: var(--font-sm);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm) var(--spacing-md);
+    box-shadow: var(--box-shadow);
+    z-index: var(--z-index-default);
+    transition: background-color var(--transition-medium) ease-in-out;
+}
