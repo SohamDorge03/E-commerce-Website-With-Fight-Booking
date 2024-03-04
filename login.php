@@ -1,37 +1,3 @@
-<?php
-session_start(); // Start the session
-
-include("./include/connection.php");
-
-$message = "";
-
-if(isset($_POST['login'])){
-    // Escape user inputs for security
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-
-    // Your SQL query to check user credentials and fetch user ID
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) == 1) {
-        // Login successful, fetch user ID and set session variables
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $row['user_id'];
-        $_SESSION['username'] = $username;
-        
-        // Redirect to user dashboard or any other desired page
-        header("Location: home.php");
-        exit();
-    } else {
-        $message = "Invalid username or password";
-    }
-
-    // Close connection
-    mysqli_close($conn);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +14,7 @@ if(isset($_POST['login'])){
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff;
-            background-image: url("./image/background.png");
+            /* background-image: url("./image/d.png"); */
              /* background-repeat:no-repeat; */
            
         }
@@ -89,7 +55,7 @@ if(isset($_POST['login'])){
 
             .left-box {
                 height: 100px;
-                overflow: hidden;
+                /* overflow: hidden; */
             }
 
             #right-box {
@@ -107,10 +73,9 @@ if(isset($_POST['login'])){
 
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box left-box1">
                 <div class="featured-image mb-3">
-                    <img src="./image/login.png" class="img-fluid" style="width: 250px;" alt="Register">
+                    <img src="./image/d.png" class="img-fluid" style="width: 400px;" alt="Register">
                 </div>
-                <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">SHOPFLIX</p>
-                <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join us and start shopping today!</small>
+                <!-- Removed SHOPFLIX and Join us and start shopping today! -->
             </div>
             <div class="col-md-6 right-box" id="right-box">
                 <div class="row align-items-center">
