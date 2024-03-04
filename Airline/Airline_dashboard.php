@@ -37,8 +37,6 @@ if(isset($_GET['username'])) {
     $username = ""; 
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
