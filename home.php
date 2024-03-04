@@ -59,9 +59,9 @@
                 <li class="border-white"><a href="#">Best Sellers</a></li>
                 <li class="border-white"><a href="#">Today's Deals</a></li>
                 <li class="border-white"><a href="#">Customer Service</a></li>
-                <li class="border-white"><a href="#">Electronic</a></li>
+                <li class="border-white"><a href="./electronics.php">Electronic</a></li>
                 <li class="border-white"><a href="./gym.php">Gym Eqipment</a></li>
-                <li class="border-white"><a href="#">Furniture</a></li>
+                <li class="border-white"><a href="./furniture.php">Furniture</a></li>
                 <li class="border-white"><a href="../air">Flight Booking</a></li>
                 <li class="border-white"><a href="#">About Us</a></li>
                 </li>
