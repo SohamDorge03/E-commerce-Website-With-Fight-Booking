@@ -6,12 +6,8 @@ include 'connection.php';
 if(isset($_SESSION['email'])) {
     $user_email = $_SESSION['email'];
     
-    // Echo session email for debugging
-    echo "Session Email: " . $user_email . "<br>";
-
     // Prepare SQL query
     $sql = "SELECT airline_name FROM airlines WHERE email = '$user_email'";
-    echo "SQL Query: " . $sql . "<br>"; // Debugging SQL query
 
     // Perform the query
     $result = $conn->query($sql);
@@ -19,7 +15,7 @@ if(isset($_SESSION['email'])) {
     // Check for errors
     if ($result === false) {
         // Handle query error
-        echo "Query error: " . $conn->error;
+        $customer_name = "Error retrieving data";
     } else {
         // Check if any rows were returned
         if ($result->num_rows > 0) {
@@ -33,9 +29,16 @@ if(isset($_SESSION['email'])) {
     }
 } else {
     // Session variable 'email' is not set
-    echo "Email session variable is not set.";
+    $customer_name = "Not logged in";
+}
+if(isset($_GET['username'])) {
+    $username = $_GET['username'];
+} else {
+    $username = ""; 
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +70,7 @@ if(isset($_SESSION['email'])) {
     </div>
     <!--Container Main start-->
     <div class="height-100 bg-light">
-        <h4>Welcome, <?php echo $customer_name; ?></h4> <!-- Displaying the customer name -->
+    <h4>Welcome, <?php echo $customer_name; ?></h4> <!-- Displaying the customer name -->
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {

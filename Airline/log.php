@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     $message = '';
     if ($result->num_rows > 0) {
         // User exists, set session and redirect
-        $_SESSION['username'] = $username;
+        $_SESSION['email'] = $username; // Set session variable
         header("Location: airline_dashboard.php");
         exit();
     } else {
