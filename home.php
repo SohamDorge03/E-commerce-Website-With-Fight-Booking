@@ -14,6 +14,36 @@
     <!--font awesome-->
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <style>
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .footer .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .footer .social-media a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+        .footer .social-media a:hover {
+            color: #ccc;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
@@ -42,7 +72,7 @@
                 <i class="fa-solid fa-cart-shopping"></i>
                 Cart
             </div>
-          <a href="#" class="logi">Login</a>
+          <a href="login.php" class="logi">Login</a>
         </div>
     </header>
 
@@ -443,6 +473,17 @@
     </section>
     </section>
     </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="social-media">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <!-- Add more social media icons and links as needed -->
+            </div>
+        </div>
+        <p>&copy; 2024 ShopFlix.in. All rights reserved.</p>
+    </footer>
     <script src="javascript.js" type="module"></script>
 </body>
 
