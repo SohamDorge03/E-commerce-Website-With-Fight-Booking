@@ -38,7 +38,6 @@ CREATE TABLE `airlines` (
   PRIMARY KEY (`airline_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `airlines` VALUES (2,'Vistara777@gmail.com','123456','Vistara','./upload/vistara.png');
 INSERT INTO `airlines` VALUES (3,'AirAsia333@gmail.com','123456','Air Asia','./upload/Air Asia.png');
 INSERT INTO `airlines` VALUES (5,'indigo898@gimail.com','Q222','Indigo','./upload/IndiGo-Logo.png');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
