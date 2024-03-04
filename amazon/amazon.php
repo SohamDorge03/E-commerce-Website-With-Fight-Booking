@@ -18,7 +18,7 @@
 
 <body>
     <header class="header">
-        <div class="container container-header">
+        <div class="container1 container-header">
             <div class="logo-container border-white">
                 <!-- <div class="logo">ShopFlix</div> -->
                 <span class="logo">Shop</span><span class="logo" style="color:rgb(154, 121, 204)">Flix</span>
