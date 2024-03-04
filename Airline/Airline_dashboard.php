@@ -1,10 +1,48 @@
+<?php
+session_start();
+include 'connection.php'; 
+
+// Check if email session variable is set
+if(isset($_SESSION['email'])) {
+    $user_email = $_SESSION['email'];
+    
+    // Prepare SQL query
+    $sql = "SELECT airline_name FROM airlines WHERE email = '$user_email'";
+
+    // Perform the query
+    $result = $conn->query($sql);
+
+    // Check for errors
+    if ($result === false) {
+        // Handle query error
+        $customer_name = "Error retrieving data";
+    } else {
+        // Check if any rows were returned
+        if ($result->num_rows > 0) {
+            // Fetch the row and extract the customer name
+            $row = $result->fetch_assoc();
+            $customer_name = $row['airline_name'];
+        } else {
+            // No rows found, set customer name to Guest
+            $customer_name = "Guest"; 
+        }
+    }
+} else {
+    // Session variable 'email' is not set
+    $customer_name = "Not logged in";
+}
+if(isset($_GET['username'])) {
+    $username = $_GET['username'];
+} else {
+    $username = ""; 
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="./dash.css">
@@ -30,7 +68,7 @@
     </div>
     <!--Container Main start-->
     <div class="height-100 bg-light">
-        <h4>Welcome,Airline </h4>
+    <h4>Welcome, <?php echo $customer_name; ?></h4> <!-- Displaying the customer name -->
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {

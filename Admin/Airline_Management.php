@@ -13,7 +13,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) 
     $stmt->bind_param("i", $delete_id);
 
     if ($stmt->execute()) {
-        // Redirect back to the same page after successful deletion
+
         header("Location: {$_SERVER['PHP_SELF']}");
         exit();
     } else {

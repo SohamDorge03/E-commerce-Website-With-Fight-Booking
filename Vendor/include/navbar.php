@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopFlix Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../styles/navbar.css">
+  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -31,14 +31,7 @@
             box-sizing: border-box;
         }
 
-        body {
-            position: relative;
-            margin: var(--header-height) 0 0 0;
-            padding: 0 1rem;
-            font-family: var(--body-font);
-            font-size: var(--normal-font-size);
-            transition: .5s;
-        }
+      
 
         a {
             text-decoration: none;
@@ -207,7 +200,6 @@
             }
         }
     </style>
-    <script src="script.js"></script>
 </head>
 
 <body id="body-pd">
@@ -225,68 +217,44 @@
             <div>
                 <div class="nav_logo">
                     <i class="fas fa-store nav_logo-icon"></i>
-                    <span class="nav_logo-name">ShopFlix Admin</span>
+                    <span class="nav_logo-name">ShopFlix Vendors</span>
                 </div>
                 <div class="nav_list">
-                    <a href="dashboard.php" class="nav_link active">
+                    <a href="./d.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'd.php' ? 'active' : ''; ?>">
                         <i class="fas fa-th-large nav_icon"></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="Manage_users.php" class="nav_link">
-                        <i class="fas fa-user nav_icon"></i>
-                        <span class="nav_name">Users</span>
-                    </a>
-                    <a href="cat.php" class="nav_link">
-                        <i class="fas fa-box nav_icon"></i>
-                        <span class="nav_name">Category</span>
-                    </a>
-                    <a href="#" class="nav_link">
+            
+                    <a href="./pro.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'pro.php' ? 'active' : ''; ?>">
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Products</span>
                     </a>
-                    <a href="cat.php" class="nav_link">
+                    <a href="./edit.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'edit.php' ? 'active' : ''; ?>">
                         <i class="fas fa-box nav_icon"></i>
-                        <span class="nav_name">categories</span>
+                        <span class="nav_name">Listings</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'active' : ''; ?>">
                         <i class="fas fa-shopping-bag nav_icon"></i>
                         <span class="nav_name">Orders</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'appointments.php' ? 'active' : ''; ?>">
                         <i class="fas fa-calendar-alt nav_icon"></i>
                         <span class="nav_name">Appointments</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'warranty.php' ? 'active' : ''; ?>">
                         <i class="fas fa-shield-alt nav_icon"></i>
                         <span class="nav_name">Warranty</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'demos.php' ? 'active' : ''; ?>">
                         <i class="fas fa-cogs nav_icon"></i>
                         <span class="nav_name">Demos</span>
                     </a>
-
-                    <a href="Airport_management.php" class="nav_link">
-                        <i class="fas fa-map nav_icon"></i>
-                        <span class="nav_name">Airport</span>
-                    </a>
-                    <a href="Airline_management.php" class="nav_link">
-                        <i class="fas fa-plane nav_icon"></i>
-                        <span class="nav_name">Airline</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class="fas fa-plane-departure nav_icon"></i>
-                        <span class="nav_name">Flights</span>
-                    </a>
-
-                    <a href="manage_booking.php" class="nav_link">
-                        <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Booking</span>
-                    </a>
-                    <a href="reports.php" class="nav_link">
+                 
+                    <a href="reports.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
                         <i class="fas fa-book nav_icon"></i>
                         <span class="nav_name">Reports</span>
                     </a>
-                    <a href="login.php" class="nav_link">
+                    <a href="login.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>">
                         <i class="fas fa-sign-out-alt nav_icon"></i>
                         <span class="nav_name">Logout</span>
                     </a>
@@ -295,7 +263,7 @@
         </nav>
     </div>
     <div class="container">
-        <!-- Here pages load by include or any -->
+      
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
@@ -343,9 +311,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"> </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
-    <!--Container Main end-->
-
-    <!-- Container Main end -->
+   
 </body>
 
 </html>
