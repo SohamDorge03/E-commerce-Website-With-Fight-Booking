@@ -472,6 +472,34 @@
         </div>
     </section>
     </section>
+    <section>
+    <div class="partner-airline">
+    <h1>Partners airline</h1>
+
+    <?php
+    // Include the connection.php file
+    include('connection.php');
+
+    // SQL query to select all airline from the airline table
+    $sql = "SELECT * FROM airlines";
+
+    // Execute the query
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<div class="partner-airline">';
+            echo '<img src="' . $row['logo'] . '" alt="' . $row['airline_name'] . '">';
+            echo '<p>' . $row['airline_name'] . '</p>';
+            echo '</div>';
+        }
+    } else {
+        echo "No records found";
+    }
+
+    ?>
+</div>
+    </section>
     </main>
     <footer class="footer">
         <div class="container">
