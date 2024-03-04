@@ -89,8 +89,10 @@
                             <input type="password" class="form-control form-control-lg rounded-4" placeholder="Password" name="password" required>
                         </div>
                         <div class="mb-3 d-flex justify-content-between">
-                            <button type="submit" name="login" class="btn btn-lg btn-primary w-48 rounded-4">Login</button>
-                            <a href="register.php" class="btn btn-lg btn-outline-dark w-48 rounded-4">New user? Register</a>
+                            <button type="submit" name="login" class=" form-control btn btn-lg btn-primary w-48 rounded-4">Login</button>            
+                        </div>
+                        <div>
+                        <a href="register.php" class=" w-48 rounded-4">New user? Register</a>
                         </div>
                     </form>
                 </div>
