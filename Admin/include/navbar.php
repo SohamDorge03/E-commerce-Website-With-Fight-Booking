@@ -225,14 +225,14 @@
             <div>
                 <div class="nav_logo">
                     <i class="fas fa-store nav_logo-icon"></i>
-                    <span class="nav_logo-name">ShopFlix Admin </span>
+                    <span class="nav_logo-name">ShopFlix Admin</span>
                 </div>
                 <div class="nav_list">
                     <a href="dashboard.php" class="nav_link active">
                         <i class="fas fa-th-large nav_icon"></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="Manage_users.php" class="nav_link">
                         <i class="fas fa-user nav_icon"></i>
                         <span class="nav_name">Users</span>
                     </a>
@@ -282,7 +282,7 @@
                         <i class="fas fa-book nav_icon"></i>
                         <span class="nav_name">Reports</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="login.php" class="nav_link">
                         <i class="fas fa-sign-out-alt nav_icon"></i>
                         <span class="nav_name">Logout</span>
                     </a>
