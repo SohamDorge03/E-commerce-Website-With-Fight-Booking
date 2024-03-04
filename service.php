@@ -82,7 +82,6 @@
 }
   </style>
 </head>
-
 <body>
   <section class="container">
     <h2>Our Sevices</h2>
@@ -112,21 +111,7 @@
         <h3>App Development</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
       </div>
-      <div class="service">
-        <i class="ri-account-box-line"></i>
-        <h3>Accouting</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      </div>
-      <div class="service">
-        <i class="ri-hand-coin-line"></i>
-        <h3>Business Management</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      </div>
-      <div class="service">
-        <i class="ri-english-input"></i>
-        <h3>English Teaching</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      </div>
+     
     </div>
   </section>
 </body>

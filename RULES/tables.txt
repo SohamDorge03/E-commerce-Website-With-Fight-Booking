@@ -233,13 +233,13 @@ CREATE TABLE airports (
 );
 
 -- Table for Airlines
-CREATE TABLE airlines (
-    airline_id int,
-    email VARCHAR(40) PRIMARY KEY,
-    pass VARCHAR(40) NOT NULL,
-    airline_name VARCHAR(40) DEFAULT NULL,
-    logo VARCHAR(40) DEFAULT NULL
-);
+    CREATE TABLE airlines (
+        airline_id int,
+        email VARCHAR(40) PRIMARY KEY,
+        pass VARCHAR(40) NOT NULL,
+        airline_name VARCHAR(40) DEFAULT NULL,
+        logo VARCHAR(40) DEFAULT NULL
+    );
 
 -- Table for Flights
 CREATE TABLE flights (
