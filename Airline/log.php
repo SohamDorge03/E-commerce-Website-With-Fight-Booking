@@ -1,6 +1,30 @@
+<?php
+session_start();
+include("./connection.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+    
+    $username = $_POST['email']; // Changed from 'username' to 'email'
+    $password = $_POST['pass']; // Changed from 'password' to 'pass'
+
+    $sql = "SELECT * FROM airlines WHERE email = '$username' AND pass = '$password'";
+    $result = $conn->query($sql);
+
+    $message = '';
+    if ($result->num_rows > 0) {
+        // User exists, set session and redirect
+        $_SESSION['username'] = $username;
+        header("Location: airline_dashboard.php");
+        exit();
+    } else {
+        // Invalid credentials
+        $message = "Invalid username or password.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -83,16 +107,16 @@
 
                     <form action="" method="POST" class="w-100">
                         <div class="mb-3">
-                            <input type="text" class="form-control form-control-lg rounded-4" placeholder="Username" name="username" required>
+                            <input type="email" class="form-control form-control-lg rounded-4" placeholder="Username" name="email" required>
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control form-control-lg rounded-4" placeholder="Password" name="password" required>
+                            <input type="password" class="form-control form-control-lg rounded-4" placeholder="Password" name="pass" required>
                         </div>
                         <div class="mb-3 d-flex justify-content-between">
                             <button type="submit" name="login" class=" form-control btn btn-lg btn-primary w-48 rounded-4">Login</button>            
                         </div>
                         <div>
-                        <a href="register.php" class=" w-48 rounded-4">New user? Register</a>
+                            <a href="register.php" class="w-48 rounded-4">New user? Register</a>
                         </div>
                     </form>
                 </div>
