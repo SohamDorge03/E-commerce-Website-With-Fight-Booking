@@ -5,121 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg" />  -->
+   
      <title>ShopFlix.in</title>
 
-    <!--css file-->
-    <link rel="stylesheet" href="./styles/home.css" />
-
-    <!--font awesome-->
-    
+  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
 
 <body>
-    <header class="header">
-        <div class="container1 container-header">
-            <div class="logo-container border-white">
-                <!-- <div class="logo">ShopFlix</div> -->
-                <span class="logo">Shop</span><span class="logo" style="color:rgb(154, 121, 204)">Flix</span>
-                <!-- <span class="dotin">.in</span> -->
-            </div>
-            <div class="search-container">
-                <select class="search-select">
-                    <option value="All">All</option>
-                    <option value="Electronic">Electronic</option>
-                    <option value="Furnitutre">Furnitutre</option>
-                    <option value="Gym Equipment">Gym Equipment</option>
-                    <option value="Flight Booking">flight Booking</option>
-                </select>
-                <input type="text" class="search-input" />
-                <div class="search-icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-
-            </div>
-            <div class="cart-container border-white">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Cart
-            </div>
-          <a href="#" class="logi">Login</a>
-        </div>
-    </header>
-
-    <!--navigation-->
-    <nav class="nav">
-        <div class="container container-nav">
-            <ul>
-                <li class="border-white" id="open-nav-sidebar">
-                    <span class="open-nav-slider">
-                        <i class="fa-solid fa-bars"></i>
-                        All
-                    </span>
-                </li>
-                <li class="border-white"><a href="#">Best Sellers</a></li>
-                <li class="border-white"><a href="#">Today's Deals</a></li>
-                <li class="border-white"><a href="services.php">Customer Service</a></li>
-                <li class="border-white"><a href="./electronics.php">Electronic</a></li>
-                <li class="border-white"><a href="./gym.php">Gym Eqipment</a></li>
-                <li class="border-white"><a href="./furniture.php">Furniture</a></li>
-                <li class="border-white"><a href="../air">Flight Booking</a></li>
-                <li class="border-white"><a href="#">About Us</a></li>
-                </li>
-            </ul>
-        </div>
-    </nav>
- 
-    <!-- sidebar navigation -->
-    <div class="sidebar-container-navigation" id="sidebar-container-navigation-id">
-        <div class="sidebar-left-part">
-            <div class="sidebar-top">
-                <i class="fa-solid fa-circle-user"></i>
-                <h2>Hello, <span>ShopFlix Users</span></h2>
-            </div>
-            <div class="sidebar-wrap">
-                <div class="sidebar-item">
-                    <h2>Trending</h2>
-                    <p>Best Sellers</p>
-                    <p>New Releases</p>
-                    <!-- <p>Movers and Shakers</p> -->
-                </div>
-                <div class="sidebar-item">
-                    <h2>Electronic</h2>
-                    <p>Washing Machin</p>
-                    <p>Smart TV</p>
-                    <p>Fridge</p>
-                    <p>Microwave</p>
-                    <p>Mobile</p>
-                </div>
-                <div class="sidebar-item">
-                    <h2>Furniture</h2>
-                    <p>Sofa</p>
-                    <p>Chair</p>
-                    <p>Bed</p>
-                    <p>Table</p>
-                </div>
-                <div class="sidebar-item">
-                    <h2>Gym Eqipment</h2>
-                    <p>Dumballes</p>
-                    <p>Trademeal</p>
-                    <p>skipping rope</p>
-                </div>
-                <div class="sidebar-item">
-                    <h2>Help & Settings</h2>
-                    <p>Your Account</p>
-                    <p>Customer Service</p>
-                    <p>Log Out</p>
-                </div>
-            </div>
-        </div>
-        <button id="sidebar-navigation-close">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-    </div>
-
-
-
-
+   <?php
+include('./include/navbar.php');
+   ?>
+  
     <!-- image slider -->
     <section style="margin-top:100x;">
         <div class="image-container" style="margin-top: 20x;">

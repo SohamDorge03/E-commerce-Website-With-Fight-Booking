@@ -2,15 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
   <title>Responsive Section Services</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet" />
+  
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       --main-color: #3f51b5;
@@ -18,26 +13,19 @@
       --text-color: #333;
     }
 
-    * {
-      padding: 0;
-      margin: 0;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
-
+   
     body {
       background-color: var(--bg-color);
     }
 
-    .container {
+    
+    .container2 {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 50px 20px;
     }
-
-    .container h2 {
+    .container2 h2 {
       text-align: center;
       margin-bottom: 40px;
       font-size: 2.5rem;
@@ -82,10 +70,19 @@
       color: var(--text-color);
     }
   </style>
+        
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+
 </head>
 
 <body>
-  <div class="container">
+
+<?php
+include('./include/navbar.php');
+   ?>
+
+<section style="margin-top:100x;">
+  <div class="container2">
     <h2>Our Services</h2>
     <div class="row">
       <div class="service">
@@ -130,6 +127,7 @@
       </div>
     </div>
   </div>
+  </section>
 </body>
 
 </html>
