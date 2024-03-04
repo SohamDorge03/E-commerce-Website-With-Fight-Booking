@@ -72,11 +72,7 @@ if ($subCategoryResult === false) {
             margin-bottom: 1rem;
             border-radius: 0.25rem;
             overflow-x: auto;
-        
-
-
         }
-
         th,
         td {
             white-space: nowrap;  
@@ -113,10 +109,6 @@ if ($subCategoryResult === false) {
     <?php include("./include/navbar.php"); ?>
 
     <div class="container">
-      
-
-      
-
         <div class="section-heading">
             <h2>Manage Categories</h2>
         </div>
@@ -152,9 +144,6 @@ if ($subCategoryResult === false) {
                 </tbody>
             </table>
         </div>
-      
-  
-
         <div class="section-heading">
             <h2>Manage Subcategories</h2>
         </div>
@@ -192,8 +181,6 @@ if ($subCategoryResult === false) {
                 </tbody>
             </table>
         </div>
- 
-
         <div class="section-heading">
             <h2>Add Category</h2>
         </div>
@@ -205,9 +192,7 @@ if ($subCategoryResult === false) {
                 </div>
                 <button type="submit" name="addCategory" class="btn btn-success">Add Category</button>
             </form>
-        </div>
-
-   
+        </div>   
 <div class="section-heading">
     <h2>Add Subcategory</h2>
 </div>

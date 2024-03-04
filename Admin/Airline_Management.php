@@ -1,5 +1,6 @@
 <?php
 include("./include/connection.php");
+include("./include/navbar.php");
 
 // Define the target directory for file uploads
 $target_dir = "./upload/";
@@ -93,7 +94,7 @@ if(isset($_POST['submit'])) {
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="margin-top: 100px;">
     <h2>Airline Management</h2>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAirlineModal">
         Add Airline

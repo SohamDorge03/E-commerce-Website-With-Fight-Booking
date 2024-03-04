@@ -237,6 +237,10 @@
                         <i class="fas fa-user nav_icon"></i>
                         <span class="nav_name">Users</span>
                     </a>
+                    <a href="cat.php" class="nav_link">
+                        <i class="fas fa-box nav_icon"></i>
+                        <span class="nav_name">Category</span>
+                    </a>
                     <a href="#" class="nav_link">
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Products</span>
