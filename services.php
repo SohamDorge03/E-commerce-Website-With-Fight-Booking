@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
  
   <title>Responsive Section Services</title>
@@ -8,93 +7,101 @@
  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --main-color: #3f51b5;
-      --bg-color: #f4f4f4;
-      --text-color: #333;
-    }
+  --main-color: #3f51b5;
+  --bg-color: #f4f4f4;
+  --text-color: #333;
+}
 
-   
-    body {
-      background-color: var(--bg-color);
-    }
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-    
-    .container2 {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 50px 20px;
-    }
-    .container2 h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      color: var(--main-color);
-    }
+body {
+  background-color: var(--bg-color);
+}
 
-    .row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
 
-    .service {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      transition: all 0.3s ease;
-    }
+.container h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  color: var(--main-color);
+}
 
-    .service:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
 
-    .service i {
-      display: block;
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: var(--main-color);
-    }
+.service {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+}
 
-    .service h3 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: var(--text-color);
-    }
+.service:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 
-    .service p {
-      font-size: 1rem;
-      color: var(--text-color);
-    }
-  </style>
-        
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+.service i {
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: var(--main-color);
+}
 
+.service h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.service p {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+    </style>
 </head>
-
 <body>
 
 <?php
 include('./include/navbar.php');
-   ?>
+ ?>
 
 <section style="margin-top:100x;">
   <div class="container2">
     <h2>Our Services</h2>
     <div class="row">
       <div class="service">
-        <i class="ri-service-fill"></i>
-        <h3>24/7 Support</h3>
-        <p>Get round-the-clock assistance whenever you need it.</p>
+        <a href="supp.php">
+          <i class="ri-service-fill"></i>
+          <h3>24/7 Support</h3>
+          <p>Get round-the-clock assistance whenever you need it.</p>
+        </a>
       </div>
-      <div class="service">
-        <i class="ri-video-line"></i>
-        <h3>Book a Demo</h3>
-        <p>Experience our products through personalized demonstrations.</p>
-      </div>
+      <a href="dem.php">
+        <div class="service">
+          <i class="ri-video-line"></i>
+          <h3>Book a Demo</h3>
+          <p>Experience our products through personalized demonstrations.</p>
+        </div>
+      </a>
       <div class="service">
         <i class="ri-refresh-line"></i>
         <h3>Easy Returns</h3>
@@ -129,5 +136,4 @@ include('./include/navbar.php');
   </div>
   </section>
 </body>
-
 </html>

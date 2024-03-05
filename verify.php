@@ -53,7 +53,7 @@ if (isset($_POST['verify'])) {
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff;
-            background-image: url("./image/background.png");
+            /* background-image: url("./image/background.png"); */
             color: #000;
         }
 

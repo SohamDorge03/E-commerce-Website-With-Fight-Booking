@@ -43,12 +43,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-   <?php
-include('./include/navbar.php');
-   ?>
-  
-=======
     <header class="header">
         <div class="container1 container-header">
             <div class="logo-container border-white">
@@ -152,13 +146,12 @@ include('./include/navbar.php');
 
 
 
->>>>>>> 13ba9d685918ca26378b42ed6253916388dc47a5
     <!-- image slider -->
     <section style="margin-top:100x;">
         <div class="image-container" style="margin-top: 20x;">
             <div class="image-list">
                 <div class="image-item">
-                    <img src="https://m.media-amazon.com/images/I/71cp9PVuTfL._SX3000_.jpg" />
+                    <img src="./images/fur1.jpg" />
                 </div>
                 <div class="image-item">
                     <img src="https://m.media-amazon.com/images/I/61GnAucagBL._SX3000_.png" />
@@ -190,7 +183,7 @@ include('./include/navbar.php');
             </div>
         </div>
     </section>
-
+        <!-- <img src="./images/trademills.jpg" alt=""> -->
 
     product container card
     <main class="main">
@@ -300,6 +293,7 @@ include('./include/navbar.php');
                 <button class="card-product-btn">see more</button>
             </div>
         </div>
+        
 
         <div class="card-product-container container productBackgraound">
             <div class="card-product">
@@ -504,6 +498,8 @@ include('./include/navbar.php');
 </div>
     </section>
     </main>
+    <img src="./images/gy.png" alt="">
+    <img src="./images/Screenshot 2024-03-05 124028.png" />
     <footer class="footer">
         <div class="container">
             <div class="social-media">
