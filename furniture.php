@@ -7,6 +7,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<img src="./images/fur.avif" alt="">
     <div class="container">
         <h1>Products</h1>
         <div class="row">

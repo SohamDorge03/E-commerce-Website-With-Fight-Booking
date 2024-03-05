@@ -155,7 +155,7 @@
         <div class="image-container" style="margin-top: 20x;">
             <div class="image-list">
                 <div class="image-item">
-                    <img src="https://m.media-amazon.com/images/I/71cp9PVuTfL._SX3000_.jpg" />
+                    <img src="./images/fur1.jpg" />
                 </div>
                 <div class="image-item">
                     <img src="https://m.media-amazon.com/images/I/61GnAucagBL._SX3000_.png" />
@@ -187,7 +187,7 @@
             </div>
         </div>
     </section>
-
+        <!-- <img src="./images/trademills.jpg" alt=""> -->
 
     product container card
     <main class="main">
@@ -297,6 +297,7 @@
                 <button class="card-product-btn">see more</button>
             </div>
         </div>
+        
 
         <div class="card-product-container container productBackgraound">
             <div class="card-product">
@@ -473,6 +474,8 @@
     </section>
     </section>
     </main>
+    <img src="./images/gy.png" alt="">
+    <img src="./images/Screenshot 2024-03-05 124028.png" />
     <footer class="footer">
         <div class="container">
             <div class="social-media">
