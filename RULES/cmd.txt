@@ -50,9 +50,10 @@ CREATE TABLE `airports` (
   `city` varchar(100) NOT NULL,
   `location` varchar(100) NOT NULL,
   PRIMARY KEY (`airport_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `airports` VALUES (8,'Chhatrapti shivaji maharaj airport','BOM','Maharashtra ','mumbai','mumbai');
+INSERT INTO `airports` VALUES (12,'Surat International Airport','STV','Gujarat','Surat','Surat');
+INSERT INTO `airports` VALUES (13,'Maharana Pratap Airport','UDR','Rajasthan','Udaipur','Udaipur');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `book_demo` (
