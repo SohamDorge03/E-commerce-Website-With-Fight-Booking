@@ -1,8 +1,42 @@
 <?php
+
 include("./include/connection.php");
-include("./include/navbar.php"); 
+include("./include/navbar.php");
+
+// Check if the remove button is clicked
+if(isset($_POST['remove_product_id'])) {
+    $remove_product_id = $_POST['remove_product_id'];
+
+    // Query to remove the product from the database
+    $remove_sql = "DELETE FROM products WHERE product_id = $remove_product_id";
+
+    if ($conn->query($remove_sql) === TRUE) {
+        echo "Product removed successfully";
+        exit; // Exit after echoing response to prevent further HTML output
+    } else {
+        echo "Error removing product: " . $conn->error;
+        exit; // Exit after echoing response to prevent further HTML output
+    }
+}
+
+if (isset($_POST['confirm_product_id'])) {
+    // Retrieve the product ID
+    $product_id = $_POST['confirm_product_id'];
+
+    // Query to update the confirmation status of the product
+    $update_sql = "UPDATE products SET confirmation_status = 1 WHERE product_id = $product_id";
+
+    // Execute the query
+    if (mysqli_query($db, $update_sql)) {
+        echo "Confirmation status updated successfully";
+    } else {
+        echo "Error updating confirmation status: ". mysqli_error($db);
+    }
+}
+
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -16,16 +50,33 @@ $result = $conn->query($sql);
     <style>
         #container{
             margin-top: 120px;
-            margin-left: 20PX;
-            
+         
         }
+        .description-cell {
+    max-width: 200px; /* Adjust the width as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.full-description {
+    white-space: normal;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 100;
+    max-width: 400px; /* Adjust the width as needed */
+}
+
     </style>
 </head>
 <body>
 
-<div class="container mt-5 " id="container">
+<div class="container " id="container">
     <h2>Product List</h2>
-    <table class="table">
+    <table class="table ">
         <thead>
             <tr>
                 <th>Product ID</th>
@@ -40,6 +91,7 @@ $result = $conn->query($sql);
                 <th>Discount Price</th>
                 <th>Category ID</th>
                 <th>Subcategory ID</th>
+                <th>Confirmation Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -50,18 +102,21 @@ $result = $conn->query($sql);
                     echo "<tr>";
                     echo "<td>" . $row["product_id"] . "</td>";
                     echo "<td>" . $row["name"] . "</td>";
-                    echo "<td><img src='" . $row["img1"] . "' width='50' height='50'></td>";
-                    echo "<td><img src='" . $row["img2"] . "' width='50' height='50'></td>";
-                    echo "<td><img src='" . $row["img3"] . "' width='50' height='50'></td>";
-                    echo "<td><img src='" . $row["img4"] . "' width='50' height='50'></td>";
-                    echo "<td>" . $row["description"] . "</td>";
+                    echo "<td>" . ($row["img1"] ? "<img src='../Vendor/" . $row["img1"] . "' width='50' height='50'>" : "-") . "</td>";
+                    echo "<td>" . ($row["img2"] ? "<img src='../Vendor/" . $row["img2"] . "' width='50' height='50'>" : "-") . "</td>";
+                    echo "<td>" . ($row["img3"] ? "<img src='../Vendor/" . $row["img3"] . "' width='50' height='50'>" : "-") . "</td>";
+                    echo "<td>" . ($row["img4"] ? "<img src='../Vendor/" . $row["img4"] . "' width='50' height='50'>" : "-") . "</td>";
+                    
+                  echo "<td>" . $row["description"] . "</td>";
+
                     echo "<td>$" . $row["price"] . "</td>";
                     echo "<td>" . $row["stock_quantity"] . "</td>";
                     echo "<td>" . $row["discount_price"] . "</td>";
                     echo "<td>" . $row["category_id"] . "</td>";
                     echo "<td>" . $row["subcategory_id"] . "</td>";
-                    echo "<td><button class='btn btn-success'>Confirm</button></td>";
-                    echo "<td><button class='btn btn-danger'>Remove</button></td>";
+                    echo "<td>" . ($row["confirmation_status"] ? 'Confirmed' : 'Not Confirmed') . "</td>";
+                    echo "<td><button class='btn btn-success' onclick='confirmProduct(" . $row['product_id'] . ")'>Confirm</button></td>";
+                    echo "<td><button class='btn btn-danger' onclick='removeProduct(" . $row['product_id'] . ")'>Remove</button></td>";
                     echo "</tr>";
                 }
             } else {
@@ -73,11 +128,52 @@ $result = $conn->query($sql);
 </div>
 
 <!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var descriptionCells = document.querySelectorAll('.description-cell');
+
+    descriptionCells.forEach(function(cell) {
+        cell.addEventListener('mouseover', function() {
+            var words = cell.textContent.split(' ');
+            if (words.length > 30 && !cell.querySelector('.full-description')) {
+                var fullDescription = document.createElement('div');
+                fullDescription.className = 'full-description';
+                fullDescription.textContent = cell.textContent;
+                cell.appendChild(fullDescription);
+            }
+        });
+
+        cell.addEventListener('mouseout', function() {
+            var fullDescription = cell.querySelector('.full-description');
+            if (fullDescription) {
+                fullDescription.remove();
+            }
+        });
+    });
+});
+
+function removeProduct(productId) {
+    if (confirm('Are you sure you want to remove this product?')) {
+        $.ajax({
+            url: window.location.href, // Send AJAX request to the same page
+            type: 'POST',
+            data: { remove_product_id: productId },
+            success: function(response) {
+                alert('Product removed successfully');
+                // Reload the page to reflect changes
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Error removing product');
+            }
+        });
+    }
+}
+</script>
 
 </body>
 </html>
-
-
