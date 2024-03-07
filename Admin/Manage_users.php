@@ -1,4 +1,3 @@
-
 <?php
 
 include("./include/connection.php");
@@ -55,16 +54,18 @@ if ($vendorResult === false) {
             width: 100%;
             margin-bottom: 1rem;
             border-radius: 0.25rem;
-            overflow-x: auto;  
+            overflow-x: auto;
         }
 
         th,
         td {
-            white-space: nowrap; /* Prevent line breaks in table cells */
+            white-space: nowrap;
+            /* Prevent line breaks in table cells */
         }
 
         .table-responsive {
-            overflow-x: auto; /* Make tables responsive */
+            overflow-x: auto;
+            /* Make tables responsive */
         }
 
         /* Styling for even and odd rows */
@@ -77,11 +78,9 @@ if ($vendorResult === false) {
         }
 
         .section-heading {
-            
+
             margin-top: 20px;
         }
-
-       
     </style>
 </head>
 
@@ -144,12 +143,11 @@ if ($vendorResult === false) {
             <table class="table custom-table">
                 <thead>
                     <tr>
-                         <th>Airline ID</th>
+                        <th>Airline ID</th>
                         <th>Username</th>
                         <th>Email</th>
                         <th>Password</th>
                         <th>Confirmed Email</th>
-                       
                         <th>Profile Pic URL</th>
                         <th>Address</th>
                         <th>City</th>
@@ -180,63 +178,114 @@ if ($vendorResult === false) {
                 </tbody>
             </table>
         </div>
-
         <!-- Vendors Data Table -->
         <div class="section-heading">
-            <h2>Vendors Data</h2>
-        </div>
-        <div class="table-responsive">
-            <table class="table custom-table">
-                <thead>
-                    <tr>
-                        <th>Vendor ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Confirmed Email</th>
-                        <th>Company Name</th>
-                        <th>Phone Number</th>
-                        <th>Website URL</th>
-                        <th>Profile Pic URL</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    // Display vendor data
-                    if ($vendorResult->num_rows > 0) {
-                        while ($row = $vendorResult->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>" . $row["vendor_id"] . "</td>";
-                            echo "<td>" . $row["username"] . "</td>";
-                            echo "<td>" . $row["email"] . "</td>";
-                            echo "<td>" . $row["password"] . "</td>";
-                            echo "<td>" . ($row["confirmed_email"] ? "Yes" : "No") . "</td>";
-                            echo "<td>" . $row["company_name"] . "</td>";
-                            echo "<td>" . $row["phone_number"] . "</td>";
-                            echo "<td>" . $row["website_url"] . "</td>";
-                            echo "<td>" . $row["profile_pic_url"] . "</td>";
-                            echo "<td>" . $row["address"] . "</td>";
-                            echo "<td>" . $row["city"] . "</td>";
-                            echo "<td>" . $row["state"] . "</td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='12'>No vendor data found</td></tr>";
+    <h2>Vendors Data</h2>
+</div>
+<div class="table-responsive">
+    <table class="table custom-table">
+        <thead>
+            <tr>
+                <th>Vendor ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Confirmed Email</th>
+                <th>Company Name</th>
+                <th>Phone Number</th>
+                <th>Website URL</th>
+                <th>Profile Pic URL</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Display vendor data
+            if ($vendorResult->num_rows > 0) {
+                while ($row = $vendorResult->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["vendor_id"] . "</td>";
+                    echo "<td>" . $row["username"] . "</td>";
+                    echo "<td>" . $row["email"] . "</td>";
+                    echo "<td>" . $row["password"] . "</td>";
+                    echo "<td>" . ($row["confirmed_email"] ? "Yes" : "No") . "</td>";
+                    echo "<td>" . $row["company_name"] . "</td>";
+                    echo "<td>" . $row["phone_number"] . "</td>";
+                    echo "<td>" . $row["website_url"] . "</td>";
+                    echo "<td>" . $row["profile_pic_url"] . "</td>";
+                    echo "<td>" . $row["address"] . "</td>";
+                    echo "<td>" . $row["city"] . "</td>";
+                    echo "<td>" . $row["state"] . "</td>";
+                    echo "<td>" . $row["Status"] . "</td>";
+                    // Adding confirm button with onclick event
+                    echo "<td>
+                            <button class='btn btn-success btn-sm' onclick='confirmVendor(" . $row["vendor_id"] . ")'>Confirm</button>
+                            <button class='btn btn-danger btn-sm' onclick='deleteVendor(" . $row["vendor_id"] . ")'>Delete</button>
+                          </td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='14'>No vendor data found</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+
+        <script>
+            function confirmVendor(vendorId) {
+                // Send AJAX request to toggle status
+                $.ajax({
+                    url: 'confirm_vendor.php',
+                    type: 'POST',
+                    data: {
+                        vendor_id: vendorId
+                    },
+                    success: function(response) {
+                        // Display confirmation message
+                        alert('Vendor confirm successfully');
+                        // Reload the page to reflect the updated status
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('Error toggling vendor status');
                     }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                });
+            }
+        </script>
+        <script>
+            function deleteVendor(vendorId) {
+                // Confirm with the user before deleting
+                if (confirm("Are you sure you want to delete this vendor?")) {
+                    // Send AJAX request to delete the vendor
+                    $.ajax({
+                        url: 'delete_vendor.php',
+                        type: 'POST',
+                        data: {
+                            vendor_id: vendorId
+                        },
+                        success: function(response) {
+                            // Display confirmation message
+                            alert('Vendor deleted successfully');
+                            // Reload the page to reflect the changes
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            alert('Error deleting vendor');
+                        }
+                    });
+                }
+            }
+        </script>
+
+
 </body>
 
 </html>
-
-<?php
-// Close database connection
-$conn->close();
-?>
-</div>

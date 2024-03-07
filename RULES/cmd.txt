@@ -249,7 +249,8 @@ CREATE TABLE `vendors` (
   `address` varchar(255) DEFAULT NULL,
   `city` varchar(50) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL,
+  `Status` tinyint(1) NOT NULL,
   PRIMARY KEY (`vendor_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123',1,'Air asia','9997778880','-','-','surat','surat','gujarat');
+INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123',1,'Air asia','9997778880','-','-','surat','surat','gujarat',1);
