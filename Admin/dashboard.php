@@ -76,12 +76,12 @@ include("./include/connection.php");
                 "SELECT COUNT(*) AS orders FROM orders",
                 "SELECT COUNT(*) AS vendors FROM vendors",
                 "SELECT COUNT(*) AS products FROM products",
-                "SELECT COUNT(*) AS warranty_claims FROM warranty_claims",
+                // "SELECT COUNT(*) AS warranty_claims FROM warranty_claims",
                 "SELECT COUNT(*) AS airports FROM airports",
-                "SELECT COUNT(*) AS demo_bookings FROM demo_bookings",
-                "SELECT COUNT(*) AS returns FROM returns",
-                "SELECT COUNT(*) AS feedbacks FROM feedbacks",
-                "SELECT AVG(rating) AS average_rating FROM ratings"
+                // "SELECT COUNT(*) AS demo_bookings FROM demo_bookings",
+                // "SELECT COUNT(*) AS returns FROM returns",
+                // "SELECT COUNT(*) AS feedbacks FROM feedbacks",
+                // "SELECT AVG(rating) AS average_rating FROM ratings"
             );
 
             foreach ($sql_queries as $sql_query) {
