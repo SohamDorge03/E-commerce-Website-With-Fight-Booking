@@ -248,7 +248,7 @@
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">categories</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="order.php" class="nav_link">
                         <i class="fas fa-shopping-bag nav_icon"></i>
                         <span class="nav_name">Orders</span>
                     </a>
@@ -260,7 +260,7 @@
                         <i class="fas fa-shield-alt nav_icon"></i>
                         <span class="nav_name">Warranty</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="Demos.php" class="nav_link">
                         <i class="fas fa-cogs nav_icon"></i>
                         <span class="nav_name">Demos</span>
                     </a>
