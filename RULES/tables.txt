@@ -110,9 +110,6 @@ CREATE TABLE subcategories (
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
-<<<<<<< Updated upstream
--- Table for Products
-=======
 -- HEAD
 =======
 -- Stashed changes
@@ -120,7 +117,6 @@ CREATE TABLE subcategories (
 =======
 
 -- ed861e5d4c6b29b5df53d3bcb423382efd9ea9e6
->>>>>>> Stashed changes
 CREATE TABLE products (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
     vendor_id INT,

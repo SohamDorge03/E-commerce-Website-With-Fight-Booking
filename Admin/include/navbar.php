@@ -72,7 +72,6 @@
             z-index: var(--z-fixed);
             transition: .5s;
         }
-
         .header_logo {
             display: flex;
             align-items: center;
