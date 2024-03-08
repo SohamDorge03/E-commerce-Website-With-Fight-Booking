@@ -61,13 +61,14 @@ CREATE TABLE `book_demo` (
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
   `demo_date` datetime NOT NULL,
+  `Application_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(20) NOT NULL,
   PRIMARY KEY (`demo_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `book_demo` VALUES (1,1,2,'2024-03-07 14:23:44','Confirmed');
+INSERT INTO `book_demo` VALUES (5,5,5,'2024-03-08 15:28:01','2024-03-08 20:58:07','Confirmed');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booked_flights` (
@@ -178,9 +179,9 @@ CREATE TABLE `products` (
   KEY `vendor_id` (`vendor_id`),
   KEY `category_id` (`category_id`),
   KEY `subcategory_id` (`subcategory_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `products` VALUES (4,1,'dumbbal','products/d.png','','','','gughjghgj',20000.00,2000,1000.00,1,1,0,1);
+INSERT INTO `products` VALUES (5,1,'Sofa','products/s.png','','','','sofa set',20000.00,200,1000.00,2,5,0,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `report_issue` (
@@ -234,7 +235,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `users` VALUES (5,'soham','dorge','soham','sohamdorge45@gmail.com','123456','7778889990','Male',1,NULL,NULL,NULL,NULL,NULL,'156185');
+INSERT INTO `users` VALUES (5,'soham','dorge','soham','sohamdorge45@gmail.com','123456','7778889990','Male',1,NULL,'surat',NULL,NULL,NULL,'156185');
 INSERT INTO `users` VALUES (6,'vishal ','qw','saw','sohamdorge45@gmail.com','12345678','1245455665657','Male',0,NULL,NULL,NULL,NULL,NULL,'203900');
 INSERT INTO `users` VALUES (7,'vishal ','saw','shankar','sohamdorge45@gmail.com','12345566878','1245455665657','Male',1,NULL,NULL,NULL,NULL,NULL,'270300');
 INSERT INTO `users` VALUES (8,'vishal ','saw','shankar','sawvishal2004@gmail.com','12345678','1245455665657','Male',1,NULL,NULL,NULL,NULL,NULL,'573147');

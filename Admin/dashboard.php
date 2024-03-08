@@ -1,7 +1,4 @@
-<?php
-include("./include/navbar.php");
-include("./include/connection.php");
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

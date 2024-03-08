@@ -1,10 +1,10 @@
 <style>
-    .container{
-        margin-top: 70px !important;
-    }
+
+.container{
+    margin-top: 70px !important;
+}
 </style>
 <?php
-
 include("include/connection.php");
 include('include/navbar.php');
 
@@ -28,17 +28,17 @@ echo "<div class='container mt-5'>";
 echo "<h2>Orders with Product Details</h2>";
 echo "<table class='table table-bordered'>";
 echo "<thead class='thead-light'>";
-echo "<tr><th>Order ID</th><th>User ID</th><th>User Name</th><th>Order Date</th><th>Status</th><th>Payment Method</th><th>Payment Status</th><th>Transaction ID</th><th>Total Amount</th><th>Actions</th><th>Product Details</th></tr>";
+echo "<tr><th>Order ID</th><th>User ID</th><th>User Name</th><th>Email</th><th>Address</th><th>Order Date</th><th>Status</th><th>Payment Method</th><th>Payment Status</th><th>Transaction ID</th><th>Total Amount</th><th>Products</th></tr>";
 echo "</thead>";
 echo "<tbody>";
 
-$sql_orders_products = "SELECT o.order_id, o.user_id, u.username AS user_name, o.order_date, o.status, o.payment_method, o.payment_status, o.transaction_id, o.total_amount,
+$sql_orders_products = "SELECT o.order_id, o.user_id, u.username AS user_name, u.email, u.address, o.order_date, o.status, o.payment_method, o.payment_status, o.transaction_id, o.total_amount,
                         GROUP_CONCAT(CONCAT(oi.product_id, ':', p.name, ':', oi.quantity, ':$', FORMAT(p.price, 2), ':$', FORMAT(oi.quantity * p.price, 2)) SEPARATOR '<br>') AS product_details
                         FROM orders o
                         INNER JOIN order_items oi ON o.order_id = oi.order_id
                         INNER JOIN products p ON oi.product_id = p.product_id
                         INNER JOIN users u ON o.user_id = u.user_id
-                        GROUP BY o.order_id, o.user_id, u.username, o.order_date, o.status, o.payment_method, o.payment_status, o.transaction_id, o.total_amount";
+                        GROUP BY o.order_id, o.user_id, u.username, u.email, u.address, o.order_date, o.status, o.payment_method, o.payment_status, o.transaction_id, o.total_amount";
 
 $result_orders_products = $conn->query($sql_orders_products);
 
@@ -49,6 +49,8 @@ if ($result_orders_products) {
             echo "<td>" . $row['order_id'] . "</td>";
             echo "<td>" . $row['user_id'] . "</td>";
             echo "<td>" . $row['user_name'] . "</td>";
+            echo "<td>" . $row['email'] . "</td>";
+            echo "<td>" . $row['address'] . "</td>";
             echo "<td>" . $row['order_date'] . "</td>";
             echo "<td>";
             echo "<form method='POST' action=''>";  
@@ -84,7 +86,7 @@ if ($result_orders_products) {
             
             // Product Details Table in Modal
             echo "<table class='table table-bordered'>";
-            echo "<thead><tr><th>Product ID</th><th>Product Name</th><th>Quantity</th><th>Product Price</th><th>Subtotal</th></tr></thead>";
+            echo "<thead><tr><th>Product ID</th><th>Product Name</th><th>Quantity</th><th>Product Price</th><th>Total Price</th></tr></thead>";
             echo "<tbody>";
             $product_details = explode("<br>", $row['product_details']);
             foreach ($product_details as $product) {
@@ -113,10 +115,10 @@ if ($result_orders_products) {
             echo "</tr>";
         }
     } else {
-        echo "<tr><td colspan='11'>0 results</td></tr>";
+        echo "<tr><td colspan='13'>0 results</td></tr>";
     }
 } else {
-    echo "<tr><td colspan='11'>Error executing the query: " . $conn->error . "</td></tr>";
+    echo "<tr><td colspan='13'>Error executing the query: " . $conn->error . "</td></tr>";
 }
 
 echo "</tbody>";
