@@ -3,19 +3,17 @@
 include("./include/connection.php");
 include("./include/navbar.php");
 
-// Check if the remove button is clicked
 if(isset($_POST['remove_product_id'])) {
     $remove_product_id = $_POST['remove_product_id'];
 
-    // Query to remove the product from the database
     $remove_sql = "DELETE FROM products WHERE product_id = $remove_product_id";
 
     if ($conn->query($remove_sql) === TRUE) {
         echo "Product removed successfully";
-        exit; // Exit after echoing response to prevent further HTML output
+        exit;
     } else {
         echo "Error removing product: " . $conn->error;
-        exit; // Exit after echoing response to prevent further HTML output
+        exit;
     }
 }
 
@@ -71,8 +69,7 @@ $result = $conn->query($sql);
     z-index: 100;
     max-width: 400px; /* Adjust the width as needed */
 }
-
-    </style>
+</style>
 </head>
 <body>
 
@@ -194,6 +191,5 @@ function confirmProduct(productId) {
     }
 }
 </script>
-
 </body>
 </html>
