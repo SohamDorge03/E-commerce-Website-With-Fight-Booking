@@ -143,15 +143,17 @@ if ($vendorResult === false) {
             <table class="table custom-table">
                 <thead>
                     <tr>
-                        <th>Airline ID</th>
+                        <th>User ID</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Confirmed Email</th>
+                        <th>Airline ID</th>
                         <th>Profile Pic URL</th>
                         <th>Address</th>
                         <th>City</th>
                         <th>State</th>
+                        <th>Confirmation Admin Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,15 +162,29 @@ if ($vendorResult === false) {
                     if ($airlineResult->num_rows > 0) {
                         while ($row = $airlineResult->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td>" . $row["airline_id"] . "</td>";
-                            echo "<td>" . $row["username"] . "</td>";
-                            echo "<td>" . $row["email"] . "</td>";
-                            echo "<td>" . $row["password"] . "</td>";
-                            echo "<td>" . ($row["confirmed_email"] ? "Yes" : "No") . "</td>";
-                            echo "<td>" . $row["profile_pic_url"] . "</td>";
-                            echo "<td>" . $row["address"] . "</td>";
-                            echo "<td>" . $row["city"] . "</td>";
-                            echo "<td>" . $row["state"] . "</td>";
+                            echo "<td>" . $row['user_id'] . "</td>";
+                            echo "<td>" . $row['username'] . "</td>";
+                            echo "<td>" . $row['email'] . "</td>";
+                            echo "<td>" . ($row['confirmed_email'] ? 'Yes' : 'No') . "</td>";
+                            echo "<td>" . $row['airline_id'] . "</td>";
+                            echo "<td>" . $row['profile_pic_url'] . "</td>";
+                            echo "<td>" . $row['address'] . "</td>";
+                            echo "<td>" . $row['city'] . "</td>";
+                            echo "<td>" . $row['state'] . "</td>";
+                            echo "<td>" . $row['confirmation_admin_status'] . "</td>";
+                            echo "<td>
+                            <form method='POST'>
+                                <input type='hidden' name='user_id' value='" . $row['user_id'] . "'>
+                                <button type='submit' class='btn btn-success' name='confirm'>Confirm</button>
+                            </form>
+                        </td>";
+                            echo "<td>
+                            <form method='POST'>
+                                <input type='hidden' name='user_id' value='" . $row['user_id'] . "'>
+                                <button type='submit' class='btn btn-danger' name='remove'>Remove</button>
+                            </form>
+                        </td>";
+
                             echo "</tr>";
                         }
                     } else {
@@ -180,61 +196,61 @@ if ($vendorResult === false) {
         </div>
         <!-- Vendors Data Table -->
         <div class="section-heading">
-    <h2>Vendors Data</h2>
-</div>
-<div class="table-responsive">
-    <table class="table custom-table">
-        <thead>
-            <tr>
-                <th>Vendor ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Confirmed Email</th>
-                <th>Company Name</th>
-                <th>Phone Number</th>
-                <th>Website URL</th>
-                <th>Profile Pic URL</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Display vendor data
-            if ($vendorResult->num_rows > 0) {
-                while ($row = $vendorResult->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["vendor_id"] . "</td>";
-                    echo "<td>" . $row["username"] . "</td>";
-                    echo "<td>" . $row["email"] . "</td>";
-                    echo "<td>" . $row["password"] . "</td>";
-                    echo "<td>" . ($row["confirmed_email"] ? "Yes" : "No") . "</td>";
-                    echo "<td>" . $row["company_name"] . "</td>";
-                    echo "<td>" . $row["phone_number"] . "</td>";
-                    echo "<td>" . $row["website_url"] . "</td>";
-                    echo "<td>" . $row["profile_pic_url"] . "</td>";
-                    echo "<td>" . $row["address"] . "</td>";
-                    echo "<td>" . $row["city"] . "</td>";
-                    echo "<td>" . $row["state"] . "</td>";
-                    echo "<td>" . $row["Status"] . "</td>";
-                    // Adding confirm button with onclick event
-                    echo "<td>
+            <h2>Vendors Data</h2>
+        </div>
+        <div class="table-responsive">
+            <table class="table custom-table">
+                <thead>
+                    <tr>
+                        <th>Vendor ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Confirmed Email</th>
+                        <th>Company Name</th>
+                        <th>Phone Number</th>
+                        <th>Website URL</th>
+                        <th>Profile Pic URL</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Display vendor data
+                    if ($vendorResult->num_rows > 0) {
+                        while ($row = $vendorResult->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["vendor_id"] . "</td>";
+                            echo "<td>" . $row["username"] . "</td>";
+                            echo "<td>" . $row["email"] . "</td>";
+                            echo "<td>" . $row["password"] . "</td>";
+                            echo "<td>" . ($row["confirmed_email"] ? "Yes" : "No") . "</td>";
+                            echo "<td>" . $row["company_name"] . "</td>";
+                            echo "<td>" . $row["phone_number"] . "</td>";
+                            echo "<td>" . $row["website_url"] . "</td>";
+                            echo "<td>" . $row["profile_pic_url"] . "</td>";
+                            echo "<td>" . $row["address"] . "</td>";
+                            echo "<td>" . $row["city"] . "</td>";
+                            echo "<td>" . $row["state"] . "</td>";
+                            echo "<td>" . $row["Status"] . "</td>";
+                            // Adding confirm button with onclick event
+                            echo "<td>
                             <button class='btn btn-success btn-sm' onclick='confirmVendor(" . $row["vendor_id"] . ")'>Confirm</button>
                             <button class='btn btn-danger btn-sm' onclick='deleteVendor(" . $row["vendor_id"] . ")'>Delete</button>
                           </td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='14'>No vendor data found</td></tr>";
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='14'>No vendor data found</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
 
 
         <script>
@@ -284,8 +300,28 @@ if ($vendorResult === false) {
                 }
             }
         </script>
+<?php
+// Check if the Confirm button is clicked
+if(isset($_POST['confirm'])) {
+    $user_id = $_POST['user_id'];
+    // Update the confirmation_admin_status to 1 (confirmed)
+    $sql = "UPDATE airline_users SET confirmation_admin_status = 1 WHERE user_id = $user_id";
+    mysqli_query($conn, $sql);
+    // Show confirmation message
+    echo "<script>alert('User confirmed successfully.');</script>";
+}
 
+// Check if the Remove button is clicked
+if(isset($_POST['remove'])) {
+    $user_id = $_POST['user_id'];
+    // Remove the user data
+    $sql = "DELETE FROM airline_users WHERE user_id = $user_id";
+    mysqli_query($conn, $sql);
+    // Show removal message
+    echo "<script>alert('User removed successfully.');</script>";
+}
 
+?>
 </body>
 
 </html>

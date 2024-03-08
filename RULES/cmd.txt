@@ -25,7 +25,7 @@ CREATE TABLE `airline_users` (
   `state` varchar(50) DEFAULT NULL,
   `confirmation_admin_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airline_users` VALUES (2,'soham','so123@gmail.com','12456',0,1,NULL,'udhana','surat','gujarat',1);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
