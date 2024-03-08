@@ -16,7 +16,6 @@ if(isset($_POST['remove_product_id'])) {
         exit;
     }
 }
-
 if (isset($_POST['confirm_product_id'])) {
     // Retrieve the product ID
     $product_id = $_POST['confirm_product_id'];
@@ -90,7 +89,9 @@ $result = $conn->query($sql);
                 <th>Discount Price</th>
                 <th>Category ID</th>
                 <th>Subcategory ID</th>
+                <th>Warrenty</th>
                 <th>Confirmation Status</th>
+
                 <th>Action</th>
             </tr>
         </thead>
@@ -113,6 +114,7 @@ $result = $conn->query($sql);
                     echo "<td>" . $row["discount_price"] . "</td>";
                     echo "<td>" . $row["category_id"] . "</td>";
                     echo "<td>" . $row["subcategory_id"] . "</td>";
+                    echo "<td>" . $row["warranty"] . "</td>";
                     echo "<td>" . ($row["confirmation_status"] ? 'Confirmed' : 'Not Confirmed') . "</td>";
                     echo "<td><button class='btn btn-success' onclick='confirmProduct(" . $row['product_id'] . ")'>Confirm</button></td>";
                     echo "<td><button class='btn btn-danger' onclick='removeProduct(" . $row['product_id'] . ")'>Remove</button></td>";

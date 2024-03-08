@@ -2,7 +2,6 @@
 
 include("./include/connection.php");
 
-// Check if connection is successful
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -16,7 +15,6 @@ if ($userResult === false) {
     die("Error executing the user query: " . $conn->error);
 }
 
-// SQL query to fetch data from the airline_users table
 $airlineSql = "SELECT * FROM airline_users";
 $airlineResult = $conn->query($airlineSql);
 
@@ -35,7 +33,6 @@ if ($vendorResult === false) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,14 +46,12 @@ if ($vendorResult === false) {
         .container {
             margin-top: 50px;
         }
-
         .custom-table {
             width: 100%;
             margin-bottom: 1rem;
             border-radius: 0.25rem;
             overflow-x: auto;
         }
-
         th,
         td {
             white-space: nowrap;

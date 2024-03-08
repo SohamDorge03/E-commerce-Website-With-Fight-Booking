@@ -8,8 +8,6 @@ if (!isset($_SESSION['vendor_id'])) {
     exit();
 }
 
-
-
 include './include/connection.php'; 
 
 $customer_name = "";
