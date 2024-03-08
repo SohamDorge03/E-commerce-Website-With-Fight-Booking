@@ -27,10 +27,12 @@ if (isset($_POST['confirm_product_id'])) {
     $update_sql = "UPDATE products SET confirmation_status = 1 WHERE product_id = $product_id";
 
     // Execute the query
-    if (mysqli_query($db, $update_sql)) {
+    if ($conn->query($update_sql) === TRUE) {
         echo "Confirmation status updated successfully";
+        exit; // Exit after echoing response to prevent further HTML output
     } else {
-        echo "Error updating confirmation status: ". mysqli_error($db);
+        echo "Error updating confirmation status: " . $conn->error;
+        exit; // Exit after echoing response to prevent further HTML output
     }
 }
 
@@ -107,7 +109,7 @@ $result = $conn->query($sql);
                     echo "<td>" . ($row["img3"] ? "<img src='../Vendor/" . $row["img3"] . "' width='50' height='50'>" : "-") . "</td>";
                     echo "<td>" . ($row["img4"] ? "<img src='../Vendor/" . $row["img4"] . "' width='50' height='50'>" : "-") . "</td>";
                     
-                  echo "<td>" . $row["description"] . "</td>";
+                    echo "<td class='description-cell'>" . $row["description"] . "</td>";
 
                     echo "<td>$" . $row["price"] . "</td>";
                     echo "<td>" . $row["stock_quantity"] . "</td>";
@@ -169,6 +171,24 @@ function removeProduct(productId) {
             },
             error: function(xhr, status, error) {
                 alert('Error removing product');
+            }
+        });
+    }
+}
+
+function confirmProduct(productId) {
+    if (confirm('Are you sure you want to confirm this product?')) {
+        $.ajax({
+            url: window.location.href, // Send AJAX request to the same page
+            type: 'POST',
+            data: { confirm_product_id: productId }, // Send product ID to server
+            success: function(response) {
+                alert('Confirmation status updated successfully');
+                // Reload the page to reflect changes
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Error updating confirmation status');
             }
         });
     }
