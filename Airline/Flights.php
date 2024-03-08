@@ -1,3 +1,7 @@
+<?php
+include("./connection.php");
+include("./navbar.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,134 +9,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Management</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="./dash.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Add your custom styles here */
+        .container {
+            margin-top: 70px !important;
+        }
     </style>
 </head>
 
-<body id="body-pd">
-    <header class="header" id="header">
-        <div class="header_toggle">
-            <i class='bx bx-menu' id="header-toggle"></i>
-        </div>
-        <div class="header_img">
-            <img src="https://i.imgur.com/hczKIze.jpg" alt="">
-        </div>
-    </header>
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div>
-                <a href="#" class="nav_logo">
-                    <i class='bx bx-layer nav_logo-icon'></i>
-                    <span class="nav_logo-name">ShopFlix</span>
-                </a>
-                <div class="nav_list">
-                    <a href="dashboard.php" class="nav_link">
-                        <i class='bx bx-grid-alt nav_icon'></i>
-                        <span class="nav_name">Dashboard</span>
-                    </a>
-                    <a href="#" class="nav_link active">
-                        <i class='bx bx-plane-alt nav_icon'></i>
-                        <span class="nav_name">Flights</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Users</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-message-square-detail nav_icon'></i>
-                        <span class="nav_name">Airports</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-folder nav_icon'></i>
-                        <span class="nav_name">Bookings</span>
-                    </a>
-                </div>
-            </div>
-            <a href="log.php" class="nav_link">
-                <i class='bx bx-log-out nav_icon'></i>
-                <span class="nav_name">Sign Out</span>
-            </a>
-        </nav>
-    </div>
-
-    <!-- Main content area -->
-    <div class="container-fluid py-4">
-        <h1 class="display-5">Flight Management</h1>
+<body>
+    <div class="container mt-5">
+        <h2>Add New Flight</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFlightModal">Add New Flight</button>
+        <hr>
+        <h2>Flight Details</h2>
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Flight Number</th>
-                        <th scope="col">Departure Airport</th>
-                        <th scope="col">Destination Airport</th>
-                        <th scope="col">Departure Time</th>
-                        <th scope="col">Arrival Time</th>
-                        <th scope="col">Status</th>
+                        <th>Flight ID</th>
+                        <th>Flight Code</th>
+                        <th>Source Date</th>
+                        <th>Source Time</th>
+                        <th>Destination Date</th>
+                        <th>Destination Time</th>
+                        <th>Departure Airport ID</th>
+                        <th>Arrival Airport ID</th>
+                        <th>Seats</th>
+                        <th>Price</th>
+                        <th>Airline Email</th>
+                        <th>Actions</th> <!-- New column for update and delete buttons -->
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Sample data, replace it with dynamic data from your backend -->
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>ABC123</td>
-                        <td>JFK</td>
-                        <td>LAX</td>
-                        <td>2024-03-05 08:00</td>
-                        <td>2024-03-05 11:00</td>
-                        <td>On Time</td>
-                    </tr>
-                    <!-- More rows can be added here -->
+                    <?php
+                    $sql = "SELECT * FROM flights";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["flight_id"] . "</td>";
+                            echo "<td>" . $row["flight_code"] . "</td>";
+                            echo "<td>" . $row["source_date"] . "</td>";
+                            echo "<td>" . $row["source_time"] . "</td>";
+                            echo "<td>" . $row["dest_date"] . "</td>";
+                            echo "<td>" . $row["dest_time"] . "</td>";
+                            echo "<td>" . $row["dep_airport_id"] . "</td>";
+                            echo "<td>" . $row["arr_airport_id"] . "</td>";
+                            echo "<td>" . $row["seats"] . "</td>";
+                            echo "<td>" . $row["price"] . "</td>";
+                            echo "<td>" . $row["email"] . "</td>";
+                            echo "<td>
+                    <a href='update_flight.php?id=" . $row["flight_id"] . "' class='btn btn-sm btn-primary'>Update</a>
+                    
+                    <a href='delete_flight.php?id=" . $row["flight_id"] . "' class='btn btn-sm btn-danger'>Delete</a>
+                  </td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='12'>No flights found</td></tr>";
+                    }
+
+                    $conn->close();
+                    ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
+    <!-- Add Flight Modal -->
+    <div class="modal fade" id="addFlightModal" tabindex="-1" role="dialog" aria-labelledby="addFlightModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFlightModalLabel">Add New Flight</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <div class="form-group">
+                            <label for="flight_code">Flight Code:</label>
+                            <input type="text" class="form-control" id="flight_code" name="flight_code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="source_date">Source Date:</label>
+                            <input type="date" class="form-control" id="source_date" name="source_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="source_time">Source Time:</label>
+                            <input type="time" class="form-control" id="source_time" name="source_time">
+                        </div>
+                        <div class="form-group">
+                            <label for="dest_date">Destination Date:</label>
+                            <input type="date" class="form-control" id="dest_date" name="dest_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="dest_time">Destination Time:</label>
+                            <input type="time" class="form-control" id="dest_time" name="dest_time">
+                        </div>
+                        <div class="form-group">
+                            <label for="dep_airport_id">Departure Airport ID:</label>
+                            <input type="number" class="form-control" id="dep_airport_id" name="dep_airport_id">
+                        </div>
+                        <div class="form-group">
+                            <label for="arr_airport_id">Arrival Airport ID:</label>
+                            <input type="number" class="form-control" id="arr_airport_id" name="arr_airport_id">
+                        </div>
+                        <div class="form-group">
+                            <label for="seats">Number of Seats:</label>
+                            <input type="number" class="form-control" id="seats" name="seats">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="text" class="form-control" id="price" name="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Airline Email:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            const showNavbar = (toggleId, navId, bodyId, headerId) => {
-                const toggle = document.getElementById(toggleId),
-                    nav = document.getElementById(navId),
-                    bodypd = document.getElementById(bodyId),
-                    headerpd = document.getElementById(headerId)
-
-                // Validate that all variables exist
-                if (toggle && nav && bodypd && headerpd) {
-                    toggle.addEventListener('click', () => {
-                        // show navbar
-                        nav.classList.toggle('show')
-                        // change icon
-                        toggle.classList.toggle('bx-x')
-                        // add padding to body
-                        bodypd.classList.toggle('body-pd')
-                        // add padding to header
-                        headerpd.classList.toggle('body-pd')
-                    })
-                }
-            }
-
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
-
-            /*===== LINK ACTIVE =====*/
-            const linkColor = document.querySelectorAll('.nav_link')
-
-            function colorLink() {
-                if (linkColor) {
-                    linkColor.forEach(l => l.classList.remove('active'))
-                    this.classList.add('active')
-                }
-            }
-            linkColor.forEach(l => l.addEventListener('click', colorLink))
-        });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
