@@ -99,7 +99,6 @@ if(isset($_POST['remove'])) {
   </table>
 </div>
 
-<!-- Bootstrap JS (optional, if you need JavaScript functionality) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
