@@ -1,13 +1,11 @@
 <?php
 include("./include/connection.php");
-include("./include/navbar.php");
 
-// Define the target directory for file uploads
 $target_dir = "./upload/";
+
 if(isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $delete_id = $_GET['id'];
 
-    // Perform deletion operation
     $sql = "DELETE FROM airlines WHERE airline_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $delete_id);
@@ -17,48 +15,43 @@ if(isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) 
         header("Location: {$_SERVER['PHP_SELF']}");
         exit();
     } else {
-        // Handle deletion failure
+ 
         echo "Error deleting record: " . $conn->error;
     }
 }
 
-// Handle form submission for adding a new airline
 if(isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $pass = $_POST['pass']; // Note: You should hash the password for security reasons
+    $pass = $_POST['pass']; 
     $airline_name = $_POST['airline_name'];
     $logo = isset($_FILES["logo"]["name"]) ? $target_dir . basename($_FILES["logo"]["name"]) : '';
 
-    // File upload handling for adding a new airline
     if(isset($_FILES["logo"]["name"])) {
         $target_file = $target_dir . basename($_FILES["logo"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-        // Check if image file is a valid image
         $check = getimagesize($_FILES["logo"]["tmp_name"]);
         if($check === false) {
             echo "File is not an image.";
             $uploadOk = 0;
         }
 
-        // Check file size
         if ($_FILES["logo"]["size"] > 500000) {
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }
-
-        // Allow certain file formats
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
             echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
         }
 
-        // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
             echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
-        } else {
+        
+        } 
+        else
+         {
             if (move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
                 echo "The file ". htmlspecialchars(basename($_FILES["logo"]["name"])). " has been uploaded.";
                 $logo = $target_file;
@@ -68,20 +61,21 @@ if(isset($_POST['submit'])) {
         }
     }
 
-    // Insert data into database
     $sql = "INSERT INTO airlines (email, pass, airline_name, logo) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssss", $email, $pass, $airline_name, $logo);
     
     if ($stmt->execute()) {
         echo "<script>alert('New airline added successfully');</script>";
-        // Redirect to prevent form resubmission
         header("Location: {$_SERVER['PHP_SELF']}");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+
+include("./include/navbar.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -112,7 +106,6 @@ if(isset($_POST['submit'])) {
         </thead>
         <tbody>
             <?php
-            // Retrieve data from database and display in table
             $sql = "SELECT airline_id, email, airline_name, logo FROM airlines";
             $result = $conn->query($sql);
 
@@ -137,7 +130,6 @@ if(isset($_POST['submit'])) {
     </table>
 </div>
 
-<!-- Add Airline Modal -->
 <div class="modal fade" id="addAirlineModal" tabindex="-1" role="dialog" aria-labelledby="addAirlineModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -172,7 +164,6 @@ if(isset($_POST['submit'])) {
     </div>
 </div>
 
-<!-- Edit Airline Modal -->
 <div class="modal fade" id="editAirlineModal" tabindex="-1" role="dialog" aria-labelledby="editAirlineModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -209,7 +200,6 @@ if(isset($_POST['submit'])) {
 </div>
 
 <?php
-// Handle form submission for editing
 if(isset($_POST['submit_edit'])) {
     $edit_airline_id = $_POST['edit_airline_id'];
     $edit_email = $_POST['edit_email'];
@@ -217,12 +207,10 @@ if(isset($_POST['submit_edit'])) {
     $edit_airline_name = $_POST['edit_airline_name'];
     $edit_logo = isset($_FILES["edit_logo"]["name"]) ? $target_dir . basename($_FILES["edit_logo"]["name"]) : $_POST['edit_logo'];
 
-    // File upload handling for editing
     if(isset($_FILES["edit_logo"]["name"])) {
         $target_file_edit = $target_dir . basename($_FILES["edit_logo"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file_edit,PATHINFO_EXTENSION));
-        // Check if image file is a actual image or fake image
         if(isset($_POST["submit_edit"])) {
             $check = getimagesize($_FILES["edit_logo"]["tmp_name"]);
             if($check !== false) {
