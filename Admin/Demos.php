@@ -139,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
         $(".remove-btn").click(function(){
             var demoId = $(this).data("demo-id");
             // Perform AJAX request to remove data
-            $.post("", {demo_id: demoId}, function(data){
+            $.post("remove_demo.php", {demo_id: demoId}, function(data){
                 // Display confirmation message or error
                 alert(data);
                 location.reload(); // Reload the page to reflect changes
