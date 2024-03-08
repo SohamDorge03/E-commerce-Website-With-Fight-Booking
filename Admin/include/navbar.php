@@ -244,10 +244,6 @@
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Products</span>
                     </a>
-                    <a href="cat.php" class="nav_link">
-                        <i class="fas fa-box nav_icon"></i>
-                        <span class="nav_name">categories</span>
-                    </a>
                     <a href="order.php" class="nav_link">
                         <i class="fas fa-shopping-bag nav_icon"></i>
                         <span class="nav_name">Orders</span>
