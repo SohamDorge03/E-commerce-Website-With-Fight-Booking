@@ -199,6 +199,9 @@
                 padding-left: calc(var(--nav-width) + 1rem);
             }
         }
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -254,7 +257,7 @@
                         <i class="fas fa-book nav_icon"></i>
                         <span class="nav_name">Reports</span>
                     </a>
-                    <a href="login.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>">
+                    <a href="log.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>">
                         <i class="fas fa-sign-out-alt nav_icon"></i>
                         <span class="nav_name">Logout</span>
                     </a>

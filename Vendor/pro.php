@@ -1,10 +1,18 @@
 <?php
+session_start();
 include './include/connection.php';
 
-session_start();
+// Check if the vendor ID is not set in the session
+if (!isset($_SESSION['vendor_id'])) {
+ 
+    header("Location: login.php");
+    exit();
+}
+
+
 include './include/navbar.php';
 // For now until login is done
-$_SESSION['vendor_id'] = 1;
+
 $vendor_id = $_SESSION['vendor_id'];
 
 // Fetch all categories
@@ -20,7 +28,6 @@ function getAllCategories() {
     }
 }
 
-// Fetch all subcategories
 function getAllSubcategories() {
     global $conn;
     $sql = "SELECT * FROM subcategories";
@@ -36,19 +43,19 @@ function getAllSubcategories() {
 $categories = getAllCategories();
 $subcategories = getAllSubcategories();
 
-// Function to add a new product
 function addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $discountPrice, $category_id, $subcategory_id, $vendor_id) {
-    global $conn;
+  global $conn;
 
-    $sql = "INSERT INTO products (name, img1, img2, img3, img4, description, price, stock_quantity, discount_price, category_id, subcategory_id, vendor_id) 
-            VALUES ('$name', '$img1', '$img2', '$img3', '$img4', '$description', $price, $stockQuantity, $discountPrice, $category_id, $subcategory_id, $vendor_id)";
+  $sql = "INSERT INTO products (name, img1, img2, img3, img4, description, price, stock_quantity, discount_price, category_id, subcategory_id, vendor_id) 
+          VALUES ('$name', '$img1', '$img2', '$img3', '$img4', '$description', $price, $stockQuantity, $discountPrice, $category_id, $subcategory_id, $vendor_id)";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Product added successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+  if ($conn->query($sql) === TRUE) {
+      echo "Product added successfully";
+  } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+  }
 }
+
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -62,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $subcategory_id = $_POST['subcategory_id'];
 
         // Handle image uploads
-        $targetDir = "upload/products/";
+        $targetDir = "products/";
         $img1 = uploadImage($_FILES["img1"], $targetDir);
         $img2 = uploadImage($_FILES["img2"], $targetDir);
         $img3 = uploadImage($_FILES["img3"], $targetDir);
@@ -71,51 +78,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $discountPrice, $category_id, $subcategory_id, $vendor_id);
     }
 }
-
 // Function to handle image uploads
 function uploadImage($file, $targetDir) {
-    if (!isset($file['tmp_name']) || $file['tmp_name'] === '') {
-        return ""; // If no file is uploaded, return an empty string
-    }
+  if (!isset($file['tmp_name']) || $file['tmp_name'] === '') {
+      return ""; // If no file is uploaded, return an empty string
+  }
 
-    $targetFile = $targetDir . basename($file["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+  $targetFile = $targetDir . basename($file["name"]);
+  $uploadOk = 1;
+  $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-    // Check if image file is an actual image or fake image
-    $check = getimagesize($file["tmp_name"]);
-    if ($check === false) {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
+  // Check if image file is an actual image or fake image
+  $check = getimagesize($file["tmp_name"]);
+  if ($check === false) {
+      echo "File is not an image.";
+      $uploadOk = 0;
+  }
 
-    // Check file size
-    if ($file["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
+  // Check file size
+  if ($file["size"] > 500000) {
+      echo "Sorry, your file is too large.";
+      $uploadOk = 0;
+  }
 
-    // Allow certain file formats
-    $allowedFormats = ["jpg", "jpeg", "png", "gif"];
-    if (!in_array($imageFileType, $allowedFormats)) {
-        echo "Sorry, only JPG, JPEG, PNG, GIF files are allowed.";
-        $uploadOk = 0;
-    }
+  // Allow certain file formats
+  $allowedFormats = ["jpg", "jpeg", "png", "gif"];
+  if (!in_array($imageFileType, $allowedFormats)) {
+      echo "Sorry, only JPG, JPEG, PNG, GIF files are allowed.";
+      $uploadOk = 0;
+  }
 
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-        return "";
-    } else {
-        // If everything is ok, try to upload file
-        if (move_uploaded_file($file["tmp_name"], $targetFile)) {
-            return $targetFile;
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-            return "";
-        }
-    }
+  // Check if $uploadOk is set to 0 by an error
+  if ($uploadOk == 0) {
+      echo "Sorry, your file was not uploaded.";
+      return "";
+  } else {
+      // If everything is ok, try to upload file
+      if (move_uploaded_file($file["tmp_name"], $targetFile)) {
+          echo "The file ". htmlspecialchars( basename( $file["name"])). " has been uploaded.";
+          return $targetFile;
+      } else {
+          echo "Sorry, there was an error uploading your file.";
+          return "";
+      }
+  }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -124,16 +132,25 @@ function uploadImage($file, $targetDir) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Insert Product</title>
+  <style>
+    .uploadDiv{
+      display: flex;
+     
+    }
+  </style>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <div class="container mt-5">
+  <div class="container  " style="width: 600px; margin-top: 100px;">
     <h2>Add Product</h2>
     <form action="" method="post" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="name" class="form-label">Product Name</label>
         <input type="text" class="form-control" id="name" name="name" required>
       </div>
+      <div class="uploadDiv" >
+
+     
       <div class="mb-3">
         <label for="img1" class="form-label">Image 1</label>
         <input type="file" class="form-control" id="img1" name="img1" accept="image/*" required>
@@ -149,6 +166,7 @@ function uploadImage($file, $targetDir) {
       <div class="mb-3">
         <label for="img4" class="form-label">Image 4 (Optional)</label>
         <input type="file" class="form-control" id="img4" name="img4" accept="image/*">
+      </div>
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>

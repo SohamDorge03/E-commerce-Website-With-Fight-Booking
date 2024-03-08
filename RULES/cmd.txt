@@ -188,9 +188,10 @@ CREATE TABLE `products` (
   KEY `vendor_id` (`vendor_id`),
   KEY `category_id` (`category_id`),
   KEY `subcategory_id` (`subcategory_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `products` VALUES (1,1,'dumbbal','upload/products/d.png','','','','dumbbal',200000.00,1222,1000.00,1,1,1);
+INSERT INTO `products` VALUES (1,1,'dumbbal','upload/products/d.png','','','','dumbbal',100000.00,1222,1000.00,1,1,1);
+INSERT INTO `products` VALUES (3,1,'dumbbal','upload/products/s.png','upload/products/lg1.jpg','upload/products/d.png','upload/products/d.png','ihgihgigh',20000.00,3300,1200.00,1,7,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `report_issue` (

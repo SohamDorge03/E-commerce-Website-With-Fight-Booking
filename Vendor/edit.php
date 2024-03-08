@@ -1,16 +1,19 @@
 <?php
-
-
-
 include './include/connection.php';
-
 session_start();
+
+// Check if the vendor ID is not set in the session
+if (!isset($_SESSION['vendor_id'])) {
+ 
+    header("Location: login.php");
+    exit();
+}
+
+
 include './include/navbar.php';
-// For now until login is done
-$_SESSION['vendor_id'] = 1;
+
 $vendor_id = $_SESSION['vendor_id'];
 
-// Function to get a product by ID
 function getProductById($product_id) {
     global $conn;
     $sql = "SELECT * FROM products WHERE product_id = $product_id";
@@ -123,7 +126,7 @@ function updateProduct($productId, $name, $description, $price, $stockQuantity, 
 
     // Check if a new image is uploaded
     if (isset($_FILES["img1"]) && $_FILES["img1"]["error"] == 0) {
-        $targetDir = "upload/products/";
+        $targetDir = "products/";
         $newImg1 = uploadImage($_FILES["img1"], $targetDir);
         // Update the product with the new image path
         $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity, discount_price=$discountPrice, img1='$newImg1' WHERE product_id=$productId";
@@ -134,7 +137,7 @@ function updateProduct($productId, $name, $description, $price, $stockQuantity, 
 
     // Check if a new image is uploaded
     if (isset($_FILES["img1"]) && $_FILES["img1"]["error"] == 0) {
-        $targetDir = "upload/products/";
+        $targetDir = "products/";
         $newImg1 = uploadImage($_FILES["img1"], $targetDir);
         // Update the product with the new image path
         $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity, discount_price=$discountPrice, img1='$newImg1' WHERE product_id=$productId";
