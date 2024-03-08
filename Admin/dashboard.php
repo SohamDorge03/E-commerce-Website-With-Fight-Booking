@@ -61,6 +61,18 @@ include("./include/connection.php");
             color: #007bff;
             margin: 20px 0;
         }
+
+        @media screen and (max-width: 768px) {
+            .stat {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .stat {
+                width: calc(100% - 40px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -68,20 +80,18 @@ include("./include/connection.php");
         <h1>Dashboard</h1>
         <div class="stats">
             <?php
+            include("./include/navbar.php");
+            include("./include/connection.php");
+
             // Fetch data from tables
             $sql_queries = array(
-                "SELECT COUNT(*) AS airlines FROM airlines",
-                "SELECT COUNT(*) AS users FROM users",
-                "SELECT COUNT(*) AS bookings FROM booked_flights",
-                "SELECT COUNT(*) AS orders FROM orders",
-                "SELECT COUNT(*) AS vendors FROM vendors",
-                "SELECT COUNT(*) AS products FROM products",
-                // "SELECT COUNT(*) AS warranty_claims FROM warranty_claims",
-                "SELECT COUNT(*) AS airports FROM airports",
-                // "SELECT COUNT(*) AS demo_bookings FROM demo_bookings",
-                // "SELECT COUNT(*) AS returns FROM returns",
-                // "SELECT COUNT(*) AS feedbacks FROM feedbacks",
-                // "SELECT AVG(rating) AS average_rating FROM ratings"
+                "SELECT COUNT(*) AS Airlines FROM airlines",
+                "SELECT COUNT(*) AS Users FROM users",
+                "SELECT COUNT(*) AS Bookings FROM booked_flights",
+                "SELECT COUNT(*) AS Orders FROM orders",
+                "SELECT COUNT(*) AS Vendors FROM vendors",
+                "SELECT COUNT(*) AS Products FROM products",
+                "SELECT COUNT(*) AS Airports FROM airports"
             );
 
             foreach ($sql_queries as $sql_query) {
