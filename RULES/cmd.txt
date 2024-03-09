@@ -38,9 +38,12 @@ CREATE TABLE `airlines` (
   `airline_name` varchar(40) DEFAULT NULL,
   `logo` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airlines` VALUES (1,'AirAsia333@gmail.com','123456','airasia','./upload/Air Asia.png');
+INSERT INTO `airlines` VALUES (3,'indigo898@gimail.com','123456','indigo','./upload/IndiGo-Logo.png');
+INSERT INTO `airlines` VALUES (4,'qatar@gmail.com','123456','Qatar','./upload/Qatar.png');
+INSERT INTO `airlines` VALUES (5,'visatara@gmail.com','12345','Visatara','./upload/vistara.png');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airports` (
@@ -51,10 +54,13 @@ CREATE TABLE `airports` (
   `city` varchar(100) NOT NULL,
   `location` varchar(100) NOT NULL,
   PRIMARY KEY (`airport_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airports` VALUES (12,'Surat International Airport','STV','Gujarat','Surat','Surat');
 INSERT INTO `airports` VALUES (13,'Maharana Pratap Airport','UDR','Rajasthan','Udaipur','Udaipur');
+INSERT INTO `airports` VALUES (14,'Chhatrapti shivaji maharaj airport','BOM',' Maharashtra ','Mumbai','mumbai');
+INSERT INTO `airports` VALUES (15,'pune airport','PUN','Maharashtra ','pune','pune');
+INSERT INTO `airports` VALUES (16,'delhi airport','DLE','Delhi','Delhi','delhi');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `book_demo` (
@@ -82,12 +88,17 @@ CREATE TABLE `booked_flights` (
   `total_amount` varchar(255) NOT NULL,
   `book_status` tinyint(1) NOT NULL,
   `payment_status` tinyint(1) DEFAULT '0',
+  `booked_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`booking_id`),
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `booked_flights` VALUES (1,1,5,5,'economy','555550','42500',0,0);
+INSERT INTO `booked_flights` VALUES (1,1,5,5,'economy','555550','42500',0,0,'2024-03-09 15:59:13');
+INSERT INTO `booked_flights` VALUES (2,2,7,2,'business','748590','50000',0,0,'2024-03-18 16:17:00');
+INSERT INTO `booked_flights` VALUES (3,4,8,2,'business','768590','40000',0,0,'2024-04-19 16:17:00');
+INSERT INTO `booked_flights` VALUES (4,5,5,3,'economy','788890','70000',0,0,'2024-04-12 16:20:02');
+INSERT INTO `booked_flights` VALUES (5,3,9,5,'economy','741025','100000',0,0,'2024-05-01 16:20:47');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -129,9 +140,13 @@ CREATE TABLE `flights` (
   KEY `dep_airport_id` (`dep_airport_id`),
   KEY `arr_airport_id` (`arr_airport_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `flights` VALUES (1,'a3445','2024-03-11','18:00:00','2024-03-15','12:00:00',12,13,45,50000.00,1);
+INSERT INTO `flights` VALUES (1,'12461','2024-03-11','18:00:00','2024-03-15','12:00:00',12,13,45,50000.00,3);
+INSERT INTO `flights` VALUES (2,'74932','2024-03-21','18:00:00','2024-03-22','12:00:00',14,13,55,80000.00,1);
+INSERT INTO `flights` VALUES (3,'37462','2024-04-12','18:00:00','2024-04-13','12:00:00',16,13,80,40000.00,4);
+INSERT INTO `flights` VALUES (4,'45558','2024-05-13','18:00:00','2024-05-14','12:00:00',15,13,65,60000.00,1);
+INSERT INTO `flights` VALUES (5,'56437','2024-03-21','18:00:00','2024-03-21','21:00:00',15,13,70,40000.00,5);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_items` (
