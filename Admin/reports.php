@@ -34,10 +34,8 @@ if (isset($_POST['from_date']) && isset($_POST['to_date']) && isset($_POST['repo
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,13 +73,9 @@ if (isset($_POST['from_date']) && isset($_POST['to_date']) && isset($_POST['repo
             <button type="submit" class="btn btn-primary">Generate Report</button>
         </form>
     </div>
-
-    <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-
     <canvas id="myChart" width="400" height="200"></canvas>
     <script>
-        // Get the chart data from PHP
         var chartDataAmount = <?php echo json_encode($chartDataAmount); ?>;
         var chartDataCount = <?php echo json_encode($chartDataCount); ?>;
         var labels = Object.keys(chartDataAmount);
