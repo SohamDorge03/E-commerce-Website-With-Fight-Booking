@@ -5,7 +5,6 @@ include("./include/navbar.php");
 <html>
 <head>
     <title>Booked Flights</title>
-    <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
       .container{
@@ -32,8 +31,7 @@ include("./include/navbar.php");
                     <th>Total Amount</th>
                     <th>Airline Name</th>
                     <th>Payment Status</th>
-                    <th>Booking Status</th>
-                    
+                    <th>Booking Status</th> 
                 </tr>
             </thead>
             <tbody>
