@@ -15,8 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
     }
     
     $conn->close();
-    exit; // Terminate script execution after handling the AJAX request
+    exit;
 } else {
-    echo "Invalid request"; // Handle invalid request
+    echo "Invalid request"; 
 }
 ?>

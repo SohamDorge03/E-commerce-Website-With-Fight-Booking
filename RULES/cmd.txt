@@ -79,13 +79,14 @@ CREATE TABLE `booked_flights` (
   `flight_class` varchar(40) DEFAULT NULL,
   `TransactionID` varchar(255) NOT NULL,
   `total_amount` varchar(255) NOT NULL,
-  `payment _status` varchar(255) NOT NULL,
-  `book_status` varchar(255) NOT NULL,
+  `book_status` tinyint(1) NOT NULL,
+  `payment_status` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`booking_id`),
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `booked_flights` VALUES (1,1,5,5,'economy','555550','42500',0,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -127,8 +128,9 @@ CREATE TABLE `flights` (
   KEY `dep_airport_id` (`dep_airport_id`),
   KEY `arr_airport_id` (`arr_airport_id`),
   KEY `email` (`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `flights` VALUES (1,'a3445','2024-03-11','18:00:00','2024-03-15','12:00:00',12,13,45,50000.00,'AirAsia@gmail.com');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_items` (
