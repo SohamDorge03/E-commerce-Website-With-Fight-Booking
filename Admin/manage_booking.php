@@ -30,7 +30,7 @@ include("./include/navbar.php");
                     <th>Flight Class</th>
                     <th>Transaction ID</th>
                     <th>Total Amount</th>
-                    <th>Airline Name</th> <!-- New column -->
+                    <th>Airline Name</th>
                     <th>Payment Status</th>
                     <th>Booking Status</th>
                     
