@@ -46,8 +46,7 @@ include("./include/navbar.php");
                         INNER JOIN users u ON bf.user_id = u.user_id
                         INNER JOIN flights f ON bf.flight_id = f.flight_id
                         INNER JOIN airlines a ON f.airline_id = a.airline_id"; // Join with airlines table
-                
-                // Execute query
+
                 $result = mysqli_query($conn, $sql);
                 
                 // Check for errors

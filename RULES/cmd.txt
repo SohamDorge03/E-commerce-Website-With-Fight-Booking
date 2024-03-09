@@ -188,7 +188,6 @@ CREATE TABLE `products` (
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `products` VALUES (6,1,'dumbbal','products/d.png','','','','kjkjbkbkj',5555.00,211,10.00,2,6,0,0);
-INSERT INTO `products` VALUES (5,1,'Sofa','','','','','sofa set',20000.00,200,1000.00,2,5,0,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `report_issue` (
