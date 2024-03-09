@@ -1,5 +1,14 @@
 <?php
 include("./include/navbar.php");
+
+session_start();
+
+// Check if user is not logged in
+if(!isset($_SESSION['email'])) {
+    // Redirect to login page
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>

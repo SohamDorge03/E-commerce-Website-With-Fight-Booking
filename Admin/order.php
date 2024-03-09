@@ -1,5 +1,4 @@
 <style>
-
 .container{
     margin-top: 70px !important;
 }
@@ -7,8 +6,14 @@
 <?php
 include("include/connection.php");
 include('include/navbar.php');
+session_start();
 
-// Handle order status update
+if(!isset($_SESSION['email'])) {
+    // Redirect to login page
+    header("Location: login.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
     $order_id = $_POST["order_id"];
     $new_status = $_POST["status"];
@@ -23,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
     }
 }
 
-// Display Orders Table with Product Details
 echo "<div class='container mt-5'>";
 echo "<h2>Orders with Product Details</h2>";
 echo "<table class='table table-bordered'>";

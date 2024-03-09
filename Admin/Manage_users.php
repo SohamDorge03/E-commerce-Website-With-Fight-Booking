@@ -1,17 +1,23 @@
 <?php
+session_start();
 
+// Check if user is not logged in
+if(!isset($_SESSION['email'])) {
+    // Redirect to login page
+    header("Location: login.php");
+    exit();
+}
+?>
 include("./include/connection.php");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// SQL query to fetch data from the users table
 $userSql = "SELECT * FROM users";
 $userResult = $conn->query($userSql);
 
 if ($userResult === false) {
-    // Query execution failed
     die("Error executing the user query: " . $conn->error);
 }
 
@@ -19,7 +25,7 @@ $airlineSql = "SELECT * FROM airline_users";
 $airlineResult = $conn->query($airlineSql);
 
 if ($airlineResult === false) {
-    // Query execution failed
+
     die("Error executing the airline query: " . $conn->error);
 }
 

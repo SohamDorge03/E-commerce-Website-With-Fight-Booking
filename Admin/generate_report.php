@@ -1,27 +1,21 @@
 <?php
-// Include your database connection file
+
 include_once './include/connection.php';
 
-// Initialize variables
 $from_date = "";
 $to_date = "";
 
-// Check if form is submitted and values are set
 if(isset($_POST['from_date']) && isset($_POST['to_date'])) {
-    // Get the selected dates
     $from_date = $_POST['from_date'];
     $to_date = $_POST['to_date'];
-
-    // Fetch data from the database based on the date range
     $sql = "SELECT * FROM booked_flights WHERE DATE(booked_date) BETWEEN '$from_date' AND '$to_date'";
     $result = mysqli_query($conn, $sql);
 
-    // Check for errors in SQL query execution
     if (!$result) {
         // Display error message
         echo "Error: " . mysqli_error($conn);
     } else {
-        // Display fetched data
+
         if (mysqli_num_rows($result) > 0) {
             echo "<table class='table'>";
             echo "<thead><tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Book Status</th><th>Book Date</th></tr></thead>";
@@ -48,6 +42,5 @@ if(isset($_POST['from_date']) && isset($_POST['to_date'])) {
     }
 }
 
-// Close database connection
 mysqli_close($conn);
 ?>

@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+// Check if user is not logged in
+if(!isset($_SESSION['email'])) {
+    // Redirect to login page
+    header("Location: login.php");
+    exit();
+}
+
 include("./include/connection.php"); // Include your database connection file
 include("./include/navbar.php"); 
 

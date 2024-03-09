@@ -3,6 +3,16 @@
 include("./include/connection.php");
 include("./include/navbar.php");
 
+session_start();
+
+// Check if user is not logged in
+if(!isset($_SESSION['email'])) {
+    // Redirect to login page
+    header("Location: login.php");
+    exit();
+}
+
+
 if (isset($_POST['remove_product_id'])) {
     $remove_product_id = $_POST['remove_product_id'];
 
