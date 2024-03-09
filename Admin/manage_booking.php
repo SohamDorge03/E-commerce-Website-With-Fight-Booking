@@ -9,7 +9,8 @@ include("./include/navbar.php");
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
       .container{
-        margin-top: 70px;
+        margin-top: 80px;
+        margin-left: 10px;
       }
     </style>
 </head>
@@ -29,8 +30,10 @@ include("./include/navbar.php");
                     <th>Flight Class</th>
                     <th>Transaction ID</th>
                     <th>Total Amount</th>
+                    <th>Airline Name</th> <!-- New column -->
                     <th>Payment Status</th>
                     <th>Booking Status</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -39,10 +42,12 @@ include("./include/navbar.php");
                 
                 // SQL query
                 $sql = "SELECT bf.booking_id, f.flight_code, u.first_name, u.last_name, u.email, u.phone_number,
-                                bf.take_seats, bf.flight_class, bf.TransactionID, bf.total_amount, bf.payment_status, bf.book_status
+                                bf.take_seats, bf.flight_class, bf.TransactionID, bf.total_amount, bf.payment_status, bf.book_status,
+                                a.airline_id, a.airline_name
                         FROM booked_flights bf
                         INNER JOIN users u ON bf.user_id = u.user_id
-                        INNER JOIN flights f ON bf.flight_id = f.flight_id";
+                        INNER JOIN flights f ON bf.flight_id = f.flight_id
+                        INNER JOIN airlines a ON f.airline_id = a.airline_id"; // Join with airlines table
                 
                 // Execute query
                 $result = mysqli_query($conn, $sql);
@@ -66,12 +71,14 @@ include("./include/navbar.php");
                         echo "<td>" . $row['flight_class'] . "</td>";
                         echo "<td>" . $row['TransactionID'] . "</td>";
                         echo "<td>" . $row['total_amount'] . "</td>";
+                        echo "<td>" . $row['airline_name'] . "</td>"; //
                         echo "<td>" . ($row['payment_status'] ? 'Paid' : 'Not Paid') . "</td>";
                         echo "<td>" . ($row['book_status'] ? 'Confirmed' : 'Not Confirmed') . "</td>";
+                       
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='12'>No records found</td></tr>";
+                    echo "<tr><td colspan='13'>No records found</td></tr>";
                 }
                 
                 // Close connection
