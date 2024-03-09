@@ -14,8 +14,7 @@
             <?php
             include("./include/connection.php");
             
-            // Fetch products from the database for a specific category (assuming category_id is known)
-            $category_id = 8; // Change this to the desired category ID
+            $category_id = 3; 
             $sql = "SELECT * FROM products WHERE category_id = $category_id";
             $result = $conn->query($sql);
 
@@ -24,7 +23,7 @@
                     ?>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <img src="<?php echo $row['img1']; ?>" class="card-img-top" alt="Product Image">
+                        <img src="./Vendor/<?php echo $row['img1']; ?>" class="card-img-top" alt="Product Image">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['name']; ?></h5>
                                 <p class="card-text"><?php echo $row['description']; ?></p>
