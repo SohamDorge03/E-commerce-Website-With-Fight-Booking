@@ -1,145 +1,198 @@
-<?php
-session_start();
-
-// Check if user is not logged in
-if(!isset($_SESSION['email'])) {
-    // Redirect to login page
-    header("Location: login.php");
-    exit();
-}
-?>
-<?php
-include_once './include/connection.php';
-include("./include/navbar.php");
-
-$from_date = "";
-$to_date = "";
-$report_type = "";
-$chartDataAmount = [];
-$chartDataCount = [];
-
-if (isset($_POST['from_date']) && isset($_POST['to_date']) && isset($_POST['report_type'])) {
-    $from_date = $_POST['from_date'];
-    $to_date = $_POST['to_date'];
-    $report_type = $_POST['report_type'];
-
-    if ($report_type == 'all') {
-        $sql = "SELECT booked_date, SUM(total_amount) as total, COUNT(*) as count FROM booked_flights WHERE DATE(booked_date) BETWEEN '$from_date' AND '$to_date' GROUP BY booked_date";
-    } elseif ($report_type == 'paid') {
-        $sql = "SELECT booked_date, SUM(total_amount) as total, COUNT(*) as count FROM booked_flights WHERE DATE(booked_date) BETWEEN '$from_date' AND '$to_date' AND payment_status = 1 GROUP BY booked_date";
-    } elseif ($report_type == 'unpaid') {
-        $sql = "SELECT booked_date, SUM(total_amount) as total, COUNT(*) as count FROM booked_flights WHERE DATE(booked_date) BETWEEN '$from_date' AND '$to_date' AND payment_status = 0 GROUP BY booked_date";
-    }
-    $result = mysqli_query($conn, $sql);
-
-    if (!$result) {
-        echo "Error: " . mysqli_error($conn);
-    } else {
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $chartDataAmount[$row['booked_date']] = $row['total'];
-                $chartDataCount[$row['booked_date']] = $row['count'];
-            }
-        }
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report Generator</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Financial Reports</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <style>
-        .container {
-            margin-top: 70px;
-            margin-left: 10px;
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color:yellow;
+            color: #C70039 ;
+
+        }
+        .card-body {
+            background-color: #f8f9fa;
         }
     </style>
 </head>
-
 <body>
-    <?php include_once './include/navbar.php'; ?> <!-- Include navbar -->
-    <div class="container mt-5">
-        <h2>Generate Report</h2>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <div class="form-group">
-                <label for="report_type">Select Report Type:</label>
-                <select class="form-control" id="report_type" name="report_type">
-                    <option value="all" <?php if ($report_type == 'all') echo 'selected'; ?>>All Booked Flights</option>
-                    <option value="paid" <?php if ($report_type == 'paid') echo 'selected'; ?>>Paid Booked Flights</option>
-                    <option value="unpaid" <?php if ($report_type == 'unpaid') echo 'selected'; ?>>Unpaid Booked Flights</option>
-                </select>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Total Revenue of Booked Flights -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Actual Total Revenue of Booked Flights</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    include("./include/connection.php");
+                    $sql = "SELECT YEAR(booked_date) AS year, MONTH(booked_date) AS month, SUM(total_amount) AS total_revenue FROM booked_flights GROUP BY YEAR(booked_date), MONTH(booked_date)";
+                    $result = $conn->query($sql);
+                    if ($result === false) {
+                        echo "Error executing the SQL query: " . $conn->error;
+                    } elseif ($result->num_rows > 0) {
+                        echo "<table class='table'>";
+                        echo "<thead><tr><th>Year</th><th>Month</th><th>Total Revenue</th></tr></thead>";
+                        echo "<tbody>";
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["year"] . "</td>";
+                            echo "<td>" . date('F', mktime(0, 0, 0, $row["month"], 1)) . "</td>"; // Convert month number to month name
+                            echo "<td>$" . number_format($row["total_revenue"], 2) . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</tbody>";
+                        echo "</table>";
+                    } else {
+                        echo "<p>No revenue data found.</p>";
+                    }
+                    $conn->close();
+                    ?>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="from_date">From Date:</label>
-                <input type="date" class="form-control" id="from_date" name="from_date" value="<?php echo $from_date; ?>" required>
+        </div>
+
+        <!-- Total Revenue of Booked Flights after Shopflix fee -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Total Revenue of Booked Flights after Shopflix Fee</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    include("./include/connection.php");
+                    $sql = "SELECT YEAR(booked_date) AS year, MONTH(booked_date) AS month, SUM(total_amount) AS total_revenue FROM booked_flights GROUP BY YEAR(booked_date), MONTH(booked_date)";
+                    $result = $conn->query($sql);
+                    if ($result === false) {
+                        echo "Error executing the SQL query: " . $conn->error;
+                    } elseif ($result->num_rows > 0) {
+                        echo "<table class='table'>";
+                        echo "<thead><tr><th>Year</th><th>Month</th><th>Total Revenue after Shopflix Fee</th></tr></thead>";
+                        echo "<tbody>";
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["year"] . "</td>";
+                            echo "<td>" . date('F', mktime(0, 0, 0, $row["month"], 1)) . "</td>"; // Convert month number to month name
+                            // Calculate the total revenue after deducting 5% fee
+                            $total_revenue_after_fee = $row["total_revenue"] * 0.95;
+                            echo "<td>$" . number_format($total_revenue_after_fee, 2) . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</tbody>";
+                        echo "</table>";
+                    } else {
+                        echo "<p>No revenue data found.</p>";
+                    }
+                    $conn->close();
+                    ?>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="to_date">To Date:</label>
-                <input type="date" class="form-control" id="to_date" name="to_date" value="<?php echo $to_date; ?>" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Generate Report</button>
-        </form>
+        </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <canvas id="myChart" width="400" height="200"></canvas>
-    <script>
-        var chartDataAmount = <?php echo json_encode($chartDataAmount); ?>;
-        var chartDataCount = <?php echo json_encode($chartDataCount); ?>;
-        var labels = Object.keys(chartDataAmount);
-        var dataAmount = Object.values(chartDataAmount);
-        var dataCount = Object.values(chartDataCount);
 
-        // Draw chart
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Total Amount',
-                    data: dataAmount,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    yAxisID: 'y-axis-1',
-                    fill: false
-                }, {
-                    label: 'Number of Flights',
-                    data: dataCount,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    yAxisID: 'y-axis-2',
-                    fill: false
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        id: 'y-axis-1',
-                        ticks: {
-                            beginAtZero: true,
-                            callback: function(value, index, values) {
-                                return '$' + value;
-                            }
+    <div class="row">
+        <!-- Total Revenue by Airline -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Total Revenue by Airline</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    include("./include/connection.php");
+                    $sql = "SELECT airlines.airline_name, SUM(booked_flights.total_amount) AS total_revenue FROM booked_flights JOIN flights ON booked_flights.flight_id = flights.flight_id JOIN airlines ON flights.airline_id = airlines.airline_id GROUP BY airlines.airline_name";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="card mb-3">';
+                            echo '<div class="card-body">';
+                            echo '<h5 class="card-title">' . $row["airline_name"] . '</h5>';
+                            echo '<p class="card-text">Total Revenue: $' . number_format($row["total_revenue"], 2) . '</p>';
+                            echo '</div>';
+                            echo '</div>';
                         }
-                    }, {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        id: 'y-axis-2',
-                        ticks: {
-                            beginAtZero: true,
-                            stepSize: 1
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
+                    } else {
+                        echo "<p>No revenue data found.</p>";
+                    }
+                    $conn->close();
+                    ?>
+                </div>
+            </div>
+        </div>
 
+        <!-- Total Revenue by Airport -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Total Revenue by Airport</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    include("./include/connection.php");
+                    $sql = "SELECT airports.airport_name, SUM(booked_flights.total_amount) AS total_revenue FROM booked_flights JOIN flights ON booked_flights.flight_id = flights.flight_id JOIN airports ON flights.dep_airport_id = airports.airport_id GROUP BY airports.airport_name";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="card mb-3">';
+                            echo '<div class="card-body">';
+                            echo '<h5 class="card-title">' . $row["airport_name"] . '</h5>';
+                            echo '<p class="card-text">Total Revenue: $' . number_format($row["total_revenue"], 2) . '</p>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "<p>No revenue data found.</p>";
+                    }
+                    $conn->close();
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Total Revenue by User -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Total Revenue by User</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    include("./include/connection.php");
+                    $sql = "SELECT users.username, SUM(booked_flights.total_amount) AS total_revenue FROM booked_flights JOIN users ON booked_flights.user_id = users.user_id GROUP BY users.username";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="card mb-3">';
+                            echo '<div class="card-body">';
+                            echo '<h5 class="card-title">' . $row["username"] . '</h5>';
+                            echo '<p class="card-text">Total Revenue: $' . number_format($row["total_revenue"], 2) . '</p>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "<p>No revenue data found.</p>";
+                    }
+                    $conn->close();
+                    ?>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
