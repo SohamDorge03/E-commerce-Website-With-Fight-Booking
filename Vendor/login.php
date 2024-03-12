@@ -6,30 +6,36 @@ include("./include/connection.php");
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['captcha'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $captcha = $_POST['captcha'];
 
-  
-    $sql = "SELECT vendor_id FROM vendors WHERE email = '$email' AND password = '$password'";
-    $result = mysqli_query($conn, $sql);
+        // Validate CAPTCHA
+        if($_SESSION['captcha'] !== $captcha) {
+            $error = "Invalid CAPTCHA, please try again.";
+        } else {
+            // CAPTCHA verification succeeded, proceed with login validation
+            $sql = "SELECT vendor_id FROM vendors WHERE email = '$email' AND password = '$password'";
+            $result = mysqli_query($conn, $sql);
 
-    if ($result && mysqli_num_rows($result) == 1) {
-    
-        $row = mysqli_fetch_assoc($result);
-        $vendor_id = $row['vendor_id'];
-
-      
-        $_SESSION['vendor_id'] = $vendor_id;
-
-        header("Location: d.php");
-        exit();
+            if ($result && mysqli_num_rows($result) == 1) {
+                $row = mysqli_fetch_assoc($result);
+                $vendor_id = $row['vendor_id'];
+                $_SESSION['vendor_id'] = $vendor_id;
+                header("Location: d.php");
+                exit();
+            } else {
+                // Invalid email or password
+                $error = "Invalid email or password. Please try again.";
+            }
+        }
     } else {
-        $error = "Invalid email or password. Please try again.";
+        // Invalid input
+        $error = "Please enter email, password, and CAPTCHA.";
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .rounded-5 {
             border-radius: 30px;
         }
-    
 
         @media only screen and (max-width: 768px) {
             .box-area {
@@ -95,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
              style="background: #480938;">
             <div class="featured-image mb-3">
-                <img src="./image/login.png" class="img-fluid" style="width: 250px;">
+                <img src="../image/login.png" class="img-fluid" style="width: 250px;">
             </div>
             <p class="text-white fs-2"
                style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
@@ -119,8 +124,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="password" class="form-control form-control-lg bg-light fs-6" name="password"
                                placeholder="Password" required>
                     </div>
-                
-                    <!-- Display error message -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="captcha" placeholder="Enter CAPTCHA" required>
+                        <img src="../include/captcha.php" alt="CAPTCHA Image" id="captcha_image" style="margin-left: 10px;"> <!-- Added ID for CAPTCHA image -->
+                        <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+
                     <?php if (!empty($error)) : ?>
                         <div class="alert alert-danger" role="alert">
                             <?php echo $error; ?>
@@ -136,5 +148,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </div>
 </div>
+<script>
+    document.getElementById('refresh_captcha').addEventListener('click', function () {
+        document.getElementById('captcha_image').src = '../include/captcha.php?rand=' + new Date().getTime(); // Corrected path and added 'captcha_image' ID
+    });
+</script>
 </body>
 </html>
