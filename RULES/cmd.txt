@@ -284,3 +284,24 @@ CREATE TABLE `vendors` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123',1,'Air asia','9997778880','-','-','surat','surat','gujarat',1);
 INSERT INTO `vendors` VALUES (2,'yagnesh','okyagnesh@gmail.com','123456',0,'Apple','9997778880',NULL,NULL,'dindoli','surat','gujarat',0);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `warranty` (
+  `warranty_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `product_code` int NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(20) DEFAULT 'Active',
+  `confirmed_by_vendor` tinyint(1) DEFAULT '0',
+  `vendor_confirmation_timestamp` timestamp NULL DEFAULT NULL,
+  `payment` int NOT NULL,
+  `months` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`warranty_id`),
+  KEY `user_id` (`user_id`),
+  KEY `product_id` (`product_code`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `warranty` VALUES (5,9,749,'2024-03-12 08:15:03','Active',0,NULL,0,4);
+INSERT INTO `warranty` VALUES (3,9,1349,'2024-03-12 08:09:25','Active',0,NULL,0,287);
+INSERT INTO `warranty` VALUES (4,9,729,'2024-03-12 08:13:34','Active',0,NULL,0,24);
+INSERT INTO `warranty` VALUES (6,9,629,'2024-03-12 09:21:41','Active',0,NULL,0,356);
