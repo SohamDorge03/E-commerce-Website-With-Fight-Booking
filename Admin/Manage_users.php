@@ -7,7 +7,7 @@ if(!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
-?>
+
 include("./include/connection.php");
 
 if ($conn->connect_error) {

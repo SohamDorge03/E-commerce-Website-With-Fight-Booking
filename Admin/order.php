@@ -6,13 +6,7 @@
 <?php
 include("include/connection.php");
 include('include/navbar.php');
-session_start();
 
-if(!isset($_SESSION['email'])) {
-    // Redirect to login page
-    header("Location: login.php");
-    exit();
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
     $order_id = $_POST["order_id"];

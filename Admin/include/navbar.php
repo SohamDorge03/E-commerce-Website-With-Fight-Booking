@@ -275,12 +275,16 @@
                         <i class="fas fa-book nav_icon"></i>
                         <span class="nav_name">Booking</span>
                     </a>
-                    <a href="reports.php" class="nav_link">
+                    <a href="order_report.php" class="nav_link">
                         <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Reports</span>
+                        <span class="nav_name">Order Reports</span>
+                    </a>
+                    <a href="flight_report.php" class="nav_link">
+                        <i class="fas fa-book nav_icon"></i>
+                        <span class="nav_name">Booking Reports</span>
                     </a>
                   
-                    <a href="reports.php" class="nav_link">
+                    <a href="" class="nav_link">
                         <i class="fas fa-book nav_icon"></i>
                         <span class="nav_name">Returns</span>
                     </a>
