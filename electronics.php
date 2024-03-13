@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
   <style>
-    /* Your CSS styles */
     #product1 {
       text-align: center;
     }
@@ -38,7 +37,7 @@
     }
 
     #product1 .pro img {
-      width: 100%;
+      width: 50%;
       border-radius: 20px;
     }
 
@@ -49,7 +48,9 @@
 
     #product1 .pro .des span {
       color: #606063;
-      font-size: 12px;
+      font-size: 1.3rem;
+      font-weight: bold;
+    
     }
 
     #product1 .pro .des h5 {
@@ -83,6 +84,9 @@
       bottom: 20px;
       right: 10px;
     }
+    .discounted-price{
+      margin-left: 20px;
+    }
   </style>
 </head>
 <body>
@@ -104,21 +108,15 @@
       echo '<img src="vendor/' . $productRow['img1'] . '" alt="" height="200px" >';
       echo '<div class="des">';
       echo '<h5>' . $productRow['name'] . '</h5>';
-      echo '<div class="star">';
-      echo '<i class="bi bi-star-fill"></i>';
-      echo '<i class="bi bi-star-fill"></i>';
-      echo '<i class="bi bi-star-fill"></i>';
-      echo '<i class="bi bi-star-fill"></i>';
-      echo '<i class="bi bi-star-fill"></i>';
-      echo '</div>';
+     
       
       // Display discounted price with a strikethrough effect on original price
       if ($productRow['discount_price'] !== null && $productRow['discount_price'] < $productRow['price']) {
-        echo '<p class="original-price">$' . $productRow['price'] . '</p>';
-        echo '<p class="discounted-price">$' . $productRow['discount_price'] . '</p>';
+        echo '<span class="original-price">' . $productRow['price'] . '</span>';
+        echo '<span class="discounted-price">' . $productRow['discount_price'] . '</span>';
       } else {
         // If no discount, display the regular price
-        echo '<p class="price">$' . $productRow['price'] . '</p>';
+        echo '<p class="price">' . $productRow['price'] . '</p>';
       }
 
       // Display one-line description
@@ -134,8 +132,6 @@
     echo 'No products found in the gym category.';
   }
 
-  // Close the database connection
-  $conn->close();
   ?>
 </section>
 </body>
