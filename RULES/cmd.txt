@@ -203,7 +203,7 @@ CREATE TABLE `products` (
   KEY `subcategory_id` (`subcategory_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `products` VALUES (6,1,'dumbbal','products/d.png','','','','kjkjbkbkj',5555.00,211,10.00,2,6,0,0);
+INSERT INTO `products` VALUES (6,1,'dumbbal','products/d.png','','','','kjkjbkbkj',5555.00,211,10.00,2,6,0,1);
 INSERT INTO `products` VALUES (7,2,'dumbbal','products/d.png','','','','dumbbal',20000.00,200,2000.00,1,1,0,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -280,10 +280,12 @@ CREATE TABLE `vendors` (
   `state` varchar(50) DEFAULT NULL,
   `Status` tinyint(1) NOT NULL,
   PRIMARY KEY (`vendor_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123',1,'Air asia','9997778880','-','-','surat','surat','gujarat',1);
 INSERT INTO `vendors` VALUES (2,'yagnesh','okyagnesh@gmail.com','123456',0,'Apple','9997778880',NULL,NULL,'dindoli','surat','gujarat',0);
+INSERT INTO `vendors` VALUES (3,'soham_dorge','soh@gmail.com','123456',0,'apple','7778889990',NULL,NULL,'Surat ',NULL,NULL,0);
+INSERT INTO `vendors` VALUES (4,'soham_dorge','soh@gmail.com','123456',0,'apple','7778889990',NULL,NULL,'Surat ',NULL,NULL,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `warranty` (

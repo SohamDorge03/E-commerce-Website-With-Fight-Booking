@@ -26,6 +26,7 @@
 include("./include/navbar.php");
 ?>
 <div class="container mt-5">
+    <H1>Financial Reports</H1>
     <div class="row">
         <!-- Total Revenue of Booked Flights -->
         <div class="col-md-6">
