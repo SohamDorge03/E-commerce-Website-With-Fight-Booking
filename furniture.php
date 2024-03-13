@@ -1,132 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .card {
-            transition: all 0.3s;
-            border: 1px solid rgba(0, 0, 0, 0.125);
-            border-radius: 0.25rem;
-            height: 100%;
-        }
-        .card:hover {
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        }
-        .btn-group {
-            margin-top: auto;
-        }
-        .card-body {
-            display: flex;
-            flex-direction: column;
-        }
-        .card-text {
-            flex-grow: 1;
-        }
-        .modal-body img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    #product1 {
+      text-align: center;
+    }
+    #product1 .pro-container {
+      display: flex;
+      padding-top: 20px;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    #product1 .pro {
+      width: 23%;
+      min-width: 250px;
+      padding: 10px 6px;
+      border: 1px solid #cce7d0;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+      margin: 15px 0;
+      transition: 0.2s ease;
+      position: relative;
+    }
+
+    #product1 .pro:hover {
+      box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    #product1 .pro img {
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    #product1 .pro .des {
+      text-align: start;
+      padding: 10px 0;
+    }
+
+    #product1 .pro .des span {
+      color: #606063;
+      font-size: 12px;
+    }
+
+    #product1 .pro .des h5 {
+      padding-top: 7px;
+      color: #1a1a1a;
+      font-size: 14px;
+    }
+
+    #product1 .pro .des i {
+      font-size: 12px;
+      color: rgb(243, 181, 25)
+    }
+
+    #product1 .pro .des h4 {
+      font-size: 15px;
+      padding-top: 7px;
+      font-weight: 700;
+      color: #088178;
+    }
+
+    #product1 .pro .cart {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50px;
+      background-color: #e8f6ea;
+      font-weight: 500;
+      color: #088178;
+      border: 1px solid #cce7d0;
+      position: absolute;
+      bottom: 20px;
+      right: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Products</h1>
-        <div class="row">
-            <!-- PHP code to fetch products from database -->
-            <?php
-            include("./include/connection.php");
-            $category_id = 2; // Change this to the desired category ID
-            $sql = "SELECT * FROM products WHERE category_id = $category_id";
-            $result = $conn->query($sql);
+  
+<section id="product1" class="section-p1">
+  <h2>Gym Products</h2>
+  <p>Summer Collection New Modern Design</p>
+  <?php
+  include("include/connection.php");
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    ?>
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <!-- Product image with data-toggle and data-target attributes -->
-                            <img src="./Vendor/<?php echo $row['img1']; ?>" class="card-img-top" alt="Product Image" data-toggle="modal" data-target="#productModal_<?php echo $row['product_id']; ?>">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $row['name']; ?></h5>
-                                <p class="card-text"><?php echo $row['description']; ?></p>
-                                <p class="card-text">Price: $<?php echo $row['price']; ?></p>
-                                <p class="card-text">Stock: <?php echo $row['stock_quantity']; ?></p>
-                                <div class="btn-group">
-                                    <button class="btn btn-sm btn-outline-secondary" onclick="decreaseQuantity(<?php echo $row['product_id']; ?>)">-</button>
-                                    <input type="text" id="quantity_<?php echo $row['product_id']; ?>" value="1" class="form-control text-center">
-                                    <button class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity(<?php echo $row['product_id']; ?>)">+</button>
-                                    <button class="btn btn-sm btn-primary" onclick="addToCart(<?php echo $row['product_id']; ?>)">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  // Fetch products from the database for the gym category (category_id = 1)
+  $productSql = "SELECT * FROM products WHERE category_id = 2";
+  $productResult = $conn->query($productSql);
 
-                    <!-- Modal structure for each product -->
-                    <div class="modal fade" id="productModal_<?php echo $row['product_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="productModalLabel_<?php echo $row['product_id']; ?>" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="productModalLabel_<?php echo $row['product_id']; ?>"><?php echo $row['name']; ?></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Product images -->
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <img src="./Vendor/<?php echo $row['img1']; ?>" class="img-fluid" alt="Product Image">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <img src="./Vendor/<?php echo $row['img2']; ?>" class="img-fluid" alt="Product Image">
-                                        </div>
-                                    </div>
-                                    <!-- Product details -->
-                                    <p><?php echo $row['description']; ?></p>
-                                    <p>Price: $<?php echo $row['price']; ?></p>
-                                    <p>Stock: <?php echo $row['stock_quantity']; ?></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onclick="addToCart(<?php echo $row['product_id']; ?>)">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                }
-            } else {
-                echo "No products found in this category.";
-            }
-            $conn->close();
-            ?>
-        </div>
-    </div>
+  // Check if there are products in the gym category
+  if ($productResult->num_rows > 0) {
+    echo '<div class="pro-container">';
+    while ($productRow = $productResult->fetch_assoc()) {
+      echo '<div class="pro">';
+      echo '<img src="vendor/' . $productRow['img1'] . '" alt="" height="200px" >';
+      echo '<div class="des">';
+      echo '<h5>' . $productRow['name'] . '</h5>';
+      echo '<div class="star">';
+      echo '<i class="bi bi-star-fill"></i>';
+      echo '<i class="bi bi-star-fill"></i>';
+      echo '<i class="bi bi-star-fill"></i>';
+      echo '<i class="bi bi-star-fill"></i>';
+      echo '<i class="bi bi-star-fill"></i>';
+      echo '</div>';
+      
+      // Display discounted price with a strikethrough effect on original price
+      if ($productRow['discount_price'] !== null && $productRow['discount_price'] < $productRow['price']) {
+        echo '<p class="original-price">$' . $productRow['price'] . '</p>';
+        echo '<p class="discounted-price">$' . $productRow['discount_price'] . '</p>';
+      } else {
+        // If no discount, display the regular price
+        echo '<p class="price">$' . $productRow['price'] . '</p>';
+      }
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      // Display one-line description
+      echo '<p class="description">' . substr($productRow['description'], 0, 50) . '...</p>';
 
-    <script>
-        function increaseQuantity(productId) {
-            var input = document.getElementById('quantity_' + productId);
-            input.value++;
-        }
+      echo '</div>';
+      
+      echo '<a href=""><i class="bi bi-cart-fill cart"></i></a>';
+      echo '</div>';
+    }
+    echo '</div>';
+  } else {
+    echo 'No products found in the gym category.';
+  }
 
-        function decreaseQuantity(productId) {
-            var input = document.getElementById('quantity_' + productId);
-            if (input.value > 1) {
-                input.value--;
-            }
-        }
-
-        function addToCart(productId) {
-            var quantity = document.getElementById('quantity_' + productId).value;
-            console.log("Adding product " + productId + " to cart with quantity " + quantity);
-        }
-    </script>
+  // Close the database connection
+  $conn->close();
+  ?>
+</section>
 </body>
 </html>

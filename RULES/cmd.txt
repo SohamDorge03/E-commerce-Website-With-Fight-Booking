@@ -84,6 +84,7 @@ CREATE TABLE `booked_flights` (
   `user_id` int NOT NULL,
   `take_seats` int NOT NULL,
   `flight_class` varchar(40) DEFAULT NULL,
+  `airline_id` int DEFAULT NULL,
   `TransactionID` varchar(255) NOT NULL,
   `total_amount` varchar(255) NOT NULL,
   `book_status` tinyint(1) NOT NULL,
@@ -91,14 +92,15 @@ CREATE TABLE `booked_flights` (
   `booked_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`booking_id`),
   KEY `flight_id` (`flight_id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  KEY `fk_airline_id` (`airline_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `booked_flights` VALUES (1,1,5,5,'economy','555550','42500',0,0,'2024-03-09 15:59:13');
-INSERT INTO `booked_flights` VALUES (2,2,7,2,'business','748590','50000',0,0,'2024-03-18 16:17:00');
-INSERT INTO `booked_flights` VALUES (3,4,8,2,'business','768590','40000',0,0,'2024-04-19 16:17:00');
-INSERT INTO `booked_flights` VALUES (4,5,5,3,'economy','788890','70000',0,0,'2024-04-12 16:20:02');
-INSERT INTO `booked_flights` VALUES (5,3,9,5,'economy','741025','100000',0,0,'2024-05-01 16:20:47');
+INSERT INTO `booked_flights` VALUES (1,1,5,5,'economy',1,'555550','42500',0,0,'2024-03-09 15:59:13');
+INSERT INTO `booked_flights` VALUES (2,2,7,2,'business',3,'748590','50000',0,0,'2024-03-18 16:17:00');
+INSERT INTO `booked_flights` VALUES (3,4,8,2,'business',4,'768590','40000',0,0,'2024-04-19 16:17:00');
+INSERT INTO `booked_flights` VALUES (4,5,5,3,'economy',1,'788890','70000',0,0,'2024-04-12 16:20:02');
+INSERT INTO `booked_flights` VALUES (5,3,9,5,'economy',5,'741025','100000',0,0,'2024-05-01 16:20:47');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -201,10 +203,11 @@ CREATE TABLE `products` (
   KEY `vendor_id` (`vendor_id`),
   KEY `category_id` (`category_id`),
   KEY `subcategory_id` (`subcategory_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `products` VALUES (6,1,'dumbbal','products/d.png','','','','kjkjbkbkj',5555.00,211,10.00,2,6,0,1);
-INSERT INTO `products` VALUES (7,2,'dumbbal','products/d.png','','','','dumbbal',20000.00,200,2000.00,1,1,0,0);
+INSERT INTO `products` VALUES (10,2,'mobile','products/41tSQSq1xJL._SX300_SY300_QL70_FMwebp_.png','','','','realme narzo 60X 5G（Stellar Green,6GB,128GB Storage ） Up to 2TB External Memory | 50 MP AI Primary Camera | Segments only 33W Supervooc Charge',25000.00,520,10.00,3,9,0,0);
+INSERT INTO `products` VALUES (8,2,'treadmill ','products/51H-UdRV2cL._AC._SR360,460.jpg','','','','Fitkit by Cult.Sport FT98 Carbon (2HP Peak, Max Speed - 14km/hr) Treadmill with Free Customized Diet Plan, Trainer Led Sessions & 1 Year Warranty',15000.00,50,1000.00,1,2,0,0);
+INSERT INTO `products` VALUES (9,2,'chair','products/31dcfwjxuhS._SX300_SY300_QL70_FMwebp_.png','','','','CARTVILLA Study Room Classroom College Chair Metal Folding Student Chair with Writing Pad for Work from Home, Study (Light Brown)',5000.00,500,200.00,2,6,0,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `report_issue` (

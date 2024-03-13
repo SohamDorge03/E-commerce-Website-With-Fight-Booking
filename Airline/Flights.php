@@ -43,7 +43,7 @@ include("./navbar.php");
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM flights";
+                    $sql = "SELECT flights.*, airlines.email AS airline_email FROM flights JOIN airlines ON flights.airline_id = airlines.airline_id";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -59,7 +59,7 @@ include("./navbar.php");
                             echo "<td>" . $row["arr_airport_id"] . "</td>";
                             echo "<td>" . $row["seats"] . "</td>";
                             echo "<td>" . $row["price"] . "</td>";
-                            echo "<td>" . $row["email"] . "</td>";
+                            echo "<td>" . $row["airline_email"] . "</td>";
                             echo "<td>
                     <a href='update_flight.php?id=" . $row["flight_id"] . "' class='btn btn-sm btn-primary'>Update</a>
                     
@@ -127,8 +127,8 @@ include("./navbar.php");
                             <input type="text" class="form-control" id="price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="email">Airline Email:</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <label for="airline_id">Airline ID:</label>
+                            <input type="text" class="form-control" id="airline_id" name="airline_id">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
