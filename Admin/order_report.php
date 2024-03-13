@@ -1,5 +1,10 @@
 <?php
-include("./include/navbar.php");
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +22,9 @@ include("./include/navbar.php");
     }
 </style>
 <body>
+<?php
+include("./include/navbar.php");
+?>
     <div class="container mt-5">
         <h2>Order Report</h2>
         <form method="GET" action="">

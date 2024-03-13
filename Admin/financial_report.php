@@ -22,7 +22,9 @@
     </style>
 </head>
 <body>
-
+<?php
+include("./include/navbar.php");
+?>
 <div class="container mt-5">
     <div class="row">
         <!-- Total Revenue of Booked Flights -->

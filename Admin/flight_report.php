@@ -1,5 +1,10 @@
 <?php
-include("./include/navbar.php");
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +23,6 @@ include("./include/navbar.php");
       display: block;
     }
 
-    /* Custom style to extend the size of input textboxes */
     input[type="date"],
     input[type="text"],
     select {
@@ -27,7 +31,9 @@ include("./include/navbar.php");
   </style>
 </head>
 <body>
-
+<?php
+include("./include/navbar.php");
+?>
 <div class="container mt-5">
   <h2>Booked Flights Report</h2>
   <form method="post">

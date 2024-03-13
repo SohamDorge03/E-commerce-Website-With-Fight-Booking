@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-// Check if user is not logged in
-if (!isset($_SESSION['email'])) {
-    // Redirect to login page
+if(!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
@@ -24,7 +22,7 @@ if (isset($_POST['remove_product_id'])) {
     }
 }
 if (isset($_POST['confirm_product_id'])) {
-    // Retrieve the product ID
+
     $product_id = $_POST['confirm_product_id'];
 
     $update_sql = "UPDATE products SET confirmation_status = 1 WHERE product_id = $product_id";

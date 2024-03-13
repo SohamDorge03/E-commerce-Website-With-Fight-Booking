@@ -5,6 +5,8 @@ if(!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
+?>
+<?php
 include("./include/connection.php");
 $target_dir = "./upload/";
 

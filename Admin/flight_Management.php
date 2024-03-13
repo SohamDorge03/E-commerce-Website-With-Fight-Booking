@@ -1,7 +1,14 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+<?php
 include("./include/connection.php");    
 
-// SQL query to fetch flights data with airport names and airline name
 $sql = "SELECT 
             f.*, 
             dep.airport_name AS dep_airport_name, 

@@ -1,13 +1,12 @@
 <?php
 session_start();
 
-// Check if user is not logged in
 if(!isset($_SESSION['email'])) {
-    // Redirect to login page
     header("Location: login.php");
     exit();
 }
-
+?>
+<?php
 include("./include/connection.php");
 
 if ($conn->connect_error) {
@@ -29,12 +28,11 @@ if ($airlineResult === false) {
     die("Error executing the airline query: " . $conn->error);
 }
 
-// SQL query to fetch data from the vendors table
 $vendorSql = "SELECT * FROM vendors";
 $vendorResult = $conn->query($vendorSql);
 
 if ($vendorResult === false) {
-    // Query execution failed
+
     die("Error executing the vendor query: " . $conn->error);
 }
 
@@ -46,7 +44,6 @@ if ($vendorResult === false) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User, Airline User, and Vendor Data</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .container {
@@ -61,15 +58,14 @@ if ($vendorResult === false) {
         th,
         td {
             white-space: nowrap;
-            /* Prevent line breaks in table cells */
+            
         }
 
         .table-responsive {
             overflow-x: auto;
-            /* Make tables responsive */
+            
         }
 
-        /* Styling for even and odd rows */
         tbody tr:nth-child(even) {
             background-color: #f2f2f2;
         }
@@ -90,7 +86,6 @@ if ($vendorResult === false) {
     <?php include("./include/navbar.php"); ?>
 
     <div class="container">
-        <!-- User Data Table -->
         <div class="section-heading">
             <h2>User Data</h2>
         </div>
@@ -112,7 +107,7 @@ if ($vendorResult === false) {
                 </thead>
                 <tbody>
                     <?php
-                    // Display user data
+                    
                     if ($userResult->num_rows > 0) {
                         while ($row = $userResult->fetch_assoc()) {
                             echo "<tr>";
@@ -136,7 +131,6 @@ if ($vendorResult === false) {
             </table>
         </div>
 
-        <!-- Airline User Data Table -->
         <div class="section-heading">
             <h2>Airline User Data</h2>
         </div>
@@ -159,7 +153,6 @@ if ($vendorResult === false) {
                 </thead>
                 <tbody>
                     <?php
-                    // Display airline user data
                     if ($airlineResult->num_rows > 0) {
                         while ($row = $airlineResult->fetch_assoc()) {
                             echo "<tr>";
@@ -195,7 +188,6 @@ if ($vendorResult === false) {
                 </tbody>
             </table>
         </div>
-        <!-- Vendors Data Table -->
         <div class="section-heading">
             <h2>Vendors Data</h2>
         </div>
@@ -221,7 +213,6 @@ if ($vendorResult === false) {
                 </thead>
                 <tbody>
                     <?php
-                    // Display vendor data
                     if ($vendorResult->num_rows > 0) {
                         while ($row = $vendorResult->fetch_assoc()) {
                             echo "<tr>";
@@ -238,7 +229,6 @@ if ($vendorResult === false) {
                             echo "<td>" . $row["city"] . "</td>";
                             echo "<td>" . $row["state"] . "</td>";
                             echo "<td>" . $row["Status"] . "</td>";
-                            // Adding confirm button with onclick event
                             echo "<td>
                             <button class='btn btn-success btn-sm' onclick='confirmVendor(" . $row["vendor_id"] . ")'>Confirm</button>
                             <button class='btn btn-danger btn-sm' onclick='deleteVendor(" . $row["vendor_id"] . ")'>Delete</button>
@@ -256,7 +246,7 @@ if ($vendorResult === false) {
 
         <script>
             function confirmVendor(vendorId) {
-                // Send AJAX request to toggle status
+                
                 $.ajax({
                     url: 'confirm_vendor.php',
                     type: 'POST',
@@ -264,9 +254,9 @@ if ($vendorResult === false) {
                         vendor_id: vendorId
                     },
                     success: function(response) {
-                        // Display confirmation message
+                       
                         alert('Vendor confirm successfully');
-                        // Reload the page to reflect the updated status
+                        
                         location.reload();
                     },
                     error: function(xhr, status, error) {
@@ -278,9 +268,9 @@ if ($vendorResult === false) {
         </script>
         <script>
             function deleteVendor(vendorId) {
-                // Confirm with the user before deleting
+                
                 if (confirm("Are you sure you want to delete this vendor?")) {
-                    // Send AJAX request to delete the vendor
+                    
                     $.ajax({
                         url: 'delete_vendor.php',
                         type: 'POST',
@@ -288,9 +278,9 @@ if ($vendorResult === false) {
                             vendor_id: vendorId
                         },
                         success: function(response) {
-                            // Display confirmation message
+                            
                             alert('Vendor deleted successfully');
-                            // Reload the page to reflect the changes
+                            
                             location.reload();
                         },
                         error: function(xhr, status, error) {
@@ -302,23 +292,20 @@ if ($vendorResult === false) {
             }
         </script>
 <?php
-// Check if the Confirm button is clicked
+
 if(isset($_POST['confirm'])) {
     $user_id = $_POST['user_id'];
-    // Update the confirmation_admin_status to 1 (confirmed)
     $sql = "UPDATE airline_users SET confirmation_admin_status = 1 WHERE user_id = $user_id";
     mysqli_query($conn, $sql);
-    // Show confirmation message
     echo "<script>alert('User confirmed successfully.');</script>";
 }
 
-// Check if the Remove button is clicked
 if(isset($_POST['remove'])) {
     $user_id = $_POST['user_id'];
-    // Remove the user data
+
     $sql = "DELETE FROM airline_users WHERE user_id = $user_id";
     mysqli_query($conn, $sql);
-    // Show removal message
+  
     echo "<script>alert('User removed successfully.');</script>";
 }
 

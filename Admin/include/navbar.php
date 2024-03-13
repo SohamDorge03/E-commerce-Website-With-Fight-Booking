@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -266,7 +267,7 @@
                         <i class="fas fa-plane nav_icon"></i>
                         <span class="nav_name">Airline</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="flight_Management.php" class="nav_link">
                         <i class="fas fa-plane-departure nav_icon"></i>
                         <span class="nav_name">Flights</span>
                     </a>
@@ -284,9 +285,9 @@
                         <span class="nav_name">Booking Reports</span>
                     </a>
                   
-                    <a href="" class="nav_link">
+                    <a href="financial_report.php" class="nav_link">
                         <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Returns</span>
+                        <span class="nav_name">Financial report</span>
                     </a>
                     <a href="logout.php" class="nav_link">
                         <i class="fas fa-sign-out-alt nav_icon"></i>

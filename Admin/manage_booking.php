@@ -1,11 +1,7 @@
 <?php
-include("./include/navbar.php");
-
 session_start();
-
-// Check if user is not logged in
 if(!isset($_SESSION['email'])) {
-    // Redirect to login page
+    
     header("Location: login.php");
     exit();
 }
@@ -23,6 +19,9 @@ if(!isset($_SESSION['email'])) {
     </style>
 </head>
 <body>
+    <?php
+    include("./include/navbar.php");
+    ?>
     <div class="container mt-5">
         <h2>Booked Flights</h2>
         <table class="table">
@@ -47,7 +46,7 @@ if(!isset($_SESSION['email'])) {
                 <?php
                 include("./include/connection.php");
                 
-                // SQL query
+            
                 $sql = "SELECT bf.booking_id, f.flight_code, u.first_name, u.last_name, u.email, u.phone_number,
                                 bf.take_seats, bf.flight_class, bf.TransactionID, bf.total_amount, bf.payment_status, bf.book_status,
                                 a.airline_id, a.airline_name
@@ -58,12 +57,9 @@ if(!isset($_SESSION['email'])) {
 
                 $result = mysqli_query($conn, $sql);
                 
-                // Check for errors
                 if (!$result) {
                     die("Query failed: " . mysqli_error($conn));
                 }
-                
-                // Check if any rows returned
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
@@ -86,9 +82,7 @@ if(!isset($_SESSION['email'])) {
                 } else {
                     echo "<tr><td colspan='13'>No records found</td></tr>";
                 }
-                
-                // Close connection
-                mysqli_close($conn);
+
                 ?>
             </tbody>
         </table>

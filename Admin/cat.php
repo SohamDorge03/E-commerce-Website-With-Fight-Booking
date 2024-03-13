@@ -1,17 +1,14 @@
 <?php
-
 session_start();
 
-// Check if user is not logged in
 if(!isset($_SESSION['email'])) {
-    // Redirect to login page
     header("Location: login.php");
     exit();
 }
+?>
 
+<?php
 include("./include/connection.php");
-
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
