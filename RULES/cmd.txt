@@ -13,24 +13,6 @@ INSERT INTO `admins` VALUES (9,'bhargav','bhargav123@gmail.com','786');
 INSERT INTO `admins` VALUES (10,'yagnesh','okyagnesh@gmail.com','123456');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `airline_users` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `confirmed_email` tinyint(1) NOT NULL DEFAULT '0',
-  `airline_id` int NOT NULL,
-  `profile_pic_url` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL,
-  `state` varchar(50) DEFAULT NULL,
-  `confirmation_admin_status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `airline_users` VALUES (2,'soham','so123@gmail.com','12456',0,1,NULL,'udhana','surat','gujarat',1);
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airlines` (
   `airline_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(40) NOT NULL,
@@ -197,7 +179,7 @@ CREATE TABLE `products` (
   `discount_price` decimal(10,2) DEFAULT NULL,
   `category_id` int DEFAULT NULL,
   `subcategory_id` int DEFAULT NULL,
-  `warranty` int NOT NULL,
+  `w_price` int NOT NULL,
   `confirmation_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`product_id`),
   KEY `vendor_id` (`vendor_id`),

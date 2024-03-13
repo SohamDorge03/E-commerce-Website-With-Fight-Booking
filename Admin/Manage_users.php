@@ -1,4 +1,3 @@
-
 <?php
 include("./include/connection.php");
 
@@ -11,14 +10,6 @@ $userResult = $conn->query($userSql);
 
 if ($userResult === false) {
     die("Error executing the user query: " . $conn->error);
-}
-
-$airlineSql = "SELECT * FROM airline_users";
-$airlineResult = $conn->query($airlineSql);
-
-if ($airlineResult === false) {
-
-    die("Error executing the airline query: " . $conn->error);
 }
 
 $vendorSql = "SELECT * FROM vendors";
@@ -124,63 +115,7 @@ if ($vendorResult === false) {
             </table>
         </div>
 
-        <div class="section-heading">
-            <h2>Airline User Data</h2>
-        </div>
-        <div class="table-responsive">
-            <table class="table custom-table">
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Confirmed Email</th>
-                        <th>Airline ID</th>
-                        <th>Profile Pic URL</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Confirmation Admin Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if ($airlineResult->num_rows > 0) {
-                        while ($row = $airlineResult->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>" . $row['user_id'] . "</td>";
-                            echo "<td>" . $row['username'] . "</td>";
-                            echo "<td>" . $row['email'] . "</td>";
-                            echo "<td>" . ($row['confirmed_email'] ? 'Yes' : 'No') . "</td>";
-                            echo "<td>" . $row['airline_id'] . "</td>";
-                            echo "<td>" . $row['profile_pic_url'] . "</td>";
-                            echo "<td>" . $row['address'] . "</td>";
-                            echo "<td>" . $row['city'] . "</td>";
-                            echo "<td>" . $row['state'] . "</td>";
-                            echo "<td>" . $row['confirmation_admin_status'] . "</td>";
-                            echo "<td>
-                            <form method='POST'>
-                                <input type='hidden' name='user_id' value='" . $row['user_id'] . "'>
-                                <button type='submit' class='btn btn-success' name='confirm'>Confirm</button>
-                            </form>
-                        </td>";
-                            echo "<td>
-                            <form method='POST'>
-                                <input type='hidden' name='user_id' value='" . $row['user_id'] . "'>
-                                <button type='submit' class='btn btn-danger' name='remove'>Remove</button>
-                            </form>
-                        </td>";
-
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='10'>No airline user data found</td></tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+        
         <div class="section-heading">
             <h2>Vendors Data</h2>
         </div>
@@ -284,25 +219,7 @@ if ($vendorResult === false) {
                 }
             }
         </script>
-<?php
 
-if(isset($_POST['confirm'])) {
-    $user_id = $_POST['user_id'];
-    $sql = "UPDATE airline_users SET confirmation_admin_status = 1 WHERE user_id = $user_id";
-    mysqli_query($conn, $sql);
-    echo "<script>alert('User confirmed successfully.');</script>";
-}
-
-if(isset($_POST['remove'])) {
-    $user_id = $_POST['user_id'];
-
-    $sql = "DELETE FROM airline_users WHERE user_id = $user_id";
-    mysqli_query($conn, $sql);
-  
-    echo "<script>alert('User removed successfully.');</script>";
-}
-
-?>
 </body>
 
 </html>

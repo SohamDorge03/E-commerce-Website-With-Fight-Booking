@@ -8,6 +8,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <?php
+        include("./include/navbar.php")
+    ?>
     <div class="container">
         <h2>Order Report</h2>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
