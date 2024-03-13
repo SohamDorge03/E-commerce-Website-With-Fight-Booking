@@ -7,11 +7,9 @@ if(!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
+?>
+<?php
 
-include("./include/navbar.php");
-include("./include/connection.php");
-
-// Check if a POST request is made and demo_id is set
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
     $demoId = $_POST["demo_id"];
     
@@ -24,8 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
         echo "Error removing demo: " . $conn->error;
     }
     
-    $conn->close();
-    exit; // Terminate script execution after handling the AJAX request
 }
 ?>
 
@@ -44,6 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
     </style>
 </head>
 <body>
+    <?php
+    include("./include/navbar.php");
+    include("./include/connection.php");
+    ?>
 
 <div class="container mt-5">
     <h2>Book Demo Data</h2>

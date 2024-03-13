@@ -31,9 +31,8 @@
                 <tbody>
                     <?php
                     // Establish database connection
-                    require("./include/connection.php");
+                    include("./include/connection.php");
 
-                    // Fetch data from the warranty table
                     $query = "SELECT * FROM warranty";
                     $result = mysqli_query($conn, $query);
 
@@ -41,7 +40,7 @@
                     if ($result) {
                         // Loop through each row in the result set
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<tr>';
+                            echo '<tr style="text-align:center;">';
                             echo '<td>' . $row['warranty_id'] . '</td>';
                             echo '<td>' . $row['user_id'] . '</td>';
                             echo '<td>' . $row['product_code'] . '</td>';

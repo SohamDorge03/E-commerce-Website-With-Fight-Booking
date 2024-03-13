@@ -1,18 +1,15 @@
 <?php
-
-include("./include/connection.php");
-include("./include/navbar.php");
-
 session_start();
 
 // Check if user is not logged in
-if(!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     // Redirect to login page
     header("Location: login.php");
     exit();
 }
-
-
+?>
+<?php
+ include("./include/connection.php");
 if (isset($_POST['remove_product_id'])) {
     $remove_product_id = $_POST['remove_product_id'];
 
@@ -30,13 +27,12 @@ if (isset($_POST['confirm_product_id'])) {
     // Retrieve the product ID
     $product_id = $_POST['confirm_product_id'];
 
-    // Query to update the confirmation status of the product
     $update_sql = "UPDATE products SET confirmation_status = 1 WHERE product_id = $product_id";
 
     // Execute the query
     if ($conn->query($update_sql) === TRUE) {
         echo "Confirmation status updated successfully";
-        exit; // Exit after echoing response to prevent further HTML output
+        exit;
     } else {
         echo "Error updating confirmation status: " . $conn->error;
         exit; // Exit after echoing response to prevent further HTML output
@@ -59,8 +55,8 @@ $result = $conn->query($sql);
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         #container {
-            margin-top: 120px;
-
+            margin-top: 70px;
+            margin-left: 10px;
         }
 
         .description-cell {
@@ -86,7 +82,10 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-
+    <?php
+   
+    include("./include/navbar.php");
+    ?>
     <div class="container " id="container">
         <h2>Product List</h2>
         <table class="table ">

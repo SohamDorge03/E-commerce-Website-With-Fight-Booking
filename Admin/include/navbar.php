@@ -249,7 +249,7 @@
                         <i class="fas fa-calendar-alt nav_icon"></i>
                         <span class="nav_name">Returns</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="Warrenty.php" class="nav_link">
                         <i class="fas fa-shield-alt nav_icon"></i>
                         <span class="nav_name">Warranty</span>
                     </a>

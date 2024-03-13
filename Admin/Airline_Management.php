@@ -1,25 +1,20 @@
 <?php
 session_start();
 
-// Check if user is not logged in
 if(!isset($_SESSION['email'])) {
-    // Redirect to login page
     header("Location: login.php");
     exit();
 }
 include("./include/connection.php");
-
 $target_dir = "./upload/";
 
 if(isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $delete_id = $_GET['id'];
-
     $sql = "DELETE FROM airlines WHERE airline_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $delete_id);
 
     if ($stmt->execute()) {
-
         header("Location: {$_SERVER['PHP_SELF']}");
         exit();
     } else {
@@ -56,7 +51,6 @@ if(isset($_POST['submit'])) {
 
         if ($uploadOk == 0) {
             echo "Sorry, your file was not uploaded.";
-        
         } 
         else
          {
@@ -68,7 +62,6 @@ if(isset($_POST['submit'])) {
             }
         }
     }
-
     $sql = "INSERT INTO airlines (email, pass, airline_name, logo) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssss", $email, $pass, $airline_name, $logo);
@@ -81,11 +74,7 @@ if(isset($_POST['submit'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
-include("./include/navbar.php");
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,7 +84,9 @@ include("./include/navbar.php");
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
+<?php
+include("./include/navbar.php");
+?>
 <div class="container" style="margin-top: 100px;">
     <h2>Airline Management</h2>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAirlineModal">

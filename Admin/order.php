@@ -1,12 +1,14 @@
 <style>
 .container{
     margin-top: 70px !important;
+    margin-left: 20px !important;
+    font-family:'poppins';
 }
+
 </style>
 <?php
 include("include/connection.php");
 include('include/navbar.php');
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
     $order_id = $_POST["order_id"];
