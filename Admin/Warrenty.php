@@ -31,7 +31,6 @@ if(!isset($_SESSION['email'])) {
                         <th>Product Code</th>
                         <th>Start Date</th>
                         <th>Status</th>
-                    
                         <th>Payment</th>
                         <th>Months</th>
                     </tr>

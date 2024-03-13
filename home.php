@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en"> 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -150,11 +150,12 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-image: url(ui.jpeg);
+  background-image: url(https://i.postimg.cc/SsC7D5WD/b2.jpg);
   width: 100%;
   height: 40vh;
   background-position: center;
   background-size: cover;
+  
 }
 
 #banner h4{
@@ -183,7 +184,8 @@ button.normal{
   border: none;
   outline: none;
   transition: 0.2s;
-  cursor: pointer;
+  cursor: pointer
+    
 }
 
 #banner button:hover{
@@ -197,8 +199,8 @@ button.normal{
   justify-content: center;
   align-items: flex-start;
   text-align: center;
-  background-image: url(boat.jpg);
-  min-width: 100px;
+  background-image: url(https://i.postimg.cc/vZ6YLxDG/b17.jpg);
+  min-width: 580px;
   height: 40vh;
   background-position: center;
   background-size: cover;
@@ -339,7 +341,8 @@ button.white{
   background-color: #088178;
   color: #fff;
   white-space: nowrap;
-
+  border-left-right-radius: 0;
+  border-left-right-radius: 0; 
 }
 
 #newsletter .form{
@@ -427,6 +430,12 @@ footer .copyright{
   text-align: center
    
 }
+
+
+
+
+
+
 @media (max-width: 920px) {
   
   .section-p1 {
@@ -627,74 +636,75 @@ display: flex;
        <!----------x---------------Google font --------x----------------->
 
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+       
+    
    </head>
-   <body>
 
-<?php
+    <body>
+
+    <?php
 include("include/navbar.php");
-?>
+    ?>
 <div id="carouselExample" class="carousel slide ">
-<div class="carousel-inner">
-<div class="carousel-item active">
-  <img src="f2.jpg" class="d-block w-100" alt="...">
-</div>
-<div class="carousel-item">
-  <img src="lap.jpg" class="d-block w-100" alt="...">
-</div>
-<div class="carousel-item">
-  <img src="iphone.jpg" class="d-block w-100" alt="...">
-</div>
-
-</div>
-<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-<span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-<span class="carousel-control-next-icon" aria-hidden="true"></span>
-<span class="visually-hidden">Next</span>
-</button>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="image/red (1).jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="image/Electro (1).jpg" class="d-block w-100" alt="...">
+    </div>
+   
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
 <section id="feature" class="section-p1">
-<div class="fe-box">
-<img src="https://i.postimg.cc/PrN2Y6Cv/f1.png" alt="">
-<h6>Free Shipping</h6>
-</div>
-
-<div class="fe-box">
-<img src="https://i.postimg.cc/qvycxW4q/f2.png" alt="">
-<h6>Online Order</h6>
-</div>
-
-<div class="fe-box">
-<img src="https://i.postimg.cc/1Rdphyz4/f3.png" alt="">
-<h6>Save Money</h6>
-</div>
-
-<div class="fe-box">
-<img src="https://i.postimg.cc/GpYc2JFZ/f4.png" alt="">
-<h6>Free Demo booking</h6>
-</div>
-
-<div class="fe-box">
-<img src="https://i.postimg.cc/4yFCwmv6/f5.png" alt="">
-<h6>Warrunty Services</h6>
-</div>
-
-<div class="fe-box">
-<img src="https://i.postimg.cc/gJN1knTC/f6.png" alt="">
-<h6>F24/7 Support</h6>
-</div>
-
+  <div class="fe-box">
+    <img src="https://i.postimg.cc/PrN2Y6Cv/f1.png" alt="">
+    <h6>Free Shipping</h6>
+  </div>
+  
+  <div class="fe-box">
+    <img src="https://i.postimg.cc/qvycxW4q/f2.png" alt="">
+    <h6>Online Order</h6>
+  </div>
+  
+  <div class="fe-box">
+    <img src="https://i.postimg.cc/1Rdphyz4/f3.png" alt="">
+    <h6>Save Money</h6>
+  </div>
+  
+  <div class="fe-box">
+    <img src="https://i.postimg.cc/GpYc2JFZ/f4.png" alt="">
+    <h6>Free Demo booking</h6>
+  </div>
+  
+  <div class="fe-box">
+    <img src="https://i.postimg.cc/4yFCwmv6/f5.png" alt="">
+    <h6>Warrunty Services</h6>
+  </div>
+  
+  <div class="fe-box">
+    <img src="https://i.postimg.cc/gJN1knTC/f6.png" alt="">
+    <h6>F24/7 Support</h6>
+  </div>
+  
 </section>
 
 <section id="product1" class="section-p1">
-<h2>Featured Products</h2>
-<p>Summer Collection New Modern Design</p>
-<div class="pro-container">
-<?php
+  <h2>Featured Products</h2>
+  <p>Summer Collection New Modern Design</p>
+  <div class="pro-container">
+  <?php
 include("include/connection.php");
 
 // Fetch products from the database
@@ -703,335 +713,330 @@ $result = $conn->query($sql);
 
 // Check if there are products
 if ($result->num_rows > 0) {
-echo '<div class="pro-container">';
+    echo '<div class="pro-container">';
 
-// Loop through each product and generate HTML
-while ($row = $result->fetch_assoc()) {
-    echo '<div class="pro">';
-    echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" >';
-    echo '<div class="des">';
-    echo '<h5>' . $row['name'] . '</h5>';
-    echo '<div class="star">';
-    echo '<i class="fas fa-star"></i>';
-    echo '<i class="fas fa-star"></i>';
-    echo '<i class="fas fa-star"></i>';
-    echo '<i class="fas fa-star"></i>';
-    echo '<i class="fas fa-star"></i>';
-    echo '</div>';
-    
-    // Display discounted price with a strikethrough effect on original price
-    if ($row['discount_price'] !== null && $row['discount_price'] < $row['price']) {
-        echo '<p class="original-price">$' . $row['price'] . '</p>';
-        echo '<p class="discounted-price">$' . $row['discount_price'] . '</p>';
-    } else {
-        // If no discount, display the regular price
-        echo '<p class="price">$' . $row['price'] . '</p>';
+    // Loop through each product and generate HTML
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="pro" style="width: 270px;">';
+        echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" >';
+        echo '<div class="des">';
+        echo '<h5>' . $row['name'] . '</h5>';
+       
+        
+        // Display discounted price with a strikethrough effect on original price if discount exists
+        if ($row['discount_price'] !== null && $row['discount_price'] < $row['price']) {
+            echo '<span class="original-price"><span style="text-decoration: line-through;">$' . $row['price'] . '</span></span>';
+            echo '<span class="discounted-price" style="margin-left: 5px; font-size: 18px; font-weight: bold; margin-top: 1px;">$' . $row['discount_price'] . '</span>';
+        } else {
+            // If no discount, display the regular price
+            echo '<span class="price" style=" font-size: 18px; font-weight: bold; margin-top: 1px;">$' . $row['price'] . '</span>';
+        }
+
+        // Display one-line description
+        echo '<p class="description" style="margin-top: 1px;">' . substr($row['description'], 0, 50) . '...</p>';
+
+        echo '</div>';
+        
+        echo '<a><i class="fal fa-shopping-cart cart"></i></a>';
+        echo '</div>';
     }
 
-    // Display one-line description
-    echo '<p class="description">' . substr($row['description'], 0, 50) . '...</p>';
-
     echo '</div>';
-    
-    echo '<a href=""><i class="fal fa-shopping-cart cart"></i></a>';
-    echo '</div>';
-}
-
-echo '</div>';
 } else {
-echo 'No products found.';
+    echo 'No products found.';
 }
 
 // Close the database connection
 $conn->close();
 ?>
 
+
 </section>
 
 <section id="banner" class="section-m1">
-<!-- <h4> Repair Service</h4>
-<h2>Up to <span>70% off </span> - All Tshirts and Accessories</h2> -->
-<button class="btn normal">Explore more</button>
-</section>
+  <h4> Repair Service</h4>
+  <h2>Up to <span>70% off </span> - All Tshirts and Accessories</h2>
+  <button class="btn normal">Explore more</button>
+  </section>
 
 <section id="product1" class="section-p1">
-<h2>New Arrivals</h2>
-<p>Summer Collection New Modern Design</p>
-<div class="pro-container">
-<div class="pro">
-  <img src="we1.jpg" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>Carton Astronault Tshirts</h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+  <h2>New Arrivals</h2>
+  <p>Summer Collection New Modern Design</p>
+  <div class="pro-container">
+    <div class="pro">
+      <img src="https://i.postimg.cc/hG1hqqK6/n1.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>Carton Astronault Tshirts</h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
-  </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-
-<div class="pro">
-  <img src="Designer (29).png" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>Carton Leave Tshirts</h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+    
+    
+    <div class="pro">
+      <img src="https://i.postimg.cc/BZkSkvxt/n2.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>Carton Leave Tshirts</h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
-  </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-
-<div class="pro">
-  <img src="Designer (30).png" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>Rose Multicolor Tshirts</h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+    
+    
+    <div class="pro">
+      <img src="https://i.postimg.cc/KYjcC3sk/n3.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>Rose Multicolor Tshirts</h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
-  </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-
-<div class="pro">
-  <img src="d2.jpg" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>Pink Flower Tshirts</h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+    
+    
+    <div class="pro">
+      <img src="https://i.postimg.cc/vHvQBtJx/n4.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>Pink Flower Tshirts</h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
-  </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-
-
-<div class="pro">
-  <img src="https://i.postimg.cc/908J8S4q/n5.jpg" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>Purple Flowering Tshirts</h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+    
+    
+    
+    <div class="pro">
+      <img src="https://i.postimg.cc/908J8S4q/n5.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>Purple Flowering Tshirts</h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
-  </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-
-
-<div class="pro">
-  <img src="https://i.postimg.cc/X7r8NsGQ/n7.jpg" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>Short Knicker </h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+    
+    
+    
+    <div class="pro">
+      <img src="https://i.postimg.cc/X7r8NsGQ/n7.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>Short Knicker </h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
-  </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-
-
-<div class="pro">
-  <img src="https://i.postimg.cc/JhrH0hYM/n8.jpg" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>2 in 1 Double Routed</h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+    
+    
+    
+    <div class="pro">
+      <img src="https://i.postimg.cc/JhrH0hYM/n8.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>2 in 1 Double Routed</h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
-  </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-
-
-<div class="pro">
-  <img src="https://i.postimg.cc/2Sq4mytJ/f8.jpg" alt="">
-  <div class="des">
-    <span>adidas</span>
-    <h5>Ash Short</h5>
-    <div class="star">
-      <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
-       <i class="fas fa-star"></i>
+    
+    
+    
+    <div class="pro">
+      <img src="https://i.postimg.cc/2Sq4mytJ/f8.jpg" alt="">
+      <div class="des">
+        <span>adidas</span>
+        <h5>Ash Short</h5>
+        <div class="star">
+          <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+           <i class="fas fa-star"></i>
+        </div>
+        <h4>$78</h4>
+      </div>
+      <a href=""><i class="fal fa-shopping-cart cart"></i></a>
     </div>
-    <h4>$78</h4>
+    
   </div>
-  <a href=""><i class="fal fa-shopping-cart cart"></i></a>
-</div>
-
-</div>
 </section>
 
 <section id="sm-banner" class="section-p1"> 
-<div class="banner-box">
-<!-- <h4>crazy deals</h4>
-<h2>buy 1 get 1 free</h2> -->
-<span>The best classic dress is on sales at cara</span>
-<button class="btn white">Learn More</button> 
-
-</div>
-
-<div class="banner-box banner-box2">
-<h4>spring/summer</h4>
-<h2>upcoming season</h2>
-<span>The best classic dress is on sales at cara</span>
-<button class="btn white">Collection</button> 
-
-</div>
-
+  <div class="banner-box">
+    <h4>crazy deals</h4>
+    <h2>buy 1 get 1 free</h2>
+    <span>The best classic dress is on sales at cara</span>
+    <button class="btn white">Learn More</button> 
+  
+  </div>
+  
+  <div class="banner-box banner-box2">
+    <h4>spring/summer</h4>
+    <h2>upcoming season</h2>
+    <span>The best classic dress is on sales at cara</span>
+    <button class="btn white">Collection</button> 
+  
+  </div>
+  
 </section>
 
 <section id="banner3" class="section-p1">
-<div class="banner-box">
-
-<h2>SEASONAL SALES</h2>
-<h3>Winter Collection -50% OFF</h3>
-
-</div>
-
-<div class="banner-box banner-img2">
-
-<h2>SEASONAL SALES</h2>
-<h3>Winter Collection -50% OFF</h3>
-
-</div>
-
-<div class="banner-box banner-img3">
-
-<h2>SEASONAL SALES</h2>
-<h3>Winter Collection -50% OFF</h3>
-
-</div>
-
+  <div class="banner-box">
+    
+    <h2>SEASONAL SALES</h2>
+    <h3>Winter Collection -50% OFF</h3>
+ 
+  </div>
+  
+  <div class="banner-box banner-img2">
+    
+    <h2>SEASONAL SALES</h2>
+    <h3>Winter Collection -50% OFF</h3>
+ 
+  </div>
+  
+  <div class="banner-box banner-img3">
+    
+    <h2>SEASONAL SALES</h2>
+    <h3>Winter Collection -50% OFF</h3>
+ 
+  </div>
+  
 </section>
 
 <section id="newsletter" class="section-p1">
-<div class="newstext">
-<h4>Sign Up for Newsletters</h4>
-<p>Get Email updates about our latest shop and <span> special offers.</span> </p>
-</div>
-<div class="form">
-<input type="text" placeholder="Your email address">
-   <button class="btn normal">Sign Up</button>
-</div>
-
-</div>
-
+  <div class="newstext">
+    <h4>Sign Up for Newsletters</h4>
+    <p>Get Email updates about our latest shop and <span> special offers.</span> </p>
+  </div>
+    <div class="form">
+    <input type="text" placeholder="Your email address">
+       <button class="btn normal">Sign Up</button>
+    </div>
+   
+  </div>
+  
 </section>
 
 
 <footer class="section-p1">
-
+  
 <div class="col">
 <a href="#"><img class="logo" src="https://i.postimg.cc/x8ncvFjr/logo.png"></a>
-<h4>Contact</h4>
- <p><strong>Address:<strong>349, Olorilogbon street, Onigbogbo Lagos</p>
-<p><strong>Phone:</strong>+23456876199, +23458903120</p>
-<p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
-   <div class="follow">
-     <h4>Follow Us</h4>
-     <div class="icon">
-       <i class="fab fa-facebook-f"></i>
-       <i class="fab fa-instagram"></i>
-       <i class="fab fa-twitter"></i>
-       <i class="fab fa-youtube"></i>
-       <i class="fab fa-pinterest-p"></i>
-        </div>
+    <h4>Contact</h4>
+     <p><strong>Address:<strong>349, Olorilogbon street, Onigbogbo Lagos</p>
+    <p><strong>Phone:</strong>+23456876199, +23458903120</p>
+    <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
+       <div class="follow">
+         <h4>Follow Us</h4>
+         <div class="icon">
+           <i class="fab fa-facebook-f"></i>
+           <i class="fab fa-instagram"></i>
+           <i class="fab fa-twitter"></i>
+           <i class="fab fa-youtube"></i>
+           <i class="fab fa-pinterest-p"></i>
+            </div>
+       </div>
+       </div>
+      
+    <div class="sec">   
+    <div class="col">
+      <h4>About</h4>
+      <a href="#">About Us</a>
+      <a href="#">Delivery Information</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms and Condition</a>
+      <a href="#">Contact Us</a>
    </div>
-   </div>
-  
-<div class="sec">   
-<div class="col">
-  <h4>About</h4>
-  <a href="#">About Us</a>
-  <a href="#">Delivery Information</a>
-  <a href="#">Privacy Policy</a>
-  <a href="#">Terms and Condition</a>
-  <a href="#">Contact Us</a>
-</div>
-
-<div class="col">
-  <h4>My Account</h4>
-  <a href="#">Sign In</a>
-  <a href="#">View Cart</a>
-  <a href="#">My Account</a>
-  <a href="#">My Wishlist</a>
-  <a href="#">Track my Order</a>
-  <a href="#">Help</a>
     
-</div>
-
-<div class="col install">
-  <h4>Install App</h4>
-  <p>From App Store or Google Play</p>
-
-  <div class="row">
-  <img src="https://i.postimg.cc/Y2s5mLdR/app.jpg" alt="">
-  <img src="https://i.postimg.cc/7YvyWTS6/play.jpg" alt="">
-</div>
-<p>Secured Payment Gateways</p>
-<img src="https://i.postimg.cc/kgfzqVRW/pay.png" alt="">
-   </div>
-</div>
-
-<div class="coypright">
-  <p> © 2023 All rights reserved! made by Tunrayo </p>
-</div>
-
-</footer>
+    <div class="col">
+      <h4>My Account</h4>
+      <a href="#">Sign In</a>
+      <a href="#">View Cart</a>
+      <a href="#">My Account</a>
+      <a href="#">My Wishlist</a>
+      <a href="#">Track my Order</a>
+      <a href="#">Help</a>
+        
+    </div>
+    
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+ 
+      <div class="row">
+      <img src="https://i.postimg.cc/Y2s5mLdR/app.jpg" alt="">
+      <img src="https://i.postimg.cc/7YvyWTS6/play.jpg" alt="">
+    </div>
+    <p>Secured Payment Gateways</p>
+    <img src="https://i.postimg.cc/kgfzqVRW/pay.png" alt="">
+       </div>
+  </div>
+  
+  <div class="coypright">
+      <p> © 2023 All rights reserved! made by Tunrayo </p>
+    </div>
+  
+ </footer>
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+   
 
 <script src="script.js"></script>
-</body>
+    </body>
 
 </html>

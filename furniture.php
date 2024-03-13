@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
     #product1 {
       text-align: center;
     }
+
     #product1 .pro-container {
       display: flex;
       padding-top: 20px;
@@ -16,6 +18,7 @@
       justify-content: center;
       flex-wrap: wrap;
     }
+
     #product1 .pro {
       width: 23%;
       min-width: 250px;
@@ -34,7 +37,7 @@
     }
 
     #product1 .pro img {
-      width: 50%;
+      width: 100%;
       border-radius: 20px;
     }
 
@@ -45,8 +48,7 @@
 
     #product1 .pro .des span {
       color: #606063;
-      font-size: 1.3rem;
-      font-weight: bold;
+      font-size: 12px;
     }
 
     #product1 .pro .des h5 {
@@ -79,56 +81,61 @@
       position: absolute;
       bottom: 20px;
       right: 10px;
+
     }
   </style>
 </head>
 <body>
-  
 <section id="product1" class="section-p1">
-  <h2>Gym Products</h2>
+  <h2>Featured Products</h2>
   <p>Summer Collection New Modern Design</p>
-  <?php
-  include("include/connection.php");
+  <div class="pro-container">
+    <?php
+    include("include/connection.php");
 
-  // Fetch products from the database for the gym category (category_id = 1)
-  $productSql = "SELECT * FROM products WHERE category_id = 2";
-  $productResult = $conn->query($productSql);
+    // Fetch products from the database
+    $productSql = "SELECT * FROM products WHERE category_id = 2";
+    $productResult = $conn->query($productSql);
 
-  // Check if there are products in the gym category
-  if ($productResult->num_rows > 0) {
-    echo '<div class="pro-container">';
-    while ($productRow = $productResult->fetch_assoc()) {
-      echo '<div class="pro">';
-      echo '<img src="vendor/' . $productRow['img1'] . '" alt="" height="200px" >';
-      echo '<div class="des">';
-      echo '<h5>' . $productRow['name'] . '</h5>';
-      
-  
-      // Display discounted price with a strikethrough effect on original price
-      if ($productRow['discount_price'] !== null && $productRow['discount_price'] < $productRow['price']) {
-        echo '<span class="original-price">' . $productRow['price'] . '</span>';
-        echo '<span class="discounted-price">' . $productRow['discount_price'] . '</span>';
-      } else {
-        // If no discount, display the regular price
-        echo '<p class="price">' . $productRow['price'] . '</p>';
+    // Check if there are products
+    if ($productResult !== false && $productResult->num_rows > 0) {
+      echo '<div class="pro-container">';
+
+      // Loop through each product and generate HTML
+      while ($row = $productResult->fetch_assoc()) {
+        echo '<div class="pro" style="width: 270px;">';
+        echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" >';
+        echo '<div class="des">';
+        echo '<h5>' . $row['name'] . '</h5>';
+
+
+        // Display discounted price with a strikethrough effect on original price if discount exists
+        if ($row['discount_price'] !== null && $row['discount_price'] < $row['price']) {
+          echo '<span class="original-price"><span style="text-decoration: line-through;">$' . $row['price'] . '</span></span>';
+          echo '<span class="discounted-price" style="margin-left: 5px; font-size: 18px; font-weight: bold; margin-top: 1px;">$' . $row['discount_price'] . '</span>';
+        } else {
+          // If no discount, display the regular price
+          echo '<span class="price" style=" font-size: 18px; font-weight: bold; margin-top: 1px;">$' . $row['price'] . '</span>';
+        }
+
+        // Display one-line description
+        echo '<p class="description" style="margin-top: 1px;">' . substr($row['description'], 0, 50) . '...</p>';
+
+        echo '</div>';
+
+        echo '<a><i class="fal fa-shopping-cart cart"></i></a>';
+        echo '</div>';
       }
 
-      // Display one-line description
-      echo '<p class="description">' . substr($productRow['description'], 0, 50) . '...</p>';
-
       echo '</div>';
-      
-      echo '<a href=""><i class="bi bi-cart-fill cart"></i></a>';
-      echo '</div>';
+    } else {
+      echo 'No products found.';
     }
-    echo '</div>';
-  } else {
-    echo 'No products found in the gym category.';
-  }
 
-  // Close the database connection
-  $conn->close();
-  ?>
+    // Close the database connection
+    $conn->close();
+    ?>
+  </div>
 </section>
 </body>
 </html>
