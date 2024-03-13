@@ -1,4 +1,12 @@
+<?php
+session_start();
 
+if(!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,8 +31,7 @@
                         <th>Product Code</th>
                         <th>Start Date</th>
                         <th>Status</th>
-                        <th>Confirmed by Vendor</th>
-                        <th>Vendor Confirmation Timestamp</th>
+                    
                         <th>Payment</th>
                         <th>Months</th>
                     </tr>
@@ -41,14 +48,13 @@
                     if ($result) {
                         // Loop through each row in the result set
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<tr style="text-align:center;">';
+                            echo '<tr">';
                             echo '<td>' . $row['warranty_id'] . '</td>';
                             echo '<td>' . $row['user_id'] . '</td>';
                             echo '<td>' . $row['product_code'] . '</td>';
                             echo '<td>' . $row['start_date'] . '</td>';
                             echo '<td>' . $row['status'] . '</td>';
-                            echo '<td>' . ($row['confirmed_by_vendor'] ? 'Yes' : 'No') . '</td>';
-                            echo '<td>' . $row['vendor_confirmation_timestamp'] . '</td>';
+                
                             echo '<td>' . $row['payment'] . '</td>';
                             echo '<td>' . $row['months'] . '</td>';
                             echo '</tr>';

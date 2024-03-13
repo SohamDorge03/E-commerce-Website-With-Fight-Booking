@@ -1,5 +1,13 @@
-
 <?php
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+<?php
+include("./include/connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
     $demoId = $_POST["demo_id"];
@@ -11,8 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
         echo "Demo removed successfully";
     } else {
         echo "Error removing demo: " . $conn->error;
-    }
-    
+    }  
 }
 ?>
 
@@ -31,10 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
     </style>
 </head>
 <body>
-    <?php
-    include("./include/navbar.php");
-    include("./include/connection.php");
-    ?>
+    <?php include("./include/navbar.php"); ?>
 
 <div class="container mt-5">
     <h2>Book Demo Data</h2>
@@ -48,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
                 <th>Phone Number</th>
                 <th>Product ID</th>
                 <th>Vendor ID</th>
+                <th>Company Name</th>
                 <th>Product Image</th>
                 <th>Product Name</th>
                 <th>Demo Date</th>
@@ -68,17 +73,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
                         u.phone_number, 
                         bd.product_id, 
                         p.vendor_id, 
+                        v.company_name, -- Include company_name here
                         p.img1, 
-                        p.name AS name, 
+                        p.name AS product_name, 
                         bd.demo_date,
-                        bd.Application_date, 
-                        bd.status 
+                        bd.Application_date,
+                        bd.status
                     FROM 
                         book_demo bd 
                     INNER JOIN 
                         users u ON bd.user_id = u.user_id 
                     INNER JOIN 
-                        products p ON bd.product_id = p.product_id";
+                        products p ON bd.product_id = p.product_id
+                    INNER JOIN 
+                        vendors v ON p.vendor_id = v.vendor_id";
 
             $result = $conn->query($sql);
 
@@ -97,8 +105,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
                         echo "<td>" . $row["phone_number"] . "</td>";
                         echo "<td>" . $row["product_id"] . "</td>";
                         echo "<td>" . $row["vendor_id"] . "</td>";
+                        echo "<td>" . $row["company_name"] . "</td>"; // Display company_name
                         echo "<td><img src='../Vendor/" . $row["img1"] . "' height='50' width='50'></td>";
-                        echo "<td>" . $row["name"] . "</td>";
+                        echo "<td>" . $row["product_name"] . "</td>";
                         echo "<td>" . $row["demo_date"] . "</td>";
                         echo "<td>" . $row["Application_date"] . "</td>";
                         echo "<td>" . $row["status"] . "</td>";
@@ -109,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='12'>No records found</td></tr>";
+                    echo "<tr><td colspan='14'>No records found</td></tr>"; // Adjusted colspan to match the number of columns
                 }
             }
             $conn->close();

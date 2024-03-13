@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if(!isset($_SESSION['email'])) {
-    header("Location: login.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -226,84 +218,81 @@ if(!isset($_SESSION['email'])) {
     </header>
 
     <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div>
-                <div class="nav_logo">
-                    <i class="fas fa-store nav_logo-icon"></i>
-                    <span class="nav_logo-name">ShopFlix Admin</span>
-                </div>
-                <div class="nav_list">
-                    <a href="dashboard.php" class="nav_link active">
-                        <i class="fas fa-th-large nav_icon"></i>
-                        <span class="nav_name">Dashboard</span>
-                    </a>
-                    <a href="Manage_users.php" class="nav_link">
-                        <i class="fas fa-user nav_icon"></i>
-                        <span class="nav_name">Users</span>
-                    </a>
-                    <a href="cat.php" class="nav_link">
-                        <i class="fas fa-box nav_icon"></i>
-                        <span class="nav_name">Category</span>
-                    </a>
-                    <a href="product.php" class="nav_link">
-                        <i class="fas fa-box nav_icon"></i>
-                        <span class="nav_name">Products</span>
-                    </a>
-                    <a href="order.php" class="nav_link">
-                        <i class="fas fa-shopping-bag nav_icon"></i>
-                        <span class="nav_name">Orders</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class="fas fa-calendar-alt nav_icon"></i>
-                        <span class="nav_name">Returns</span>
-                    </a>
-                    <a href="Warrenty.php" class="nav_link">
-                        <i class="fas fa-shield-alt nav_icon"></i>
-                        <span class="nav_name">Warranty</span>
-                    </a>
-                    <a href="Demos.php" class="nav_link">
-                        <i class="fas fa-cogs nav_icon"></i>
-                        <span class="nav_name">Demos</span>
-                    </a>
-
-                    <a href="Airport_management.php" class="nav_link">
-                        <i class="fas fa-map nav_icon"></i>
-                        <span class="nav_name">Airport</span>
-                    </a>
-                    <a href="Airline_management.php" class="nav_link">
-                        <i class="fas fa-plane nav_icon"></i>
-                        <span class="nav_name">Airline</span>
-                    </a>
-                    <a href="flight_Management.php" class="nav_link">
-                        <i class="fas fa-plane-departure nav_icon"></i>
-                        <span class="nav_name">Flights</span>
-                    </a>
-
-                    <a href="manage_booking.php" class="nav_link">
-                        <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Booking</span>
-                    </a>
-                    <a href="order_report.php" class="nav_link">
-                        <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Order Reports</span>
-                    </a>
-                    <a href="flight_report.php" class="nav_link">
-                        <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Booking Reports</span>
-                    </a>
-                  
-                    <a href="financial_report.php" class="nav_link">
-                        <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Financial report</span>
-                    </a>
-                    <a href="logout.php" class="nav_link">
-                        <i class="fas fa-sign-out-alt nav_icon"></i>
-                        <span class="nav_name">Logout</span>
-                    </a>
-                </div>
+    <nav class="nav">
+        <div>
+            <div class="nav_logo">
+                <i class="fas fa-store nav_logo-icon"></i>
+                <span class="nav_logo-name">ShopFlix Admin</span>
             </div>
-        </nav>
-    </div>
+            <div class="nav_list">
+                <a href="dashboard.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : '' ?>">
+                    <i class="fas fa-th-large nav_icon"></i>
+                    <span class="nav_name">Dashboard</span>
+                </a>
+                <a href="Manage_users.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Manage_users.php' ? 'active' : '' ?>">
+                    <i class="fas fa-user nav_icon"></i>
+                    <span class="nav_name">Users</span>
+                </a>
+                <a href="cat.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'cat.php' ? 'active' : '' ?>">
+                    <i class="fas fa-box nav_icon"></i>
+                    <span class="nav_name">Category</span>
+                </a>
+                <a href="product.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'product.php' ? 'active' : '' ?>">
+                    <i class="fas fa-box nav_icon"></i>
+                    <span class="nav_name">Products</span>
+                </a>
+                <a href="order.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'order.php' ? 'active' : '' ?>">
+                    <i class="fas fa-shopping-bag nav_icon"></i>
+                    <span class="nav_name">Orders</span>
+                </a>
+                <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'return.php' ? 'active' : '' ?>">
+                    <i class="fas fa-calendar-alt nav_icon"></i>
+                    <span class="nav_name">Returns</span>
+                </a>
+                <a href="Warrenty.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Warrenty.php' ? 'active' : '' ?>">
+                    <i class="fas fa-shield-alt nav_icon"></i>
+                    <span class="nav_name">Warranty</span>
+                </a>
+                <a href="Demos.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Demos.php' ? 'active' : '' ?>">
+                    <i class="fas fa-cogs nav_icon"></i>
+                    <span class="nav_name">Demos</span>
+                </a>
+                <a href="Airport_management.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Airport_management.php' ? 'active' : '' ?>">
+                    <i class="fas fa-map nav_icon"></i>
+                    <span class="nav_name">Airport</span>
+                </a>
+                <a href="Airline_management.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Airline_management.php' ? 'active' : '' ?>">
+                    <i class="fas fa-plane nav_icon"></i>
+                    <span class="nav_name">Airline</span>
+                </a>
+                <a href="flight_Management.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'flight_Management.php' ? 'active' : '' ?>">
+                    <i class="fas fa-plane-departure nav_icon"></i>
+                    <span class="nav_name">Flights</span>
+                </a>
+                <a href="manage_booking.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'manage_booking.php' ? 'active' : '' ?>">
+                    <i class="fas fa-book nav_icon"></i>
+                    <span class="nav_name">Booking</span>
+                </a>
+                <a href="order_report.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'order_report.php' ? 'active' : '' ?>">
+                    <i class="fas fa-book nav_icon"></i>
+                    <span class="nav_name">Order Reports</span>
+                </a>
+                <a href="flight_report.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'flight_report.php' ? 'active' : '' ?>">
+                    <i class="fas fa-book nav_icon"></i>
+                    <span class="nav_name">Booking Reports</span>
+                </a>
+                <a href="financial_report.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'financial_report.php' ? 'active' : '' ?>">
+                    <i class="fas fa-book nav_icon"></i>
+                    <span class="nav_name">Financial report</span>
+                </a>
+                <a href="logout.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'logout.php' ? 'active' : '' ?>">
+                    <i class="fas fa-sign-out-alt nav_icon"></i>
+                    <span class="nav_name">Logout</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
     <div class="container">
         <!-- Here pages load by include or any -->
     </div>

@@ -1,4 +1,12 @@
+<?php
+session_start();
 
+if(!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+?>
 <?php
  include("./include/connection.php");
 if (isset($_POST['remove_product_id'])) {
@@ -119,7 +127,7 @@ $result = $conn->query($sql);
                         echo "<td>" . $row["discount_price"] . "</td>";
                         echo "<td>" . $row["category_id"] . "</td>";
                         echo "<td>" . $row["subcategory_id"] . "</td>";
-                        echo "<td>" . $row["warranty"] . "</td>";
+                        echo "<td>" . $row["w_price"] . "</td>";
                         echo "<td>" . ($row["confirmation_status"] ? 'Confirmed' : 'Not Confirmed') . "</td>";
                         echo "<td><button class='btn btn-success' onclick='confirmProduct(" . $row['product_id'] . ")'>Confirm</button></td>";
                         echo "<td><button class='btn btn-danger' onclick='removeProduct(" . $row['product_id'] . ")'>Remove</button></td>";
