@@ -5,7 +5,6 @@ if(!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +26,8 @@ if(!isset($_SESSION['email'])) {
                 <thead>
                     <tr>
                         <th>Warranty ID</th>
-                        <th>User ID</th>
-                        <th>Product Code</th>
+                        <th>User Name</th>
+                        <th>Product Name</th>
                         <th>Start Date</th>
                         <th>Status</th>
                         <th>Payment</th>
@@ -40,29 +39,29 @@ if(!isset($_SESSION['email'])) {
                     // Establish database connection
                     include("./include/connection.php");
 
-                    $query = "SELECT * FROM warranty";
+                    $query = "SELECT w.*, u.username, p.name as name 
+                              FROM warranty w
+                              JOIN users u ON w.user_id = u.user_id
+                              JOIN products p ON w.product_id = p.product_id";
                     $result = mysqli_query($conn, $query);
 
                     // Check if query was successful
-                    if ($result) {
+                    if ($result && mysqli_num_rows($result) > 0) {
                         // Loop through each row in the result set
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<tr">';
+                            echo '<tr>';
                             echo '<td>' . $row['warranty_id'] . '</td>';
-                            echo '<td>' . $row['user_id'] . '</td>';
-                            echo '<td>' . $row['product_code'] . '</td>';
+                            echo '<td>' . $row['username'] . '</td>';
+                            echo '<td>' . $row['name'] . '</td>';
                             echo '<td>' . $row['start_date'] . '</td>';
                             echo '<td>' . $row['status'] . '</td>';
-                
                             echo '<td>' . $row['payment'] . '</td>';
                             echo '<td>' . $row['months'] . '</td>';
                             echo '</tr>';
                         }
                     } else {
                         echo '<tr><td colspan="9">No data found.</td></tr>';
-                    }
-
-                   
+                    }                   
                     ?>
                 </tbody>
             </table>
