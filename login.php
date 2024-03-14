@@ -1,3 +1,37 @@
+<?php
+session_start();
+include("./include/connection.php");
+
+// Check if form is submitted
+if(isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $captcha = $_POST['captcha'];
+
+    // Validate captcha
+    if($captcha !== $_SESSION['captcha']) {
+        $message = "Invalid captcha.";
+    } else {
+        // Prepare SQL query to check if the user exists
+        $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+        $result = $conn->query($sql);
+
+        // Check if any rows are returned
+        if ($result->num_rows > 0) {
+            // User exists, redirect to home.php
+            header("Location: home.php");
+            exit();
+        } else {
+            // User does not exist, display error message
+            $message = "Invalid username or password.";
+        }
+    }
+}
+
+// Close connection
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +48,9 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff;
-            /* background-image: url("./image/d.png"); */
-             /* background-repeat:no-repeat; */
-           
         }
 
         .container {
-           
             color: #fff;
             position: relative;
             z-index: 1;
@@ -55,7 +85,6 @@
 
             .left-box {
                 height: 100px;
-                /* overflow: hidden; */
             }
 
             #right-box {
@@ -75,7 +104,6 @@
                 <div class="featured-image mb-3">
                     <img src="./image/d.png" class="img-fluid" style="width: 400px;" alt="Register">
                 </div>
-                <!-- Removed SHOPFLIX and Join us and start shopping today! -->
             </div>
             <div class="col-md-6 right-box" id="right-box">
                 <div class="row align-items-center">
@@ -98,6 +126,11 @@
                         <div class="input-group mb-3">
                             <input type="password" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Password" name="password" required>
                         </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Enter Captcha" name="captcha" required>
+                            <img id="captchaImage" src="./include/captcha.php" alt="Captcha Image">
+                            <button type="button" onclick="refreshCaptcha()" class="btn btn-outline-secondary"><i class="fas fa-sync"></i></button>
+                        </div>
                         <div class="input-group mb-3 d-flex justify-content-between">
                             <button type="submit" name="login" class="btn btn-lg btn-primary w-100 fs-6 rounded-4">Login</button>
                             <a href="register.php" class="btn btn-lg btn-outline-dark w-100 fs-6 mt-3 rounded-4">New user? Register</a>
@@ -107,9 +140,13 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+        function refreshCaptcha() {
+            var captchaImage = document.getElementById('captchaImage');
+            captchaImage.src = './include/captcha.php?' + new Date().getTime();
+        }
+    </script>
 </body>
 
 </html>
