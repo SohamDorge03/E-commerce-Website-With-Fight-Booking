@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    #product1 {
+      #product1 {
       text-align: center;
     }
 
@@ -104,10 +104,9 @@
       // Loop through each product and generate HTML
       while ($row = $productResult->fetch_assoc()) {
         echo '<div class="pro" style="width: 270px;">';
-        echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" >';
+        echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" data-toggle="modal" data-target="#productModal' . $row['product_id'] . '">';
         echo '<div class="des">';
         echo '<h5>' . $row['name'] . '</h5>';
-
 
         // Display discounted price with a strikethrough effect on original price if discount exists
         if ($row['discount_price'] !== null && $row['discount_price'] < $row['price']) {
@@ -122,8 +121,36 @@
         echo '<p class="description" style="margin-top: 1px;">' . substr($row['description'], 0, 50) . '...</p>';
 
         echo '</div>';
-
         echo '<a><i class="fal fa-shopping-cart cart"></i></a>';
+        echo '</div>';
+
+        // Create modal for each product
+        echo '<div class="modal fade" id="productModal' . $row['product_id'] . '" tabindex="-1" role="dialog" aria-labelledby="productModalLabel' . $row['product_id'] . '" aria-hidden="true">';
+        echo '<div class="modal-dialog modal-lg" role="document">';
+        echo '<div class="modal-content">';
+        echo '<div class="modal-header">';
+        echo '<h5 class="modal-title" id="productModalLabel' . $row['product_id'] . '">' . $row['name'] . '</h5>';
+        echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+        echo '<span aria-hidden="true">&times;</span>';
+        echo '</button>';
+        echo '</div>';
+        echo '<div class="modal-body">';
+        // Display all details from the product
+        echo '<img src="vendor/' . $row['img1'] . '" alt="" style="max-width: 100%;">';
+        echo '<p>Description: ' . $row['description'] . '</p>';
+        echo '<p>Price: $' . $row['price'] . '</p>';
+        if ($row['discount_price'] !== null && $row['discount_price'] < $row['price']) {
+          echo '<p>Discounted Price: $' . $row['discount_price'] . '</p>';
+        }
+        echo '<p>Stock Quantity: ' . $row['stock_quantity'] . '</p>';
+        // Include other details as needed
+        echo '</div>';
+        echo '<div class="modal-footer">';
+        echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+        // Include any other buttons as needed
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
         echo '</div>';
       }
 
@@ -137,5 +164,15 @@
     ?>
   </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // JavaScript to trigger the first modal when the page loads
+  $(document).ready(function() {
+    $('#productModal1').modal('show');
+  });
+</script>
 </body>
 </html>
