@@ -245,10 +245,7 @@
                     <i class="fas fa-shopping-bag nav_icon"></i>
                     <span class="nav_name">Orders</span>
                 </a>
-                <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'return.php' ? 'active' : '' ?>">
-                    <i class="fas fa-calendar-alt nav_icon"></i>
-                    <span class="nav_name">Returns</span>
-                </a>
+
                 <a href="Warrenty.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Warrenty.php' ? 'active' : '' ?>">
                     <i class="fas fa-shield-alt nav_icon"></i>
                     <span class="nav_name">Warranty</span>
@@ -272,6 +269,10 @@
                 <a href="manage_booking.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'manage_booking.php' ? 'active' : '' ?>">
                     <i class="fas fa-book nav_icon"></i>
                     <span class="nav_name">Booking</span>
+                </a>
+                <a href="feedback.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : '' ?>">
+                    <i class="fas fa-calendar-alt nav_icon"></i>
+                    <span class="nav_name">Feedback</span>
                 </a>
                 <a href="order_report.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'order_report.php' ? 'active' : '' ?>">
                     <i class="fas fa-book nav_icon"></i>

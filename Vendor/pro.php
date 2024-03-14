@@ -10,7 +10,7 @@ if (!isset($_SESSION['vendor_id'])) {
 }
 
 
-include './include/navbar.php';
+// include './include/navbar.php';
 // For now until login is done
 
 $vendor_id = $_SESSION['vendor_id'];

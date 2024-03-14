@@ -236,28 +236,21 @@
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Listings</span>
                     </a>
-                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'active' : ''; ?>">
+                    <a href="orders.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'active' : ''; ?>">
                         <i class="fas fa-shopping-bag nav_icon"></i>
                         <span class="nav_name">Orders</span>
                     </a>
-                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'appointments.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-calendar-alt nav_icon"></i>
-                        <span class="nav_name">Appointments</span>
-                    </a>
-                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'warranty.php' ? 'active' : ''; ?>">
+                  
+                    <a href="w.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'w.php' ? 'active' : ''; ?>">
                         <i class="fas fa-shield-alt nav_icon"></i>
                         <span class="nav_name">Warranty</span>
                     </a>
-                    <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'demos.php' ? 'active' : ''; ?>">
+                    <a href="demo.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'demo.php' ? 'active' : ''; ?>">
                         <i class="fas fa-cogs nav_icon"></i>
                         <span class="nav_name">Demos</span>
                     </a>
-                 
-                    <a href="reports.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-book nav_icon"></i>
-                        <span class="nav_name">Reports</span>
-                    </a>
-                    <a href="log.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>">
+            
+                    <a href="logout.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>">
                         <i class="fas fa-sign-out-alt nav_icon"></i>
                         <span class="nav_name">Logout</span>
                     </a>

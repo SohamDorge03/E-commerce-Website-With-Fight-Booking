@@ -139,11 +139,9 @@ if ($vendorResult === false) {
                         <th>Confirmed Email</th>
                         <th>Company Name</th>
                         <th>Phone Number</th>
-                        <th>Website URL</th>
-                        <th>Profile Pic URL</th>
+                       
                         <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
+                       
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -160,11 +158,9 @@ if ($vendorResult === false) {
                             echo "<td>" . ($row["confirmed_email"] ? "Yes" : "No") . "</td>";
                             echo "<td>" . $row["company_name"] . "</td>";
                             echo "<td>" . $row["phone_number"] . "</td>";
-                            echo "<td>" . $row["website_url"] . "</td>";
-                            echo "<td>" . $row["profile_pic_url"] . "</td>";
+                            
                             echo "<td>" . $row["address"] . "</td>";
-                            echo "<td>" . $row["city"] . "</td>";
-                            echo "<td>" . $row["state"] . "</td>";
+                           
                             echo "<td>" . $row["Status"] . "</td>";
                             echo "<td>
                             <button class='btn btn-success btn-sm' onclick='confirmVendor(" . $row["vendor_id"] . ")'>Confirm</button>

@@ -49,7 +49,7 @@ if(!isset($_SESSION['email'])) {
                 
             
                 $sql = "SELECT bf.booking_id, f.flight_code, u.first_name, u.last_name, u.email, u.phone_number,
-                                bf.take_seats, bf.flight_class, bf.TransactionID, bf.total_amount, bf.payment_status, bf.book_status,
+                                bf.take_seats, bf.flight_class, bf.TransactionID, bf.total_amount, bf.payment_status,
                                 a.airline_id, a.airline_name
                         FROM booked_flights bf
                         INNER JOIN users u ON bf.user_id = u.user_id
@@ -76,7 +76,7 @@ if(!isset($_SESSION['email'])) {
                         echo "<td>" . $row['total_amount'] . "</td>";
                         echo "<td>" . $row['airline_name'] . "</td>"; //
                         echo "<td>" . ($row['payment_status'] ? 'Paid' : 'Not Paid') . "</td>";
-                        echo "<td>" . ($row['book_status'] ? 'Confirmed' : 'Not Confirmed') . "</td>";
+                        
                        
                         echo "</tr>";
                     }
