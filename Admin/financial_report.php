@@ -5,7 +5,6 @@
         header("Location: login.php");
         exit();
     }
-
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -62,7 +61,7 @@
                                     echo "<tr>";
                                     echo "<td>" . $row["year"] . "</td>";
                                     echo "<td>" . date('F', mktime(0, 0, 0, $row["month"], 1)) . "</td>"; // Convert month number to month name
-                                    echo "<td>$" . number_format($row["total_revenue"], 2) . "</td>";
+                                    echo "<td>" . number_format($row["total_revenue"], 2) . "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";
@@ -99,7 +98,7 @@
                                     echo "<td>" . date('F', mktime(0, 0, 0, $row["month"], 1)) . "</td>"; // Convert month number to month name
                                     // Calculate the total revenue after deducting 5% fee
                                     $total_revenue_after_fee = $row["total_revenue"] * 0.95;
-                                    echo "<td>$" . number_format($total_revenue_after_fee, 2) . "</td>";
+                                    echo "<td>" . number_format($total_revenue_after_fee, 2) . "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";
@@ -131,7 +130,7 @@
                                     echo '<div class="card mb-3">';
                                     echo '<div class="card-body">';
                                     echo '<h5 class="card-title">' . $row["airline_name"] . '</h5>';
-                                    echo '<p class="card-text">Total Revenue: $' . number_format($row["total_revenue"], 2) . '</p>';
+                                    echo '<p class="card-text">Total Revenue: ' . number_format($row["total_revenue"], 2) . '</p>';
                                     echo '</div>';
                                     echo '</div>';
                                 }
@@ -160,7 +159,7 @@
                                     echo '<div class="card mb-3">';
                                     echo '<div class="card-body">';
                                     echo '<h5 class="card-title">' . $row["airport_name"] . '</h5>';
-                                    echo '<p class="card-text">Total Revenue: $' . number_format($row["total_revenue"], 2) . '</p>';
+                                    echo '<p class="card-text">Total Revenue: ' . number_format($row["total_revenue"], 2) . '</p>';
                                     echo '</div>';
                                     echo '</div>';
                                 }
@@ -191,7 +190,7 @@
                                     echo '<div class="card mb-3">';
                                     echo '<div class="card-body">';
                                     echo '<h5 class="card-title">' . $row["username"] . '</h5>';
-                                    echo '<p class="card-text">Total Revenue: $' . number_format($row["total_revenue"], 2) . '</p>';
+                                    echo '<p class="card-text">Total Revenue: ' . number_format($row["total_revenue"], 2) . '</p>';
                                     echo '</div>';
                                     echo '</div>';
                                 }

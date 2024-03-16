@@ -1,3 +1,6 @@
+<?php
+    include("./include/navbar.php");
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +14,7 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="mb-4">Leave Feedback</h2>
+                <h2 class="mb-4"> Feedback Form</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group">
                         <label for="email">Email</label>

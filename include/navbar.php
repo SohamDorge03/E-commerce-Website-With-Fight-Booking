@@ -1,674 +1,266 @@
-<header class="header">
-        <div class="container1 container-header">
-            <div class="logo-container border-white">
-                <!-- <div class="logo">ShopFlix</div> -->
-                <span class="logo">Shop</span><span class="logo" style="color:rgb(154, 121, 204)">Flix</span>
-                <!-- <span class="dotin">.in</span> -->
-            </div>
-            <div class="search-container">
-                <select class="search-select">
-                    <option value="All">All</option>
-                    <option value="Electronic">Electronic</option>
-                    <option value="Furnitutre">Furnitutre</option>
-                    <option value="Gym Equipment">Gym Equipment</option>
-                    <option value="Flight Booking">flight Booking</option>
-                </select>
-                <input type="text" class="search-input" />
-                <div class="search-icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+<?php 
+session_start();
+if(isset($_SESSION['u'])){
+  $user_id = $_SESSION['u'];
+}
+else{
 
-            </div>
-            <div class="cart-container border-white">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Cart
-            </div>
-          <a href="#" class="logi">Login</a>
-        </div>
-    </header>
+}
 
-    <!--navigation-->
-    <nav class="nav">
-        <div class="container container-nav">
-            <ul>
-                <li class="border-white" id="open-nav-sidebar">
-                    <span class="open-nav-slider">
-                        <i class="fa-solid fa-bars"></i>
-                        All
-                    </span>
-                </li>
-                <li class="border-white"><a href="#">Best Sellers</a></li>
-                <li class="border-white"><a href="#">Today's Deals</a></li>
-                <li class="border-white"><a href="services.php">Customer Service</a></li>
-                <li class="border-white"><a href="./electronics.php">Electronic</a></li>
-                <li class="border-white"><a href="./gym.php">Gym Eqipment</a></li>
-                <li class="border-white"><a href="./furniture.php">Furniture</a></li>
-                <li class="border-white"><a href="../air">Flight Booking</a></li>
-                <li class="border-white"><a href="#">About Us</a></li>
-                </li>
-            </ul>
-        </div>
-    </nav>
- <style>
+?>
 
-    
-/* https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-reorg._CB405936311_.png */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+ 
+    <style>
+  html {
+  scroll-behavior: smooth;
+}
 
 * {
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif; /* Changed font to Arial */
+}
+
+h1 {
+  font-size: 36px; /* Reduced font size for a cleaner look */
+  line-height: 48px;
+  color: #333; /* Darkened text color */
+}
+
+h2 {
+  font-size: 28px; /* Reduced font size for a cleaner look */
+  line-height: 36px;
+  color: #333; /* Darkened text color */
+}
+
+h4 {
+  font-size: 18px; /* Reduced font size for a cleaner look */
+  color: #555; /* Darkened text color */
+}
+
+h6 {
+  font-size: 10px; /* Reduced font size for a cleaner look */
+  font-weight: 600; /* Increased font weight */
+}
+
+p {
+  font-size: 14px; /* Reduced font size for a cleaner look */
+  color: #777; /* Darkened text color */
+  margin: 15px 0 20px 0;
+}
+
+.section-p1 {
+  padding: 30px 60px; /* Reduced padding for a cleaner look */
+}
+
+.section-m1 {
+  padding: 30px 0; /* Reduced padding for a cleaner look */
 }
 
 body {
-    margin: 0;
-    /* background-color: #ffffff; */
+  width: 100%;
+  font-family: inherit;
 }
 
-.header {
-    background-color: rgb(21, 12, 80);
-    height: 60px;
-    color: white;
+#header, #new {
+  
+  width: 100%;
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px; /* Reduced padding for a cleaner look */
+  background-color: #fff; /* Changed background color to white */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added a subtle box shadow */
 }
 
-.logi{
-    text-decoration: none;
-    color:white;
-    padding: 30px;
-}
-/* layout**/
-.container1 {
-    width: 99%;
-    /* background-color: red; */
-    height: 100%;
-    margin: auto;
-
+#new {
+  top: 60px; /* Adjusted top position */
 }
 
-.container-header {
-    display: flex;
-    align-items: center;
+#navbar, .swanavbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/**logo***/
-/* .logo-container {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    font-size: 1.1rem; 
-}*/
-
-
-    /* overflow: hidden; */
-
-
-.logo {
-    width: 120px;
-    height: 30px;
-    font-size: 30px;
-    /* background: url('https://m.media-amazon.com/images/G/31/gno/sprites/nav-sprite-global-1x-hm-dsk-reorg._CB405936311_.png');
-    background-repeat: no-repeat; */
-    /* background-position-y: -40px; */
-    /* overflow: hidden; */
-} 
-
-/* .dotin {
-    position: relative;
-    margin-left: -13px;
-    margin-top: -10px;
-} */
-
-.border-white {
-    padding: 5px;
-    border: 1.5px solid transparent;
+.quantity {
+  background-color: #ff5858; /* Changed to a more vibrant red */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  position: absolute;
+  top: -8px; /* Adjusted top position */
+  left: 80%;
+  padding: 5px 8px; /* Adjusted padding for a cleaner look */
+  font-size: 10px; /* Adjusted font size for a cleaner look */
 }
 
-.border-white:hover {
-    border: 1.5px solid #ffffff;
+#mobile {
+  display: none;
+  align-items: center;
 }
 
-/***********addresss************/
-.address-container {
-    margin-left: 10px;
+#close {
+  display: none;
 }
 
-.address-container p {
-    margin: 0;
+#navbar li, .swanavbar li {
+  list-style: none;
+  padding: 0 15px; /* Reduced padding for a cleaner look */
+  position: relative;
 }
 
-.icon-address {
-    display: flex;
-    align-items: center;
+#navbar li a, .swanavbar li a {
+  text-decoration: none;
+  font-size: 14px; /* Adjusted font size for a cleaner look */
+  font-weight: 600;
+  color: #333;
+  transition: 0.3s ease;
 }
 
-.hello {
-    font-size: 0.8rem;
-    padding-left: 20px;
-    color: #ccc;
+#navbar li a:hover, .swanavbar li a:hover,
+#navbar li a.active, .swanavbar li a.active {
+  color: #088178;
 }
 
-.icon-location {
-    margin-right: 3px;
+#navbar li a:hover::after, .swanavbar li a:hover::after,
+#navbar li a.active::after, .swanavbar li a.active::after {
+  content: " ";
+  width: 30%;
+  height: 2px;
+  background: #088178; /* Changed to a more vibrant green */
+  position: absolute;
+  bottom: -4px;
+  left: 15px; /* Adjusted left position */
+}
+#navbar li a, .swanavbar .navlink {
+  text-decoration: none; /* Add this line to remove underline */
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  transition: 0.3s ease;
 }
 
+</style>
+</head>
+<body>
 
-/***search-container****/
-.search-container {
-    background-color: red;
-    margin-left: 25px;
-    width: 640px;
-    display: flex;
-    height: 40px;
-    justify-content: space-between;
-    border-radius: 3px;
-    overflow: hidden;
-}
+<section id="header" style="padding: 15px 77px;">
+    <a href="#" style="text-decoration: none; color: #007eff; font-weight: 700; font-size:30px;">✨ ShopFlix </a> 
 
-.search-container:hover {
-    outline: 3px solid orange;
-}
-
-.search-select {
-    width: 60px;
-    border: none;
-    background-color: rgb(230, 227, 227);
-}
-
-.search-input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    padding: 3px;
-    font-size: 1.1rem;
-}
-
-.search-icon {
-    width: 50px;
-    background-color: rgb(106, 0, 255);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    color: #fff8f8;
-}
+    <form action="shop.php" method="GET">
+<div class="search-container" >
+    <input type="text" id="search-input" name="q" class="search-input" placeholder="Search products...">
+    <button type="submit" id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
+</div>
+</form>
+        <ul id="navbar">
+       
 
 
-/***lauguage section*/
-.language-container {
-    margin-left: 25px;
-}
+            <li><a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a></li>
+            <li><a href="shop.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>">Shop</a></li>
 
-.language-container p {
-    font-size: 0.8rem;
-    margin: 0;
-}
+            <li><a href="about_us.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'about_us.php' ? 'active' : ''; ?>">About</a></li>
+            <li><a href="contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contact</a></li>
 
-.lauguge-image {
-    width: 20px;
-}
-
-.lauguge-image img {
-    width: 100%;
-}
-
-
-/***login-container***/
-.login-container {
-    margin-left: 15px;
-}
-
-.login-container p {
-    margin: 0;
-}
-
-.account {
-    font-weight: 900;
-    font-size: 1.1rem;
-}
-
-.return-order-container {
-    width: 65px;
-    font-size: 0.9rem;
-    margin-left: 10px;
-}
-
-.return-order-container p {
-    margin: 0;
-}
-
-.order {
-    font-size: 1rem;
-    font-weight: 900;
-    display: flex;
-    width: 70px;
-}
-
-/****cart container***/
- .cart-container {
-    font-size:1.6rem;
-    display: flex;
-    padding-left: 50px;
-}
-/*
-.cart-container i {
-    font-size: 1rem;
-} */
-
-/**************************************navigation*****************************************/
-.nav {
-    height: 40px;
-    background-color: #6437e1;
-    margin: 0;
-}
-
-.container-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 15px;
-}
-
-.container-nav ul {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    font-size: 1rem;
-    color: white;
-    list-style: none;
-}
-
-.container-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 0px 2px;
-
-}
-
-.nav-right-image-amazon-prime {
-    min-width: 300px;
-    height: 300;
-    max-width: 500px;
-}
-
-.nav-right-image-amazon-prime img {
-    width: 100%;
-    height: 100%;
-}
-
-.prime-image {
-    background-color: white;
-    height: 350px;
-    width: 350px;
-    position: absolute;
-    z-index: 1;
-    display: none;
-    color: #7a6161;
-    margin-left: -10px;
-    transition: display 1s;
-    padding: 10px;
-}
-
-.prime-image-hover:hover .prime-image {
-    transition: display 1s;
-    display: block;
-}
-
-.prime-image img {
-    width: 100%;
-    height: 100%;
-}
+            <style>
+    /* Styles for search bar */
+    .search-container {
+        display: flex;
+        align-items: center;
+       margin-left: 10px;
+    }
+    .search-input {
+        flex: 1;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        font-size: 16px;
+    }
+    .search-btn {
+        background-color: #007eff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        font-size: 16px;
+    }
+</style>
+</head>
+<body>
 
 
 
+<?php
+include('connection.php');
 
 
+?>
+<?php
 
-/*--image slider --*/
-.image-container {
-    position: relative;
-}
+            if(isset($_SESSION['u'])){
+                  echo '<li><a href="logout.php" class="btn">log out</a></li>';
+            }
+            else{
 
-.image-list {
-    display: flex;
-    overflow: hidden;
-}
+              echo '<li><a href="login.php" class="btn">login </a></li>';
+              echo '<li><a href="register.php" class="btn">regestration </a></li>';
+            }
 
-.image-item {
-    min-width: 100%;
-    height: 600px;
-    /* transform: translateX(-300%); */
-    transition: transform 0.3s;
+            ?>
+            
+            <?php
+if(isset($_SESSION['u'])){
 
-}
+$sql_cart_quantity = "SELECT SUM(quantity) AS cart_quantity FROM cart WHERE user_id = $user_id";
+$result_cart_quantity = $conn->query($sql_cart_quantity);
 
-.image-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.image-btn-container {
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.slider-btn {
-    border: 1px solid transparent;
-    padding: 100px 20px;
-    font-size: 50px;
-    font-weight: 300;
-    background-color: transparent;
-    color: #684949;
-}
-
-.slider-btn i {
-    font-weight: 900;
-}
-
-.slider-btn:focus {
-    border-color: seagreen;
-    box-shadow: -2px -2px 2px rgb(230, 227, 227),
-        2px 2px 2px white;
-    margin: 2px;
-}
-
-
-/*sidebar navigation****/
-#open-nav-sidebar {
-    cursor: pointer;
-}
-
-.sidebar-container-navigation {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 10;
-    background-color: transparent;
-    transform: translateX(-100%);
-    display: flex;
-    transition: transform 0.3s;
-
-
-}
-
-.slidebar-show {
-    transform: translateX(0%);
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.sidebar-left-part {
-    background-color: white;
-    width: 365px;
-    height: 100%;
-    box-sizing: 5px 5px 10px rgba(0, 0, 0, 0.8);
-}
-
-.sidebar-top {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    padding-left: 30px;
-    background-color: rgb(19, 25, 33);
-    color: white;
-}
-
-.sidebar-top h2 {
-    font-size: 22px;
-    margin: 0;
-}
-
-.sidebar-top i {
-    padding-right: 10px;
-    font-size: 25px;
-}
-
-.sidebar-item {
-    padding-left: 30px;
-    border-top: 1.5px solid #ccc;
-}
-
-.sidebar-item h2 {
-    font-size: 20px;
-}
-
-.sidebar-item p {
-    color: rgb(65, 62, 62);
-}
-
-#sidebar-navigation-close {
-    background-color: transparent;
-    align-self: flex-start;
-    font-size: 30px;
-    border: none;
-    color: white;
-    padding: 20px;
-    cursor: pointer;
-}
-
-.sidebar-wrap {
-    height: 100%;
-    overflow: auto;
-    padding-bottom: 100px;
-}
-
-/*product card container*/
-.main{
-    position: relative;
-    top:-350px;
-    /* background-color: rgb(196, 240, 240); */
-    /* filter: blur(8px); */
+if ($result_cart_quantity) {
+    $row_cart_quantity = $result_cart_quantity->fetch_assoc();
+    $cart_quantity = $row_cart_quantity['cart_quantity'];
+} else {
     
+    $cart_quantity = 0;
 }
-.productBackgraound{
-    background-color: rgba(213, 247, 247,0.4);
+     echo "<li><a href='cart.php' id='lg-cart' class='btn'><i class='fal fa-shopping-cart'></i></a> <span class='quantity'>" .  $cart_quantity . "</span> </li>   <li><a href='#' id='close'><i class='far fa-times'></i></a></li>";
 }
-.card-product-container{
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
+else{
 
 }
-.card-product{
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 310px;
-    box-shadow: -10px -0px 20px rgba(196, 240, 240,0.5),
-    50px 50px 20px rgba(196, 240, 240,0.5);
-    padding: 10px;
-}
-.card-product h2{
-    margin: 0;
-    padding: 10px;
-    
-}
-
-.card-product-nested-card {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-
-
-}
-
-
-
-.card-nested p{
-    margin: 5px;
-}
-.card-nested img {
-    width: 128px;
-    height: 102px;
-    object-fit: cover;
-
-}
-.card-product-btn{
-    font-size: 14px;
-    align-self: flex-start;
-    margin: 7px 10px; 
-    padding-left: 0;
-    background-color: transparent;
-    border:none;
-    color:rgb(25, 105, 105)
-}
-.card-product-btn:hover{
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-
-/***
-        Today's deals section
-***/
-.today_deals_container{
-    margin: 30px;
-    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1),
-    2px 2px 5px rgba(0, 0, 0, 0.1);
-    
-}
-.today_deals_heading{
-    display: flex;
-    align-items: center;
-    padding: 2px 20px;
-}
-.today_deals_heading p a{
-    color:rgb(39, 114, 107);
-    text-decoration: none;
-    padding-left: 20px;
-}
-.today_deals_heading p a:hover{
-    text-decoration: underline;
-}
-
-.today_deals_product_container{
-    /* background-color: red; */
-    height: 300px;
-    position: relative;
-}
-.today_deals_product_list{
-    display: flex;
-    overflow: hidden;
-
-}
-.today_deals_product_item{
-    min-width: 250px;
-    height: 250px;
-    padding: 0px 10px;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: column;
-    transform: translateX(0%);
-    transition: transform 1s;
-}
-.todayDeals_product_image{
-    height: 200px;
-    width: 210px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin-bottom: 15px;
-}
-.today_deals_product_item img{
-    width: 100%;
-    height: 100%;
-    /* padding: 20px 20px; */
-    background-color: red;
-}
-.today_deals_product_item p{
-    justify-self: flex-end;
-}
-.discount_Contaienr{
-    border: 2px solid red;
-}
-.discount_Contaienr a{
-    padding: 5px 10px;
-    font-size: 14px;
-    color:rgb(211, 30, 84);
-    text-decoration: none;
-}
-.discount_Contaienr a:first-child{
-    background-color: rgb(211, 30, 84);
-    padding: 5px 10px;
-    color:white;
-    font-weight: 550;
-    text-decoration: none;
-    border-radius: 3px;
-    font-size: 12px;
-}
-
-.today_deals_btn_container{
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    padding: 20px;
-    z-index: 10;
-}
-.today_deal_btn{
-    padding: 40px 10px;
-    font-size: 40px;
-    border: none;
-    outline: none;
-    background-color: rgb(255,255,255,0.4);
-}
- </style>
-   <!-- sidebar navigation -->
-   <div class="sidebar-container-navigation" id="sidebar-container-navigation-id">
-        <div class="sidebar-left-part">
-            <div class="sidebar-top">
-                <i class="fa-solid fa-circle-user"></i>
-                <h2>Hello, <span>ShopFlix Users</span></h2>
-            </div>
-            <div class="sidebar-wrap">
-                <div class="sidebar-item">
-                    <h2>Trending</h2>
-                    <p>Best Sellers</p>
-                    <p>New Releases</p>
-                    <!-- <p>Movers and Shakers</p> -->
-                </div>
-                <div class="sidebar-item">
-                    <h2>Electronic</h2>
-                    <p>Washing Machin</p>
-                    <p>Smart TV</p>
-                    <p>Fridge</p>
-                    <p>Microwave</p>
-                    <p>Mobile</p>
-                </div>
-                <div class="sidebar-item">
-                    <h2>Furniture</h2>
-                    <p>Sofa</p>
-                    <p>Chair</p>
-                    <p>Bed</p>
-                    <p>Table</p>
-                </div>
-                <div class="sidebar-item">
-                    <h2>Gym Eqipment</h2>
-                    <p>Dumballes</p>
-                    <p>Trademeal</p>
-                    <p>skipping rope</p>
-                </div>
-                <div class="sidebar-item">
-                    <h2>Help & Settings</h2>
-                    <p>Your Account</p>
-                    <p>Customer Service</p>
-                    <p>Log Out</p>
-                </div>
-            </div>
-        </div>
-        <button id="sidebar-navigation-close">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+?>
+       
+        </ul>
     </div>
+   
+</section>
+
+<section id="new" class="swanavbar"  style="padding: 15px 77px;">
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'electronics.php' ? 'active' : ''; ?>" href="electronics.php">Electronic</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'furniture.php' ? 'active' : ''; ?>" href="furniture.php">Furniture</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'gym.php' ? 'active' : ''; ?>" href="gym.php">Gym tools</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'search_flight.php' ? 'active' : ''; ?>" href="search_flight.php">Book a Flight</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Trading products</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">feedback</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'w.php' ? 'active' : ''; ?>" href="w.php">Expand warranty</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'claim_warranty.php' ? 'active' : ''; ?>" href="claim_warranty.php">Claim warranty</a>
+</section>
 
 
-
+</body>
+</html>

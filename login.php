@@ -1,7 +1,7 @@
 <?php
-session_start();
-include("./include/connection.php");
 
+include("./include/connection.php");
+include("./include/navbar.php");
 // Check if form is submitted
 if(isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -19,7 +19,12 @@ if(isset($_POST['login'])) {
         // Check if any rows are returned
         if ($result->num_rows > 0) {
             // User exists, redirect to home.php
-            header("Location: home.php");
+            $row = $result->fetch_assoc();
+            $_SESSION['u'] = $row['user_id'];
+      echo '<script>
+      
+      window.location.href = "./index.php";
+    </script>';
             exit();
         } else {
             // User does not exist, display error message

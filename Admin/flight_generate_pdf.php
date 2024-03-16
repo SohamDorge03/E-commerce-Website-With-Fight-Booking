@@ -14,9 +14,7 @@ $sql = "SELECT * FROM booked_flights WHERE 1=1";
 if (!empty($from_date) && !empty($to_date)) {
     $sql .= " AND booked_date BETWEEN '$from_date 00:00:00' AND '$to_date 23:59:59'";
 }
-if (!empty($status) && $status != "All Details") {
-    $sql .= " AND book_status = '$status'";
-}
+
 
 // Execute the query
 $res = mysqli_query($con, $sql);
@@ -28,7 +26,7 @@ if (mysqli_num_rows($res) > 0) {
     $html .= '.table th { background-color: #f2f2f2; }';
     $html .= '</style>';
     $html .= '<table class="table">';
-    $html .= '<tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Book Status</th><th>Payment Status</th><th>Booked Date</th></tr>';
+    $html .= '<tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr>';
     while ($row = mysqli_fetch_assoc($res)) {
         $html .= '<tr>';
         $html .= '<td>' . $row['booking_id'] . '</td>';
@@ -38,7 +36,6 @@ if (mysqli_num_rows($res) > 0) {
         $html .= '<td>' . $row['flight_class'] . '</td>';
         $html .= '<td>' . $row['TransactionID'] . '</td>';
         $html .= '<td>' . $row['total_amount'] . '</td>';
-        $html .= '<td>' . $row['book_status'] . '</td>';
         $html .= '<td>' . $row['payment_status'] . '</td>';
         $html .= '<td>' . $row['booked_date'] . '</td>';
         $html .= '</tr>';

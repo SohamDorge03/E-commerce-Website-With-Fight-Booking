@@ -28,7 +28,6 @@ if(!isset($_SESSION['vendor_id'])) {
                     <tr>
                         <th>Warranty ID</th>
                         <th>User ID</th>
-                        <th>Product Code</th>
                         <th>Start Date</th>
                         <th>Status</th>
                         <th>Payment</th>
@@ -50,7 +49,6 @@ if(!isset($_SESSION['vendor_id'])) {
                             echo '<tr">';
                             echo '<td>' . $row['warranty_id'] . '</td>';
                             echo '<td>' . $row['user_id'] . '</td>';
-                            echo '<td>' . $row['product_code'] . '</td>';
                             echo '<td>' . $row['start_date'] . '</td>';
                             echo '<td>' . $row['status'] . '</td>';
                 

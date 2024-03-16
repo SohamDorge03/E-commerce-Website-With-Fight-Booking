@@ -1,33 +1,43 @@
 <?php
-session_start();
+// Check if the session has not started
+if (session_status() == PHP_SESSION_NONE) {
+    // Start the session
+    session_start();
+}
 
-if(!isset($_SESSION['email'])) {
+// Check if the user is logged in
+if (!isset($_SESSION['airline_id'])) {
+    // Redirect to the login page if not logged in
     header("Location: log.php");
     exit();
 }
 
 include("./connection.php");
 
-// Fetch the logged-in user's email
-$email = $_SESSION['email'];
+// Initialize $result variable
+$result = null;
 
-// Fetch the airline's ID based on their email
-$sql_airline_id = "SELECT airline_id FROM airlines WHERE email = '$email'";
-$result_airline_id = $conn->query($sql_airline_id);
-if ($result_airline_id->num_rows > 0) {
-    $row_airline_id = $result_airline_id->fetch_assoc();
-    $airline_id = $row_airline_id['airline_id'];
-    
-    // SQL query to fetch booked flights data for the current logged-in airline
-    $sql = "SELECT bf.booking_id, bf.flight_id, bf.user_id, bf.take_seats, bf.flight_class, a.airline_name, bf.TransactionID, bf.total_amount, bf.book_status, bf.payment_status, bf.booked_date 
-            FROM booked_flights bf
-            LEFT JOIN airlines a ON bf.airline_id = a.airline_id
-            WHERE bf.airline_id = $airline_id";
+// Fetch the logged-in user's airline ID from the session
+$airline_id = $_SESSION['airline_id'];
 
-    // Execute the query
-    $result = $conn->query($sql);
+// SQL query to fetch booked flights data for the current logged-in airline
+$sql = "SELECT bf.booking_id, bf.flight_id, bf.user_id, bf.take_seats, bf.flight_class, a.airline_name, bf.TransactionID, bf.total_amount, bf.payment_status, bf.booked_date 
+        FROM booked_flights bf
+        LEFT JOIN airlines a ON bf.airline_id = a.airline_id
+        WHERE bf.airline_id = $airline_id";
+
+// Execute the query and handle errors
+$result = $conn->query($sql);
+if ($result === false) {
+    // Handle query execution error
+    echo "Error executing SQL query: " . $conn->error;
+    // Optionally, you can log the error or redirect the user to an error page
 }
+
+// Close the database connection
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +52,7 @@ if ($result_airline_id->num_rows > 0) {
         <h2>Booked Flights</h2>
         <div class="table-responsive">
             <table class="table table-bordered">
-                <thead>
+                <thead style="background-color: black; color:white">
                     <tr>
                         <th>Booking ID</th>
                         <th>Flight ID</th>
@@ -52,7 +62,6 @@ if ($result_airline_id->num_rows > 0) {
                         <th>Airline</th>
                         <th>Transaction ID</th>
                         <th>Total Amount</th>
-                        <th>Booking Status</th>
                         <th>Payment Status</th>
                         <th>Booked Date</th>
                     </tr>
@@ -72,13 +81,13 @@ if ($result_airline_id->num_rows > 0) {
                                     <td>".$row["airline_name"]."</td>
                                     <td>".$row["TransactionID"]."</td>
                                     <td>".$row["total_amount"]."</td>
-                                    <td>".$row["book_status"]."</td>
                                     <td>".$row["payment_status"]."</td>
                                     <td>".$row["booked_date"]."</td>
                                 </tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='11'>No results found for the current user.</td></tr>";
+                        // No results found for the current user
+                        echo "<tr><td colspan='10'>No results found for the current user.</td></tr>";
                     }
                     ?>
                 </tbody>
@@ -90,7 +99,3 @@ if ($result_airline_id->num_rows > 0) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-<?php
-// Close connection
-$conn->close();
-?>

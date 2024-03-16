@@ -67,16 +67,7 @@ include("./include/navbar.php");
           <option value="" class="new-line-option">All</option>
         </select>
       </div>
-      <div class="form-group col-md-4">
-        <label for="book_status">Booking Status:</label>
-        <select class="form-control" id="book_status" name="book_status">
-          <option value=""></option>
-          <option value="0">Pending</option>
-          <option value="1">Confirmed</option>
-          <option value="2">Cancelled</option>
-          <option value="" class="new-line-option">All</option>
-        </select>
-      </div>
+     
     </div>
     <div class="form-group row">
       <div class="col-md-5">
@@ -96,7 +87,7 @@ include("./include/navbar.php");
     $end_date = $_POST['end_date'];
     $flight_class = $_POST['flight_class'];
     $payment_status = $_POST['payment_status'];
-    $book_status = $_POST['book_status'];
+   
 
     // Construct the SQL query based on selected filters
     $sql = "SELECT * FROM booked_flights WHERE booked_date BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
@@ -106,15 +97,13 @@ include("./include/navbar.php");
     if (!empty($payment_status)) {
       $sql .= " AND payment_status = '$payment_status'";
     }
-    if (!empty($book_status)) {
-      $sql .= " AND book_status = '$book_status'";
-    }
+  
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
       echo '<table class="table table-striped">';
-      echo '<thead><tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Book Status</th><th>Payment Status</th><th>Booked Date</th></tr></thead>';
+      echo '<thead><tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr></thead>';
       echo '<tbody>';
       while($row = $result->fetch_assoc()) {
         echo '<tr>';
@@ -125,7 +114,6 @@ include("./include/navbar.php");
         echo '<td>' . $row['flight_class'] . '</td>';
         echo '<td>' . $row['TransactionID'] . '</td>';
         echo '<td>' . $row['total_amount'] . '</td>';
-        echo '<td>' . $row['book_status'] . '</td>';
         echo '<td>' . $row['payment_status'] . '</td>';
         echo '<td>' . $row['booked_date'] . '</td>';
         echo '</tr>';

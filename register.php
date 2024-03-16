@@ -1,9 +1,7 @@
 <?php
 
-session_start(); // Start the session
-
 include("./include/connection.php");
-
+include("./include/navbar.php");
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/SMTP.php';

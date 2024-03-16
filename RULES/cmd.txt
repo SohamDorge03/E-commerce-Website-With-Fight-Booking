@@ -20,12 +20,13 @@ CREATE TABLE `airlines` (
   `airline_name` varchar(40) DEFAULT NULL,
   `logo` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airlines` VALUES (1,'AirAsia333@gmail.com','123456','airasia','./upload/Air Asia.png');
 INSERT INTO `airlines` VALUES (3,'indigo898@gimail.com','123456','indigo','./upload/IndiGo-Logo.png');
 INSERT INTO `airlines` VALUES (4,'qatar@gmail.com','123456','Qatar','./upload/Qatar.png');
 INSERT INTO `airlines` VALUES (5,'visatara@gmail.com','12345','Visatara','./upload/vistara.png');
+INSERT INTO `airlines` VALUES (6,'emirates@gmail.com','123456','Emirates','./upload/Emirates.png');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airports` (
@@ -36,13 +37,14 @@ CREATE TABLE `airports` (
   `city` varchar(100) NOT NULL,
   `location` varchar(100) NOT NULL,
   PRIMARY KEY (`airport_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airports` VALUES (12,'Surat International Airport','STV','Gujarat','Surat','Surat');
 INSERT INTO `airports` VALUES (13,'Maharana Pratap Airport','UDR','Rajasthan','Udaipur','Udaipur');
 INSERT INTO `airports` VALUES (14,'Chhatrapti shivaji maharaj airport','BOM',' Maharashtra ','Mumbai','mumbai');
 INSERT INTO `airports` VALUES (15,'pune airport','PUN','Maharashtra ','pune','pune');
 INSERT INTO `airports` VALUES (16,'delhi airport','DLE','Delhi','Delhi','delhi');
+INSERT INTO `airports` VALUES (17,'Ahemdabad airport ','AHM','Gujarat','Ahemdabad ','Ahemdabad');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `book_demo` (
@@ -60,7 +62,6 @@ CREATE TABLE `book_demo` (
 INSERT INTO `book_demo` VALUES (8,5,12,'2024-03-13 04:36:25','2024-03-13 10:06:32','Confirmed');
 INSERT INTO `book_demo` VALUES (11,9,13,'0000-00-00 00:00:00','2024-03-14 22:16:17','Pending');
 INSERT INTO `book_demo` VALUES (10,6,14,'2024-03-14 00:33:50','2024-03-14 00:33:50','Pending');
-INSERT INTO `book_demo` VALUES (12,9,20,'2024-04-12 00:00:00','2024-03-14 22:17:56','Pending');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booked_flights` (
@@ -72,19 +73,21 @@ CREATE TABLE `booked_flights` (
   `airline_id` int DEFAULT NULL,
   `TransactionID` varchar(255) NOT NULL,
   `total_amount` varchar(255) NOT NULL,
+  `confirmation_status` tinyint(1) NOT NULL,
   `payment_status` varchar(1) DEFAULT '0',
   `booked_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`booking_id`),
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `booked_flights` VALUES (1,1,5,5,'economy',1,'555550','42500','0','2024-03-09 15:59:13');
-INSERT INTO `booked_flights` VALUES (2,2,7,2,'business',3,'748590','50000','0','2024-03-18 16:17:00');
-INSERT INTO `booked_flights` VALUES (3,4,8,2,'business',4,'768590','40000','0','2024-04-19 16:17:00');
-INSERT INTO `booked_flights` VALUES (4,5,5,3,'economy',1,'788890','70000','0','2024-04-12 16:20:02');
-INSERT INTO `booked_flights` VALUES (5,3,9,5,'economy',5,'741025','100000','0','2024-05-01 16:20:47');
+INSERT INTO `booked_flights` VALUES (1,5,5,5,'economy',1,'555550','42500',0,'0','2024-03-09 15:59:13');
+INSERT INTO `booked_flights` VALUES (2,6,7,2,'business',3,'748590','50000',0,'0','2024-03-18 16:17:00');
+INSERT INTO `booked_flights` VALUES (3,4,8,2,'business',4,'768590','40000',0,'0','2024-04-19 16:17:00');
+INSERT INTO `booked_flights` VALUES (4,5,5,3,'economy',1,'788890','70000',0,'0','2024-04-12 16:20:02');
+INSERT INTO `booked_flights` VALUES (5,3,9,5,'economy',5,'741025','100000',0,'0','2024-05-01 16:20:47');
+INSERT INTO `booked_flights` VALUES (6,6,10,7,'economy',1,'78855','45000',0,'0','2024-03-15 11:19:41');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -95,8 +98,10 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `cart` VALUES (7,10,12,1);
+INSERT INTO `cart` VALUES (6,10,22,10);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
@@ -117,7 +122,7 @@ CREATE TABLE `feedback` (
   PRIMARY KEY (`feedback_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `feedback` VALUES (1,'jay@gmail.com','hkjh');
+INSERT INTO `feedback` VALUES (1,'jay@gmail.com','thank you');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flights` (
@@ -137,13 +142,10 @@ CREATE TABLE `flights` (
   KEY `dep_airport_id` (`dep_airport_id`),
   KEY `arr_airport_id` (`arr_airport_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `flights` VALUES (1,'12461','2024-03-11','18:00:00','2024-03-15','12:00:00',12,13,45,'Economy ',50000.00,3);
-INSERT INTO `flights` VALUES (2,'74932','2024-03-21','18:00:00','2024-03-22','12:00:00',14,13,55,'',80000.00,1);
-INSERT INTO `flights` VALUES (3,'37462','2024-04-12','18:00:00','2024-04-13','12:00:00',16,13,80,'',40000.00,4);
-INSERT INTO `flights` VALUES (4,'45558','2024-05-13','18:00:00','2024-05-14','12:00:00',15,13,65,'',60000.00,1);
-INSERT INTO `flights` VALUES (5,'56437','2024-03-21','18:00:00','2024-03-21','21:00:00',15,13,70,'',40000.00,5);
+INSERT INTO `flights` VALUES (5,'56437','2024-03-21','18:00:00','2024-03-21','21:00:00',15,13,70,'',40000.00,1);
+INSERT INTO `flights` VALUES (6,'11111','2024-03-15','23:33:00','2024-03-16','23:34:00',12,13,61,'',10000.00,3);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_items` (
@@ -154,9 +156,16 @@ CREATE TABLE `order_items` (
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `order_items` VALUES (1,3,12,2);
+INSERT INTO `order_items` VALUES (1,3,26,2);
+INSERT INTO `order_items` VALUES (2,4,22,9);
+INSERT INTO `order_items` VALUES (3,4,22,9);
+INSERT INTO `order_items` VALUES (4,4,23,7);
+INSERT INTO `order_items` VALUES (5,5,12,20);
+INSERT INTO `order_items` VALUES (6,5,17,1);
+INSERT INTO `order_items` VALUES (7,6,12,1);
+INSERT INTO `order_items` VALUES (8,6,22,1);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
@@ -169,13 +178,15 @@ CREATE TABLE `orders` (
   `transaction_id` varchar(100) DEFAULT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   PRIMARY KEY (`order_id`),
-  UNIQUE KEY `transaction_id` (`transaction_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `orders` VALUES (1,5,'2024-03-08 10:57:23','Shipped','gpay','1','12333',5000.00);
 INSERT INTO `orders` VALUES (2,6,'2024-03-08 15:49:36','Pending','gpay','1','553535',5000.00);
 INSERT INTO `orders` VALUES (3,5,'2024-03-12 04:28:51','Delivered','gpay','1','458888',5000.00);
+INSERT INTO `orders` VALUES (4,9,'2024-03-16 05:10:17','Pending','Stripe','Paid','testid123',605000.00);
+INSERT INTO `orders` VALUES (5,9,'2024-03-16 05:26:18','Pending','Stripe','Paid','testid123',207000.00);
+INSERT INTO `orders` VALUES (6,9,'2024-03-16 05:42:48','Shipped','Stripe','Paid','testid123',37000.00);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
@@ -196,18 +207,63 @@ CREATE TABLE `products` (
   KEY `vendor_id` (`vendor_id`),
   KEY `category_id` (`category_id`),
   KEY `subcategory_id` (`subcategory_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `products` VALUES (12,1,'Wooden Chair','products/c1.jpg','products/c2.jpg','','','Brand	Ikea,\r\nColour	Black,\r\nMaterial	Wood,\r\nProduct Dimensions	47D x 39W x 77H Centimeters,\r\nSize	Standard,\r\nBack Style	Arrow Back,\r\nSpecial Feature	Arrow Back,\r\nProduct Care Instructions	Wipe Clean,\r\nNet Quantity	1.0 count,\r\nSeat Material Type	Wood',10000.00,50,9000.00,2,6);
-INSERT INTO `products` VALUES (13,1,'Ikea Italian Chair (Wood , Black)','products/c11.jpg','products/c22.jpg','products/c13.jpg','products/c14.jpg','Brand	Ikea\r\nColour	Black\r\nMaterial	Wood\r\nProduct Dimensions	47D x 39W x 77H Centimeters\r\nSize	Standard\r\nBack Style	Arrow Back\r\nSpecial Feature	Arrow Back\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.0 count\r\nSeat Material Type	Wood',1200.00,30,1010.00,2,6);
-INSERT INTO `products` VALUES (14,1,' Zero Gravity Relax Chair','products/c3.jpg','products/c23.jpg','','','STAR WORK Zero Gravity Relax Chair for Lounge,Easy Chair for Lawn | Portable and Foldable Recliner Chair for Resting | Adjustable Pillow | Full Body Support, Alloy Steel, Black.',3000.00,40,2899.00,2,6);
+INSERT INTO `products` VALUES (26,3,'Seventh Heaven 3 Seater Sofa Berlin Sofa, Adjusatble Headrest','products/s4.jpg','products/s41.jpg','products/s42.jpg','','Brand	Seventh Heaven\r\nAssembly Required	Yes\r\nSeat Depth	55.9 Centimeters\r\nSeat Height	16 Inches\r\nProduct Dimensions	0.97D x 2.01W x 0.8H Meters\r\nItem Weight	60 Kilograms',20000.00,20,18999.00,2,5);
+INSERT INTO `products` VALUES (23,2,'CASASTYLE - Minacs 4 Seater Fabric RHS L Shape Sofa Set (Grey)','products/s1.1.jpg','products/s2.jpg','','','Brand	CASASTYLE\r\nAssembly Required	No\r\nWeight Limit	50 Kilograms\r\nProduct Dimensions	1.52D x 2.57W x 0.84H Meters\r\nItem Weight	30000 Grams\r\nLeg Length	3 Inches',17000.00,17,16000.00,2,5);
+INSERT INTO `products` VALUES (22,3,'FurnitureModern Classic 4 Seater Fabric & Valvet Tufted 3+1+1Footrest Chesterfield Sofa Living Room ','products/s11.jpg','products/s12.jpg','products/s13.jpg','','\r\nColour	teal green\r\nBrand	A to Z Furniture\r\nSize	Large\r\nItem Dimensions LxWxH	198.1 x 73.7 x 68.6 Centimeters\r\nMaterial	Wood',27000.00,300,2599.00,2,5);
+INSERT INTO `products` VALUES (12,2,'Wooden Chair','products/c1.jpg','products/c2.jpg','','','Brand	Ikea,\r\nColour	Black,\r\nMaterial	Wood,\r\nProduct Dimensions	47D x 39W x 77H Centimeters,\r\nSize	Standard,\r\nBack Style	Arrow Back,\r\nSpecial Feature	Arrow Back,\r\nProduct Care Instructions	Wipe Clean,\r\nNet Quantity	1.0 count,\r\nSeat Material Type	Wood',10000.00,50,9000.00,2,6);
+INSERT INTO `products` VALUES (13,2,'Ikea Italian Chair (Wood , Black)','products/c11.jpg','products/c22.jpg','products/c13.jpg','products/c14.jpg','Brand	Ikea\r\nColour	Black\r\nMaterial	Wood\r\nProduct Dimensions	47D x 39W x 77H Centimeters\r\nSize	Standard\r\nBack Style	Arrow Back\r\nSpecial Feature	Arrow Back\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.0 count\r\nSeat Material Type	Wood',1200.00,30,1010.00,2,6);
+INSERT INTO `products` VALUES (14,4,' Zero Gravity Relax Chair','products/c3.jpg','products/c23.jpg','','','STAR WORK Zero Gravity Relax Chair for Lounge,Easy Chair for Lawn | Portable and Foldable Recliner Chair for Resting | Adjustable Pillow | Full Body Support, Alloy Steel, Black.',3000.00,40,2899.00,2,6);
 INSERT INTO `products` VALUES (15,1,'Gautam Furniture Sheesham Wood Wing Chair -Light Pink','products/c4.1.jpg','products/c4.2.jpg','products/4.3.jpg','','\r\nBrand	Generic\r\nColour	Rose\r\nMaterial	Teak\r\nProduct Dimensions	98D x 128W x 88H Centimeters\r\nSize	70 x 140 cm\r\nBack Style	Wing Back',13000.00,100,10000.00,2,6);
 INSERT INTO `products` VALUES (16,1,' Velvet Accent Chair','products/c5.jpg','products/c51.jpg','products/c53.jpg','','\r\nBrand	CREATIVE FURNITURE ART\r\nColour	Teal\r\nMaterial	Wood\r\nProduct Dimensions	71D x 99W x 74H Centimeters\r\nSize	Large\r\nProduct Care Instructions	Dry Clean\r\nNet Quantity	1.00 count\r\nPattern	Solid\r\nFinish Type	Stain Less Steel\r\nRoom Type	Office, Bedroom, Living Room, Patio Garden\r\n',15000.00,60,14999.00,2,6);
-INSERT INTO `products` VALUES (17,1,' Soothing Rocking Chair ','products/c7.jpg','products/c71.jpg','','','Brand	The Feel of Wood\r\nColour	Brown light\r\nMaterial	Teak\r\nProduct Dimensions	70D x 70W x 70H Centimeters\r\nSize	1 seater\r\nBack Style	cusion back',7000.00,70,6100.00,2,6);
-INSERT INTO `products` VALUES (18,1,'Brown Leatherette Executive Office Chair','products/c9.jpg','products/c91.jpg','products/c92.jpg','','Brand	ROAR-WOOD\r\nColour	Brown\r\nMaterial	Leather\r\nProduct Dimensions	40D x 42W x 42H Centimeters\r\nSize	High Back Chair\r\nBack Style	Solid Back',7788.00,40,7000.00,2,6);
-INSERT INTO `products` VALUES (19,1,'Cane Chair with Cushion ','products/c10.jpg','products/c101.jpg','products/c102.jpg','','\r\nBrand	HM SERVICES\r\nColour	Brown\r\nMaterial	Bamboo\r\nProduct Dimensions	56D x 71W x 44H Centimeters\r\nSize	Standard\r\nBack Style	Solid Back',2000.00,20,1899.00,2,6);
-INSERT INTO `products` VALUES (20,1,'STYLESEAT Marbel Grey Plastic Mid Back with Arm Chair','products/c111.jpg','products/c112.jpg','','','Brand	STYLESEAT\r\nColour	Beige\r\nMaterial	Polypropylene\r\nProduct Dimensions	56D x 60W x 79H Centimeters\r\nSize	Standard\r\nBack Style	Solid Back',1000.00,30,799.00,2,6);
-INSERT INTO `products` VALUES (21,1,'Dr Luxur Gaming Chair for Gaming, Home Office and Study- for Work from Home wi','products/cg.jpg','products/cg2.jpg','products/cg3.jpg','','Brand	Dr Luxur\r\nColour	Grey\r\nMaterial	Softweave Cotton\r\nProduct Dimensions	52D x 54W x 132H Centimeters\r\nSize	Medium\r\nBack Style	Open Back\r\nSpecial Feature	Adjustable Headrest\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.00 count\r\nSeat Material Type	Alloy Steel\r\n',17000.00,400,1599.00,2,6);
+INSERT INTO `products` VALUES (17,4,' Soothing Rocking Chair ','products/c7.jpg','products/c71.jpg','','','Brand	The Feel of Wood\r\nColour	Brown light\r\nMaterial	Teak\r\nProduct Dimensions	70D x 70W x 70H Centimeters\r\nSize	1 seater\r\nBack Style	cusion back',7000.00,70,6100.00,2,6);
+INSERT INTO `products` VALUES (18,3,'Brown Leatherette Executive Office Chair','products/c9.jpg','products/c91.jpg','products/c92.jpg','','Brand	ROAR-WOOD\r\nColour	Brown\r\nMaterial	Leather\r\nProduct Dimensions	40D x 42W x 42H Centimeters\r\nSize	High Back Chair\r\nBack Style	Solid Back',7788.00,40,7000.00,2,6);
+INSERT INTO `products` VALUES (19,2,'Cane Chair with Cushion ','products/c10.jpg','products/c101.jpg','products/c102.jpg','','\r\nBrand	HM SERVICES\r\nColour	Brown\r\nMaterial	Bamboo\r\nProduct Dimensions	56D x 71W x 44H Centimeters\r\nSize	Standard\r\nBack Style	Solid Back',2000.00,20,1899.00,2,6);
+INSERT INTO `products` VALUES (20,3,'STYLESEAT Marbel Grey Plastic Mid Back with Arm Chair','products/c111.jpg','products/c112.jpg','','','Brand	STYLESEAT\r\nColour	Beige\r\nMaterial	Polypropylene\r\nProduct Dimensions	56D x 60W x 79H Centimeters\r\nSize	Standard\r\nBack Style	Solid Back',1000.00,30,799.00,2,6);
+INSERT INTO `products` VALUES (21,2,'Dr Luxur Gaming Chair for Gaming, Home Office and Study- for Work from Home wi','products/cg.jpg','products/cg2.jpg','products/cg3.jpg','','Brand	Dr Luxur\r\nColour	Grey\r\nMaterial	Softweave Cotton\r\nProduct Dimensions	52D x 54W x 132H Centimeters\r\nSize	Medium\r\nBack Style	Open Back\r\nSpecial Feature	Adjustable Headrest\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.00 count\r\nSeat Material Type	Alloy Steel\r\n',17000.00,400,1599.00,2,6);
+INSERT INTO `products` VALUES (25,4,'Sofa Set with Ottoman & 2 Puffy ','products/s3.jpg','products/s31.jpg','','','\r\nBrand	CASASTYLE\r\nAssembly Required	No\r\nProduct Dimensions	1.37D x 2.57W x 0.84H Meters\r\nType	Sectional\r\nColour	Blue\r\nSpecial Feature	Recliner',26000.00,40,56000.00,2,5);
+INSERT INTO `products` VALUES (27,4,'Seventh Heaven Milan Sofa','products/s5.jpg','products/s51.jpg','products/s52.jpg','products/s53.jpg','Brand	Seventh Heaven\r\nAssembly Required	Yes\r\nSeat Depth	55.9 Centimeters\r\nSeat Height	16 Inches\r\nProduct Dimensions	80D x 80W x 80H Centimeters\r\nItem Weight	40 Kilograms',10000.00,78,9000.00,2,5);
+INSERT INTO `products` VALUES (28,1,'Sofa Set in Gold Paint ','products/s21.jpg','products/s22.jpg','products/s23.jpg','products/s999.jpg','Brand	Aarsun\r\nAssembly Required	No\r\nSeat Height	16 Inches\r\nColour	Gold\r\nSpecial Feature	Button Tufted\r\nRoom Type	Living Room\r\nPattern	Floral',20000.00,10,18999.00,2,5);
+INSERT INTO `products` VALUES (29,1,'SDR Furniture Wooden 5 Seater Sofa Set','products/s6.jpg','products/s61.jpg','products/s62.jpg','','\r\nColour	Walnut\r\nBrand	SDR Furniture\r\nSize	5 Seater With Coffee Table\r\nItem Dimensions LxWxH	74.9 x 74.9 x 86.4 Centimeters',7000.00,60,6900.00,2,5);
+INSERT INTO `products` VALUES (30,3,'CASASTYLE Alberoy 4 Seater Fabric LHS L Shape Sofa Set (Dark Grey-Light Grey)','products/s7.jpg','products/s71.jpg','','','\r\nBrand	CASASTYLE\r\nAssembly Required	No\r\nProduct Dimensions	201D x 137.2W x 83.8H Centimeters\r\nItem Weight	40000 Grams\r\nType	Sectional\r\nColour	Dark Grey-Light Grey',17000.00,50,16000.00,2,5);
+INSERT INTO `products` VALUES (31,3,'Blisscraft Luna 5 Seater Fabric LHS L Shape Sofa Set (Brown)','products/s8.jpg','products/s81.jpg','products/s82.jpg','','\r\nBrand	Blisscraft\r\nAssembly Required	No\r\nProduct Dimensions	0.76D x 2.57W x 0.84H Meters\r\nItem Weight	100 Kilograms\r\nType	Sectional\r\nColour	Brown\r\nSpecial Feature	Recliner\r\nUpholstery Fabric Type	Polycot\r\nRoom Type	Living Room\r\nArm Style	Padded\r\n',22000.00,50,20500.00,2,5);
+INSERT INTO `products` VALUES (35,1,'ABOUT SPACE Wooden Coffee Table - End & Sofa Side Tea Table,Centre Table with Solid Finish Space Sav','products/t2.jpg','products/t21.jpg','products/t22.jpg','','\r\nProduct Dimensions	100D x 40W x 39H Centimeters\r\nColour	Brown\r\nBrand	ABOUT SPACE\r\nTable design	Coffee Table\r\nStyle	Contemporary\r\nSeating Capacity	2',15000.00,50,14000.00,2,7);
+INSERT INTO `products` VALUES (33,1,'JIN OFFICE Wrought And Cast Iron Height Adjustable Desk Electric|Dual Motor 3-Stage|Electric Sit Sta','products/t1.jpg','products/t11.jpg','products/t12.jpg','','Brand	JIN OFFICE\r\nProduct Dimensions	75D x 120W x 70H Centimeters\r\nColour	Black\r\nStyle	Modern\r\nBase Material	Engineered Wood\r\nTop Material Type	Engineered Wood',20000.00,15,18999.00,2,7);
+INSERT INTO `products` VALUES (36,1,'Apple iPhone 15 (256 GB) - Green','products/p1.jpg','products/p11.jpg','products/p12.jpg','','\r\nBrand	Apple\r\nModel Name	iPhone 15\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	iOS\r\nCellular Technology',90000.00,40,75000.00,3,9);
+INSERT INTO `products` VALUES (37,4,'Oppo A79 5G (Mystery Black, 8GB RAM, 128GB Storage) | 5000 mAh Battery with 33W SUPERVOOC Charger | ','products/p2.jpg','products/p21.jpg','products/p3.jpg','','\r\nBrand	Oppo\r\nModel Name	A79 5G\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13.0\r\nCellular Technology	5G',19000.00,50,17999.00,3,9);
+INSERT INTO `products` VALUES (38,2,'Redmi 12 (Moonstone Silver,6GB RAM, 128GB Storage)','products/p4.jpg','products/p41.jpg','products/p42.jpg','products/p43.jpg','\r\nBrand	Redmi\r\nModel Name	Redmi 12\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13, MIUI 14\r\nCellular Technology',11000.00,50,98500.00,3,9);
+INSERT INTO `products` VALUES (39,4,'realme narzo 60X 5G（Stellar Green,6GB,128GB Storage ） Up to 2TB External Memory | 50 MP AI Primary C','products/p5.jpg','products/p51.jpg','products/p52.jpg','products/p53.jpg','\r\nBrand	realme\r\nModel Name	realme narzo 60x\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13.0\r\nCellular Technology	5G',13000.00,50,12500.00,3,9);
+INSERT INTO `products` VALUES (40,1,'Redmi Note 13 5G (Prism Gold, 12GB RAM, 256GB Storage) | Bezel-Less 120Hz AMOLED | 7.6mm Slimmest No','products/p6.jpg','products/p7.jpg','products/p61.jpg','','\r\nBrand	Redmi\r\nModel Name	Redmi Note 13 5G\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13, MIUI 14\r\nCellular Technology	5G',22000.00,50,20000.00,3,9);
+INSERT INTO `products` VALUES (41,1,'Redmi Note 13 Pro+ (Fusion White, 12GB RAM, 256GB Storage)','products/p71.jpg','','','','Brand	Redmi\r\nModel Name	Redmi Note 13 Pro+ 5G\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13, MIUI 14\r\nCellular Technology	5G',32000.00,50,30000.00,3,9);
+INSERT INTO `products` VALUES (42,4,'Realme 12 Pro+ 5G Submarine Blue, 12GB RAM, 256GB Storage','products/p8.jpg','products/p81.jpg','products/p82.jpg','','Brand	realme\r\nModel Name	realme 12 Pro+ 5G (Submarine Blue, 12GB RAM, 256GB Storage) | | 12 GB+12 GB Dynamic RAM| 64 MP Periscope Portrait Camera | 50 MP Sony IMX890 OIS Camera | Snapdragon 7s Gen 2 Chipset |Luxury Watch Designrealme 12 Pro+ 5G (Submarine Blue, 12GB RAM, 256GB Storage) | | 12 GB+12 GB Dynamic RAM| 64 MP Periscope Portrait Camera | 50 MP Sony IMX… See more\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	realme UI 5.0 || Based on Android 14\r\nCellular Technology	5G\r\n',32000.00,100,30000.00,3,9);
+INSERT INTO `products` VALUES (43,1,'Panasonic 27L Convection Microwave Oven(NN-CT645BFDG,,Black Mirror, 360° Heat Wrap, Magic Grill)','products/o1.jpg','products/o11.jpg','','','\r\nBrand	Panasonic\r\nProduct Dimensions	47.1D x 51.3W x 30.6H Centimeters\r\nColour	Black Mirror\r\nCapacity	27 litres\r\nSpecial Feature	Auto Cook',12000.00,70,11100.00,3,8);
+INSERT INTO `products` VALUES (44,3,'Philips HD6975/00 Digital Oven Toaster Grill, 25 Litre OTG, 1500 Watt with Opti Temp Technology, Cha','products/o4.jpg','products/o41.jpg','products/o42.jpg','','\r\nBrand	PHILIPS\r\nColour	Grey\r\nProduct Dimensions	40.2D x 52W x 35.6H Centimeters\r\nSpecial Feature	Adjustable Rack\r\nControl Type	Touch Control',8000.00,70,7500.00,3,8);
+INSERT INTO `products` VALUES (45,2,'Panasonic 20L Solo Microwave Oven (NN-SM25JBFDG,Black)','products/o5.jpg','products/o51.jpg','products/o52.jpg','','\r\nBrand	Panasonic\r\nProduct Dimensions	34D x 44W x 26H Centimeters\r\nColour	Black\r\nCapacity	20 litres\r\nSpecial Feature	Auto_cook',6000.00,70,5000.00,3,8);
+INSERT INTO `products` VALUES (46,3,'LG 28 L Scan to Cook Wi-Fi Enabled Charcoal Convection Healthy Microwave Oven (MJEN286VIW, Black, He','products/o6.jpg','products/o61.jpg','products/o62.jpg','products/o63.jpg','Brand	LG\r\nProduct Dimensions	48.8D x 51.2W x 31.1H Centimeters\r\nColour	Black\r\nCapacity	28 litres\r\nSpecial Feature	Auto Cook, Wi-Fi, Timer, Child Safety Lock, Grill Function',20000.00,50,18999.00,3,8);
+INSERT INTO `products` VALUES (47,2,'Panasonic 23L Convection Microwave Oven(NN-CT353BFDG,Black Mirror, 360° Heat Wrap, Magic Grill)','products/o7.jpg','products/o71.jpg','products/o72.jpg','','\r\nBrand	Panasonic\r\nProduct Dimensions	29.2D x 48.3W x 34.3H Centimeters\r\nColour	Black Mirror\r\nCapacity	23 litres\r\nSpecial Feature	Auto_cook',11000.00,70,9999.00,3,8);
+INSERT INTO `products` VALUES (48,2,'Philips HD6976/00 36 Litre Digital Oven Toaster Grill, 2000W, with Opti Temp Technology, Temperature','products/o8.jpg','products/o81.jpg','products/o82.jpg','','\r\nBrand	PHILIPS\r\nColour	BLACK\r\nProduct Dimensions	57.8D x 47.8W x 37.2H Centimeters\r\nSpecial Feature	Temperature Control, Timer\r\nControl Type	Button Control\r\n',13000.00,50,12500.00,3,8);
+INSERT INTO `products` VALUES (49,1,'LG 7 Kg 5 Star Inverter Touch panel Fully-Automatic Front Load Washing Machine with In-Built Heater ','products/m1.jpg','products/m11.jpg','products/m12.jpg','','\r\nProduct Dimensions	60D x 44W x 85H Centimeters\r\nBrand	LG\r\nCapacity	7 Kilograms\r\nSpecial Feature	Inverter, Child Lock, Hygiene Steam, Inbuilt Heater\r\nAccess Location	Front Load',30000.00,50,28000.00,3,11);
+INSERT INTO `products` VALUES (50,2,'Whirlpool 7 Kg 5 Star Royal Fully-Automatic Top Loading Washing Machine (WHITEMAGIC ROYAL 7.0 GENX, ','products/m2.jpg','products/m21.jpg','products/m22.jpg','','\r\nProduct Dimensions	21.3D x 21.3W x 33.1H Centimeters\r\nBrand	Whirlpool\r\nCapacity	7 Kilograms\r\nSpecial Feature	Hard water wash, 5 star energy rating, High RPM motor\r\nAccess Location	Top Load',15000.00,50,13500.00,3,11);
+INSERT INTO `products` VALUES (51,2,'Whirlpool 8 Kg 5 Star Stainwash Royal Plus Fully Automatic Top Load Washing Machine (SW ROYAL PLUS H','products/m3.jpg','products/m31.jpg','products/m32.jpg','products/m33.jpg','\r\nProduct Dimensions	58D x 54W x 101H Centimeters\r\nBrand	Whirlpool\r\nCapacity	8 Kilograms\r\nSpecial Feature	Inbuilt Heater\r\nAccess Location	Top Load',19000.00,70,18499.00,3,11);
+INSERT INTO `products` VALUES (52,1,'IFB 7 Kg 5 Star AI Powered Front Load Washing Machine 2X Power Steam (DIVA AQUA MSS 7010, 2023 Model','products/m4.jpg','products/m41.jpg','products/m42.jpg','','\r\nProduct Dimensions	61.3D x 59.8W x 87.5H Centimeters\r\nBrand	IFB\r\nCapacity	7 Kilograms\r\nSpecial Feature	Protective Rat Mesh, Child Lock, 2X Power Steam, High Low Voltage Protection, Delay Start, Powered by AI, Inbuilt Heater, Self DiagnosisProtective Rat Mesh, Child Lock, 2X Power Steam, High Low Voltage Protection, Delay Start, Powered by AI, Inbuilt Heater, Self Diagnosis',27000.00,100,25000.00,3,11);
+INSERT INTO `products` VALUES (53,1,'IFB Laundrimagic 3-in-1 8.5 Kg/6.5 Kg/2.5 Kg Inverter Washer Dryer Refresh (Executive ZXM, Mocha)','products/m5.jpg','products/m51.jpg','products/m52.jpg','','\r\nCapacity	8.5 Kilograms\r\nColour	Mocha\r\nBrand	IFB\r\nProduct Dimensions	58D x 55W x 85H Centimeters\r\nSpecial Feature	Inverter\r\nCycle Options	Eco, Silk, Quick Wash',55000.00,50,50000.00,3,11);
+INSERT INTO `products` VALUES (54,2,'AmazonBasics Rubber Encased Hex Dumbbell Weight Set of 2, 5 Kg','products/d1.jpg','products/d11.jpg','products/d12.jpg','products/d13.jpg','\r\nBrand	amazon basics\r\nColour	Black\r\nItem Weight	10000 Grams\r\nMaterial	Rubber\r\nSpecial Feature	No Roll Head, Encased',1800.00,50,1599.00,1,1);
+INSERT INTO `products` VALUES (55,2,'Amazon Brand - Symactive Rubber Coated 10 Kg Hex Dumbbells Set for Full Body Workout (Set of 2, 5 Kg','products/d2.jpg','products/d21.jpg','products/d22.jpg','','\r\nBrand	Amazon Brand - Symactive\r\nColour	Multicolor\r\nItem Weight	5000 Grams\r\nSpecial Feature	Easy To Clean\r\nUse for	Hands, Back',1700.00,50,1599.00,1,1);
+INSERT INTO `products` VALUES (56,4,'Amazon Brand - Symactive Cast Iron Spinlock Adjustable Dumbbell For Home Gym, Bodybuilding Fitness a','products/d3.jpg','products/d31.jpg','','','\r\nBrand	Amazon Brand - Symactive\r\nColour	BLACK\r\nItem Weight	10 Kilograms\r\nMaterial	Cast Iron\r\nSpecial Feature	Adjustable Weight, Non Slip',2500.00,50,2399.00,1,1);
+INSERT INTO `products` VALUES (57,3,'IRIS Fitness 24 kgs Adjustable Dumbbell with Fast Adjustable Weight Plates for Body Workout Home Gym','products/d43.jpg','products/d41.jpg','products/d42.jpg','','\r\nBrand	IRIS\r\nColour	Black, Red\r\nItem Weight	24 Kilograms\r\nMaterial	Metal, Rubber\r\nSpecial Feature	Adjustable Weight',7000.00,50,5999.00,1,1);
+INSERT INTO `products` VALUES (58,3,'JoyFit Stackable Dumbbell Set(Up To 15Kg)With Cast Iron Weights,Handlebars And Carry Box For Arms,Ch','products/d5.jpg','products/d51.jpg','products/d53.jpg','','\r\nBrand	JoyFit\r\nColour	15Kg\r\nItem Weight	15 Kilograms\r\nMaterial	Cast Iron\r\nSpecial Feature	Adjustable Design',7000.00,100,5000.00,1,1);
+INSERT INTO `products` VALUES (59,2,'Durafit Panther Multifunction | 5.5 HP Peak DC Motorized Foldable Treadmill | Auto Incline | Home us','products/q1.jpg','products/q11.jpg','products/q12.jpg','','\r\nBrand	Durafit - Sturdy, Stable and Strong\r\nColour	Black\r\nProduct Dimensions	172D x 77W x 125H Centimeters\r\nItem Weight	81 Kilograms\r\nMaterial	Alloy Steel',45000.00,50,43999.00,1,2);
+INSERT INTO `products` VALUES (60,2,'Durafit Spark Treadmill Series 2.0 HP Peak DC Motorized Max Speed 10 Km/Hr Max User Weight 100 Home ','products/q2.jpg','products/q21.jpg','','','\r\nBrand	Durafit - Sturdy, Stable and Strong\r\nColour	black\r\nProduct Dimensions	121D x 95W x 53H Centimeters\r\nMaterial	Alloy Steel\r\nSpecial Feature	Compact Design',14999.00,50,13999.00,1,2);
+INSERT INTO `products` VALUES (61,4,'PowerMax Fitness TDM-98 (4.0HP Peak) Motorized Treadmill With USB Connection, Home Use & Heart Rate ','products/q3.jpg','products/q31.jpg','products/q32.jpg','','\r\nBrand	PowerMax Fitness\r\nColour	Grey\r\nProduct Grade	Replacement Parts\r\nProduct Dimensions	143D x 63.5W x 106.5H Centimeters\r\nItem Weight	30 Kilograms',19000.00,60,17999.00,1,2);
+INSERT INTO `products` VALUES (62,4,'PowerMax Fitness MFT-410 Non-electric Manual Treadmill Foldable, Multifunction (Jogger, Stepper, Twi','products/q4.jpg','products/q41.jpg','products/q42.jpg','','\r\nBrand	PowerMax Fitness\r\nItem Weight	40000 Grams\r\nColour	White\r\nMaterial	Alloy Steel\r\nProduct Dimensions	121D x 62W x 140H Centimeters',25000.00,40,23999.00,1,2);
+INSERT INTO `products` VALUES (63,2,'PowerMax Fitness TDM-100M (4HP Peak) Multi-Function Treadmill For Home Use With Massager |treadmill ','products/q51.jpg','products/q5.jpg','products/q52.jpg','','Brand	PowerMax Fitness\r\nItem Weight	56 Kilograms\r\nColour	Black\r\nMaterial	Stainless Steel\r\nProduct Dimensions	162D x 70W x 120H Centimeters',18000.00,50,16999.00,1,2);
+INSERT INTO `products` VALUES (64,1,'Boldfit Skipping Rope For Men & Women Adjustable Jumping Rope For Men Gym Rope/Exercise Rope For Men','products/r1.jpg','products/r2.jpg','','','Brand	Boldfit\r\nTarget Audience	All\r\nSpecial Feature	Adjustable Length\r\nRecommended Uses For Product	Exercise and Fitness\r\nMaterial	Polyvinyl Chlorine (PVC)',499.00,100,399.00,1,3);
+INSERT INTO `products` VALUES (66,3,'Boldfit Aluminium Skipping Rope for Men and Women Jumping Rope With Adjustable Height Speed Skipping','products/r3.jpg','products/r31.jpg','products/r32.jpg','','Brand	Boldfit\r\nTarget Audience	Men\r\nSpecial Feature	Lightweight, Adjustable Length\r\nMaterial	Aluminium\r\nHandle Material	Aluminium',550.00,200,499.00,1,3);
+INSERT INTO `products` VALUES (67,3,'Boldfit Plastic Skipping Rope For Men And Women Jumping Rope With Adjustable Height Speed Skipping R','products/r4.jpg','products/r42.jpg','products/r41.jpg','','\r\nBrand	Boldfit\r\nTarget Audience	Kid, Adult\r\nSpecial Feature	Lightweight, Adjustable Length\r\nMaterial	Plastic\r\nHandle Material	Plastic',299.00,100,199.00,1,3);
+INSERT INTO `products` VALUES (68,2,'HaloHop Skipping Rope with Calorie Counter, Cordless Weighted Skipping Jump Rope with Counter for Ex','products/r5.jpg','products/r51.jpg','','','\r\nBrand	Halohop\r\nTarget Audience	Adult\r\nSpecial Feature	Cordless, Slip Res, Adjustable Length\r\nMaterial	Polyvinyl Chlorine (PVC)\r\nHandle Material	ABS + TPE\r\n ',999.00,799,899.00,1,3);
+INSERT INTO `products` VALUES (69,2,'Xfopz Smart Jump Rope, Digital Weighted Handle Workout Jumping Rope with Counter, Cordless Weighted ','products/r62.jpg','products/r61.jpg','','','Brand	Xfopz\r\nTarget Audience	Adult\r\nSpecial Feature	Ergonomic, Cordless, Adjustable Length\r\nMaterial	Acrylonitrile Butadiene Styrene (ABS)\r\nHandle Material	Silicone',799.00,150,599.00,1,3);
+INSERT INTO `products` VALUES (70,2,'Xfopz Smart Jump Rope, Digital Weighted Handle Workout Jumping Rope with Counter, Cordless Weighted ','products/r62.jpg','products/r61.jpg','','','Brand	Xfopz\r\nTarget Audience	Adult\r\nSpecial Feature	Ergonomic, Cordless, Adjustable Length\r\nMaterial	Acrylonitrile Butadiene Styrene (ABS)\r\nHandle Material	Silicone',799.00,150,599.00,1,3);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products_like` (
@@ -287,10 +343,10 @@ CREATE TABLE `vendors` (
   PRIMARY KEY (`vendor_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123',1,'Air asia','9997778880','surat',1,0);
-INSERT INTO `vendors` VALUES (2,'yagnesh','okyagnesh@gmail.com','123456',0,'Apple','9997778880','dindoli',0,0);
-INSERT INTO `vendors` VALUES (3,'soham_dorge','soh@gmail.com','123456',0,'apple','7778889990','Surat ',0,0);
-INSERT INTO `vendors` VALUES (4,'soham_dorge','soh@gmail.com','123456',0,'apple','7778889990','Surat ',0,0);
+INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123456',1,'bings','9997778880','surat',1,0);
+INSERT INTO `vendors` VALUES (2,'yagnesh','okyagnesh@gmail.com','123456',0,'dexon','9997778880','dindoli',1,0);
+INSERT INTO `vendors` VALUES (3,'vishal saw','vishal@gmail.com','123456',0,'vision care','7778889990','Surat ',0,0);
+INSERT INTO `vendors` VALUES (4,'soham_dorge','soh@gmail.com','123456',0,'zexon','7778889990','Surat ',0,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `warranty` (

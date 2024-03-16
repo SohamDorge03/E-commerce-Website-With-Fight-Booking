@@ -1,100 +1,264 @@
-<?php
-    
-include 'connection.php'; 
-
-// Check if email session variable is set
-if(isset($_SESSION['email'])) {
-    $user_email = $_SESSION['email'];
-    
-    // Prepare SQL query
-    $sql = "SELECT airline_name FROM airlines WHERE email = '$user_email'";
-
-    $result = $conn->query($sql);
-
-    // Check for errors
-    if ($result === false) {
-        // Handle query error
-        $customer_name = "Error retrieving data";
-    } else {
-        // Check if any rows were returned
-        if ($result->num_rows > 0) {
-            // Fetch the row and extract the customer name
-            $row = $result->fetch_assoc();
-            $customer_name = $row['airline_name'];
-        } else {
-            // No rows found, set customer name to Guest
-            $customer_name = "Guest"; 
-        }
-    }
-} else {
-    // Session variable 'email' is not set
-    $customer_name = "Not logged in";
-}
-if(isset($_GET['username'])) {
-    $username = $_GET['username'];
-} else {
-    $username = ""; 
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>ShopFlix Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="./dash.css">
-    <script src="script.js"></script>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --header-height: 3rem;
+            --nav-width: 254px;
+            --first-color: #387de6;
+            --first-color-light: #AFA5D9;
+            --white-color: #F7F6FB;
+            --body-font: 'poppins', sans-serif;
+            --normal-font-size: 16px;
+            --z-fixed: 100;
+        }
+
+        *,
+        ::before,
+        ::after {
+            box-sizing: border-box;
+        }
+
+      
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Minimalistic Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #fff;
+            border-radius: 27px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #ddd;
+        }
+
+        .header {
+            width: 100%;
+            height: var(--header-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            background-color: var(--white-color);
+            z-index: var(--z-fixed);
+            transition: .5s;
+        }
+
+        .header_logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header_img {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .header_img img {
+            width: 40px;
+        }
+
+        .header_title {
+            color: var(--first-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .l-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--nav-width);
+            height: 100vh;
+            background-color: var(--first-color);
+            padding: .5rem 1rem 0 0;
+            transition: .5s;
+            z-index: var(--z-fixed);
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        .nav {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+        }
+
+        .nav_logo,
+        .nav_link {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            align-items: center;
+            column-gap: 1.5rem;
+            padding: .5rem 0 .5rem 1.5rem;
+        }
+
+        .nav_logo {
+            margin-bottom: 2rem;
+        }
+
+        .nav_logo-icon {
+            font-size: 1.25rem;
+            color: var(--white-color);
+        }
+
+        .nav_logo-name {
+            color: var(--white-color);
+            font-weight: 700;
+        }
+
+        .nav_link {
+            position: relative;
+            color: var(--first-color-light);
+            margin-bottom: 1.5rem;
+            transition: .3s;
+        }
+
+        .nav_link:hover {
+            color: var(--white-color);
+        }
+
+        .nav_icon {
+            font-size: 1.25rem;
+        }
+
+        .body-pd {
+            padding-left: calc(var(--nav-width) + 1rem);
+        }
+
+        .active {
+            color: var(--white-color);
+        }
+
+        .active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 2px;
+            height: 32px;
+            background-color: var(--white-color);
+        }
+
+        .height-100 {
+            height: 100vh;
+        }
+
+        @media screen and (min-width: 768px) {
+            body {
+                margin: calc(var(--header-height) + 1rem) 0 0 0;
+                padding-left: calc(var(--nav-width) + 2rem);
+            }
+
+            .header {
+                height: calc(var(--header-height) + 1rem);
+                padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+            }
+
+            .header_img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .header_img img {
+                width: 45px;
+            }
+
+            .l-navbar {
+                padding: 1rem 1rem 0 0;
+            }
+
+            .body-pd {
+                padding-left: calc(var(--nav-width) + 1rem);
+            }
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body id="body-pd">
     <header class="header" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
-    </header>
-    <div class="l-navbar" id="nav-bar">
-    <nav class="nav">
-        <div>
-            <a href="#" class="nav_logo">
-                <i class='bx bx-layer nav_logo-icon'></i>
-                <span class="nav_logo-name">ShopFlix</span>
-            </a>
-            <div class="nav_list">
-                <a href="Airline_dashboard.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Airline_dashboard.php' ? 'active' : '' ?>">
-                    <i class='bx bx-grid-alt nav_icon'></i>
-                    <span class="nav_name">Dashboard</span>
-                </a>
-                <a href="user.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'user.php' ? 'active' : '' ?>">
-                    <i class='bx bx-user nav_icon'></i>
-                    <span class="nav_name">Users</span>
-                </a>
-                <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'airports.php' ? 'active' : '' ?>">
-                    <i class='bx bx-message-square-detail nav_icon'></i>
-                    <span class="nav_name">Airports</span>
-                </a>
-                <a href="Flights.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Flights.php' ? 'active' : '' ?>">
-                    <i class='bx bx-bookmark nav_icon'></i>
-                    <span class="nav_name">Flights</span>
-                </a>
-                <a href="booking.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'booking.php' ? 'active' : '' ?>">
-                    <i class='bx bx-folder nav_icon'></i>
-                    <span class="nav_name">Bookings</span>
-                </a>
-                <a href="#" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : '' ?>">
-                    <i class='bx bx-folder nav_icon'></i>
-                    <span class="nav_name">Reports</span>
-                </a>
+        <div class="header_logo">
+            <div class="header_img">
+                <img src="https://i.imgur.com/hczKIze.jpg" alt="ShopFlix Logo">
             </div>
+            <div class="header_title">ShopFlix Admin</div>
         </div>
-        <a href="logout.php" class="nav_link">
-            <i class='bx bx-log-out nav_icon'></i>
-            <span class="nav_name">Sign Out</span>
-        </a>
-    </nav>
-</div>
+    </header>
+
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <div class="nav_logo">
+                    <i class="fas fa-store nav_logo-icon"></i>
+                    <span class="nav_logo-name">ShopFlix Airlines</span>
+                </div>
+                <div class="nav_list">
+                    <a href="./airline_dashboard.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'airline_dashboard.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-th-large nav_icon"></i>
+                        <span class="nav_name">Dashboard</span>
+                    </a>
+            
+                    <a href="./user.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'user.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-box nav_icon"></i>
+                        <span class="nav_name">Users</span>
+                    </a>
+                    <a href="./flights.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'flights.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-box nav_icon"></i>
+                        <span class="nav_name">Flight</span>
+                    </a>
+                    <a href="booking.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'booking.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-shopping-bag nav_icon"></i>
+                        <span class="nav_name">Booking</span>
+                    </a>
+    
+                    <a href="reports.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-cogs nav_icon"></i>
+                        <span class="nav_name">Reports</span>
+                    </a>
+            
+                    <a href="logout.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-sign-out-alt nav_icon"></i>
+                        <span class="nav_name">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+      
+    </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function (event) {
 
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
@@ -123,19 +287,23 @@ if(isset($_GET['username'])) {
             const linkColor = document.querySelectorAll('.nav_link')
 
             function colorLink() {
-                if (linkColor) {
-                    linkColor.forEach(l => l.classList.remove('active'))
-                    this.classList.add('active')
-                }
+                // Remove 'active' class from all links
+                linkColor.forEach(l => l.classList.remove('active'));
+
+                // Add 'active' class only to the clicked link
+                this.classList.add('active');
             }
+
             linkColor.forEach(l => l.addEventListener('click', colorLink))
 
             // Your code to run since DOM is loaded and ready
         });
     </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+   
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
-<!--Container Main end-->
 
 </html>

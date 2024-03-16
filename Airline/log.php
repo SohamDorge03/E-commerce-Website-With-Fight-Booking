@@ -12,8 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
     $message = '';
     if ($result->num_rows > 0) {
-        // User exists, set session and redirect
-        $_SESSION['email'] = $username; // Set session variable
+        // User exists, set session variables
+        $row = $result->fetch_assoc();
+        $_SESSION['email'] = $username; // Set session variable for email
+        $_SESSION['airline_id'] = $row['airline_id']; // Set session variable for airline_id
         header("Location: airline_dashboard.php");
         exit();
     } else {
@@ -22,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

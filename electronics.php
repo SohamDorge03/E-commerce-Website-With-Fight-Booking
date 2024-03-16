@@ -1,173 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    #product1 {
-      text-align: center;
-    }
 
-    #product1 .pro-container {
-      display: flex;
-      padding-top: 20px;
-      gap: 30px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+<!-- Main content -->
+<div class="main-content">
+    
 
-    #product1 .pro {
-      width: 23%;
-      min-width: 250px;
-      padding: 10px 6px;
-      border: 1px solid #cce7d0;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
-      margin: 15px 0;
-      transition: 0.2s ease;
-      position: relative;
-    }
 
-    #product1 .pro:hover {
-      box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
-    }
 
-    #product1 .pro img {
-      width: 100%;
-      border-radius: 20px;
-    }
 
-    #product1 .pro .des {
-      text-align: start;
-      padding: 10px 0;
-    }
 
-    #product1 .pro .des span {
-      color: #606063;
-      font-size: 12px;
-    }
 
-    #product1 .pro .des h5 {
-      padding-top: 7px;
-      color: #1a1a1a;
-      font-size: 14px;
-    }
 
-    #product1 .pro .des i {
-      font-size: 12px;
-      color: rgb(243, 181, 25)
-    }
 
-    #product1 .pro .des h4 {
-      font-size: 15px;
-      padding-top: 7px;
-      font-weight: 700;
-      color: #088178;
-    }
 
-    #product1 .pro .cart {
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      border-radius: 50px;
-      background-color: #e8f6ea;
-      font-weight: 500;
-      color: #088178;
-      border: 1px solid #cce7d0;
-      position: absolute;
-      bottom: 20px;
-      right: 10px;
-    }
-  </style>
-</head>
-<body>
-<section id="product1" class="section-p1">
-  <h2>Featured Products</h2>
-  <p>Summer Collection New Modern Design</p>
-  <div class="pro-container">
-    <?php
-    include("include/connection.php");
+<?php
 
-    // Fetch products from the database
-    $productSql = "SELECT * FROM products WHERE category_id = 3";
-    $productResult = $conn->query($productSql);
+include("include/connection.php");
+include("include/navbar.php");
+ 
+
+// Function to display products
+function displayProducts($sql)
+{
+    global $conn;
+
+    $result = $conn->query($sql);
 
     // Check if there are products
-    if ($productResult !== false && $productResult->num_rows > 0) {
-      echo '<div class="pro-container">';
+    if ($result->num_rows > 0) {
+        echo '<div class="pro-container" style="display: flex; padding-top: 20px; gap: 30px; justify-content: center; flex-wrap: wrap;">';
 
-      // Loop through each product and generate HTML
-      while ($row = $productResult->fetch_assoc()) {
-        echo '<div class="pro" style="width: 270px;">';
-        echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" data-toggle="modal" data-target="#productModal' . $row['product_id'] . '">';
-        echo '<div class="des">';
-        echo '<h5>' . $row['name'] . '</h5>';
+        // Loop through each product and generate HTML
+        while ($row = $result->fetch_assoc()) {
+            $productId = $row['product_id'];
 
+            echo '<div class="pro" style="width: 300px; min-width: 250px; padding: 10px 20px; border: 1px solid #cce7d0; border-radius: 25px; cursor: pointer; box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02); margin: 15px 0; transition: 0.2s ease; position: relative;">';
+            echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" style="width: 100%; border-radius: 20px;">';
+            echo '<div class="des" style="text-align: start; padding: 10px 0;">';
+            echo '<h5 style="padding-top: 7px; color: #1a1a1a; font-size: 14px;">' . $row['name'] . '</h5>';
+            echo '<span class="price" style=" font-size: 18px; font-weight: bold; margin-top: 1px;">$' . $row['price'] . '</span>';
+            echo '<p class="description" style="margin-top: 1px; color: #606063; font-size: 12px;">' . substr($row['description'], 0, 50) . '...</p>';
+            echo '</div>';
 
-        // Display discounted price with a strikethrough effect on original price if discount exists
-        if ($row['discount_price'] !== null && $row['discount_price'] < $row['price']) {
-          echo '<span class="original-price"><span style="text-decoration: line-through;">$' . $row['price'] . '</span></span>';
-          echo '<span class="discounted-price" style="margin-left: 5px; font-size: 18px; font-weight: bold; margin-top: 1px;">$' . $row['discount_price'] . '</span>';
-        } else {
-          // If no discount, display the regular price
-          echo '<span class="price" style=" font-size: 18px; font-weight: bold; margin-top: 1px;">$' . $row['price'] . '</span>';
+            // Check if user is logged in
+            if (isset($_SESSION['u'])) {
+                // Quantity input box
+                echo '<form class="add-to-cart-form" method="post" action="">';
+                echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
+                echo '<input type="number" name="quantity" class="" value="1" min="1" style="width: 50px; margin-bottom: 10px;">';
+
+                // Add to cart button
+                echo '<input type="submit" name="add_to_cart" value="Add to Cart" class="btn add-to-cart-btn" style="width: 80px; height: 40px; line-height: 40px; border-radius: 5px; background-color: #e8f6ea; font-weight: 500; color: #088178; border: 1px solid #cce7d0;">';
+                echo '</form>';
+            }
+
+            echo '</div>';
         }
 
-        // Display one-line description
-        echo '<p class="description" style="margin-top: 1px;">' . substr($row['description'], 0, 50) . '...</p>';
-
         echo '</div>';
-
-        echo '<a><i class="fal fa-shopping-cart cart"></i></a>';
-        echo '</div>';
-
-        // Create modal for each product
-        echo '<div class="modal fade" id="productModal' . $row['product_id'] . '" tabindex="-1" role="dialog" aria-labelledby="productModalLabel' . $row['product_id'] . '" aria-hidden="true">';
-        echo '<div class="modal-dialog modal-lg" role="document">';
-        echo '<div class="modal-content">';
-        echo '<div class="modal-header">';
-        echo '<h5 class="modal-title" id="productModalLabel' . $row['product_id'] . '">' . $row['name'] . '</h5>';
-        echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-        echo '<span aria-hidden="true">&times;</span>';
-        echo '</button>';
-        echo '</div>';
-        echo '<div class="modal-body">';
-        // Display all details from the product
-        echo '<img src="vendor/' . $row['img1'] . '" alt="" style="max-width: 100%;">';
-        echo '<p>Description: ' . $row['description'] . '</p>';
-        echo '<p>Price: $' . $row['price'] . '</p>';
-        if ($row['discount_price'] !== null && $row['discount_price'] < $row['price']) {
-          echo '<p>Discounted Price: $' . $row['discount_price'] . '</p>';
-        }
-        echo '<p>Stock Quantity: ' . $row['stock_quantity'] . '</p>';
-        // Include other details as needed
-        echo '</div>';
-        echo '<div class="modal-footer">';
-        echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
-        // Include any other buttons as needed
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-      }
-
-      echo '</div>';
     } else {
-      echo 'No products found.';
+        echo 'No products found.';
+    }
+}
+
+// Store current scroll position in session
+$_SESSION['scroll_position'] = isset($_SESSION['scroll_position']) ? $_SESSION['scroll_position'] : 0;
+
+if (isset($_POST['add_to_cart'])) {
+
+    $productId = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    // Add product to cart
+    $userId = isset($_SESSION['u']) ? $_SESSION['u'] : null; // Assuming user ID is stored in session
+    if ($userId) {
+        $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $userId, $productId, $quantity);
+        $stmt->execute();
+        $stmt->close();
     }
 
-    // Close the database connection
-    $conn->close();
-    ?>
-  </div>
-</section>
+    // Show alert and prevent default form submission
+    echo '<script>alert("Product added to cart!");</script>';
+    echo '<script>
+            document.querySelectorAll(".add-to-cart-form").forEach(form => {
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                   
+                });
+            });
+          </script>';
+    
+    // Redirect back to the page with the stored scroll position
+    echo '<script>window.location.href = window.location.pathname + "?scroll_position=" + ' . $_SESSION['scroll_position'] . ';</script>';
+    exit();
+}
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+// Display products
+echo '<div style="display: flex; justify-content:center; align-items:center;">';
+echo '<h2 style="justify-content:center; margin-top:20px;">Electronics</h2>';
+echo '</div>';
+
+
+    // If no search term provided, fetch all products
+    $sql = "SELECT * FROM products where category_id=3";
+    displayProducts($sql);
+
+
+// Store the current scroll position in session
+$_SESSION['scroll_position'] = isset($_GET['scroll_position']) ? $_GET['scroll_position'] : 0;
+?>
+
+</div>
+</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
