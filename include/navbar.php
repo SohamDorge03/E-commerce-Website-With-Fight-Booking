@@ -257,7 +257,7 @@ else{
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Trading products</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">feedback</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'w.php' ? 'active' : ''; ?>" href="w.php">Expand warranty</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'extended_warranty.php' ? 'active' : ''; ?>" href="extended_warranty.php">Expand warranty</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'claim_warranty.php' ? 'active' : ''; ?>" href="claim_warranty.php">Claim warranty</a>
 </section>
 

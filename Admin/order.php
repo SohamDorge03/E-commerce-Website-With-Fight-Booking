@@ -13,6 +13,9 @@ if(!isset($_SESSION['email'])) {
     margin-left: 20px !important;
     font-family:'poppins';
 }
+.thead-light{
+    background-color: #5F1E30;
+}
 </style>
 <?php
 include("include/connection.php");
@@ -35,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
 echo "<div class='container mt-5'>";
 echo "<h2>Orders with Product Details</h2>";
 echo "<table class='table table-bordered'>";
-echo "<thead class='thead-light'>";
+echo "<thead class='thead-light' >";
 echo "<tr><th>Order ID</th><th>User ID</th><th>User Name</th><th>Email</th><th>Address</th><th>Order Date</th><th>Status</th><th>Payment Method</th><th>Payment Status</th><th>Transaction ID</th><th>Total Amount</th><th>Products</th></tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -74,7 +77,7 @@ if ($result_orders_products) {
             echo "<td>" . $row['payment_method'] . "</td>";
             echo "<td>" . $row['payment_status'] . "</td>";
             echo "<td>" . $row['transaction_id'] . "</td>";
-            echo "<td>$" . number_format($row['total_amount'], 2) . "</td>";
+            echo "<td>" . number_format($row['total_amount'], 2) . "</td>";
             echo "<td>";
             
             // View Product Details Button (opens modal)

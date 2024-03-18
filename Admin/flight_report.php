@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
@@ -67,64 +67,65 @@ include("./include/navbar.php");
           <option value="" class="new-line-option">All</option>
         </select>
       </div>
-     
     </div>
     <div class="form-group row">
       <div class="col-md-5">
         <button type="submit" class="btn btn-primary btn-block">Generate Report</button>
       </div>
       <div class="col-md-5">
-        <a href="flight_generate_pdf.php?from_date=<?php echo $_GET['from_date'] ?? ''; ?>&to_date=<?php echo $_GET['to_date'] ?? ''; ?>&status=<?php echo $_GET['status'] ?? ''; ?>" class="btn btn-success btn-block">Generate PDF</a>
-      </div>
+    <a href="flight_generate_pdf.php?from_date=<?php echo $_POST['start_date'] ?? ''; ?>&to_date=<?php echo $_POST['end_date'] ?? ''; ?>&status=<?php echo $_POST['payment_status'] ?? ''; ?>&flight_class=<?php echo $_POST['flight_class'] ?? ''; ?>" class="btn btn-success btn-block">Generate PDF</a>
+</div>
+
     </div>
   </form>
 <?php
-  include("./include/connection.php");
+include("./include/connection.php");
 
-  // Fetch data based on submitted filters
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Fetch data for the specified month if no filters are applied
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $flight_class = $_POST['flight_class'];
     $payment_status = $_POST['payment_status'];
-   
 
     // Construct the SQL query based on selected filters
     $sql = "SELECT * FROM booked_flights WHERE booked_date BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
     if (!empty($flight_class)) {
-      $sql .= " AND flight_class = '$flight_class'";
+        $sql .= " AND flight_class = '$flight_class'";
     }
     if (!empty($payment_status)) {
-      $sql .= " AND payment_status = '$payment_status'";
+        $sql .= " AND payment_status = '$payment_status'";
     }
-  
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-      echo '<table class="table table-striped">';
-      echo '<thead><tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr></thead>';
-      echo '<tbody>';
-      while($row = $result->fetch_assoc()) {
-        echo '<tr>';
-        echo '<td>' . $row['booking_id'] . '</td>';
-        echo '<td>' . $row['flight_id'] . '</td>';
-        echo '<td>' . $row['user_id'] . '</td>';
-        echo '<td>' . $row['take_seats'] . '</td>';
-        echo '<td>' . $row['flight_class'] . '</td>';
-        echo '<td>' . $row['TransactionID'] . '</td>';
-        echo '<td>' . $row['total_amount'] . '</td>';
-        echo '<td>' . $row['payment_status'] . '</td>';
-        echo '<td>' . $row['booked_date'] . '</td>';
-        echo '</tr>';
-      }
-      echo '</tbody></table>';
+        echo '<table class="table table-striped">';
+        echo '<thead style="background-color:#5F1E30;"><tr style="color:wheat;"><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr></thead>';
+        echo '<tbody>';
+        while ($row = $result->fetch_assoc()) {
+            echo '<tr>';
+            echo '<td>' . $row['booking_id'] . '</td>';
+            echo '<td>' . $row['flight_id'] . '</td>';
+            echo '<td>' . $row['user_id'] . '</td>';
+            echo '<td>' . $row['take_seats'] . '</td>';
+            echo '<td>' . $row['flight_class'] . '</td>';
+            echo '<td>' . $row['TransactionID'] . '</td>';
+            echo '<td>' . $row['total_amount'] . '</td>';
+            echo '<td>' . $row['payment_status'] . '</td>';
+            echo '<td>' . $row['booked_date'] . '</td>';
+            echo '</tr>';
+        }
+        echo '</tbody></table>';
     } else {
-      echo '<div class="alert alert-warning">No booked flights found for the selected filters.</div>';
+        echo '<div class="alert alert-warning">No booked flights found for the selected filters.</div>';
     }
-  }
+} else {
+    // If form is not submitted, display instructions
+    echo '<div class="alert alert-info">Please select a date range to generate the report.</div>';
+}
 
-  $conn->close();
+$conn->close();
 ?>
 </div>
 

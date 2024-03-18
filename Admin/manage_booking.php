@@ -26,8 +26,8 @@ if(!isset($_SESSION['email'])) {
     <div class="container mt-5">
         <h2>Booked Flights</h2>
         <table class="table">
-            <thead>
-                <tr>
+            <thead style="background-color: #5F1E30;">
+                <tr style="color: wheat;">
                     <th>Booking ID</th>
                     <th>Flight Code</th>
                     <th>First Name</th>
@@ -40,7 +40,7 @@ if(!isset($_SESSION['email'])) {
                     <th>Total Amount</th>
                     <th>Airline Name</th>
                     <th>Payment Status</th>
-                    <th>Booking Status</th> 
+            
                 </tr>
             </thead>
             <tbody>

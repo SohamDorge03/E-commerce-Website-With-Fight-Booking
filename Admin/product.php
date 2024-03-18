@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
 
 ?>
 <?php
- include("./include/connection.php");
+include("./include/connection.php");
 if (isset($_POST['remove_product_id'])) {
     $remove_product_id = $_POST['remove_product_id'];
 
@@ -82,14 +82,14 @@ $result = $conn->query($sql);
 
 <body>
     <?php
-   
+
     include("./include/navbar.php");
     ?>
     <div class="container " id="container">
         <h2>Product List</h2>
-        <table class="table ">
-            <thead>
-                <tr>
+        <table class="table">
+            <thead style="background-color: #5F1E30;">
+                <tr style="color: wheat;">
                     <th>Product ID</th>
                     <th>Name</th>
                     <th>Image 1</th>
@@ -102,9 +102,9 @@ $result = $conn->query($sql);
                     <th>Discount Price</th>
                     <th>Category ID</th>
                     <th>Subcategory ID</th>
-                
-
-                    <th>Action</th>
+                    <th>Action
+                    <th></th>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -126,9 +126,9 @@ $result = $conn->query($sql);
                         echo "<td>" . $row["discount_price"] . "</td>";
                         echo "<td>" . $row["category_id"] . "</td>";
                         echo "<td>" . $row["subcategory_id"] . "</td>";
-            
-                        echo "<td><button class='btn btn-success' onclick='confirmProduct(" . $row['product_id'] . ")'>Confirm</button></td>";
-                        echo "<td><button class='btn btn-danger' onclick='removeProduct(" . $row['product_id'] . ")'>Remove</button></td>";
+
+                        echo "<td><button class='btn btn-success btn-sm' onclick='confirmProduct(" . $row['product_id'] . ")'>Confirm</button></td>";
+                        echo "<td><button class='btn btn-danger btn-sm' onclick='removeProduct(" . $row['product_id'] . ")'>Remove</button></td>";
                         echo "</tr>";
                     }
                 } else {

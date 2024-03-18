@@ -98,6 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         .container {
             margin-top: 70px !important;
+            margin-left: 20px;
         }
     </style>
 </head>
@@ -135,10 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </thead>
         <tbody>
             <?php
-
-
-
-$vendorIds = $_SESSION['vendor_id'];
+                $vendorIds = $_SESSION['vendor_id'];
 
 
 $sql = "SELECT 
@@ -220,8 +218,8 @@ $sql = "SELECT
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
-            startDate: '+1d', // Start date is one day from today
-            endDate: '+1w'    // End date is one week from today
+            startDate: '+1d', 
+            endDate: '+1w'    
         });
 
         // Initialize the timepicker

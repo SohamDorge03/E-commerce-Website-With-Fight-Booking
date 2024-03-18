@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
 <div class="container mt-5">
     <h2>Book Demo Data</h2>
     <table class="table">
-        <thead>
-            <tr>
+        <thead style="background-color: #5F1E30;">
+            <tr style="color: wheat;">
                 <th>Demo ID</th>
                 <th>User ID</th>
                 <th>Name</th>
@@ -112,8 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["demo_id"])) {
                         echo "<td>" . $row["Application_date"] . "</td>";
                         echo "<td>" . $row["status"] . "</td>";
                         echo "<td>";
-                        echo "<button class='btn btn-success confirm-btn' data-demo-id='" . $row["demo_id"] . "'>Confirm</button>";
-                        echo "<button class='btn btn-danger remove-btn' data-demo-id='" . $row["demo_id"] . "'>Remove</button>";
+                        echo "<button class='btn btn-success btn-sm confirm-btn' data-demo-id='" . $row["demo_id"] . "'>Confirm</button>";
+                
+                        echo "<button class='btn btn-danger btn-sm remove-btn' data-demo-id='" . $row["demo_id"] . "'>Remove</button>";
                         echo "</td>";
                         echo "</tr>";
                     }

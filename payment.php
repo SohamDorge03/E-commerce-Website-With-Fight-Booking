@@ -11,13 +11,13 @@ session_start();
     use PHPMailer\PHPMailer\Exception;
 
 // Fetch cart items for the current user
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
+if (isset($_SESSION['u'])) {
+    $user_id = $_SESSION['u'];
     $sql = "SELECT c.*, p.name, p.price FROM cart c INNER JOIN products p ON c.product_id = p.product_id WHERE c.user_id = '$user_id'";
     $result = $conn->query($sql);
 
     // Calculate total price
-    $total_price = 0;
+   
     $order_items = array(); // Array to store order items
 
     if ($result && $result->num_rows > 0) {
@@ -29,6 +29,7 @@ if (isset($_SESSION['user_id'])) {
                 'quantity' => $row['quantity']
             );
         }
+        $_SESSION['a'] = $total_price / 100;
     }
 } else {
     $result = false;
@@ -50,7 +51,7 @@ if ($user_id) {
 if ($result && $total_price > 0 && $user_email) {
     $payment_method = "Stripe";  
     $payment_status = "Paid";  
-    $transaction_id = "testid123"; 
+    $transaction_id = $_SESSION['t']; 
 
     // Insert order into orders table
     $insert_order_query = "INSERT INTO orders (user_id, order_date, status, payment_method, payment_status, transaction_id, total_amount) VALUES ('$user_id', NOW(), 'Pending', '$payment_method', '$payment_status', '$transaction_id', '$total_price')";
@@ -149,6 +150,7 @@ $html_bill .= "<tr><td colspan='4'>Total Amount</td><td>$total_price</td></tr></
 
         // Redirect to a success page
         header("Location: order.php");
+
         exit();
     } else {
         echo "Error creating order: " . $conn->error;

@@ -24,8 +24,8 @@ if(!isset($_SESSION['email'])) {
     <div class="container mt-5">
         <h2>Feedback Data</h2>
         <table class="table table-striped">
-            <thead>
-                <tr>
+            <thead style="background-color: #5F1E30;">
+                <tr style="color: wheat;">
                     <th>Id</th>
                     <th>Email</th>
                     <th>Description</th>

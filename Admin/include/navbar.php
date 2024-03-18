@@ -39,7 +39,7 @@
         }
 
         a {
-            text-decoration: none;
+            text-decoration: none !important;
         }
 
         /* Minimalistic Scrollbar */
@@ -261,6 +261,12 @@
                 <a href="Airline_management.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Airline_management.php' ? 'active' : '' ?>">
                     <i class="fas fa-plane nav_icon"></i>
                     <span class="nav_name">Airline</span>
+
+                </a>
+                <a href="airline_confirm.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'airline_confirm.php' ? 'active' : '' ?>">
+                    <i class="fas fa-plane nav_icon"></i>
+                    <span class="nav_name">Airline Request</span>
+
                 </a>
                 <a href="flight_Management.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'flight_Management.php' ? 'active' : '' ?>">
                     <i class="fas fa-plane-departure nav_icon"></i>

@@ -30,8 +30,8 @@ include("./include/navbar.php");
 <div class="container mt-5">
     <h2>Flights Data</h2>
     <table class="table">
-        <thead>
-            <tr>
+        <thead style="background-color: #5F1E30;">
+            <tr style="color: wheat;">
                 <th>Flight ID</th>
                 <th>Flight Code</th>
                 <th>Source Date</th>

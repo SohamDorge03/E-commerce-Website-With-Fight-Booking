@@ -92,13 +92,13 @@ include("./include/navbar.php");
 ?>
 <div class="container" style="margin-top: 100px;">
     <h2>Airline Management</h2>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAirlineModal">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addAirlineModal">
         Add Airline
     </button>
     <br><br>
     <table class="table">
-        <thead>
-            <tr>
+        <thead style="background-color: #5F1E30;">
+            <tr style="color: wheat;">
                 <th>Airline ID</th>
                 <th>Email</th>
                 <th>Airline Name</th>
@@ -119,7 +119,7 @@ include("./include/navbar.php");
                     echo "<td>".$row['airline_name']."</td>";
                     echo "<td><img src='".$row['logo']."' alt='logo' style='max-width:100px; max-height:100px;'></td>";
                     echo "<td>
-                            <a href='#' class='btn btn-info edit-btn' data-toggle='modal' data-target='#editAirlineModal' data-airline-id='".$row['airline_id']."' data-email='".$row['email']."' data-airline-name='".$row['airline_name']."' data-logo='".$row['logo']."'>Edit</a>
+                            <a href='#' class='btn btn-primary edit-btn' data-toggle='modal' data-target='#editAirlineModal' data-airline-id='".$row['airline_id']."' data-email='".$row['email']."' data-airline-name='".$row['airline_name']."' data-logo='".$row['logo']."'>Edit</a>
                             <a href='" . $_SERVER['PHP_SELF'] . "?action=delete&id=" . $row['airline_id'] . "' class='btn btn-danger'>Delete</a>
                           </td>";
                     echo "</tr>";

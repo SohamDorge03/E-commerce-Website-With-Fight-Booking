@@ -65,9 +65,9 @@ if (isset($_POST['delete'])) {
 
 <div class="content">
     <div class="container mt-5">
-        <h1>Airport Management</h1>
+        <h2>Airport Management</h2>
 
-        <button type="button" class="btn btn-primary btn-lg" id="button-add" data-toggle="modal" data-target="#airportModal">
+        <button type="button" class="btn btn-info btn-sm-6" id="button-add" data-toggle="modal" data-target="#airportModal">
             Add Airport
         </button>
     </div>
@@ -114,8 +114,8 @@ if (isset($_POST['delete'])) {
 
     <div class="container mt-5">
         <table class="table">
-            <thead>
-                <tr>
+            <thead style="background-color: #5F1E30;">
+                <tr style="color:wheat">
                     <th>Airport Name</th>
                     <th>Airport Code</th>
                     <th>State</th>

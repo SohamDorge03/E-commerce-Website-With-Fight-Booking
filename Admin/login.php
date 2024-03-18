@@ -131,7 +131,7 @@ session_start();
             <p class="text-white fs-2"
                style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
             <small class="text-white text-wrap text-center"
-                   style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Designers
+                   style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join expeienced Designers
                 on this platform.
             </small>
         </div>
@@ -164,7 +164,7 @@ session_start();
                                          id="captcha_image"/>
                                     <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
                                         <i class="fas fa-sync-alt"></i>
-                                        Refresh
+                                        
                                     </button>
                                 </div>
                             </div>

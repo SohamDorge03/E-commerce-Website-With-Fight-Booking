@@ -200,18 +200,18 @@
             }
         }
         a{
-            text-decoration: none;
+            text-decoration: none !important;
         }
     </style>
 </head>
 
-<body id="body-pd">
+<body id="body-pd ">
     <header class="header" id="header">
         <div class="header_logo">
             <div class="header_img">
                 <img src="https://i.imgur.com/hczKIze.jpg" alt="ShopFlix Logo">
             </div>
-            <div class="header_title">ShopFlix Admin</div>
+            <div class="header_title ">ShopFlix Admin</div>
         </div>
     </header>
 
@@ -244,6 +244,11 @@
                     <a href="w.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'w.php' ? 'active' : ''; ?>">
                         <i class="fas fa-shield-alt nav_icon"></i>
                         <span class="nav_name">Warranty</span>
+                    </a>
+
+                    <a href="extended_warranty.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'extended_warranty.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-shield-alt nav_icon"></i>
+                        <span class="nav_name">Extended Warranty</span>
                     </a>
                     <a href="demo.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'demo.php' ? 'active' : ''; ?>">
                         <i class="fas fa-cogs nav_icon"></i>

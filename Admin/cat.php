@@ -124,43 +124,41 @@ if ($subCategoryResult === false) {
                 <button type="submit" name="addCategory" class="btn btn-success">Add Category</button>
             </form>
         </div> 
-    <div class="container mt-5">
-    <div class="section-heading">
-        <h2>Manage Categories</h2>
-    </div>
-
-    <div class="table-responsive">
-        <table class="table custom-table">
-            <thead>
-                <tr>
-                    <th>Category ID</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="section-heading">
+            <h2>Manage categories</h2>
+        </div>
+        <div class="table-responsive">
+            <table class="table custom-table">
+                <thead style="background-color: #5F1E30;">
+                    <tr style="color: wheat;">
+                        <th>Category ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <?php
-                if ($categoryResult->num_rows > 0) {
-                    while ($row = $categoryResult->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["category_id"] . "</td>";
-                        echo "<td>" . $row["name"] . "</td>";
-                        echo "<td>
-                            <form method='post'>
-                                <input type='hidden' name='categoryId' value='" . $row["category_id"] . "'>
-                                <button type='submit' name='removeCategory' class='btn btn-danger btn-sm'>Remove</button>
-                            </form>
-                        </td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='3'>No category data found</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div>
+if ($categoryResult->num_rows > 0) {
+    while ($row = $categoryResult->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row["category_id"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
+        echo "<td>
+            <form method='post'>
+                <input type='hidden' name='categoryId' value='" . $row["category_id"] . "'>
+                <button type='submit' name='removeCategory' class='btn btn-danger btn-sm'>Remove</button>
+            </form>
+        </td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='3'>No category data found</td></tr>";
+}
+?>
+
+                </tbody>
+            </table>
+        </div>
 <div class="section-heading">
     <h2>Add Subcategory</h2>
 </div>
@@ -196,8 +194,8 @@ if ($subCategoryResult === false) {
         </div>
         <div class="table-responsive">
             <table class="table custom-table">
-                <thead>
-                    <tr>
+                <thead style="background-color: #5F1E30;">
+                    <tr style="color: wheat;">
                         <th>Subcategory ID</th>
                         <th>Name</th>
                         <th>Category</th>

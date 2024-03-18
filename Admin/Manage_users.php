@@ -83,9 +83,9 @@ if ($vendorResult === false) {
             <h2>User Data</h2>
         </div>
         <div class="table-responsive">
-            <table class="table custom-table">
-                <thead>
-                    <tr>
+            <table class="table custom-table" style="background-color: #5F1E30;">
+                <thead >
+                    <tr style="color:wheat;">
                         <th>User ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -129,9 +129,9 @@ if ($vendorResult === false) {
             <h2>Vendors Data</h2>
         </div>
         <div class="table-responsive">
-            <table class="table custom-table">
+            <table class="table custom-table" style="background-color: #5F1E30;">
                 <thead>
-                    <tr>
+                    <tr style="color: wheat;">
                         <th>Vendor ID</th>
                         <th>Username</th>
                         <th>Email</th>
@@ -178,52 +178,63 @@ if ($vendorResult === false) {
 
 
         <script>
-            function confirmVendor(vendorId) {
-                
-                $.ajax({
-                    url: 'confirm_vendor.php',
-                    type: 'POST',
-                    data: {
-                        vendor_id: vendorId
-                    },
-                    success: function(response) {
-                       
-                        alert('Vendor confirm successfully');
-                        
+    function confirmVendor(vendorId) {
+        $.ajax({
+            url: 'confirm_vendor.php',
+            type: 'POST',
+            data: {
+                vendor_id: vendorId
+            },
+            success: function(response) {
+                // Show success alert
+                $('#customAlert').removeClass('alert-danger').addClass('alert-success');
+                $('#alertMessage').text('Vendor confirmed successfully');
+                $('#customAlert').fadeIn();
+
+                // Reload the page after 2 seconds
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+            },
+            error: function(xhr, status, error) {
+                // Show error alert
+                $('#customAlert').removeClass('alert-success').addClass('alert-danger');
+                $('#alertMessage').text('Error toggling vendor status');
+                $('#customAlert').fadeIn();
+            }
+        });
+    }
+
+    function deleteVendor(vendorId) {
+        if (confirm("Are you sure you want to delete this vendor?")) {
+            $.ajax({
+                url: 'delete_vendor.php',
+                type: 'POST',
+                data: {
+                    vendor_id: vendorId
+                },
+                success: function(response) {
+                    // Show success alert
+                    $('#customAlert').removeClass('alert-danger').addClass('alert-success');
+                    $('#alertMessage').text('Vendor deleted successfully');
+                    $('#customAlert').fadeIn();
+
+                    // Reload the page after 2 seconds
+                    setTimeout(function() {
                         location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                        alert('Error toggling vendor status');
-                    }
-                });
-            }
-        </script>
-        <script>
-            function deleteVendor(vendorId) {
-                
-                if (confirm("Are you sure you want to delete this vendor?")) {
-                    
-                    $.ajax({
-                        url: 'delete_vendor.php',
-                        type: 'POST',
-                        data: {
-                            vendor_id: vendorId
-                        },
-                        success: function(response) {
-                            
-                            alert('Vendor deleted successfully');
-                            
-                            location.reload();
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText);
-                            alert('Error deleting vendor');
-                        }
-                    });
+                    }, 2000);
+                },
+                error: function(xhr, status, error) {
+                    // Show error alert
+                    $('#customAlert').removeClass('alert-success').addClass('alert-danger');
+                    $('#alertMessage').text('Error deleting vendor');
+                    $('#customAlert').fadeIn();
                 }
-            }
-        </script>
+            });
+        }
+    }
+</script>
+
 
 </body>
 

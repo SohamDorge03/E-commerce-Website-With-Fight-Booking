@@ -23,8 +23,8 @@ if(!isset($_SESSION['email'])) {
         <h2 class="mb-4">Warranty Information</h2>
         <div class="table-responsive">
             <table class="table table-striped">
-                <thead>
-                    <tr>
+                <thead style="background-color: #5F1E30;">
+                    <tr style="color: wheat;">
                         <th>Warranty ID</th>
                         <th>User Name</th>
                         <th>Product Name</th>
