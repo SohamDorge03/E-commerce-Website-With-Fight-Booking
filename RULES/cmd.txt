@@ -88,16 +88,16 @@ CREATE TABLE `booked_flights` (
   `take_seats` int NOT NULL,
   `flight_class` varchar(40) DEFAULT NULL,
   `airline_id` int DEFAULT NULL,
-  `TransactionID` varchar(255) NOT NULL,
-  `total_amount` varchar(255) NOT NULL,
-  `confirmation_status` tinyint(1) NOT NULL,
+  `TransactionID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `total_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `confirmation_status` tinyint(1) DEFAULT NULL,
   `payment_status` varchar(1) DEFAULT '0',
   `booked_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`booking_id`),
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `booked_flights` VALUES (1,5,5,5,'economy',1,'555550','42500',1,'0','2024-03-09 15:59:13');
 INSERT INTO `booked_flights` VALUES (2,6,7,2,'business',3,'748590','50000',0,'0','2024-03-18 16:17:00');
@@ -105,6 +105,9 @@ INSERT INTO `booked_flights` VALUES (3,4,8,2,'business',4,'768590','40000',0,'0'
 INSERT INTO `booked_flights` VALUES (4,5,5,3,'economy',1,'788890','70000',0,'0','2024-04-12 16:20:02');
 INSERT INTO `booked_flights` VALUES (5,3,9,5,'economy',5,'741025','100000',0,'0','2024-05-01 16:20:47');
 INSERT INTO `booked_flights` VALUES (6,6,10,7,'economy',1,'78855','45000',0,'0','2024-03-15 11:19:41');
+INSERT INTO `booked_flights` VALUES (7,5,9,2,NULL,NULL,'','',0,'0','2024-03-19 17:18:35');
+INSERT INTO `booked_flights` VALUES (8,5,9,2,NULL,NULL,NULL,NULL,NULL,'0','2024-03-19 17:20:03');
+INSERT INTO `booked_flights` VALUES (9,5,9,2,NULL,NULL,NULL,NULL,NULL,'0','2024-03-19 17:21:08');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -184,7 +187,7 @@ CREATE TABLE `flights` (
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `flights` VALUES (5,'56437','2024-03-21','18:00:00','2024-03-21','21:00:00',15,13,70,'economy',40000.00,1);
-INSERT INTO `flights` VALUES (6,'11111','2024-03-15','23:33:00','2024-03-16','23:34:00',12,13,61,'',10000.00,3);
+INSERT INTO `flights` VALUES (6,'11111','2024-03-15','23:33:00','2024-03-16','23:34:00',12,13,61,'business',10000.00,3);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_items` (
@@ -242,11 +245,28 @@ CREATE TABLE `passenger` (
   `booking_id` int DEFAULT NULL,
   PRIMARY KEY (`passenger_id`),
   KEY `booking_id` (`booking_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `passenger` VALUES (1,'raj patil',12,'2024-03-14','Male',NULL,NULL,NULL,NULL);
 INSERT INTO `passenger` VALUES (2,'yagu',12,'2024-03-16','Male',NULL,NULL,NULL,NULL);
 INSERT INTO `passenger` VALUES (3,'kjhkjjk',12,'2024-03-13','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (4,'raj patil',12,'2024-03-14','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (5,'yagu',12,'2024-03-16','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (6,'kjhkjjk',12,'2024-03-13','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (7,'raj patil',12,'2024-03-14','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (8,'yagu',12,'2024-03-16','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (9,'kjhkjjk',12,'2024-03-13','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (10,'raj patil',18,'2004-11-12','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (11,'raj patil',18,'2004-11-12','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (12,'raj patil',18,'2004-11-12','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (13,'raj patil',18,'2004-11-12','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (14,'raj patil',18,'2024-03-14','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (15,'vishal saw',11,'2024-03-18','Male',NULL,NULL,NULL,7);
+INSERT INTO `passenger` VALUES (16,'yagu',0,'2024-03-16','Male',NULL,NULL,NULL,7);
+INSERT INTO `passenger` VALUES (17,'vishal saw',11,'2024-03-18','Male',NULL,NULL,NULL,8);
+INSERT INTO `passenger` VALUES (18,'yagu',11,'2024-03-16','Male',NULL,NULL,NULL,8);
+INSERT INTO `passenger` VALUES (19,'vishal saw',11,'2024-03-18','Male',NULL,NULL,NULL,9);
+INSERT INTO `passenger` VALUES (20,'yagu',11,'2024-03-16','Male',NULL,NULL,NULL,9);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passengerdetails` (
@@ -296,7 +316,7 @@ CREATE TABLE `products` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `products` VALUES (26,3,'Seventh Heaven 3 Seater Sofa Berlin Sofa, Adjusatble Headrest','products/s4.jpg','products/s41.jpg','products/s42.jpg','','Brand	Seventh Heaven\r\nAssembly Required	Yes\r\nSeat Depth	55.9 Centimeters\r\nSeat Height	16 Inches\r\nProduct Dimensions	0.97D x 2.01W x 0.8H Meters\r\nItem Weight	60 Kilograms',20000.00,20,18999.00,2,5);
 INSERT INTO `products` VALUES (23,2,'CASASTYLE - Minacs 4 Seater Fabric RHS L Shape Sofa Set (Grey)','products/s11.jpg','products/s2.jpg','','','Brand	CASASTYLE\r\nAssembly Required	No\r\nWeight Limit	50 Kilograms\r\nProduct Dimensions	1.52D x 2.57W x 0.84H Meters\r\nItem Weight	30000 Grams\r\nLeg Length	3 Inches',17000.00,17,16000.00,2,5);
-INSERT INTO `products` VALUES (22,3,'FurnitureModern Classic 4 Seater Fabric & Valvet Tufted 3+1+1Footrest Chesterfield Sofa Living Room ','','products/s12.jpg','products/s13.jpg','','\r\nColour	teal green\r\nBrand	A to Z Furniture\r\nSize	Large\r\nItem Dimensions LxWxH	198.1 x 73.7 x 68.6 Centimeters\r\nMaterial	Wood',27000.00,300,2599.00,2,5);
+INSERT INTO `products` VALUES (22,3,'FurnitureModern Classic 4 Seater Fabric & Valvet Tufted 3+1+1Footrest Chesterfield Sofa Living Room ','products/s12.jpg','products/s13.jpg',NULL,'','\r\nColour	teal green\r\nBrand	A to Z Furniture\r\nSize	Large\r\nItem Dimensions LxWxH	198.1 x 73.7 x 68.6 Centimeters\r\nMaterial	Wood',27000.00,300,2599.00,2,5);
 INSERT INTO `products` VALUES (12,2,'Wooden Chair','products/c21.jpg','products/c2.jpg','products/c22.jpg',NULL,'Brand	Ikea,\r\nColour	Black,\r\nMaterial	Wood,\r\nProduct Dimensions	47D x 39W x 77H Centimeters,\r\nSize	Standard,\r\nBack Style	Arrow Back,\r\nSpecial Feature	Arrow Back,\r\nProduct Care Instructions	Wipe Clean,\r\nNet Quantity	1.0 count,\r\nSeat Material Type	Wood',10000.00,50,9000.00,2,6);
 INSERT INTO `products` VALUES (13,2,'Ikea Italian Chair (Wood , Black)','products/c11.jpg','products/c12.jpg','products/c13.jpg','','Brand	Ikea\r\nColour	Black\r\nMaterial	Wood\r\nProduct Dimensions	47D x 39W x 77H Centimeters\r\nSize	Standard\r\nBack Style	Arrow Back\r\nSpecial Feature	Arrow Back\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.0 count\r\nSeat Material Type	Wood',1200.00,30,1010.00,2,6);
 INSERT INTO `products` VALUES (14,4,' Zero Gravity Relax Chair','products/c3.jpg','products/c31.jpg',NULL,'','STAR WORK Zero Gravity Relax Chair for Lounge,Easy Chair for Lawn | Portable and Foldable Recliner Chair for Resting | Adjustable Pillow | Full Body Support, Alloy Steel, Black.',3000.00,40,2899.00,2,6);
@@ -304,7 +324,7 @@ INSERT INTO `products` VALUES (15,1,'Gautam Furniture Sheesham Wood Wing Chair -
 INSERT INTO `products` VALUES (16,1,' Velvet Accent Chair','products/c5.jpg','products/c51.jpg','products/c52.jpg','','\r\nBrand	CREATIVE FURNITURE ART\r\nColour	Teal\r\nMaterial	Wood\r\nProduct Dimensions	71D x 99W x 74H Centimeters\r\nSize	Large\r\nProduct Care Instructions	Dry Clean\r\nNet Quantity	1.00 count\r\nPattern	Solid\r\nFinish Type	Stain Less Steel\r\nRoom Type	Office, Bedroom, Living Room, Patio Garden\r\n',15000.00,60,14999.00,2,6);
 INSERT INTO `products` VALUES (17,4,' Soothing Rocking Chair ','products/c7.jpg','products/c71.jpg','','','Brand	The Feel of Wood\r\nColour	Brown light\r\nMaterial	Teak\r\nProduct Dimensions	70D x 70W x 70H Centimeters\r\nSize	1 seater\r\nBack Style	cusion back',7000.00,70,6100.00,2,6);
 INSERT INTO `products` VALUES (18,3,'Brown Leatherette Executive Office Chair','products/c9.jpg','products/c91.jpg','products/c92.jpg','','Brand	ROAR-WOOD\r\nColour	Brown\r\nMaterial	Leather\r\nProduct Dimensions	40D x 42W x 42H Centimeters\r\nSize	High Back Chair\r\nBack Style	Solid Back',7788.00,40,7000.00,2,6);
-INSERT INTO `products` VALUES (19,2,'Cane Chair with Cushion ','','products/c101.jpg','products/c102.jpg','','\r\nBrand	HM SERVICES\r\nColour	Brown\r\nMaterial	Bamboo\r\nProduct Dimensions	56D x 71W x 44H Centimeters\r\nSize	Standard\r\nBack Style	Solid Back',2000.00,20,1899.00,2,6);
+INSERT INTO `products` VALUES (19,2,'Cane Chair with Cushion ','products/c102.jpg','products/c101.jpg','','','\r\nBrand	HM SERVICES\r\nColour	Brown\r\nMaterial	Bamboo\r\nProduct Dimensions	56D x 71W x 44H Centimeters\r\nSize	Standard\r\nBack Style	Solid Back',2000.00,20,1899.00,2,6);
 INSERT INTO `products` VALUES (20,3,'STYLESEAT Marbel Grey Plastic Mid Back with Arm Chair','products/c111.jpg','products/c112.jpg','products/c10.jpg','','Brand	STYLESEAT\r\nColour	Beige\r\nMaterial	Polypropylene\r\nProduct Dimensions	56D x 60W x 79H Centimeters\r\nSize	Standard\r\nBack Style	Solid Back',1000.00,30,799.00,2,6);
 INSERT INTO `products` VALUES (21,2,'Dr Luxur Gaming Chair for Gaming, Home Office and Study- for Work from Home wi','products/cg.jpg','products/cg2.jpg','products/cg3.jpg','','Brand	Dr Luxur\r\nColour	Grey\r\nMaterial	Softweave Cotton\r\nProduct Dimensions	52D x 54W x 132H Centimeters\r\nSize	Medium\r\nBack Style	Open Back\r\nSpecial Feature	Adjustable Headrest\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.00 count\r\nSeat Material Type	Alloy Steel\r\n',17000.00,400,1599.00,2,6);
 INSERT INTO `products` VALUES (25,4,'Sofa Set with Ottoman & 2 Puffy ','products/s3.jpg','products/s31.jpg','','','\r\nBrand	CASASTYLE\r\nAssembly Required	No\r\nProduct Dimensions	1.37D x 2.57W x 0.84H Meters\r\nType	Sectional\r\nColour	Blue\r\nSpecial Feature	Recliner',26000.00,40,56000.00,2,5);
@@ -313,7 +333,7 @@ INSERT INTO `products` VALUES (28,1,'Sofa Set in Gold Paint ','products/s21.jpg'
 INSERT INTO `products` VALUES (29,1,'SDR Furniture Wooden 5 Seater Sofa Set','products/s6.jpg','products/s61.jpg','products/s62.jpg','','\r\nColour	Walnut\r\nBrand	SDR Furniture\r\nSize	5 Seater With Coffee Table\r\nItem Dimensions LxWxH	74.9 x 74.9 x 86.4 Centimeters',7000.00,60,6900.00,2,5);
 INSERT INTO `products` VALUES (30,3,'CASASTYLE Alberoy 4 Seater Fabric LHS L Shape Sofa Set (Dark Grey-Light Grey)','products/s7.jpg','products/s71.jpg','','','\r\nBrand	CASASTYLE\r\nAssembly Required	No\r\nProduct Dimensions	201D x 137.2W x 83.8H Centimeters\r\nItem Weight	40000 Grams\r\nType	Sectional\r\nColour	Dark Grey-Light Grey',17000.00,50,16000.00,2,5);
 INSERT INTO `products` VALUES (31,3,'Blisscraft Luna 5 Seater Fabric LHS L Shape Sofa Set (Brown)','products/s8.jpg','products/s81.jpg','products/s82.jpg','','\r\nBrand	Blisscraft\r\nAssembly Required	No\r\nProduct Dimensions	0.76D x 2.57W x 0.84H Meters\r\nItem Weight	100 Kilograms\r\nType	Sectional\r\nColour	Brown\r\nSpecial Feature	Recliner\r\nUpholstery Fabric Type	Polycot\r\nRoom Type	Living Room\r\nArm Style	Padded\r\n',22000.00,50,20500.00,2,5);
-INSERT INTO `products` VALUES (35,1,'ABOUT SPACE Wooden Coffee Table - End & Sofa Side Tea Table,Centre Table with Solid Finish Space Sav','','products/t21.jpg','products/t22.jpg','','\r\nProduct Dimensions	100D x 40W x 39H Centimeters\r\nColour	Brown\r\nBrand	ABOUT SPACE\r\nTable design	Coffee Table\r\nStyle	Contemporary\r\nSeating Capacity	2',15000.00,50,14000.00,2,7);
+INSERT INTO `products` VALUES (35,1,'ABOUT SPACE Wooden Coffee Table - End & Sofa Side Tea Table,Centre Table with Solid Finish Space Sav','products/t22.jpg','products/t21.jpg','','','\r\nProduct Dimensions	100D x 40W x 39H Centimeters\r\nColour	Brown\r\nBrand	ABOUT SPACE\r\nTable design	Coffee Table\r\nStyle	Contemporary\r\nSeating Capacity	2',15000.00,50,14000.00,2,7);
 INSERT INTO `products` VALUES (33,1,'JIN OFFICE Wrought And Cast Iron Height Adjustable Desk Electric|Dual Motor 3-Stage|Electric Sit Sta','products/t1.jpg','products/t11.jpg','products/t12.jpg','','Brand	JIN OFFICE\r\nProduct Dimensions	75D x 120W x 70H Centimeters\r\nColour	Black\r\nStyle	Modern\r\nBase Material	Engineered Wood\r\nTop Material Type	Engineered Wood',20000.00,15,18999.00,2,7);
 INSERT INTO `products` VALUES (36,1,'Apple iPhone 15 (256 GB) - black','products/p1.jpg','products/p11.jpg','products/p12.jpg','','\nBrand	Apple\nModel Name	iPhone 15\nNetwork Service Provider	Unlocked for All Carriers\nOperating System	iOS\nCellular Technology',90000.00,40,75000.00,3,9);
 INSERT INTO `products` VALUES (37,4,'Oppo A79 5G (Mystery Black, 8GB RAM, 128GB Storage) | 5000 mAh Battery with 33W SUPERVOOC Charger | ','products/p32.jpg','products/p31.jpg','products/p3.jpg','','\r\nBrand	Oppo\r\nModel Name	A79 5G\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13.0\r\nCellular Technology	5G',19000.00,50,17999.00,3,9);

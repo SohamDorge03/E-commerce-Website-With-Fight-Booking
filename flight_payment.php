@@ -12,7 +12,7 @@ if (isset($_SESSION['u'])) {
     // Calculate total amount
     $total_amount = 0;
     $take_seats_total = 0;
-    $transaction_id = $_SESSION['t'];
+    // $transaction_id = $_SESSION['t'];
 
     $booked_flights = array(); // Array to store booked flights
 
@@ -67,5 +67,6 @@ if ($result && $total_amount > 0) {
     }
 } else {
     echo "No flights booked or total amount is 0.";
+    echo $_SESSION['booking_id'];
 }
 ?>
