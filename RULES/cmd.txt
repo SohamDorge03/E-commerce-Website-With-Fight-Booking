@@ -236,14 +236,17 @@ CREATE TABLE `passenger` (
   `age` int NOT NULL,
   `dob` date NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `seatno` varchar(20) NOT NULL,
-  `gateno` varchar(20) NOT NULL,
+  `seatno` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `gateno` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `boarding_time` datetime DEFAULT NULL,
   `booking_id` int DEFAULT NULL,
   PRIMARY KEY (`passenger_id`),
   KEY `booking_id` (`booking_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `passenger` VALUES (1,'raj patil',12,'2024-03-14','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (2,'yagu',12,'2024-03-16','Male',NULL,NULL,NULL,NULL);
+INSERT INTO `passenger` VALUES (3,'kjhkjjk',12,'2024-03-13','Male',NULL,NULL,NULL,NULL);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passengerdetails` (

@@ -2,6 +2,8 @@
 include("./include/navbar.php");
 include("./include/connection.php");
 
+$flight_id = null; // Define $flight_id to avoid undefined variable warning
+
 if(isset($_GET['flight_id']) && isset($_GET['passengers'])) {
     $flight_id = $_GET['flight_id'];
     $numPassengers = $_GET['passengers'];
@@ -9,7 +11,7 @@ if(isset($_GET['flight_id']) && isset($_GET['passengers'])) {
     $flightQuery = "SELECT * FROM flights WHERE flight_id = $flight_id";
     $flightResult = $conn->query($flightQuery);
 
-    if($flightResult->num_rows > 0) {
+    if($flightResult && $flightResult->num_rows > 0) {
         $flight = $flightResult->fetch_assoc();
 ?>
 
@@ -28,12 +30,12 @@ if(isset($_GET['flight_id']) && isset($_GET['passengers'])) {
                 <h5 class="card-title">Passenger <?php echo $i; ?></h5>
                 <!-- Other input fields for passenger details -->
                 <div class="form-group">
-                    <label for="firstName<?php echo $i; ?>">First Name:</label>
-                    <input type="text" class="form-control" id="firstName<?php echo $i; ?>" name="firstName<?php echo $i; ?>" required>
+                    <label for="name<?php echo $i; ?>">Name:</label>
+                    <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="lastname<?php echo $i; ?>">Last Name:</label>
-                    <input type="text" class="form-control" id="lastname<?php echo $i; ?>" name="lastname<?php echo $i; ?>" required>
+                    <label for="age<?php echo $i; ?>">Age:</label>
+                    <input type="number" class="form-control" id="age<?php echo $i; ?>" name="age<?php echo $i; ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="gender<?php echo $i; ?>">Gender:</label>
@@ -67,34 +69,43 @@ if(isset($_GET['flight_id']) && isset($_GET['passengers'])) {
     }
 } else {
     echo "<div class='container'>";
-    echo "<h2 class='text-center mb-4'>Invalid Request</h2>";
+    echo "<h2 class='text-center mb-4'>successfully insert</h2>";
     echo "</div>";
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if form is submitted
     if(isset($_POST['confirmBooking'])) {
+        // Ensure $numPassengers is defined
+        $numPassengers = isset($_POST['passengers']) ? $_POST['passengers'] : 0;
+
         // Prepare INSERT statement for PassengerDetails table
-        $insertStatement = $conn->prepare("INSERT INTO PassengerDetails (FirstName, LastName, Gender, DateOfBirth) VALUES (?, ?, ?, ?)");
+        $insertStatement = $conn->prepare("INSERT INTO shopflix.passenger (name, age, gender, dob, seatno, gateno, boarding_time, booking_id) VALUES (?, ?, ?, ?, NULL, NULL, NULL, NULL)");
 
-        for($i = 1; $i <= $numPassengers; $i++) {
-            // Retrieve form data for each passenger
-            $firstName = $_POST["firstName$i"];
-            $lastName = $_POST["lastname$i"];
-            $gender = $_POST["gender$i"];
-            $dob = $_POST["dob$i"];
+        if ($insertStatement) {
+            for($i = 1; $i <= $numPassengers; $i++) {
+                // Retrieve form data for each passenger
+                $name = $_POST["name$i"];
+                $age = $_POST["age$i"];
+                $gender = $_POST["gender$i"];
+                $dob = $_POST["dob$i"];
 
-            // Bind parameters and execute the INSERT statement
-            $insertStatement->bind_param("ssss", $firstName, $lastName, $gender, $dob);
-            $insertStatement->execute();
+                // Bind parameters and execute the INSERT statement
+                $insertStatement->bind_param("siss", $name, $age, $gender, $dob);
+                $insertStatement->execute();
+            }
+
+            // Close the prepared statement
+            $insertStatement->close();
+
+            // Redirect to booking confirmation page
+            if ($flight_id !== null) {
+                header("Location: booking_confirmation.php?flight_id=$flight_id&passengers=$numPassengers");
+                exit();
+            }
+        } else {
+            echo "Error preparing statement: " . $conn->error;
         }
-
-        // Close the prepared statement
-        $insertStatement->close();
-
-        // Redirect to booking confirmation page
-        header("Location: booking_confirmation.php?flight_id=$flight_id&passengers=$numPassengers");
-        exit();
     }
 }
 
