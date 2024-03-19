@@ -17,6 +17,7 @@ else{
     <title>Document</title>
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
  
     <style>
   html {
@@ -30,34 +31,6 @@ else{
   font-family: "Arial", sans-serif; /* Changed font to Arial */
 }
 
-h1 {
-  font-size: 36px; /* Reduced font size for a cleaner look */
-  line-height: 48px;
-  color: #333; /* Darkened text color */
-}
-
-h2 {
-  font-size: 28px; /* Reduced font size for a cleaner look */
-  line-height: 36px;
-  color: #333; /* Darkened text color */
-}
-
-h4 {
-  font-size: 18px; /* Reduced font size for a cleaner look */
-  color: #555; /* Darkened text color */
-}
-
-h6 {
-  font-size: 10px; /* Reduced font size for a cleaner look */
-  font-weight: 600; /* Increased font weight */
-}
-
-p {
-  font-size: 14px; /* Reduced font size for a cleaner look */
-  color: #777; /* Darkened text color */
-  margin: 15px 0 20px 0;
-}
-
 .section-p1 {
   padding: 30px 60px; /* Reduced padding for a cleaner look */
 }
@@ -65,11 +38,7 @@ p {
 .section-m1 {
   padding: 30px 0; /* Reduced padding for a cleaner look */
 }
-
-body {
-  width: 100%;
-  font-family: inherit;
-}
+ 
 
 #header, #new {
   
@@ -95,17 +64,17 @@ body {
 }
 
 .quantity {
-  background-color: #ff5858; /* Changed to a more vibrant red */
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  position: absolute;
-  top: -8px; /* Adjusted top position */
-  left: 80%;
-  padding: 5px 8px; /* Adjusted padding for a cleaner look */
-  font-size: 10px; /* Adjusted font size for a cleaner look */
+  background-color: #3552dc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: -8px;
+    left: 56%;
+    padding: 3px 8px;
+    font-size: 12px;
 }
 
 #mobile {
@@ -159,16 +128,44 @@ body {
 <body>
 
 <section id="header" style="padding: 15px 77px;">
-    <a href="#" style="text-decoration: none; color: #007eff; font-weight: 700; font-size:30px;">✨ ShopFlix </a> 
 
-    <form action="shop.php" method="GET">
-<div class="search-container" >
-    <input type="text" id="search-input" name="q" class="search-input" placeholder="Search products...">
-    <button type="submit" id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
-</div>
-</form>
+    <a href="#" style="text-decoration: none; color: #007eff; font-weight: 700; font-size:30px;">✨ ShopFlix  </a> 
+
+  
         <ul id="navbar">
-       
+       <style>
+        .search-cont {
+  display: flex;
+  align-items: center;
+}
+
+.search-input,
+.search-btn { /* Target both elements with same styles */
+  padding: 4px;
+  margin: 6px;
+  font-size: 16px;
+  border: 2px solid #ffc107; /* Consistent border for both */
+}
+
+.search-input {
+  flex: 1;
+}
+
+.search-btn {
+  background-color:white ;
+  color: #000;
+  border: none;
+
+  cursor: pointer;
+}
+
+       </style>
+        <form action="shop.php" method="GET">
+    <div class="search-cont">
+        <input type="text" id="search-input" name="q" class="search-input" placeholder="Search products...">
+        <button type="submit" id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
+    </div>
+</form>
 
 
             <li><a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a></li>
@@ -177,30 +174,7 @@ body {
             <li><a href="about_us.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'about_us.php' ? 'active' : ''; ?>">About</a></li>
             <li><a href="contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contact</a></li>
 
-            <style>
-    /* Styles for search bar */
-    .search-container {
-        display: flex;
-        align-items: center;
-       margin-left: 10px;
-    }
-    .search-input {
-        flex: 1;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px 0 0 5px;
-        font-size: 16px;
-    }
-    .search-btn {
-        background-color: #007eff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 0 5px 5px 0;
-        cursor: pointer;
-        font-size: 16px;
-    }
-</style>
+       
 </head>
 <body>
 
@@ -217,7 +191,6 @@ include('connection.php');
                   echo '<li><a href="logout.php" class="btn">log out</a></li>';
             }
             else{
-
               echo '<li><a href="login.php" class="btn">login </a></li>';
               echo '<li><a href="register.php" class="btn">regestration </a></li>';
             }
@@ -237,8 +210,8 @@ if ($result_cart_quantity) {
     
     $cart_quantity = 0;
 }
-     echo "<li><a href='cart.php' id='lg-cart' class='btn'><i class='fal fa-shopping-cart'></i></a> <span class='quantity'>" .  $cart_quantity . "</span> </li>   <li><a href='#' id='close'><i class='far fa-times'></i></a></li>";
-}
+      echo "<li><a href='cart.php' id='lg-cart' class='btn'><i class='fal fa-shopping-cart'></i></a> <span class='quantity'>" .  $cart_quantity . "</span> </li>   <li><a href='#' id='close'><i class='far fa-times'></i></a></li>";
+  }
 else{
 
 }
@@ -257,7 +230,7 @@ else{
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Trading products</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">feedback</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'extended_warranty.php' ? 'active' : ''; ?>" href="extended_warranty.php">Expand warranty</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'w.php' ? 'active' : ''; ?>" href="w.php">Expand warranty</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'claim_warranty.php' ? 'active' : ''; ?>" href="claim_warranty.php">Claim warranty</a>
 </section>
 

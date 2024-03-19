@@ -1,19 +1,54 @@
 <?php
-include('./include/connection.php');
+require './include/connection.php';
+require './PHPMailer/PHPMailer.php';
+require './PHPMailer/Exception.php';
+require './PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 
 // Check for database connection errors
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+// Initialize PHPMailer
+$mail = new PHPMailer(true);
+
+// Set SMTP settings
+$mail->isSMTP();
+$mail->Host       = 'smtp.gmail.com';
+$mail->SMTPAuth   = true;
+$mail->Username   = 'shopflix420@gmail.com';
+$mail->Password   = 'vabjcndouidetrnt';
+$mail->SMTPSecure = 'tls';
+$mail->Port       = 587;
+$mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX');
+
+// Set sender and recipient
+$mail->setFrom('your_email@example.com', 'Your Name');
+$mail->addAddress($row['contact_email']); // Email address fetched from the database
+
+// Set email content
+$mail->isHTML(true);
+$mail->Subject = 'Your Request Approval';
+$mail->Body = 'Your request has been approved.';
+
 // Handle confirmation
 if (isset($_POST['confirm'])) {
     $request_id = $_POST['request_id'];
-    
+
     // Update confirmed status in the airline_requests table
     $sql = "UPDATE airline_requests SET status = 'Approved' WHERE request_id = '$request_id'";
     if (mysqli_query($conn, $sql)) {
-        echo "Confirmation successful.";
+        // Send email
+        if ($mail->send()) {
+            echo "Confirmation successful and email sent.";
+        } else {
+            echo "Confirmation successful but email sending failed: " . $mail->ErrorInfo;
+        }
     } else {
         echo "Error updating record: " . mysqli_error($conn);
     }
@@ -22,7 +57,7 @@ if (isset($_POST['confirm'])) {
 // Handle cancellation
 if (isset($_POST['cancel'])) {
     $request_id = $_POST['request_id'];
-    
+
     // Delete the request from the airline_requests table
     $sql = "DELETE FROM airline_requests WHERE request_id = '$request_id'";
     if (mysqli_query($conn, $sql)) {

@@ -1,4 +1,6 @@
 <?php
+
+
 require("./config.php");
 include("include/connection.php");
 include("include/navbar.php");
@@ -6,25 +8,40 @@ include("include/navbar.php");
 // Initialize total price
 $total_price = 0;
 
-// Fetch cart items for the current user
-if (isset($_SESSION['u'])) {
-    $user_id = $_SESSION['u'];
-    $sql = "SELECT c.*, p.name, p.price, p.img1 FROM cart c INNER JOIN products p ON c.product_id = p.product_id WHERE c.user_id = '$user_id'";
-    $result = $conn->query($sql);
+// Check if the user is logged in
+if (!isset($_SESSION['u'])) {
+    // If not logged in, show a message and exit
+    echo '<div class="container mt-5">';
+    echo '<div class="row">';
+    echo '<div class="col-md-8">';
+    echo '<div class="alert alert-warning" role="alert">';
+    echo 'Please log in to view your cart.';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    exit(); // Exit the script if user is not logged in
+}
 
-    // Check if the query was successful
-    if ($result === false) {
-        echo "Error: " . $conn->error;
-        exit; // Stop execution if there's an error
-    }
+// Fetch cart items for the current user
+$user_id = $_SESSION['u'];
+$sql = "SELECT c.*, p.name, p.price, p.img1 FROM cart c INNER JOIN products p ON c.product_id = p.product_id WHERE c.user_id = '$user_id'";
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if ($result === false) {
+    echo "Error: " . $conn->error;
+    exit; // Stop execution if there's an error
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopflix Cart</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
@@ -40,6 +57,7 @@ if (isset($_SESSION['u'])) {
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Total</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,11 +75,18 @@ if (isset($_SESSION['u'])) {
                                             <td>$<?php echo $row['price']; ?></td>
                                             <td><?php echo $row['quantity']; ?></td>
                                             <td>$<?php echo $row['price'] * $row['quantity']; ?></td>
+                                            <td>
+                                                <form action="" method="post">  
+                                                    <input type="hidden" name="action" value="remove">
+                                                    <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                 <?php
                                     }
                                 } else {
-                                    echo '<tr><td colspan="4">Your cart is empty.</td></tr>';
+                                    echo '<tr><td colspan="5">Your cart is empty.</td></tr>';
                                 }
                                 ?>
                             </tbody>
@@ -98,16 +123,22 @@ if (isset($_SESSION['u'])) {
     </div>
 </body>
 </html>
+
 <?php
-} else {
-    echo '<div class="container mt-5">';
-    echo '<div class="row">';
-    echo '<div class="col-md-8">';
-    echo '<div class="alert alert-warning" role="alert">';
-    echo 'Please log in to view your cart.';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    // echo '</div>';
+// Remove item from cart if 'action' is set to 'remove'
+if (isset($_POST['action']) && $_POST['action'] === 'remove' && isset($_POST['product_id'])) {
+    $product_id = $_POST['product_id'];
+
+    // Remove the product from the cart
+    $remove_sql = "DELETE FROM cart WHERE user_id = '$user_id' AND product_id = '$product_id'";
+    $remove_result = $conn->query($remove_sql);
+
+    if ($remove_result === true) {
+     
+
+        echo "<script> window.location.href = './cart'; </script>";
+        
+    }
+    
 }
 ?>

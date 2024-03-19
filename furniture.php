@@ -98,8 +98,6 @@ if (isset($_POST['add_to_cart'])) {
 echo '<div style="display: flex; justify-content:center; align-items:center;">';
 echo '<h2 style="justify-content:center; margin-top:20px;">Furnitures</h2>';
 echo '</div>';
-
-
     // If no search term provided, fetch all products
     $sql = "SELECT * FROM products where category_id=2";
     displayProducts($sql);

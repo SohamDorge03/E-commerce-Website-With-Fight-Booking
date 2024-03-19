@@ -360,6 +360,7 @@ $_SESSION['scroll_position'] = isset($_GET['scroll_position']) ? $_GET['scroll_p
     <p><strong>Phone:</strong>+23456876199, +23458903120</p>
     <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
        <div class="follow">
+        
          <h4>Follow Us</h4>
          <div class="icon">
            <i class="fab fa-facebook-f"></i>
@@ -371,7 +372,7 @@ $_SESSION['scroll_position'] = isset($_GET['scroll_position']) ? $_GET['scroll_p
        </div>
        </div>
       
-    <div class="sec">   
+       <div class="sec">    
     <div class="col">
       <h4>About</h4>
       <a href="about_us.php">About Us</a>

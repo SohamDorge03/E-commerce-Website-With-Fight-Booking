@@ -16,7 +16,6 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 9999;
     }
-    
     .popup-content {
         position: absolute;
         top: 50%;
@@ -27,7 +26,6 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
-    
     .close {
         position: absolute;
         top: 10px;
@@ -40,7 +38,7 @@
 <!-- Main content -->
 <div class="main-content">
     <?php
-    session_start();
+    include("./include/navbar.php");
     include("include/connection.php");
 
     // Function to display products
@@ -79,7 +77,7 @@
     echo '<h2 style="justify-content:center; margin-top:20px;">Gym Tools</h2>';
     echo '</div>';
 
-    // If no search term provided, fetch all products
+
     $sql = "SELECT * FROM products where category_id=1";
     displayProducts($sql);
 
