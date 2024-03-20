@@ -37,7 +37,7 @@ CREATE TABLE `airlines` (
   `airline_name` varchar(40) DEFAULT NULL,
   `logo` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airlines` VALUES (1,'AirAsia333@gmail.com','123456','airasia','./upload/Air Asia.png');
 INSERT INTO `airlines` VALUES (3,'indigo898@gimail.com','123456','indigo','./upload/IndiGo-Logo.png');
@@ -54,7 +54,7 @@ CREATE TABLE `airports` (
   `city` varchar(100) NOT NULL,
   `location` varchar(100) NOT NULL,
   PRIMARY KEY (`airport_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airports` VALUES (12,'Surat International Airport','STV','Gujarat','Surat','Surat');
 INSERT INTO `airports` VALUES (13,'Maharana Pratap Airport','UDR','Rajasthan','Udaipur','Udaipur');
@@ -76,7 +76,6 @@ CREATE TABLE `book_demo` (
   KEY `product_id` (`product_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `book_demo` VALUES (13,9,2,'2024-03-07 00:00:00','2024-03-19 18:42:59','Confirmed');
 INSERT INTO `book_demo` VALUES (17,9,1,'0000-00-00 00:00:00','2024-03-19 20:30:35','Pending');
 INSERT INTO `book_demo` VALUES (18,9,36,'2024-03-21 00:00:00','2024-03-19 20:34:42','Pending');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -97,26 +96,11 @@ CREATE TABLE `booked_flights` (
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `booked_flights` VALUES (1,5,5,5,'economy',1,'555550','42500',1,'0','2024-03-09 15:59:13');
-INSERT INTO `booked_flights` VALUES (2,6,7,2,'business',3,'748590','50000',0,'0','2024-03-18 16:17:00');
-INSERT INTO `booked_flights` VALUES (3,4,8,2,'business',4,'768590','40000',0,'0','2024-04-19 16:17:00');
-INSERT INTO `booked_flights` VALUES (4,5,5,3,'economy',1,'788890','70000',0,'0','2024-04-12 16:20:02');
-INSERT INTO `booked_flights` VALUES (5,3,9,5,'economy',5,'741025','100000',0,'0','2024-05-01 16:20:47');
-INSERT INTO `booked_flights` VALUES (6,6,10,7,'economy',1,'78855','45000',0,'0','2024-03-15 11:19:41');
-INSERT INTO `booked_flights` VALUES (7,5,9,2,NULL,NULL,'','',0,'0','2024-03-19 17:18:35');
-INSERT INTO `booked_flights` VALUES (8,5,9,2,NULL,NULL,NULL,NULL,NULL,'0','2024-03-19 17:20:03');
-INSERT INTO `booked_flights` VALUES (9,5,9,2,NULL,NULL,NULL,NULL,NULL,'0','2024-03-19 17:21:08');
-INSERT INTO `booked_flights` VALUES (10,5,5,2,NULL,NULL,NULL,'80000',NULL,'0','2024-03-19 21:56:00');
-INSERT INTO `booked_flights` VALUES (11,5,5,2,NULL,NULL,NULL,'80000',NULL,'0','2024-03-19 22:00:24');
-INSERT INTO `booked_flights` VALUES (12,5,5,1,NULL,NULL,NULL,'40000',NULL,'0','2024-03-19 22:01:03');
-INSERT INTO `booked_flights` VALUES (13,5,5,1,NULL,NULL,NULL,'40000',NULL,'0','2024-03-19 22:03:45');
-INSERT INTO `booked_flights` VALUES (14,5,5,1,NULL,NULL,NULL,'40000',NULL,'0','2024-03-19 22:03:52');
-INSERT INTO `booked_flights` VALUES (15,5,5,1,NULL,NULL,NULL,'40000',NULL,'0','2024-03-19 22:03:58');
-INSERT INTO `booked_flights` VALUES (16,5,5,1,NULL,NULL,NULL,'40000',NULL,'0','2024-03-19 22:04:38');
-INSERT INTO `booked_flights` VALUES (17,5,5,1,NULL,NULL,'ch_3Ow5deDwlRClWlNg2ErzpOfh','40000',NULL,'s','2024-03-19 22:05:15');
-INSERT INTO `booked_flights` VALUES (18,5,14,2,NULL,NULL,'ch_3OwJI0DwlRClWlNg0888YTgF','80000',NULL,'success','2024-03-20 12:38:57');
+INSERT INTO `booked_flights` VALUES (20,5,14,1,NULL,1,'ch_3OwMlMDwlRClWlNg09WOiD23','40000',NULL,'success','2024-03-20 16:22:28');
+INSERT INTO `booked_flights` VALUES (21,5,14,1,NULL,1,'ch_3OwNHbDwlRClWlNg1iGCNT6i','40000',NULL,'success','2024-03-20 16:55:47');
+INSERT INTO `booked_flights` VALUES (22,5,14,1,NULL,1,'ch_3OwNRoDwlRClWlNg1TLyxgyE','40000',NULL,'success','2024-03-20 17:06:05');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -136,7 +120,7 @@ CREATE TABLE `categories` (
   `category_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `categories` VALUES (1,'GYM');
 INSERT INTO `categories` VALUES (2,'Furniture ');
@@ -243,7 +227,7 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` VALUES (1,5,'2024-03-08 10:57:23','Shipped','gpay','1','12333',5000.00);
 INSERT INTO `orders` VALUES (2,6,'2024-03-08 15:49:36','Pending','gpay','1','553535',5000.00);
 INSERT INTO `orders` VALUES (3,5,'2024-03-12 04:28:51','Shipped','gpay','1','458888',5000.00);
-INSERT INTO `orders` VALUES (4,9,'2024-03-16 05:10:17','Pending','Stripe','Paid','testid123',605000.00);
+INSERT INTO `orders` VALUES (4,9,'2024-03-16 05:10:17','Shipped','Stripe','Paid','testid123',605000.00);
 INSERT INTO `orders` VALUES (5,9,'2024-03-16 05:26:18','Pending','Stripe','Paid','testid123',207000.00);
 INSERT INTO `orders` VALUES (6,9,'2024-03-16 05:42:48','Shipped','Stripe','Paid','testid123',37000.00);
 INSERT INTO `orders` VALUES (7,9,'2024-03-17 09:00:51','Shipped','Stripe','Paid','testid123',19000.00);
@@ -264,7 +248,7 @@ CREATE TABLE `passenger` (
   `booking_id` int DEFAULT NULL,
   PRIMARY KEY (`passenger_id`),
   KEY `booking_id` (`booking_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `passenger` VALUES (1,'raj patil',12,'2024-03-14','Male',NULL,NULL,NULL,NULL);
 INSERT INTO `passenger` VALUES (2,'yagu',12,'2024-03-16','Male',NULL,NULL,NULL,NULL);
@@ -298,6 +282,14 @@ INSERT INTO `passenger` VALUES (29,'raj patil',18,'2024-03-06','Male',NULL,NULL,
 INSERT INTO `passenger` VALUES (30,'raj patil',15,'2006-03-06','Male',NULL,NULL,NULL,17);
 INSERT INTO `passenger` VALUES (31,'vishal saw',14,'2024-03-03','Male',NULL,NULL,NULL,18);
 INSERT INTO `passenger` VALUES (32,'gopal',45,'2024-02-25','Male',NULL,NULL,NULL,18);
+INSERT INTO `passenger` VALUES (33,'vishal saw',12,'2001-11-12','Male',NULL,NULL,NULL,19);
+INSERT INTO `passenger` VALUES (34,'shruti',22,'2001-11-12','Male',NULL,NULL,NULL,20);
+INSERT INTO `passenger` VALUES (35,'raj patil',21,'2002-11-12','Male',NULL,NULL,NULL,0);
+INSERT INTO `passenger` VALUES (36,'raj patil',20,'2003-11-12','Male',NULL,NULL,NULL,0);
+INSERT INTO `passenger` VALUES (37,'raj patil',20,'2003-11-12','Male',NULL,NULL,NULL,0);
+INSERT INTO `passenger` VALUES (38,'raj patil',20,'2003-11-12','Male',NULL,NULL,NULL,0);
+INSERT INTO `passenger` VALUES (39,'raj patil',20,'2003-11-12','Male',NULL,NULL,NULL,21);
+INSERT INTO `passenger` VALUES (40,'c b patel',18,'2005-10-12','Male',NULL,NULL,NULL,22);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passengerdetails` (
@@ -343,7 +335,7 @@ CREATE TABLE `products` (
   KEY `vendor_id` (`vendor_id`),
   KEY `category_id` (`category_id`),
   KEY `subcategory_id` (`subcategory_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `products` VALUES (4,3,'Seventh Heaven 3 Seater Sofa Berlin Sofa, Adjusatble Headrest','products/s4.jpg','products/s41.jpg','products/s42.jpg','','Brand	Seventh Heaven\r\nAssembly Required	Yes\r\nSeat Depth	55.9 Centimeters\r\nSeat Height	16 Inches\r\nProduct Dimensions	0.97D x 2.01W x 0.8H Meters\r\nItem Weight	60 Kilograms',20000.00,20,18999.00,2,5);
 INSERT INTO `products` VALUES (23,4,'CASASTYLE - Minacs 4 Seater Fabric RHS L Shape Sofa Set (Grey)','products/s11.jpg','products/s2.jpg','','','Brand	CASASTYLE\r\nAssembly Required	No\r\nWeight Limit	50 Kilograms\r\nProduct Dimensions	1.52D x 2.57W x 0.84H Meters\r\nItem Weight	30000 Grams\r\nLeg Length	3 Inches',17000.00,17,16000.00,2,5);
@@ -370,7 +362,7 @@ INSERT INTO `products` VALUES (37,4,'Oppo A79 5G (Mystery Black, 8GB RAM, 128GB 
 INSERT INTO `products` VALUES (38,2,'Samsung Galaxy A35 5G (Awesome Lilac, 8GB RAM, 256GB Storage) | Premium Glass Back | 50 MP Main Came','products/p4.jpg','products/p41.jpg','products/p42.jpg','products/p43.jpg','\r\nBrand	Redmi\r\nModel Name	Redmi 12\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13, MIUI 14\r\nCellular Technology',11000.00,50,98500.00,3,9);
 INSERT INTO `products` VALUES (39,4,'realme narzo 60X 5G（Stellar Green,6GB,128GB Storage ） Up to 2TB External Memory | 50 MP AI Primary C','products/p5.jpg','products/p51.jpg','products/p52.jpg','products/p53.jpg','\r\nBrand	realme\r\nModel Name	realme narzo 60x\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13.0\r\nCellular Technology	5G',13000.00,50,12500.00,3,9);
 INSERT INTO `products` VALUES (40,1,'Redmi Note 13 5G (Prism Gold, 12GB RAM, 256GB Storage) | Bezel-Less 120Hz AMOLED | 7.6mm Slimmest No','products/p6.jpg','products/p7.jpg','products/p61.jpg','','\r\nBrand	Redmi\r\nModel Name	Redmi Note 13 5G\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13, MIUI 14\r\nCellular Technology	5G',22000.00,50,20000.00,3,9);
-INSERT INTO `products` VALUES (41,1,'Redmi Note 13 Pro+ (Fusion White, 12GB RAM, 256GB Storage)','products/p71.jpg','','','','Brand	Redmi\r\nModel Name	Redmi Note 13 Pro+ 5G\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Android 13, MIUI 14\r\nCellular Technology	5G',32000.00,50,30000.00,3,9);
+INSERT INTO `products` VALUES (134,4,'The Cube Club PowerBells Set of 2 Adjustable Iron Dumbbells (2.5-24 Kg) | 15-IN-1 Dumbbell Weights w','products/db21.png','products/db22.jpg','products/db23.jpg','','\r\nBrand	The Cube Club\r\nColour	48kg\r\nItem Weight	48 Kilograms\r\nMaterial	Iron\r\nSpecial Feature	1-SECOND WEIGHTS CHANGE, 15-IN-1 DUMBBELLS, MAXIMIZE SPACE SAVING',14500.00,50,13500.00,1,1);
 INSERT INTO `products` VALUES (42,4,'Realme 12 Pro+ 5G Submarine Blue, 12GB RAM, 256GB Storage','products/p8.jpg','products/p81.jpg','products/p82.jpg','','Brand	realme\r\nModel Name	realme 12 Pro+ 5G (Submarine Blue, 12GB RAM, 256GB Storage) | | 12 GB+12 GB Dynamic RAM| 64 MP Periscope Portrait Camera | 50 MP Sony IMX890 OIS Camera | Snapdragon 7s Gen 2 Chipset |Luxury Watch Designrealme 12 Pro+ 5G (Submarine Blue, 12GB RAM, 256GB Storage) | | 12 GB+12 GB Dynamic RAM| 64 MP Periscope Portrait Camera | 50 MP Sony IMX… See more\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	realme UI 5.0 || Based on Android 14\r\nCellular Technology	5G\r\n',32000.00,100,30000.00,3,9);
 INSERT INTO `products` VALUES (43,1,'Panasonic 27L Convection Microwave Oven(NN-CT645BFDG,,Black Mirror, 360° Heat Wrap, Magic Grill)','products/o1.jpg','products/o11.jpg','','','\r\nBrand	Panasonic\r\nProduct Dimensions	47.1D x 51.3W x 30.6H Centimeters\r\nColour	Black Mirror\r\nCapacity	27 litres\r\nSpecial Feature	Auto Cook',12000.00,70,11100.00,3,8);
 INSERT INTO `products` VALUES (44,3,'Philips HD6975/00 Digital Oven Toaster Grill, 25 Litre OTG, 1500 Watt with Opti Temp Technology, Cha','products/o4.jpg','products/o41.jpg','products/o42.jpg','','\r\nBrand	PHILIPS\r\nColour	Grey\r\nProduct Dimensions	40.2D x 52W x 35.6H Centimeters\r\nSpecial Feature	Adjustable Rack\r\nControl Type	Touch Control',8000.00,70,7500.00,3,8);
@@ -449,6 +441,9 @@ INSERT INTO `products` VALUES (130,1,'LG 9 Kg 5 Star Wi-Fi Inverter AI Direct Dr
 INSERT INTO `products` VALUES (131,1,'   IFB 6 Kg 5 Star AI Powered Fully Automatic Front Load Washing Machine 2X Power Steam (DIVA AQUA G','products/lg91.jpg','products/lg92.jpg','products/lg93.jpg','products/lg94.jpg','Product Dimensions	51.3D x 59.8W x 87.5H Centimeters\r\nBrand	IFB\r\nCapacity	6 Kilograms\r\nSpecial Feature	Protective Rat Mesh, Aqua Energie, Child Lock, 2D Wash System, Memory Backup, Powered by AI, Inbuilt Heater, Laundry AddProtective Rat Mesh, Aqua Energie, Child Lock, 2D Wash System, Memory Backup, Powered by AI, Inbuilt Heater, Laundry Add\r\nAccess Location	Front Load',28999.00,100,27999.00,3,11);
 INSERT INTO `products` VALUES (132,1,'KAKSS Alloy Steel Adjustable Dumbbell Set 10kg-50kg(Weight Plate + Dumbbell Rod) (10kg Steel Dumbbel','products/db1.jpg','','','','\r\nBrand	Kakss\r\nColour	Silver\r\nItem Weight	14 Kilograms\r\nMaterial	Alloy Steel\r\nSpecial Feature	Adjustable',2599.00,100,2499.00,1,1);
 INSERT INTO `products` VALUES (133,3,'Leeway Rubber Coated Bouncer Dumbbell, (5kg Pair)| Professional Round Dumbbells, Dumbbell Set, Dumbb','products/db11.jpg','products/db12.jpg','products/db13.jpg','','\r\nBrand	LEEWAY\r\nColour	Black\r\nItem Weight	10000 Grams\r\nMaterial	Rubber\r\nSpecial Feature	Compact',4999.00,100,3999.00,1,1);
+INSERT INTO `products` VALUES (135,4,'Sportneer Dumbbells Set For Home Gym 0.9/1.8/1.4/2.3 Kg Adjustable Iron Dumbbell Set Of 2 Hand Weigh','products/db31.jpg','products/db32.jpg','products/db33.jpg','products/db34.jpg','\r\nBrand	Sportneer\r\nColour	Carbon Black\r\nItem Weight	4.54 Kilograms\r\nMaterial	Iron\r\nSpecial Feature	Adjustable',7500.00,50,6999.00,1,1);
+INSERT INTO `products` VALUES (136,4,'XRT65 Adjustable Dumbbells Set of 2 | 2.5Kgs - 24Kgs | Gym Equipment Set for Home Workout | Designed','products/db42.jpg','products/db44.jpg','products/db41.jpg','','\r\nBrand	XRT65\r\nColour	Blue & Black\r\nItem Weight	48 Kilograms\r\nMaterial	Iron + Polypropylene + Nylon\r\nSpecial Feature	Adjustable,Compact',10999.00,100,9999.00,1,1);
+INSERT INTO `products` VALUES (137,4,'The Cube Club Iron Dumbbells Set For Home Workout Gym Equipment With Anti-Slip Rod | 20Kg Cast Iron ','products/db51.jpg','products/db52.jpg','products/db53.jpg','products/db54.jpg','Brand	The Cube Club\r\nColour	Cast Iron 20 Kg\r\nItem Weight	20 Kilograms\r\nMaterial	Cast Iron\r\nSpecial Feature	With Plastic Case, Power Coat Finish',10000.00,50,8999.00,1,1);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products_like` (
@@ -478,7 +473,7 @@ CREATE TABLE `subcategories` (
   `category_id` int DEFAULT NULL,
   PRIMARY KEY (`subcategory_id`),
   KEY `category_id` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `subcategories` VALUES (1,'DUMBBLE',1);
 INSERT INTO `subcategories` VALUES (2,'Treadmill ',1);

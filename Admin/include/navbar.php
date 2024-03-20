@@ -246,10 +246,7 @@
                     <span class="nav_name">Orders</span>
                 </a>
 
-                <a href="Warrenty.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Warrenty.php' ? 'active' : '' ?>">
-                    <i class="fas fa-shield-alt nav_icon"></i>
-                    <span class="nav_name">Warranty</span>
-                </a>
+
                 <a href="Demos.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'Demos.php' ? 'active' : '' ?>">
                     <i class="fas fa-cogs nav_icon"></i>
                     <span class="nav_name">Demos</span>

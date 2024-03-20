@@ -241,14 +241,6 @@
                         <span class="nav_name">Orders</span>
                     </a>
                   
-                    <a href="w.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'w.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-shield-alt nav_icon"></i>
-                        <span class="nav_name">Warranty</span>
-                    </a>
-
-                    <a href="extended_warranty.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'extended_warranty.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-shield-alt nav_icon"></i>
-                        <span class="nav_name">Extended Warranty</span>
                     </a>
                     <a href="demo.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'demo.php' ? 'active' : ''; ?>">
                         <i class="fas fa-cogs nav_icon"></i>

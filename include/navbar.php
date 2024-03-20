@@ -243,7 +243,7 @@ include('connection.php');
 
               <div class="dropdown-content" id="dropdownContent">
                 <a href="Vendor/login.php">Vendor Login</a>
-                <a href="Airline/login.php">Airline Login</a>
+                <a href="Airline/log.php">Airline Login</a>
                 <a href="login.php">User Login</a>
               </div>
             </div>
@@ -290,7 +290,7 @@ else{
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Tranding products</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">Feedback</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
-
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'request_airline.php' ? 'active' : ''; ?>" href="request_airline.php">Request Airline</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">report issues</a>
 </section>
 

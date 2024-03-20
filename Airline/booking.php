@@ -58,7 +58,7 @@ $conn->close();
                         <th>Flight ID</th>
                         <th>User ID</th>
                         <th>Take Seats</th>
-                        <th>Flight Class</th>
+                        <!-- <th>Flight Class</th> -->
                         <th>Airline</th>
                         <th>Transaction ID</th>
                         <th>Total Amount</th>
@@ -77,7 +77,7 @@ $conn->close();
                                     <td>".$row["flight_id"]."</td>
                                     <td>".$row["user_id"]."</td>
                                     <td>".$row["take_seats"]."</td>
-                                    <td>".$row["flight_class"]."</td>
+                            
                                     <td>".$row["airline_name"]."</td>
                                     <td>".$row["TransactionID"]."</td>
                                     <td>".$row["total_amount"]."</td>

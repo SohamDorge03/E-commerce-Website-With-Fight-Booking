@@ -129,15 +129,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
 function updateProduct($productId, $name, $description, $price, $stockQuantity, $discountPrice) {
     global $conn;
 
-    // Check if a new image is uploaded
+    // Check if a new image is uploaded 
     if (isset($_FILES["img1"]) && $_FILES["img1"]["error"] == 0) {
         $targetDir = "products/";
         $newImg1 = uploadImage($_FILES["img1"], $targetDir);
         // Update the product with the new image path
-        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity, discount_price=$discountPrice, img1='$newImg1' WHERE product_id=$productId";
+        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity,  img1='$newImg1' WHERE product_id=$productId";
     } else {
         // Update the product without changing the existing image path
-        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity, discount_price=$discountPrice WHERE product_id=$productId";
+        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity,  WHERE product_id=$productId";
     }
 
     // Check if a new image is uploaded
@@ -145,10 +145,10 @@ function updateProduct($productId, $name, $description, $price, $stockQuantity, 
         $targetDir = "products/";
         $newImg1 = uploadImage($_FILES["img1"], $targetDir);
         // Update the product with the new image path
-        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity, discount_price=$discountPrice, img1='$newImg1' WHERE product_id=$productId";
+        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity,  img1='$newImg1' WHERE product_id=$productId";
     } else {
         // Update the product without changing the existing image path
-        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity, discount_price=$discountPrice WHERE product_id=$productId";
+        $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity,  WHERE product_id=$productId";
     }
     if ($conn->query($sql) === TRUE) {
         echo "Product updated successfully";
@@ -238,17 +238,18 @@ $products = getVendorProducts($vendor_id);
 <body>
   <div class="container mt-5">
     <h2>Product List</h2>
+    
     <div class="row">
       <?php foreach ($products as $product): ?>
         <div class="col-md-4 mb-4">
           <div class="card">
             <img src="<?php echo $product['img1']; ?>" class="card-img-top" alt="Product Image">
             <div class="card-body">
-              <h5 class="card-title"><?php echo $product['name']; ?></h5>
+              <h5 class="card-title" ><?php echo $product['name']; ?></h5>
               <p class="card-text"><?php echo $product['description']; ?></p>
               <p class="card-text"><strong>Price: $<?php echo $product['price']; ?></strong></p>
               <p class="card-text"><strong>Stock Quantity: <?php echo $product['stock_quantity']; ?></strong></p>
-              <p class="card-text"><strong>Discount Price: $<?php echo $product['discount_price']; ?></strong></p>
+ 
               <div class="btn-group" role="group">
                 <a href="?action=update&id=<?php echo $product['product_id']; ?>" class="btn btn-warning">Update</a>
                 <a href="?action=delete&id=<?php echo $product['product_id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>

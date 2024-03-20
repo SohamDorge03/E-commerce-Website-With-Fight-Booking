@@ -34,17 +34,61 @@ function displayPopularProducts()
             echo '<span class="stock" style="font-size: 16px; font-weight: thin; margin-top: 1px; margin-left: 30px; color: green" >In stock  ' . $row['stock_quantity'] . '</span>';
             echo '<p class="description" style="margin-top: 1px; color: #606063; font-size: 12px; overflow: hidden; text-overflow: ellipsis;">' . substr($row['description'], 0, 30) . '...</p>';
             
-            // Add to Cart button
-            echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
-            echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
-            echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
-            // Populate the dropdown with available quantities
-            for ($i = 1; $i <= $row['stock_quantity']; $i++) {
-                echo "<option value='$i'>$i</option>";
+            // Check if user is logged in
+            if (isset($_SESSION['u'])) {
+                // Check if the product is already in the cart
+                $stmt = $conn->prepare("SELECT * FROM cart WHERE user_id = ? AND product_id = ?");
+                $stmt->bind_param("ii", $_SESSION['u'], $productId);
+                $stmt->execute();
+                $result_cart = $stmt->get_result();
+                if ($result_cart->num_rows > 0) {
+                    echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
+
+                    echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
+                    
+                    // Styling for the quantity input field
+                    echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
+                    // Populate the dropdown with available quantities
+                    for ($i = 1; $i <= $row['stock_quantity']; $i++) {
+                        echo "<option value='$i'>$i</option>";
+                    }
+                    echo '</select>';
+                    
+                    // Styling for the "Add to Cart" button
+                    echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 10px;" disabled>';
+                    echo '';
+                    echo 'Added to Cart</button>';
+                    echo '</form>';
+
+                } else {
+                    echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
+                    echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
+             echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
+// Populate the dropdown with available quantities
+for ($i = 1; $i <= $row['stock_quantity']; $i++) {
+echo "<option value='$i'>$i</option>";
+}
+echo '</select>';
+
+// Remove the disabled attribute from the button
+echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;">';
+echo 'Add to Cart</button>';
+
+
+                 
+                    echo '</form>';
+                    
+                    
+
+                }
+            } else {
+                // User is not logged in, redirect to login page
+                echo '<a href="login.php" class="btn btn-primary">Login to Add to Cart</a>';
             }
-            echo '</select>';
-            echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;">Add to Cart</button>';
-            echo '</form>';
+            
+
+
+
 
             echo '</div>';
             echo '</div>';
@@ -76,5 +120,5 @@ displayPopularProducts();
                 $('.alert').html('<strong>Success!</strong> Product added to cart.').addClass('alert-success').removeClass('d-none');
             }
         });
-    }
+    }
 </script>

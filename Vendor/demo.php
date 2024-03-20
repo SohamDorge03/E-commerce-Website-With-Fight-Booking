@@ -1,11 +1,8 @@
-
 <?php
 session_start();
 
-
 // Check if the vendor ID is not set in the session
 if (!isset($_SESSION['vendor_id'])) {
- 
     header("Location: login.php");
     exit();
 }
@@ -13,17 +10,12 @@ if (!isset($_SESSION['vendor_id'])) {
 include("./include/navbar.php");
 include("./include/connection.php");
 
-
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/SMTP.php';
 
-
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["demo_id"]) && isset($_POST["demo_date"])) {
@@ -36,13 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>alert('Please select a date and time after the current date and time.');</script>";
         } else {
             // Update the database
-            $sql = "UPDATE book_demo SET status = 'Conform', demo_date = '$demoDate' WHERE demo_id = $demoId";
+            $sql = "UPDATE book_demo SET status = 'Conform', demo_date = ? WHERE demo_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("si", $demoDate, $demoId);
 
-            $result = $conn->query($sql);
-            if ($result === TRUE) {
+            if ($stmt->execute()) {
                 // Get user email
-                $getUserEmailQuery = "SELECT u.email FROM book_demo bd INNER JOIN users u ON bd.user_id = u.user_id WHERE bd.demo_id = $demoId";
-                $userEmailResult = $conn->query($getUserEmailQuery);
+                $getUserEmailQuery = "SELECT u.email FROM book_demo bd INNER JOIN users u ON bd.user_id = u.user_id WHERE bd.demo_id = ?";
+                $stmt = $conn->prepare($getUserEmailQuery);
+                $stmt->bind_param("i", $demoId);
+                $stmt->execute();
+                $userEmailResult = $stmt->get_result();
 
                 if ($userEmailResult->num_rows > 0) {
                     $row = $userEmailResult->fetch_assoc();
@@ -76,6 +72,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "<script>alert('Error confirming demo: {$conn->error}');</script>";
             }
+        }
+    } elseif (isset($_POST['remove_demo_id'])) {
+        $demoId = $_POST['remove_demo_id'];
+
+        // Delete demo data from the database
+        $sql = "DELETE FROM book_demo WHERE demo_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $demoId);
+
+        if ($stmt->execute()) {
+            echo "<script>alert('Demo data removed successfully.');</script>";
+        } else {
+            echo "<script>alert('Error removing demo data: {$conn->error}');</script>";
         }
     }
 }
@@ -138,36 +147,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php
                 $vendorIds = $_SESSION['vendor_id'];
 
+                $sql = "SELECT 
+                            bd.demo_id, 
+                            bd.user_id, 
+                            u.first_name, 
+                            u.last_name, 
+                            u.address, 
+                            u.phone_number, 
+                            bd.product_id, 
+                            p.vendor_id, 
+                            p.img1, 
+                            p.name AS name, 
+                            bd.demo_date,
+                            bd.Application_date, 
+                            bd.status 
+                        FROM 
+                            book_demo bd  
+                        INNER JOIN 
+                            users u ON bd.user_id = u.user_id 
+                        INNER JOIN 
+                            products p ON bd.product_id = p.product_id
+                        WHERE 
+                            p.vendor_id = ?";
 
-$sql = "SELECT 
-            bd.demo_id, 
-            bd.user_id, 
-            u.first_name, 
-            u.last_name, 
-            u.address, 
-            u.phone_number, 
-            bd.product_id, 
-            p.vendor_id, 
-            p.img1, 
-            p.name AS name, 
-            bd.demo_date,
-            bd.Application_date, 
-            bd.status 
-        FROM 
-            book_demo bd  
-        INNER JOIN 
-            users u ON bd.user_id = u.user_id 
-        INNER JOIN 
-            products p ON bd.product_id = p.product_id
-        WHERE 
-            p.vendor_id = '$vendorIds'";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("s", $vendorIds);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-            $result = $conn->query($sql);
-
-            if ($result === false) {
-                // Handle query error
-                echo "Error: " . $conn->error;
-            } else {
                 if ($result->num_rows > 0) {
                     // Output data of each row
                     while ($row = $result->fetch_assoc()) {
@@ -196,9 +203,8 @@ $sql = "SELECT
                 } else {
                     echo "<tr><td colspan='12'>No records found</td></tr>";
                 }
-            }
-            $conn->close();
-            ?>
+                $stmt->close();
+                ?>
         </tbody>
     </table>
 </div>
@@ -229,6 +235,25 @@ $sql = "SELECT
             defaultTime: false
         });
 
+        // Remove demo data
+        $('.remove-btn').click(function() {
+            var demoId = $(this).data('demo-id');
+            if (confirm("Are you sure you want to remove this demo data?")) {
+                $.ajax({
+                    url: 'remove_demo.php',
+                    method: 'POST',
+                    data: { demo_id: demoId },
+                    success: function(response) {
+                        alert(response);
+                        location.reload(); // Reload the page after removal
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error: " + error);
+                    }
+                });
+            }
+        });
+
         // Form submission
         $('form').submit(function(event) {
             var selectedDate = new Date($('[name="demo_date"]').val());
@@ -249,3 +274,4 @@ $sql = "SELECT
 
 </body>
 </html>
+
