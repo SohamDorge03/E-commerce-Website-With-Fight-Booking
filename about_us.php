@@ -10,7 +10,7 @@
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     color: #333;
-    padding-top: 50px;
+    /* padding-top: 50px; */
     padding-bottom: 50px;
   }
 
@@ -59,7 +59,9 @@
 </style>
 </head>
 <body>
-
+<?php
+include("./include/navbar.php");
+?>
 <!-- Page Content -->
 <div class="container">
   <div class="jumbotron text-center">

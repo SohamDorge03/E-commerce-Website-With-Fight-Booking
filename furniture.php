@@ -132,3 +132,6 @@ echo 'Add to Cart</button>';
         });
     }
 </script>
+<?php
+include("./include/footer.php");
+?>

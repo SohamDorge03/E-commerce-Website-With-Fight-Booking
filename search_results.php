@@ -128,3 +128,6 @@ if (isset($_POST['searchFlights'])) {
 // Close the database connection
 $conn->close();
 ?>
+<?php
+include("./include/footer.php");
+?>

@@ -248,5 +248,8 @@ if (isset($_SESSION['u'])) {
 
 $conn->close();
 ?>
+<?php
+include("./include/footer.php");
+?>
 </body>
 </html>

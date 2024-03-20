@@ -103,7 +103,9 @@
 </style>
 </head>
 <body>
-
+<?php
+include("./include/navbar.php");
+?>
 <!-- Page Content -->
 <div class="container">
   <h1 class="text-center mb-5">Contact Us</h1>
@@ -159,6 +161,8 @@
     near shyam mandir, Vesu, Surat, Gujarat 394210
   </div>
 </div>
-
+<?php
+include("./include/footer.php");
+?>
 </body>
 </html>

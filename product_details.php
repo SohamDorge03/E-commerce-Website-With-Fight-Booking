@@ -118,22 +118,31 @@
             // Add to cart form
 
 
+if(isset($_SESSION['u'])){
 
-            echo '<form class="add-to-cart-form" method="post">';
-            echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
-            echo '<select name="quantity_' . $product['product_id'] . '">';
-            // Populate the dropdown with available quantities
-            for ($i = 1; $i <= $product['stock_quantity']; $i++) {
-                echo "<option value='$i'>$i</option>";
-                        }
-            echo '</select>';
-            
-            echo '<button type="button" onclick="addToCart(' . $product['product_id'] . ')">Add to Cart</button>';
+    echo '<form class="add-to-cart-form" method="post">';
+    echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
+    echo '<select name="quantity_' . $product['product_id'] . '">';
+    // Populate the dropdown with available quantities
+    for ($i = 1; $i <= $product['stock_quantity']; $i++) {
+        echo "<option value='$i'>$i</option>";
+                }
+    echo '</select>';
+    
+    echo '<button type="button" onclick="addToCart(' . $product['product_id'] . ')">Add to Cart</button>';
 
 
 
-            echo '</form>';
+    echo '</form>';
 
+}
+else {
+    echo '<a style="color: white;" type="button" class="btn bg-primary" href="login.php"  >login for add to cart</a>';
+
+
+
+}
+           
 
 
 
@@ -301,6 +310,9 @@ echo 'Add to Cart</button>';
     </div>
 </div>
 
-</div> <!-- Closing container -->
+</div> 
+<?php
+include("./include/footer.php");
+?><!-- Closing container -->
 </body>
 </html>

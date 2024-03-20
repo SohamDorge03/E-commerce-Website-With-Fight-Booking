@@ -281,9 +281,12 @@ if(isset($_POST['searchFlights'])) {
     </div>
 </section>
 
-<div class="footer">
+<!-- <div class="footer">
     <p>&copy; <?php echo date("Y"); ?> Flight Booking. All Rights Reserved.</p>
-</div>
+</div> -->
+<?php
+include("./include/footer.php");
+?>
 
 <script>
     // JavaScript code goes here

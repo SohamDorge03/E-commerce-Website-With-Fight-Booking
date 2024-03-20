@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warranty Claim</title>
+    <title></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
       
@@ -46,7 +46,7 @@
 include('./include/navbar.php');
     ?>
     <div class="container abc" style="margin-top: 20px;">
-        <h2 class="text-center mb-6"><b>Warranty Claim</b></h2>
+        <h2 class="text-center mb-6"><b>report issues</b></h2>
         <form class="warranty-form" method="post">
             <div class="form-group">
                 <label for="productId">Product ID:</label>
@@ -60,7 +60,7 @@ include('./include/navbar.php');
                 <label for="description">Description / Issues:</label>
                 <textarea id="description" name="description" rows="5" required></textarea>
             </div>
-            <button type="submit" class="send-btn" name="submit">Claim Now</button>
+            <button type="submit" class="send-btn" name="submit">Send to Our Support team</button>
         </form>
     </div>
 
@@ -82,7 +82,7 @@ include("./include/connection.php");
         $sql = "INSERT INTO report_issue (user_id, product_id, description) VALUES (1, '$productId', '$description')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "<p class='text-success'>Warranty claim submitted successfully</p>";
+            echo "<p class='text-success alert'>submitted successfully</p>";
         } else {
             echo "<p class='text-danger'>Error: " . $sql . "<br>" . $conn->error . "</p>";
         }

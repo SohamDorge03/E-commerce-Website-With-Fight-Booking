@@ -133,3 +133,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'remove' && isset($_POST['pr
     }
 }
 ?>
+<?php
+include("./include/footer.php");
+?>
