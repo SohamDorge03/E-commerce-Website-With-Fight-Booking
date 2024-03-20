@@ -14,6 +14,10 @@ include("./include/navbar.php");
 ?>
 
 <?php
+
+if(isset($_SESSION['u'])){
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   include("./include/connection.php");
 
@@ -94,11 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <!-- Displaying user details -->
             <div class="row form-group pl-2 pr-2">
-            <div class="form-group " >
+            <div class="form-group" style="margin-left: 8px; width: 265px;" >
               <label for="first_name">First Name</label>
               <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $user['first_name']; ?>" disabled>
             </div>
-            <div class="form-group" style="margin-left: 20px;">
+            <div class="form-group" style="margin-left: 8px; width: 265px;">
               <label for="last_name">Last Name</label>
               <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $user['last_name']; ?>" disabled>
             </div>
@@ -115,15 +119,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              
         <?php
         }
+
+    
         ?>
 
         <button type="submit" class="btn btn-success btn-block" name="submit">Submit</button>
       </form>
     </div>
   </div>
-</div>
-<?php
-include("./include/footer.php");
+  <?php
+                  }else {
+
+                    echo "<a class='btn m-3'> login to access";
+                  }
 ?>
+</div>
+
 </body>
 </html>

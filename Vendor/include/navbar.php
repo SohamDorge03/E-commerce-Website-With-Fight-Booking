@@ -209,9 +209,9 @@
     <header class="header" id="header">
         <div class="header_logo">
             <div class="header_img">
-                <img src="https://i.imgur.com/hczKIze.jpg" alt="ShopFlix Logo">
+                <img src="https://cdn-icons-png.freepik.com/256/3006/3006876.png?ga=GA1.1.294177032.1688876933&" alt="ShopFlix Logo">
             </div>
-            <div class="header_title ">ShopFlix Admin</div>
+            <div class="header_title ">Vendor Admin</div>
         </div>
     </header>
 
@@ -236,7 +236,7 @@
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Listings</span>
                     </a>
-                    <a href="orders.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'active' : ''; ?>">
+                    <a href="order_product.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'order_product.php' ? 'active' : ''; ?>">
                         <i class="fas fa-shopping-bag nav_icon"></i>
                         <span class="nav_name">Orders</span>
                     </a>

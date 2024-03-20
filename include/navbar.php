@@ -152,7 +152,7 @@ else{
 }
 
 .search-btn {
-  background-color:white ;
+  background-color:white;
   color: #000;
   border: none;
 
@@ -160,7 +160,7 @@ else{
 }
 
        </style>
-        <form action="shop.php" method="GET">
+        <form action="search.php" method="GET">
     <div class="search-cont">
         <input type="text" id="search-input" name="q" class="search-input" placeholder="Search products...">
         <button type="submit" id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
@@ -236,20 +236,17 @@ include('connection.php');
             }
             else{
               echo '
-              <div class="dropdown">
-              <a style="font-weight: 600;" class="btn dropdown-toggle" id="loginDropdown" onclick="toggleDropdown()">
-  Login
-</a>
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" id="loginDropdown" onclick="toggleDropdown()">
+                    Login
+                </button>
+                <div class="dropdown-content" id="dropdownContent">
+                    <a href="Vendor/login.php">Vendor Login</a>
+                    <a href="Airline/log.php">Airline Login</a>
+                    <a href="login.php">User Login</a>
+                </div>
+            </div>';
 
-              <div class="dropdown-content" id="dropdownContent">
-                <a href="Vendor/login.php">Vendor Login</a>
-                <a href="Airline/log.php">Airline Login</a>
-                <a href="login.php">User Login</a>
-              </div>
-            </div>
-            
-              '
-              ;
 
               
               echo '<li style=" margin-left: -20px;   font-weight: 600;"><a href="register.php" class="btn">regestration </a></li>';
@@ -279,7 +276,12 @@ else{
        
         </ul>
     </div>
-   
+   <script>
+    function toggleDropdown() {
+        var dropdownContent = document.getElementById("dropdownContent");
+        dropdownContent.style.display === "none" ? dropdownContent.style.display = "block" : dropdownContent.style.display = "none";
+    }
+</script>
 </section>
 
 <section id="new" class="swanavbar"  style="padding: 15px 77px;">
@@ -290,7 +292,7 @@ else{
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Tranding products</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">Feedback</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'request_airline.php' ? 'active' : ''; ?>" href="request_airline.php">Request Airline</a>
+
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">report issues</a>
 </section>
 

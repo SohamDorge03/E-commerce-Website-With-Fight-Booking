@@ -50,7 +50,7 @@ include("./include/navbar.php");
           <th>Quantity</th>
           <th>Vendor ID</th>
           <th>Company Name</th>
-          <th>Action</th>
+          <!-- <th>Action</th> -->
         </tr>
       </thead>
       <tbody>
@@ -66,7 +66,7 @@ include("./include/navbar.php");
                 echo "<td>{$row['quantity']}</td>";
                 echo "<td>{$row['vendor_id']}</td>";
                 echo "<td>{$row['company_name']}</td>";
-                echo "<td><form method='post' action='process_order.php'><input type='hidden' value='{$row['order_item_id']}' name='order_item_id' /><button type='submit' name='confirm_button' class='btn btn-primary'>Confirm</button></form></td>";
+                // echo "<td><form method='post' action='process_order.php'><input type='hidden' value='{$row['order_item_id']}' name='order_item_id' /><button type='submit' name='confirm_button' class='btn btn-primary'>Confirm</button></form></td>";
                 echo "</tr>";
             }
         } else {

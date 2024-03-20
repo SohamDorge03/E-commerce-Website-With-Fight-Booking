@@ -2,6 +2,7 @@
 
 include("./include/connection.php");
 include("./include/navbar.php");
+
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/SMTP.php';
@@ -18,13 +19,16 @@ if (isset($_POST['register'])) {
     $lastName = mysqli_real_escape_string($conn, $_POST['last_name']);
     $phoneNumber = mysqli_real_escape_string($conn, $_POST['phone_number']);
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
 
+
+
+    
     // Generate a 6-digit verification code
     $verificationCode = mt_rand(100000, 999999);
 
-    // Your SQL query to insert user data into the database
-    $sql = "INSERT INTO users (username, password, email, first_name, last_name, phone_number, gender, verify_code) 
-            VALUES ('$username', '$password', '$email', '$firstName', '$lastName', '$phoneNumber', '$gender', '$verificationCode')";
+    $sql = "INSERT INTO users (username, password, email, first_name, last_name, phone_number, gender, address, verify_code) 
+    VALUES ('$username', '$password', '$email', '$firstName', '$lastName', '$phoneNumber', '$gender', '$address', '$verificationCode')";
 
     if (mysqli_query($conn, $sql)) {
         // Registration successful, send email verification
@@ -167,6 +171,14 @@ if (isset($_POST['register'])) {
                         <div class="input-group mb-3">
                             <input type="tel" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Phone Number" name="phone_number">
                         </div>
+
+
+                     <div class="input-group mb-3">
+    <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Address" name="address" required>
+</div>
+
+
+
                         <div class="input-group mb-3">
                             <select class="form-select form-select-lg bg-light text-dark fs-6 rounded-4" name="gender" required>
                                 <option value="" disabled selected>Select Gender</option>

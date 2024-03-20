@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passenger Booking</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* CSS for table records */
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #23395d;
+            padding: 8px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 <?php
@@ -27,10 +36,6 @@ if (isset($_SESSION['u'])) {
 
         if ($flightResult && $flightResult->num_rows > 0) {
             $flight = $flightResult->fetch_assoc();
-            $airline_id = $flight['airline_id']; // Fetch the airline_id
-
-            // Store airline_id in session
-            $_SESSION['airline_id'] = $airline_id;
 
             // Calculate total amount
             $total_amount = $flight['price'] * $numPassengers;
@@ -42,7 +47,6 @@ if (isset($_SESSION['u'])) {
                 <h2 class="text-center mb-4">Passenger Details</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <input type="hidden" name="flight_id" value="<?php echo $flight['flight_id']; ?>">
-                    <input type="hidden" name="airline_id" value="<?php echo $airline_id; ?>">
                     <input type="hidden" name="passengers" value="<?php echo $numPassengers; ?>">
                     <input type="hidden" name="total_price" value="<?php echo $total_amount; ?>">
 
@@ -108,7 +112,7 @@ if (isset($_SESSION['u'])) {
         }
     } else {
         echo "<div class='container'>";
-        echo "<h2 class='text-center mb-4'>Please select a flight and provide passenger details</h2>";
+        echo "<h2 class='text-center mb-4'> </h2>";
         echo "</div>";
     }
 
@@ -121,12 +125,11 @@ if (isset($_SESSION['u'])) {
             // Ensure total price is set in session
             if (isset($_SESSION['total_price'])) {
                 // Prepare INSERT statement for booked_flights table
-                $insertStatement = $conn->prepare("INSERT INTO booked_flights (flight_id, airline_id, user_id, take_seats, flight_class, total_amount) VALUES (?, ?, ?, ?, ?, ?)");
+                $insertStatement = $conn->prepare("INSERT INTO booked_flights (flight_id, user_id, take_seats, flight_class, total_amount) VALUES (?, ?, ?, ?, ?)");
 
                 if ($insertStatement) {
                     // Bind parameters and execute the INSERT statement
-                    $insertStatement->bind_param("iiisii", $_POST['flight_id'], $_POST['airline_id'], $userid, $numPassengers, $_POST['flight_class'], $_SESSION['total_price']);
-
+                    $insertStatement->bind_param("iiisi", $_POST['flight_id'], $userid, $numPassengers, $_POST['flight_class'], $_SESSION['total_price']);
                     $insertStatement->execute();
 
                     // Get the booking ID
@@ -143,7 +146,6 @@ if (isset($_SESSION['u'])) {
 
                     if ($passengerStatement) {
                         // Loop through passengers
-                        // Loop through passengers and insert into passenger table
                         for ($i = 1; $i <= $numPassengers; $i++) {
                             // Retrieve form data for each passenger
                             $name = $_POST["name$i"];
@@ -151,7 +153,7 @@ if (isset($_SESSION['u'])) {
                             $gender = $_POST["gender$i"];
                             $dob = $_POST["dob$i"];
 
-                            // Bind parameters and execute the INSERT statement
+                            // Bind parameters and execute the INSERT statement for passenger table
                             $passengerStatement->bind_param("sissi", $name, $age, $gender, $dob, $booking_id);
                             $passengerStatement->execute();
                         }
@@ -169,16 +171,16 @@ if (isset($_SESSION['u'])) {
                     if ($latest_booking_result && mysqli_num_rows($latest_booking_result) > 0) {
                         ?>
                         <div class="container mt-5">
-                            <h2 class="mb-3">Latest Booking Details</h2>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Age</th>
-                                            <th>Gender</th>
-                                            <th>Date of Birth</th>
-                                        </tr>
+                            <h2 class="mb-3">Traveller Details</h2>
+                            <div class="table-responsive "  >
+                                <table class="table table-bordered ">
+                                    <thead class="thead-dark" >
+                                    <tr style="background-color:red;">
+                                        <th scope="col" class="bg-primary text-white">Name</th>
+                                        <th scope="col" class="bg-primary text-white">Age</th>
+                                        <th scope="col" class="bg-primary text-white">Gender</th>
+                                        <th scope="col" class="bg-primary text-white">Date of Birth</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                     <?php
@@ -247,9 +249,6 @@ if (isset($_SESSION['u'])) {
 }
 
 $conn->close();
-?>
-<?php
-include("./include/footer.php");
 ?>
 </body>
 </html>

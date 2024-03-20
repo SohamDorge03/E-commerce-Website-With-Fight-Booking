@@ -103,9 +103,6 @@
 </style>
 </head>
 <body>
-<?php
-include("./include/navbar.php");
-?>
 <!-- Page Content -->
 <div class="container">
   <h1 class="text-center mb-5">Contact Us</h1>
@@ -129,20 +126,20 @@ include("./include/navbar.php");
   <!-- Contact Form -->
   <div class="contact-form">
     <h2 class="mb-4">Send Us a Message</h2>
-    <form>
+    <form method="post">
       <div class="form-group">
         <label for="name">Your Name:</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
       </div>
       <div class="form-group">
         <label for="email">Your Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
       </div>
       <div class="form-group">
         <label for="message">Message:</label>
-        <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
+        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Send Message</button>
+      <button type="submit" class="btn btn-primary" name="submit">Send Message</button>
     </form>
   </div>
 
@@ -161,8 +158,28 @@ include("./include/navbar.php");
     near shyam mandir, Vesu, Surat, Gujarat 394210
   </div>
 </div>
+
 <?php
-include("./include/footer.php");
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    // Include database configuration
+    include("./include/connection.php");
+
+    // Get form data
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $description = $_POST["message"];
+
+    // Prepare insert statement
+    $sql = "INSERT INTO contact_us (name, email, description) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters and execute statement
+    $stmt->execute([$name, $email, $description]);
+
+    // Check if data is inserted successfully
+    
+}
 ?>
+
 </body>
 </html>

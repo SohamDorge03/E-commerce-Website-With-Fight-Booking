@@ -281,6 +281,11 @@
                     <i class="fas fa-book nav_icon"></i>
                     <span class="nav_name">Order Reports</span>
                 </a>
+                <a href="vendor_report.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'vendor_report.php' ? 'active' : '' ?>">
+                    <i class="fas fa-book nav_icon"></i>
+                    <span class="nav_name">Vendor Reports</span>
+                </a>
+
                 <a href="flight_report.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'flight_report.php' ? 'active' : '' ?>">
                     <i class="fas fa-book nav_icon"></i>
                     <span class="nav_name">Booking Reports</span>

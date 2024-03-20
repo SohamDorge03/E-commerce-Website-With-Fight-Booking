@@ -18,14 +18,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_button'])) {
     // Perform any necessary validation here
 
     // Proceed to process the order item confirmation
-    // For example, you might update the status of the order item in the database
-    $update_query = "UPDATE book_demo SET status = 'Confirmed' WHERE order_item_id = $order_item_id";
+    // Update the status of the order item based on the corresponding order's status
+    $update_query = "UPDATE order_items oi
+                     JOIN orders o ON oi.order_id = o.order_id
+                     SET o.status = 'Confirmed'
+                     WHERE oi.order_item_id = $order_item_id";
+
     $update_result = mysqli_query($conn, $update_query);
 
     if ($update_result) {
         // Order item confirmation successful
-        // You can redirect the user back to the page where they confirmed the order item
-        header("Location: order_items.php");
+        // Redirect the user back to the page where they confirmed the order item
+        header("Location: order_product.php");
         exit();
     } else {
         // Error handling if the update query fails
