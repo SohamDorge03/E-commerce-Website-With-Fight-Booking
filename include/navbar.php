@@ -97,7 +97,7 @@ else{
   font-size: 14px; /* Adjusted font size for a cleaner look */
   font-weight: 600;
   color: #333;
-  transition: 0.3s ease;
+  transition: 10s ease;
 }
 
 #navbar li a:hover, .swanavbar li a:hover,
@@ -120,7 +120,7 @@ else{
   font-size: 14px;
   font-weight: 600;
   color: #333;
-  transition: 0.3s ease;
+  transition:1ms ease;
 }
 
 </style>
@@ -236,20 +236,23 @@ include('connection.php');
             }
             else{
               echo '
-              <div class="dropdown" >
-                  <a style="    font-weight: 600;" class="btn dropdown-toggle" id="loginDropdown" onclick="toggleDropdown()">
-                      Login
-                  </a
+              <div class="dropdown">
+              <a style="font-weight: 600;" class="btn dropdown-toggle" id="loginDropdown" onclick="toggleDropdown()">
+  Login
+</a>
 
-                  <div class="dropdown-content" id="dropdownContent">
-                      <a href="Vendor/login.php">Vendor Login</a>
-                      <a href="Airline/login.php">Airline Login</a>
-                      <a href="login.php">User Login</a>
-                  </div>
-              </div>';
+              <div class="dropdown-content" id="dropdownContent">
+                <a href="Vendor/login.php">Vendor Login</a>
+                <a href="Airline/login.php">Airline Login</a>
+                <a href="login.php">User Login</a>
+              </div>
+            </div>
+            
+              '
+              ;
 
               
-              echo '<li style=" margin-left: -50px;   font-weight: 600;"><a href="register.php" class="btn">regestration </a></li>';
+              echo '<li style=" margin-left: -20px;   font-weight: 600;"><a href="register.php" class="btn">regestration </a></li>';
             }
 
             ?>
@@ -290,6 +293,27 @@ else{
 
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">report issues</a>
 </section>
+
+<script>
+  function toggleDropdown() {
+    var dropdownContent = document.getElementById("dropdownContent");
+    dropdownContent.classList.toggle("show");
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.btn.dropdown-toggle')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+</script>
 
 
 </body>
