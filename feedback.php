@@ -1,6 +1,6 @@
 <?php
     include("./include/navbar.php");
-  ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +9,19 @@
     <title>Feedback Form</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+            border-radius: 10px; 
+            padding: 20px; 
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h2 class="mb-4"> Feedback Form</h2>
+            <div class="col-md-6 form-container"> <!-- Apply the custom shadow class here -->
+                <h2 class="mb-4">Feedback Form</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -24,7 +31,7 @@
                         <label for="description">Description</label>
                         <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-success">Submit Feedback</button>
+                    <button type="submit" class="form-control btn btn-success" style="margin-bottom: 10px; margin-top:30px;">Submit Feedback</button>
                 </form>
             </div>
         </div>

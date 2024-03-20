@@ -11,6 +11,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         // Display the form with flight details populated
+        include("./navbar.php");
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +26,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
 
 <body>
     <div class="container mt-5">
-        <h2>Update Flight</h2>
+        <h1>Update Flight</h1>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <!-- Hidden input field to store flight ID -->
             <input type="hidden" name="flight_id" value="<?php echo $row['flight_id']; ?>">
@@ -62,6 +63,14 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
                 <input type="number" class="form-control" id="seats" name="seats" value="<?php echo $row['seats']; ?>">
             </div>
             <div class="form-group">
+    <label for="flight_class">Flight Class:</label>
+    <select class="form-control" id="flight_class" name="flight_class" required>
+        <option value="Economy">Economy</option>
+        <option value="Business">Business</option>
+        <option value="First Class">First Class</option>
+    </select>
+</div>
+            <div class="form-group">
                 <label for="price">Price:</label>
                 <input type="text" class="form-control" id="price" name="price" value="<?php echo $row['price']; ?>">
             </div>
@@ -94,6 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $dep_airport_id = $_POST["dep_airport_id"];
     $arr_airport_id = $_POST["arr_airport_id"];
     $seats = $_POST["seats"];
+    $flight_class = $_POST["flight_class"];
     $price = $_POST["price"];
     $airline_id = $_POST["airline_id"];
 
@@ -107,6 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     dep_airport_id = '$dep_airport_id', 
                     arr_airport_id = '$arr_airport_id', 
                     seats = '$seats', 
+                    flight_class = '$flight_class', 
                     price = '$price', 
                     airline_id = '$airline_id' 
                     WHERE flight_id = $flight_id";
@@ -115,9 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Flight updated successfully');</script>";
         // Redirect to the same page to avoid resubmission on page refresh
         echo "<script>window.location.href = 'Flights.php';</script>";
-    } else {
-        echo "Error: " . $sql_update . "<br>" . $conn->error;
-    }
+    }   
 }
 
 ?>

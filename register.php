@@ -46,7 +46,11 @@ if (isset($_POST['register'])) {
             // Email sent successfully
             $_SESSION['username'] = $username;
             // Redirect to verification page or any other desired page
-            header("Location: verify.php");
+            // header("Location: verify.php");
+            echo"<script>
+            // Redirect to verify.php
+            window.location.href = 'verify.php';
+        </script>";
             exit();
         } else {
             // Error sending email

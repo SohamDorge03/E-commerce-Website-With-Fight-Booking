@@ -1,5 +1,11 @@
 <?php
 session_start(); // Start the session
+// Check if the user is not logged in
+if (!isset($_SESSION['airline_id'])) {
+    // Redirect to the login page
+    header("Location: log.php");
+    exit; // Stop further execution
+}
 
 $servername = "localhost";
 $username = "root";
@@ -12,9 +18,7 @@ $conn = new mysqli($servername, $username, $password, $database);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
-
-include("./navbar.php");
+}   
 
 $error = ""; // Variable to store error message
 
@@ -29,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dep_airport_id = $_POST["dep_airport_id"];
     $arr_airport_id = $_POST["arr_airport_id"];
     $seats = $_POST["seats"];
+    $flight_class = $_POST["flight_class"];
     $price = $_POST["price"];
 
     // Check for back date
@@ -43,8 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $airline_id = $_SESSION['airline_id'];
 
         // SQL query to insert new flight record
-        $sql = "INSERT INTO flights (flight_code, source_date, source_time, dest_date, dest_time, dep_airport_id, arr_airport_id, seats, price, airline_id) 
-            VALUES ('$flight_code', '$source_date', '$source_time', '$dest_date', '$dest_time', '$dep_airport_id', '$arr_airport_id', '$seats', '$price', '$airline_id')";
+        $sql = "INSERT INTO flights (flight_code, source_date, source_time, dest_date, dest_time, dep_airport_id, arr_airport_id, seats, flight_class, price, airline_id) 
+                VALUES ('$flight_code', '$source_date', '$source_time', '$dest_date', '$dest_time', '$dep_airport_id', '$arr_airport_id', '$seats', '$flight_class', '$price', '$airline_id')";
 
         if ($conn->query($sql) === TRUE) {
             echo "<script>alert('Flight added successfully');</script>";
@@ -63,8 +68,8 @@ $airline_id = $_SESSION['airline_id'];
 $airport_query = "SELECT airport_id, airport_name FROM airports";
 $airport_result = $conn->query($airport_query);
 
-// Fetch flight records
-$flight_query = "SELECT * FROM flights";
+// Fetch flight records associated with the logged-in airline admin
+$flight_query = "SELECT * FROM flights WHERE airline_id = '$airline_id'";
 $result = $conn->query($flight_query);
 
 ?>
@@ -85,6 +90,9 @@ $result = $conn->query($flight_query);
 </head>
 
 <body>
+<?php
+ include("./navbar.php");
+                ?>
     <div class="container mt-5">
         <?php if (!empty($error)) : ?>
             <div class="alert alert-danger" role="alert">
@@ -108,6 +116,7 @@ $result = $conn->query($flight_query);
                         <th>Departure Airport ID</th>
                         <th>Arrival Airport ID</th>
                         <th>Seats</th>
+                        <th>Flight Class</th>
                         <th>Price</th>
                         <th>Actions</th>
                     </tr>
@@ -126,6 +135,7 @@ $result = $conn->query($flight_query);
                             echo "<td>" . $row["dep_airport_id"] . "</td>";
                             echo "<td>" . $row["arr_airport_id"] . "</td>";
                             echo "<td>" . $row["seats"] . "</td>";
+                            echo "<td>" . $row["flight_class"] . "</td>";
                             echo "<td>" . $row["price"] . "</td>";
                             echo "<td>
                                     <a href='update_flight.php?id=" . $row["flight_id"] . "' class='btn btn-sm btn-primary'>Update</a>
@@ -160,26 +170,24 @@ $result = $conn->query($flight_query);
                             <input type="text" class="form-control" id="flight_code" name="flight_code" required>
                         </div>
                         <div class="form-group">
-    <label for="source_date">Source Date:</label>
-    <input type="date" class="form-control" id="source_date" name="source_date" required min="<?php echo date('Y-m-d'); ?>">
-</div>
-
-
+                            <label for="source_date">Source Date:</label>
+                            <input type="date" class="form-control" id="source_date" name="source_date" required min="<?php echo date('Y-m-d'); ?>">
+                        </div>
                         <div class="form-group">
                             <label for="source_time">Source Time:</label>
                             <input type="time" class="form-control" id="source_time" name="source_time" required>
                         </div>
                         <div class="form-group">
-    <label for="dest_date">Destination Date:</label>
-    <input type="date" class="form-control" id="dest_date" name="dest_date" required min="<?php echo date('Y-m-d'); ?>">
-</div>
+                            <label for="dest_date">Destination Date:</label>
+                            <input type="date" class="form-control" id="dest_date" name="dest_date" required min="<?php echo date('Y-m-d'); ?>">
+                        </div>
                         <div class="form-group">
                             <label for="dest_time">Destination Time:</label>
                             <input type="time" class="form-control" id="dest_time" name="dest_time" required>
                         </div>
                         <div class="form-group">
                             <label for="dep_airport_id">Departure Airport:</label>
-                            <select class="form-control" id="dep_airport_id" name="dep_airport_id" required>
+                            <select class="form-control" id="dep_airport_id" name="dep_airport_id" required onchange="updateArrivalAirports(this.value)">
                                 <?php
                                 if ($airport_result && $airport_result->num_rows > 0) {
                                     while ($airport_row = $airport_result->fetch_assoc()) {
@@ -201,10 +209,19 @@ $result = $conn->query($flight_query);
                                 }
                                 ?>
                             </select>
-                        </div>
+</div>
+
                         <div class="form-group">
                             <label for="seats">Number of Seats:</label>
                             <input type="number" class="form-control" id="seats" name="seats" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="flight_class">Flight Class:</label>
+                            <select class="form-control" id="flight_class" name="flight_class" required>
+                                <option value="Economy">Economy</option>
+                                <option value="Business">Business</option>
+                                <option value="First Class">First Class</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="price">Price:</label>
@@ -216,6 +233,11 @@ $result = $conn->query($flight_query);
             </div>
         </div>
     </div>
+
+    <!-- JavaScript and Bootstrap dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         function validateForm() {
@@ -231,40 +253,34 @@ $result = $conn->query($flight_query);
             }
             return true;
         }
-        
-    </script>
-<script>
-    function updateArrivalAirports(selectedDepAirportId) {
-        var arrAirportDropdown = document.getElementById("arr_airport_id");
-        // Remove all existing options
-        arrAirportDropdown.innerHTML = "";
 
-        // Add a default option
-        var defaultOption = document.createElement("option");
-        defaultOption.text = "Select Arrival Airport";
-        defaultOption.value = "";
-        arrAirportDropdown.add(defaultOption);
+        function updateArrivalAirports(selectedDepAirportId) {
+            var arrAirportDropdown = document.getElementById("arr_airport_id");
+            // Remove all existing options
+            arrAirportDropdown.innerHTML = "";
 
-        // Add arrival airports dynamically based on the selected departure airport
-        <?php
-        if ($airport_result && $airport_result->num_rows > 0) {
-            while ($airport_row = $airport_result->fetch_assoc()) {
-                if ($airport_row['airport_id'] != selectedDepAirportId) {
-                    echo "var option = document.createElement('option');";
-                    echo "option.text = '" . $airport_row['airport_name'] . "';";
-                    echo "option.value = '" . $airport_row['airport_id'] . "';";
-                    echo "arrAirportDropdown.add(option);";
+            // Add a default option
+            var defaultOption = document.createElement("option");
+            defaultOption.text = "Select Arrival Airport";
+            defaultOption.value = "";
+            arrAirportDropdown.add(defaultOption);
+
+            // Add arrival airports dynamically based on the selected departure airport
+            <?php
+            if ($airport_result && $airport_result->num_rows > 0) {
+                $airport_result->data_seek(0);
+                while ($airport_row = $airport_result->fetch_assoc()) {
+                    if ($airport_row['airport_id'] != selectedDepAirportId) {
+                        echo "var option = document.createElement('option');";
+                        echo "option.text = '" . $airport_row['airport_name'] . "';";
+                        echo "option.value = '" . $airport_row['airport_id'] . "';";
+                        echo "arrAirportDropdown.add(option);";
+                    }
                 }
             }
+            ?>
         }
-        ?>
-    }
-</script>
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </script>
 </body>
 
 </html>

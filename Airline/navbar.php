@@ -200,7 +200,7 @@
             }
         }
         a{
-            text-decoration: none;
+            text-decoration: none !important;
         }
     </style>
 </head>
@@ -209,9 +209,9 @@
     <header class="header" id="header">
         <div class="header_logo">
             <div class="header_img">
-                <img src="https://i.imgur.com/hczKIze.jpg" alt="ShopFlix Logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/2599/2599179.png" alt="ShopFlix Logo">
             </div>
-            <div class="header_title">ShopFlix Admin</div>
+            <div class="header_title">Airline Admin</div>
         </div>
     </header>
 
@@ -228,10 +228,10 @@
                         <span class="nav_name">Dashboard</span>
                     </a>
             
-                    <a href="./user.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'user.php' ? 'active' : ''; ?>">
+                    <!-- <a href="./user.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'user.php' ? 'active' : ''; ?>">
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Users</span>
-                    </a>
+                    </a> -->
                     <a href="./flights.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'flights.php' ? 'active' : ''; ?>">
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Flight</span>
@@ -241,9 +241,9 @@
                         <span class="nav_name">Booking</span>
                     </a>
     
-                    <a href="reports.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
+                    <a href="passenger.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'passenger.php' ? 'active' : ''; ?>">
                         <i class="fas fa-cogs nav_icon"></i>
-                        <span class="nav_name">Reports</span>
+                        <span class="nav_name">Passenger Details</span>
                     </a>
             
                     <a href="logout.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>">
@@ -283,7 +283,7 @@
 
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
 
-            /*===== LINK ACTIVE =====*/
+            
             const linkColor = document.querySelectorAll('.nav_link')
 
             function colorLink() {

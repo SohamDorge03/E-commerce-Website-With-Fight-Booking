@@ -177,7 +177,50 @@ else{
        
 </head>
 <body>
+<style>
 
+  /* Style the dropdown button */
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: fixed;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 180;
+    top: 63px;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown content on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the button text color on hover */
+#loginDropdown:hover {
+  color: blue;
+}
+
+</style>
 
 
 <?php
@@ -185,14 +228,28 @@ include('connection.php');
 
 
 ?>
+
 <?php
 
             if(isset($_SESSION['u'])){
                   echo '<li><a href="logout.php" class="btn">log out</a></li>';
             }
             else{
-              echo '<li><a href="login.php" class="btn">login </a></li>';
-              echo '<li><a href="register.php" class="btn">regestration </a></li>';
+              echo '
+              <div class="dropdown" >
+                  <a style="    font-weight: 600;" class="btn dropdown-toggle" id="loginDropdown" onclick="toggleDropdown()">
+                      Login
+                  </a
+
+                  <div class="dropdown-content" id="dropdownContent">
+                      <a href="Vendor/login.php">Vendor Login</a>
+                      <a href="Airline/login.php">Airline Login</a>
+                      <a href="login.php">User Login</a>
+                  </div>
+              </div>';
+
+              
+              echo '<li style=" margin-left: -50px;   font-weight: 600;"><a href="register.php" class="btn">regestration </a></li>';
             }
 
             ?>
@@ -227,11 +284,11 @@ else{
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'furniture.php' ? 'active' : ''; ?>" href="furniture.php">Furniture</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'gym.php' ? 'active' : ''; ?>" href="gym.php">Gym tools</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'search_flight.php' ? 'active' : ''; ?>" href="search_flight.php">Book a Flight</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Trading products</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">feedback</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Tranding products</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">Feedback</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'w.php' ? 'active' : ''; ?>" href="w.php">Expand warranty</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'claim_warranty.php' ? 'active' : ''; ?>" href="claim_warranty.php">Claim warranty</a>
+
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">report issues</a>
 </section>
 
 

@@ -91,7 +91,9 @@ if (isset($_POST['searchFlights'])) {
 
                 echo "<div>";
                 echo "<p class='card-text'> " . $row["price"] . "</p>";
-                $totalAmount = $row["price"] * $passengers;
+                $totalAmount = $row["price"] * $passengers; 
+                $_SESSION['total_amount']=$totalAmount;
+              
                 echo "<p class='card-text'>Total Amount: " . $totalAmount . "</p>";
                 if ($row["seats"] > 0) {
                     echo "<div class='flight-seats text-success'>Only " . $row["seats"] . " seat(s) left</div>"; 

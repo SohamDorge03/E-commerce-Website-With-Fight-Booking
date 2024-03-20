@@ -94,8 +94,8 @@ include("./connection.php");
             // Check if 'airline_id' session variable is set
             if(isset($_SESSION['airline_id'])) {
                 // Use the session variable in the SQL queries
-                $sql_query1 = "SELECT COUNT(*) AS booked_flights FROM booked_flights WHERE airline_id = {$_SESSION['airline_id']}";
-                $sql_query2 = "SELECT COUNT(*) AS flights FROM flights WHERE airline_id = {$_SESSION['airline_id']}";
+                $sql_query1 = "SELECT COUNT(*) AS Booked_Flights FROM booked_flights WHERE airline_id = {$_SESSION['airline_id']}";
+                $sql_query2 = "SELECT COUNT(*) AS Flights FROM flights WHERE airline_id = {$_SESSION['airline_id']}";
 
                 $result1 = $conn->query($sql_query1);
                 $result2 = $conn->query($sql_query2);

@@ -3,227 +3,324 @@ include("./include/navbar.php");
 
 ?>
 
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
     .flex {
         display: grid;
         padding: 32px;
         grid-template-columns: 333px auto;
         gap: 2px;
-        background-color: #fffff2;
+         
     }
 </style>
+<style>
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .category-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 5px;
+        }
+
+        .subcategory-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .subcategory-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .subcategory-list li {
+            margin-bottom: 5px;
+            margin-left: 20px;
+        }
+
+        .apply-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .apply-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 
 <div class="flex">
     <!-- Left sidebar -->
-    <div class="sidebar">
-        <?php
-        // Include database connection
-        include("include/connection.php");
 
-        function fetchCategoryNames()
-        {
-            global $conn;
+    
+  <style>
+    .sidebar {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+    }
 
-            $sql = "SELECT * FROM categories"; // Assuming you have a 'categories' table
-            $result = $conn->query($sql);
+    .sidebar h4 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
 
-            $categoryNames = array();
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-            // Check if the query was successful
-            if ($result) {
-                // Check if there are rows returned
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $categoryNames[$row['category_id']] = $row['name'];
-                    }
-                }
-            } else {
-                // Handle SQL query error
-                echo "Error: " . $conn->error;
-            }
+    .sidebar li {
+        margin-bottom: 5px;
+    }
 
-            return $categoryNames;
+    .sidebar input[type="checkbox"] {
+        cursor: pointer;
+    }
+
+    .sidebar input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .sidebar input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="sidebar">
+<?php
+include("include/connection.php");
+
+// Function to fetch category names
+function fetchCategoryNames()
+{
+    global $conn;
+    $sql = "SELECT * FROM categories";
+    $result = $conn->query($sql);
+    $categoryNames = [];
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $categoryNames[$row['category_id']] = $row['name'];
         }
+    }
+    return $categoryNames;
+}
 
-        // Function to fetch subcategory names from the database based on the selected category
-        function fetchSubcategoryNames($categoryId)
-        {
-            global $conn;
-
-            $sql = "SELECT * FROM subcategories WHERE category_id = $categoryId";
-            $result = $conn->query($sql);
-
-            $subcategoryNames = array();
-
-            // Check if the query was successful
-            if ($result) {
-                // Check if there are rows returned
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $subcategoryNames[$row['subcategory_id']] = $row['name'];
-                    }
-                }
-            } else {
-                // Handle SQL query error
-                echo "Error: " . $conn->error;
-            }
-
-            return $subcategoryNames;
+// Function to fetch subcategory names
+function fetchSubcategoryNames($categoryId)
+{
+    global $conn;
+    $sql = "SELECT * FROM subcategories WHERE category_id = $categoryId";
+    $result = $conn->query($sql);
+    $subcategoryNames = [];
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $subcategoryNames[$row['subcategory_id']] = $row['name'];
         }
+    }
+    return $subcategoryNames;
+}
 
-        // Display category filter options
-        $categories = fetchCategoryNames();
-        if ($categories) {
-            echo "<h4>Categories</h4>";
-            echo "<form method='GET'>";
-            echo "<ul>";
+// Store selected checkboxes in session
+if (isset($_GET['category'])) {
+    $_SESSION['selected_category'] = $_GET['category'];
+}
+if (isset($_GET['subcategory'])) {
+    $_SESSION['selected_subcategory'] = $_GET['subcategory'];
+}
 
-            foreach ($categories as $categoryId => $categoryName) {
-                $checked = isset($_GET['category']) && in_array($categoryId, $_GET['category']) ? 'checked' : '';
-                echo "<li><input type='checkbox' name='category[]' value='$categoryId' $checked>$categoryName</li>";
+// Display categories
+$categories = fetchCategoryNames();
+if ($categories) {
+    echo "<h4>Categories</h4><form method='GET'><ul>";
+    foreach ($categories as $categoryId => $categoryName) {
+        $checked = isset($_SESSION['selected_category']) && in_array($categoryId, $_SESSION['selected_category']) ? 'checked' : '';
+        echo "<li><input type='checkbox' name='category[]' value='$categoryId' $checked> <span>$categoryName</span></li>";
+    }
+    echo "</ul><input type='submit' value='Apply'></form>";
+} else {
+    echo "<p>No categories found.</p>";
+}
+
+// Display subcategories based on selected categories
+if (isset($_SESSION['selected_category'])) {
+    $selectedCategories = $_SESSION['selected_category'];
+    echo "<h4>Subcategories</h4><form method='GET'><ul>";
+    foreach ($selectedCategories as $selectedCategory) {
+        $subcategories = fetchSubcategoryNames($selectedCategory);
+        if ($subcategories) {
+            foreach ($subcategories as $subcategoryId => $subcategoryName) {
+                $checked = isset($_SESSION['selected_subcategory']) && in_array($subcategoryId, $_SESSION['selected_subcategory']) ? 'checked' : '';
+                echo "<li><input type='checkbox' name='subcategory[]' value='$subcategoryId' $checked> <span>$subcategoryName</span></li>";
             }
-
-            echo "</ul>";
-            echo "<input type='submit' value='Apply'>";
-            echo "</form>";
         } else {
-            echo "No categories found.";
+            echo "<p>No subcategories found for the selected category.</p>";
         }
+    }
+    echo "</ul><input type='submit' value='Apply'></form>";
+}
+?>
 
-        // Display subcategory filter options based on selected category
-        if (isset($_GET['category'])) {
-            $selectedCategories = $_GET['category'];
-            $_SESSION['selected_category'] = $selectedCategories; 
-
-            echo "<h4>Subcategories</h4>";
-            echo "<form method='GET'>";
-            echo "<ul>";
-
-            foreach ($selectedCategories as $selectedCategory) {
-                $subcategories = fetchSubcategoryNames($selectedCategory);
-                if ($subcategories) {
-                    foreach ($subcategories as $subcategoryId => $subcategoryName) {
-                        $checked = isset($_GET['subcategory']) && in_array($subcategoryId, $_GET['subcategory']) ? 'checked' : '';
-                        echo "<li><input type='checkbox' name='subcategory[]' value='$subcategoryId' $checked>$subcategoryName</li>";
-                    }
-                } else {
-                    echo "No subcategories found for the selected category.";
-                }
-            }
-            echo "</ul>";
-            echo "<input type='submit' value='Apply'>";
-            echo "</form>";
-        }
-        ?>
-
-        <!-- Price range filter options -->
-        <h4>Price Range</h4>
-        <form method="GET">
-            <ul>
-                <li><input type="checkbox" name="price_range[]" value="0-2000">0 - 2000</li>
-                <li><input type="checkbox" name="price_range[]" value="2001-5000">2001 - 5000</li>
-                <li><input type="checkbox" name="price_range[]" value="5001-10000">5001 - 10000</li>
-                <li><input type="checkbox" name="price_range[]" value="10001-20000">10001 - 20000</li>
-                <li><input type="checkbox" name="price_range[]" value="20001-50000">20001 - 50000</li>
-                <li><input type="checkbox" name="price_range[]" value="50000">Above 50000</li>
-            </ul>
-            <input type="submit" value="Apply">
-        </form>
-    </div>
+</div>
 
     <!-- Main content -->
     <div class="main-content">
         <?php
-        // Function to display products
+        // Display products
         function displayProducts($sql)
         {
             global $conn;
-
             $result = $conn->query($sql);
+            if ($result && $result->num_rows > 0) {
+                echo '<div class="pro-container" style="display: flex; padding-top: 10px; gap: 15px; justify-content: center; flex-wrap: wrap;">';
+                while ($row = $result->fetch_assoc()) {
+                    $productId = $row['product_id'];
+                    echo '<div class="pro" style="width: 23%; min-width: 250px; padding: 10px 20px; border: 1px solid #cce7d0; border-radius: 25px; cursor: pointer; box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02); margin: 15px 0; transition: 0.2s ease; position: relative;">';
+                    echo '<a href="product_details.php?productId=' . $productId . '">';
+                    echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" style="width: 100%; border-radius: 20px;">';
+                    echo '</a>'; 
+                    echo '<div class="des" style="text-align: start; padding: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">';
+                    echo '<h5 style="padding-top: 7px; color: #1a1a1a; font-size: 14px; overflow: hidden; text-overflow: ellipsis;">' . substr($row['name'], 0, 43) . '</h5>';
+                    echo '<span class="price" style="font-size: 18px; font-weight: bold; margin-top: 1px;">' . $row['price'] . '</span>';
+                    echo '<span class="stock" style="font-size: 16px; font-weight: thin; margin-top: 1px; margin-left: 30px; color: green" >In stock ' . $row['stock_quantity'] . '</span>';
+                   
+                    echo '<p class="description" style="margin-top: 1px; color: #606063; font-size: 12px; overflow: hidden; text-overflow: ellipsis;">' . substr($row['description'], 0, 30) . '...</p>';
+                    
+                    // Check if user is logged in
+                    if (isset($_SESSION['u'])) {
+                        // Check if the product is already in the cart
+                        $stmt = $conn->prepare("SELECT * FROM cart WHERE user_id = ? AND product_id = ?");
+                        $stmt->bind_param("ii", $_SESSION['u'], $productId);
+                        $stmt->execute();
+                        $result_cart = $stmt->get_result();
+                        if ($result_cart->num_rows > 0) {
+                            echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
 
-            // Check if there are products
-            if ($result) {
-                if ($result->num_rows > 0) {
-                    echo '<div class="pro-container" style="display: flex; padding-top: 20px; gap: 30px; justify-content: center; flex-wrap: wrap;">';
+                            echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
+                            
+                            // Styling for the quantity input field
+                            echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
+                            // Populate the dropdown with available quantities
+                            for ($i = 1; $i <= $row['stock_quantity']; $i++) {
+                                echo "<option value='$i'>$i</option>";
+                            }
+                            echo '</select>';
+                            
+                            // Styling for the "Add to Cart" button
+                            echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;" disabled>';
+                            echo '';
+                            echo 'Added to Cart</button>';
+                            echo '</form>';
 
-                    // Loop through each product and generate HTML
-                    while ($row = $result->fetch_assoc()) {
-                        $productId = $row['product_id'];
+                        } else {
+                            echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
+                            echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
+                     echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
+// Populate the dropdown with available quantities
+for ($i = 1; $i <= $row['stock_quantity']; $i++) {
+    echo "<option value='$i'>$i</option>";
+}
+echo '</select>';
 
-                        echo '<div class="pro" style="width: 23%; min-width: 250px; padding: 10px 20px; border: 1px solid #cce7d0; border-radius: 25px; cursor: pointer; box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02); margin: 15px 0; transition: 0.2s ease; position: relative;">';
-                        echo '<a href="product_details.php?productId=' . $productId . '">'; // Anchor tag for product details page
-                        echo '<img src="vendor/' . $row['img1'] . '" alt="" height="200px" style="width: 100%; border-radius: 20px;">';
-                        echo '</a>'; // Closing anchor tag
-                        echo '<div class="des" style="text-align: start; padding: 10px 0;">';
-                        echo '<h5 style="padding-top: 7px; color: #1a1a1a; font-size: 14px;">' . $row['name'] . '</h5>';
-                        echo '<span class="price" style=" font-size: 18px; font-weight: bold; margin-top: 1px;">' . $row['price'] . '</span>';
-                        echo '<p class="description" style="margin-top: 1px; color: #606063; font-size: 12px;">' . substr($row['description'], 0, 50) . '...</p>';
-                        echo '</div>';
-                        echo '</div>';
+// Remove the disabled attribute from the button
+echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;">';
+echo 'Add to Cart</button>';
+
+ 
+                         
+                            echo '</form>';
+                            
+                            
+
+                        }
+                    } else {
+                        // User is not logged in, redirect to login page
+                        echo '<a href="login.php" class="btn btn-primary">Login to Add to Cart</a>';
                     }
 
                     echo '</div>';
-                } else {
-                    echo 'No products found.';
+                    echo '</div>';
                 }
+                echo '</div>';
             } else {
-                // Handle SQL query error
-                echo "Error: " . $conn->error;
+                echo 'No products found.';
             }
         }
 
-        // Store current scroll position in session
-        $_SESSION['scroll_position'] = isset($_SESSION['scroll_position']) ? $_SESSION['scroll_position'] : 0;
-
-        // Construct the base SQL query
-        $sql = "SELECT * FROM products WHERE 1";
-
-        // Check if subcategories are selected
+ 
+        $sql = "SELECT * FROM products";
         if (isset($_GET['subcategory'])) {
-            // Get the selected subcategories
             $selectedSubcategories = $_GET['subcategory'];
             $selectedSubcategories = implode(',', $selectedSubcategories);
-
-            // Append the WHERE clause to filter by selected subcategories
-            $sql .= " AND subcategory_id IN ($selectedSubcategories)";
+            $sql .= " WHERE subcategory_id IN ($selectedSubcategories)";
         } else if (isset($_GET['category'])) {
-            // Get the selected categories
             $selectedCategories = $_GET['category'];
-
-            // Append the WHERE clause to filter by selected categories and their subcategories
-            $categorySubquery = "SELECT subcategory_id FROM subcategories WHERE category_id IN (" . implode(',', $selectedCategories) . ")";
-            $sql .= " AND subcategory_id IN ($categorySubquery)";
+            $sql .= " WHERE subcategory_id IN (SELECT subcategory_id FROM subcategories WHERE category_id IN (" . implode(',', $selectedCategories) . "))";
         }
-
-        // Check if price range is selected and add it to the WHERE clause
         if (isset($_GET['price_range'])) {
-            $priceRanges = $_GET['price_range'];
-            $priceConditions = [];
-
-            foreach ($priceRanges as $priceRange) {
-                $ranges = explode('-', $priceRange);
-                if (count($ranges) === 2) {
-                    $minPrice = $ranges[0];
-                    $maxPrice = $ranges[1];
-                    $priceConditions[] = "(price BETWEEN $minPrice AND $maxPrice)";
-                } else {
-                    $minPrice = 50000;
-                    $priceConditions[] = "(price >= $minPrice)";
-                }
-            }
-
-            // Combine multiple price conditions using OR
-            $sql .= " AND (" . implode(" OR ", $priceConditions) . ")";
+            $priceRange = $_GET['price_range'];
+            $sql .= " AND price <= $priceRange";
         }
-
-        // Display the products based on the constructed SQL query
         displayProducts($sql);
-
-        // Store the current scroll position in session
         $_SESSION['scroll_position'] = isset($_GET['scroll_position']) ? $_GET['scroll_position'] : 0;
         ?>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+    function addToCart(productId) {
+        var quantity = $('select[name="quantity_' + productId + '"]').val();
+
+        // Store the current scroll position
+        var scrollPosition = $(window).scrollTop();
+
+        $.ajax({
+            type: "POST",
+            url: "add_to_cart.php",
+            data: {
+                product_id: productId,
+                quantity: quantity
+            },
+            success: function(response) {
+                // Reload the content of the main content area
+                $('.main-content').load(window.location.href + ' .main-content > *');
+
+                // Set the scroll position back to where it was
+                $(window).scrollTop(scrollPosition);
+
+                // Show Bootstrap alert
+                $('.alert').html('<strong>Success!</strong> Product added to cart.').addClass('alert-success').removeClass('d-none');
+            }
+        });
+    }
+</script>
+
 
 </body>
 

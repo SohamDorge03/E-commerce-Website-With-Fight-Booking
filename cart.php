@@ -1,6 +1,4 @@
 <?php
-
-
 require("./config.php");
 include("include/connection.php");
 include("include/navbar.php");
@@ -45,9 +43,9 @@ if ($result === false) {
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="m-5 p-4">Cart</h2>
         <div class="row">
             <div class="col-md-8">
+                <h2 class="">Cart</h2>
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-striped">
@@ -55,7 +53,7 @@ if ($result === false) {
                                 <tr>
                                     <th scope="col">Product</th>
                                     <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Quantity</th>   
                                     <th scope="col">Total</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -94,13 +92,8 @@ if ($result === false) {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-4">
+                <div class="card mt-5">
                     <div class="card-body">
                         <h5 class="card-title">Total Price: Rs. <?php echo $total_price; ?></h5>
                         <form action="submit.php" method="post">
@@ -134,11 +127,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'remove' && isset($_POST['pr
     $remove_result = $conn->query($remove_sql);
 
     if ($remove_result === true) {
-     
-
         echo "<script> window.location.href = './cart'; </script>";
-        
+    } else {
+        echo "Error removing item from cart: " . $conn->error;
     }
-    
 }
 ?>

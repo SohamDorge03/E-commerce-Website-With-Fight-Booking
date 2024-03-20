@@ -207,7 +207,7 @@ if(isset($_POST['searchFlights'])) {
                         ?>
                     </div>
                     <div class="col-md-2 mb-3">
-                        <input type="date" class="form-control" name="travelDate" required>
+                        <input type="date" class="form-control" name="travelDate" id="travelDate" required>
                     </div>
                     <div class="col-md-2 mb-3">
                         <select class="form-control" name="passengers" value='$passengers' required>
@@ -223,10 +223,11 @@ if(isset($_POST['searchFlights'])) {
                         <select class="form-control" name="class" required>
                             <option value="economy">Economy Class</option>
                             <option value="business">Business Class</option>
+                            <option value="first">First Class</option>
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-search" type="submit" name="searchFlights">Search Flights</button>
+                <button class="btn btn-primary" type="submit" name="searchFlights">Search Flights</button>
             </form>
         </div>
     </div>
@@ -287,8 +288,16 @@ if(isset($_POST['searchFlights'])) {
 <script>
     // JavaScript code goes here
     // You can add JavaScript logic for any dynamic behavior on the page
+
+    // Function to disable backdate selection
+    function disableBackdate() {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("travelDate").setAttribute('min', today);
+    }
+
+    // Call the function when the page loads
+    window.onload = disableBackdate;
 </script>
 
 </body>
 </html>
-                    

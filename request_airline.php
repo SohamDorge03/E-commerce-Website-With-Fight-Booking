@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $document_temp_path = $document_file['tmp_name'];
     
     // Move uploaded files to desired directory (you need to create this directory)
-    $upload_dir = "./uploads/";
+    $upload_dir = "./admin";
     move_uploaded_file($logo_temp_path, $upload_dir . $logo_filename);
     move_uploaded_file($document_temp_path, $upload_dir . $document_filename);
     
@@ -45,13 +45,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .form-group {
             width: 500px;
         }
+        .custom-shadow {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Change the shadow values as needed */
+            border-radius: 10px; /* Optional: Add border radius for a rounded corner effect */
+            padding: 20px; /* Optional: Add padding for better spacing */
+        }
     </style>
 </head>
 <body>
-
+<?php include("./include/navbar.php"); ?>
 <div class="container mt-5">
     <div class="d-flex justify-content-center"> <!-- Center content horizontally -->
-        <div>
+        <div class="custom-shadow"> <!-- Apply the custom shadow class here -->
             <h2>Airline Request Form</h2>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -70,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="document">Document:</label>
                     <input type="file" class="form-control-file" id="document" name="document">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit Request</button>
+                <button type="submit" class="form-control btn btn-primary">Submit Request</button>
             </form>
         </div>
     </div>
@@ -79,7 +84,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 </html>
 
-<?php
-// Close the database connection
-mysqli_close($conn);
-?>
