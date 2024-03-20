@@ -25,13 +25,6 @@
 if(isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id']; 
 
-
-
-
-
-
-
-    // Display Orders Table with Product Details for the specified user ID
     echo "<div class='container mt-5'>";
 echo '
 <a class="btn btn-primary " style="" href="./book_demo.php">Book a Demo</a>';
