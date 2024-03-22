@@ -35,26 +35,24 @@ if(!isset($_SESSION['email'])) {
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Seats</th>
-                    <!-- <th>Flight Class</th> -->
                     <th>Transaction ID</th>
                     <th>Total Amount</th>
                     <th>Airline Name</th>
                     <th>Payment Status</th>
-            
+                    <th>Booked Date</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 include("./include/connection.php");
                 
-            
                 $sql = "SELECT bf.booking_id, f.flight_code, u.first_name, u.last_name, u.email, u.phone_number,
                                 bf.take_seats, bf.TransactionID, bf.total_amount, bf.payment_status,
-                                a.airline_id, a.airline_name
+                                a.airline_id, a.airline_name, bf.booked_date
                         FROM booked_flights bf
                         INNER JOIN users u ON bf.user_id = u.user_id
                         INNER JOIN flights f ON bf.flight_id = f.flight_id
-                        INNER JOIN airlines a ON f.airline_id = a.airline_id"; // Join with airlines table
+                        INNER JOIN airlines a ON f.airline_id = a.airline_id";
 
                 $result = mysqli_query($conn, $sql);
                 
@@ -71,13 +69,11 @@ if(!isset($_SESSION['email'])) {
                         echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['phone_number'] . "</td>";
                         echo "<td>" . $row['take_seats'] . "</td>";
-                        // echo "<td>" . $row['flight_class'] . "</td>";
                         echo "<td>" . $row['TransactionID'] . "</td>";
                         echo "<td>" . $row['total_amount'] . "</td>";
-                        echo "<td>" . $row['airline_name'] . "</td>"; //
+                        echo "<td>" . $row['airline_name'] . "</td>";
                         echo "<td>" . ($row['payment_status'] ? 'Paid' : 'Not Paid') . "</td>";
-                        
-                       
+                        echo "<td>" . $row['booked_date'] . "</td>";
                         echo "</tr>";
                     }
                 } else {
@@ -90,3 +86,4 @@ if(!isset($_SESSION['email'])) {
     </div>
 </body>
 </html>
+                

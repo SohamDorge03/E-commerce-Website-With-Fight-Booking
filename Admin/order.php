@@ -13,9 +13,11 @@ if(!isset($_SESSION['email'])) {
     margin-left: 20px !important;
     font-family:'poppins';
 }
-.thead-light{
-    background-color: #5F1E30;
-}
+.table-header {
+        background-color: 5f1e30;
+        color: wheat;
+
+    }
 </style>
 <?php
 include("include/connection.php");
@@ -38,8 +40,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
 echo "<div class='container mt-5'>";
 echo "<h2>Orders with Product Details</h2>";
 echo "<table class='table table-bordered'>";
-echo "<thead class='thead-light' >";
-echo "<tr><th>Order ID</th><th>User ID</th><th>User Name</th><th>Email</th><th>Address</th><th>Order Date</th><th>Status</th><th>Payment Method</th><th>Payment Status</th><th>Transaction ID</th><th>Total Amount</th><th>Products</th></tr>";
+echo "<thead class='table-header'>";
+echo "<tr>";
+echo "<th>Order ID</th><th>User ID</th><th>User Name</th><th>Email</th><th>Address</th><th>Order Date</th><th>Status</th><th>Payment Method</th><th>Payment Status</th><th>Transaction ID</th><th>Total Amount</th><th>Products</th>";
+echo "</tr>";
+echo "</thead>";
+
+
 echo "</thead>";
 echo "<tbody>";
 
@@ -84,8 +91,8 @@ if ($result_orders_products) {
             echo "<button class='btn btn-info btn-sm' data-toggle='modal' data-target='#productDetailsModal" . $row['order_id'] . "'>View Details</button>";
             
             // Product Details Modal
-            echo "<div class='modal fade' id='productDetailsModal" . $row['order_id'] . "' tabindex='-1' role='dialog' aria-labelledby='productDetailsModalLabel' aria-hidden='true'>";
-            echo "<div class='modal-dialog' role='document'>";
+            echo "<div class='modal fade' id='productDetailsModal" . $row['order_id'] . "' tabindex='0' role='dialog' aria-labelledby='productDetailsModalLabel' aria-hidden='true'>";
+            echo "<div class='modal-dialog modal-lg' role='document'>";
             echo "<div class='modal-content'>";
             echo "<div class='modal-header'>";
             echo "<h5 class='modal-title' id='productDetailsModalLabel'>Product Details</h5>";

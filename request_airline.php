@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     move_uploaded_file($document_temp_path, $upload_dir . $document_filename);
     
     // Insert data into database
-    $sql = "INSERT INTO airline_requests (airline_name, contact_email, logo_filename, document_filename) VALUES ('$airline_name', '$contact_email', '$logo_filename', '$document_filename')";
+    $sql = "INSERT INTO airline_requests (airline_name, contact_email, logo, document) VALUES ('$airline_name', '$contact_email', '$logo_filename', '$document_filename')";
     
     if (mysqli_query($conn, $sql)) {
         echo "Data inserted successfully.";
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
-?>
+?>X`
 
 <!DOCTYPE html>
 <html lang="en">

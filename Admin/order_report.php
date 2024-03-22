@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if(!isset($_SESSION['email'])) {
-    header("Location: login.php");
-    exit();
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,11 +23,11 @@ include("./include/navbar.php");
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="from_date">From Date:</label>
-                    <input type="date" class="form-control form-control-sm" id="from_date" name="from_date">
+                    <input type="date" class="form-control form-control-sm" id="from_date" name="from_date" max="<?php echo date('Y-m-d'); ?>">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="to_date">To Date:</label>
-                    <input type="date" class="form-control form-control-sm" id="to_date" name="to_date">
+                    <input type="date" class="form-control form-control-sm" id="to_date" name="to_date" max="<?php echo date('Y-m-d'); ?>">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="status">Select Status:</label>

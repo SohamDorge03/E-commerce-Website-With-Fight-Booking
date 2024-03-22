@@ -247,7 +247,7 @@ $products = getVendorProducts($vendor_id);
             <div class="card-body">
               <h5 class="card-title" ><?php echo $product['name']; ?></h5>
               <p class="card-text"><?php echo $product['description']; ?></p>
-              <p class="card-text"><strong>Price: $<?php echo $product['price']; ?></strong></p>
+              <p class="card-text"><strong>Price: <?php echo $product['price']; ?></strong></p>
               <p class="card-text"><strong>Stock Quantity: <?php echo $product['stock_quantity']; ?></strong></p>
  
               <div class="btn-group" role="group">

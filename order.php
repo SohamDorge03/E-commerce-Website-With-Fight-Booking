@@ -81,7 +81,7 @@ echo '
 
                 // Product Details Modal
                 echo "<div class='modal fade' id='productDetailsModal" . $row['order_id'] . "' tabindex='-1' role='dialog' aria-labelledby='productDetailsModalLabel' aria-hidden='true'>";
-                echo "<div class='modal-dialog' role='document'>";
+                echo "<div class='modal-dialog modal-lg' role='document'>";
                 echo "<div class='modal-content'>";
                 echo "<div class='modal-header'>";
                 echo "<h5 class='modal-title' id='productDetailsModalLabel'>Product Details</h5>";

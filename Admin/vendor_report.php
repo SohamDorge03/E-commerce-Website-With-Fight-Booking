@@ -143,13 +143,13 @@ include("./include/navbar.php");
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="from_date">From Date:</label>
-                    <input type="date" class="form-control" id="from_date" name="from_date" value="<?php echo date('Y-m-01'); ?>" min="<?php echo date('Y-m-01'); ?>" max="<?php echo date('Y-m-t'); ?>" required>
+                    <input type="date" class="form-control" id="from_date" name="from_date" max="<?php echo date('Y-m-d'); ?>" required>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="to_date">To Date:</label>
-                    <input type="date" class="form-control" id="to_date" name="to_date" value="<?php echo date('Y-m-t'); ?>" min="<?php echo date('Y-m-01'); ?>" max="<?php echo date('Y-m-t'); ?>" required>
+                    <input type="date" class="form-control" id="to_date" name="to_date" max="<?php echo date('Y-m-d'); ?>" required>
                 </div>
             </div>
         </div>

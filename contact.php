@@ -103,6 +103,9 @@
 </style>
 </head>
 <body>
+<?php
+include("./include/navbar.php");
+?>
 <!-- Page Content -->
 <div class="container">
   <h1 class="text-center mb-5">Contact Us</h1>
@@ -160,6 +163,7 @@
 </div>
 
 <?php
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Include database configuration
     include("./include/connection.php");
@@ -173,8 +177,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $sql = "INSERT INTO contact_us (name, email, description) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
-    // Bind parameters and execute statement
-    $stmt->execute([$name, $email, $description]);
+    // // Bind parameters and execute statement
+    // $stmt->execute([$name, $email, $description]);
 
     // Check if data is inserted successfully
     

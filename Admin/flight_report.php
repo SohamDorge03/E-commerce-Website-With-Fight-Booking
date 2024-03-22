@@ -41,11 +41,11 @@ include("./include/navbar.php");
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="start_date">From Date:</label>
-        <input type="date" class="form-control" id="start_date" name="start_date" required>
+        <input type="date" class="form-control" id="start_date" name="start_date" max="<?php echo date('Y-m-d'); ?>" required>
       </div>
       <div class="form-group col-md-6">
         <label for="end_date">To Date:</label>
-        <input type="date" class="form-control" id="end_date" name="end_date" required>
+        <input type="date" class="form-control" id="end_date" name="end_date" max="<?php echo date('Y-m-d'); ?>" required>
       </div>
     </div>
     <div class="form-row">

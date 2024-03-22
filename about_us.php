@@ -101,7 +101,7 @@ include("./include/navbar.php");
   <div class="col-md-3">
     <div class="team-member">
       <a href="https://www.linkedin.com/in/bhargavtiwari">
-        <img src="b1.jpg" alt="Team Member 1">
+        <img src="./image/b1.jpg" alt="Team Member 1">
       </a>
       <h4>Bhargav Tiwari</h4>
       <p>Founder & CEO</p>
@@ -110,7 +110,7 @@ include("./include/navbar.php");
   <div class="col-md-3">
     <div class="team-member">
       <a href="https://www.linkedin.com/in/soham-dorge">
-        <img src="s1.jpg" alt="Team Member 2">
+        <img src="./image/s1.jpg" alt="Team Member 2">
       </a>
       <h4>Soham Dorge</h4>
       <p>Head of Operations</p>
@@ -119,7 +119,7 @@ include("./include/navbar.php");
   <div class="col-md-3">
     <div class="team-member">
       <a href="https://www.linkedin.com/in/yagneshprajapati">
-        <img src="y1.jpg" alt="Team Member 3">
+        <img src="./image/y1.jpg" alt="Team Member 3">
       </a>
       <h4>Yagnesh Prajapati</h4>
       <p>CTO</p>
@@ -128,7 +128,7 @@ include("./include/navbar.php");
   <div class="col-md-3">
     <div class="team-member">
       <a href="https://www.linkedin.com/in/vishalsaw">
-        <img src="v1.jpg" alt="Team Member 4">
+        <img src="./image/v1.jpg" alt="Team Member 4">
       </a>
       <h4>Vishal Saw</h4>
       <p>Marketing Manager</p>

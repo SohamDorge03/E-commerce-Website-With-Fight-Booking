@@ -85,7 +85,7 @@ if (isset($_POST['register'])) {
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff;
-            background-image: url("./image/background.png");
+           
         }
 
         .container {
