@@ -70,9 +70,9 @@ if ($result === false) {
                                                 <img src="vendor/<?php echo $row['img1']; ?>" alt="<?php echo $row['name']; ?>" height="50">
                                                 <?php echo $row['name']; ?>
                                             </td>
-                                            <td>$<?php echo $row['price']; ?></td>
+                                            <td><?php echo $row['price']; ?></td>
                                             <td><?php echo $row['quantity']; ?></td>
-                                            <td>$<?php echo $row['price'] * $row['quantity']; ?></td>
+                                            <td><?php echo $row['price'] * $row['quantity']; ?></td>
                                             <td>
                                                 <form action="" method="post">  
                                                     <input type="hidden" name="action" value="remove">

@@ -112,7 +112,7 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `cart` VALUES (43,10,23,2);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -204,7 +204,7 @@ CREATE TABLE `order_items` (
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `order_items` VALUES (1,3,26,2);
 INSERT INTO `order_items` VALUES (2,4,22,9);
@@ -228,6 +228,12 @@ INSERT INTO `order_items` VALUES (19,12,36,1);
 INSERT INTO `order_items` VALUES (20,13,127,1);
 INSERT INTO `order_items` VALUES (21,13,38,1);
 INSERT INTO `order_items` VALUES (22,13,39,3);
+INSERT INTO `order_items` VALUES (23,14,23,1);
+INSERT INTO `order_items` VALUES (24,15,22,1);
+INSERT INTO `order_items` VALUES (25,16,55,1);
+INSERT INTO `order_items` VALUES (26,17,57,1);
+INSERT INTO `order_items` VALUES (27,18,55,1);
+INSERT INTO `order_items` VALUES (28,19,57,2);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
@@ -241,7 +247,7 @@ CREATE TABLE `orders` (
   `total_amount` decimal(10,2) NOT NULL,
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `orders` VALUES (1,5,'2024-03-08 10:57:23','Shipped','gpay','1','12333',5000.00);
 INSERT INTO `orders` VALUES (2,6,'2024-03-08 15:49:36','Pending','gpay','1','553535',5000.00);
@@ -256,6 +262,12 @@ INSERT INTO `orders` VALUES (10,10,'2024-03-19 20:49:36','Pending','Stripe','Pai
 INSERT INTO `orders` VALUES (11,9,'2024-03-21 02:55:24','Pending','Stripe','Paid','tok_1OwbmmDwlRClWlNg5ivsf9YU',19999.00);
 INSERT INTO `orders` VALUES (12,18,'2024-03-21 03:00:26','Shipped','Stripe','Paid','tok_1OwbreDwlRClWlNgSmmqCzHD',90000.00);
 INSERT INTO `orders` VALUES (13,19,'2024-03-21 04:43:42','Pending','Stripe','Paid','tok_1OwdTZDwlRClWlNgWAcHgVG9',69999.00);
+INSERT INTO `orders` VALUES (14,16,'2024-03-23 04:58:13','Pending','Stripe','Paid','tok_1OxMekDwlRClWlNga2MV3gPW',17000.00);
+INSERT INTO `orders` VALUES (15,16,'2024-03-23 11:55:10','Pending','Stripe','Paid','tok_1OxTAGDwlRClWlNgYYy1aRJW',27000.00);
+INSERT INTO `orders` VALUES (16,16,'2024-03-23 12:27:57','Pending','Stripe','1','ch_3OxTg3DwlRClWlNg0WvmCsY6',1700.00);
+INSERT INTO `orders` VALUES (17,16,'2024-03-23 12:29:18','Pending','Stripe','Paid','tok_1OxThIDwlRClWlNgiH0y4210',7000.00);
+INSERT INTO `orders` VALUES (18,16,'2024-03-23 12:40:19','Pending','Stripe','Paid','tok_1OxTrxDwlRClWlNgfmtBHC3n',1700.00);
+INSERT INTO `orders` VALUES (19,16,'2024-03-23 12:58:12','Pending','Stripe','Paid','tok_1OxU9FDwlRClWlNgNP7yR6Ic',14000.00);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passenger` (
@@ -343,8 +355,8 @@ INSERT INTO `products` VALUES (2,4,'iQOO Neo 7 Pro 5G (Dark Storm, 12Gb Ram, 256
 INSERT INTO `products` VALUES (124,1,'LG 8 Kg 5 Star Inverter Direct Drive Fully Automatic Front Load Washing Machine (FHM1408BDW, Steam W','products/LG21.jpg','products/LG22.jpg','products/LG24.jpg','products/LG23.jpg','\r\nCapacity	8 Kilograms\r\nColour	White\r\nBrand	LG\r\nProduct Dimensions	55D x 60W x 85H Centimeters\r\nSpecial Feature	Inverter, Child Lock, Auto Restart, Hygiene Steam, High Efficiency, Inbuilt Heater',35000.00,50,33999.00,3,11);
 INSERT INTO `products` VALUES (122,1,'LG 6.5 Kg 5 Star Inverter Turbodrum Fully Automatic Top Loading Washing Machine (T65SKSF4Z, 3 Smart ','products/lg.jpg','products/lg1.jpg','products/lg2.jpg','products/lg3.jpg','\r\nProduct Dimensions	56D x 54W x 87H Centimeters\r\nBrand	LG\r\nCapacity	6.5 Kilograms\r\nSpecial Feature	Inverter, Child Lock, High Efficiency, Time Remaining Display, Turbodrum\r\nAccess Location	Top Load',16900.00,100,15999.00,3,11);
 INSERT INTO `products` VALUES (123,1,'LG 7 Kg 5 Star Inverter Touch panel Fully-Automatic Front Load Washing Machine with In-Built Heater ','products/lg11.jpg','products/lg12.jpg','products/lg13.jpg','products/lg14.jpg','\r\nProduct Dimensions	60D x 44W x 85H Centimeters\r\nBrand	LG\r\nCapacity	7 Kilograms\r\nSpecial Feature	Inverter, Child Lock, Hygiene Steam, Inbuilt Heater\r\nAccess Location	Front Load\r\n',28000.00,100,27000.00,3,11);
-INSERT INTO `products` VALUES (55,2,'Amazon Brand - Symactive Rubber Coated 10 Kg Hex Dumbbells Set for Full Body Workout (Set of 2, 5 Kg','products/d22.jpg','products/d21.jpg','','','\r\nBrand	Amazon Brand - Symactive\r\nColour	Multicolor\r\nItem Weight	5000 Grams\r\nSpecial Feature	Easy To Clean\r\nUse for	Hands, Back',1700.00,50,1599.00,1,1);
-INSERT INTO `products` VALUES (57,3,'IRIS Fitness 24 kgs Adjustable Dumbbell with Fast Adjustable Weight Plates for Body Workout Home Gym','products/d43.jpg','products/d42.jpg','products/d42.jpg','','\r\nBrand	IRIS\r\nColour	Black, Red\r\nItem Weight	24 Kilograms\r\nMaterial	Metal, Rubber\r\nSpecial Feature	Adjustable Weight',7000.00,50,5999.00,1,1);
+INSERT INTO `products` VALUES (55,2,'Amazon Brand - Symactive Rubber Coated 10 Kg Hex Dumbbells Set for Full Body Workout (Set of 2, 5 Kg','products/d22.jpg','products/d21.jpg','','','\r\nBrand	Amazon Brand - Symactive\r\nColour	Multicolor\r\nItem Weight	5000 Grams\r\nSpecial Feature	Easy To Clean\r\nUse for	Hands, Back',1700.00,48,1599.00,1,1);
+INSERT INTO `products` VALUES (57,3,'IRIS Fitness 24 kgs Adjustable Dumbbell with Fast Adjustable Weight Plates for Body Workout Home Gym','products/d43.jpg','products/d42.jpg','products/d42.jpg','','\r\nBrand	IRIS\r\nColour	Black, Red\r\nItem Weight	24 Kilograms\r\nMaterial	Metal, Rubber\r\nSpecial Feature	Adjustable Weight',7000.00,48,5999.00,1,1);
 INSERT INTO `products` VALUES (127,1,'Godrej 7.5 Kg 5 Star Zero Pressure Technology Fully-Automatic Top Load Washing Machine Appliance (WT','products/lg51.jpg','products/lg52.jpg','products/lg53.jpg','','Product Dimensions	56.5D x 56.5W x 97H Centimeters\r\nBrand	Godrej\r\nCapacity	7.5 Kilograms\r\nSpecial Feature	Curved end to end tinted Toughened glass, Water Protected Rear control Panel, Soft Shut, Flip Lid Detergent Drawer, Upto 26 Customiseable wash programs, Hygiene Rinse, Super dry, Zero Pressure Technology,Metallic Cabinet, Tub Clean, 5 Star Energy RatingCurved end to end tinted Toughened glass, Water Protected Rear control Panel, Soft Shut, Flip Lid Detergent Drawer, Upto 26 Customiseable wash programs, Hygiene Rinse, Super dry',19999.00,100,18999.00,3,11);
 INSERT INTO `products` VALUES (59,2,'Durafit Panther Multifunction | 5.5 HP Peak DC Motorized Foldable Treadmill | Auto Incline | Home us','products/q1.jpg','products/q11.jpg','products/q12.jpg','','\r\nBrand	Durafit - Sturdy, Stable and Strong\r\nColour	Black\r\nProduct Dimensions	172D x 77W x 125H Centimeters\r\nItem Weight	81 Kilograms\r\nMaterial	Alloy Steel',45000.00,50,43999.00,1,2);
 INSERT INTO `products` VALUES (60,2,'Durafit Spark Treadmill Series 2.0 HP Peak DC Motorized Max Speed 10 Km/Hr Max User Weight 100 Home ','products/q2.jpg','products/q21.jpg','','','\r\nBrand	Durafit - Sturdy, Stable and Strong\r\nColour	black\r\nProduct Dimensions	121D x 95W x 53H Centimeters\r\nMaterial	Alloy Steel\r\nSpecial Feature	Compact Design',14999.00,50,13999.00,1,2);

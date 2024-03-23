@@ -114,6 +114,7 @@ $html_bill .= "<table>
 foreach ($order_items as $item) {
 // Fetch product details for each item
 $product_id = $item['product_id'];
+$quantity = $item['quantity'];
 $product_query = "SELECT product_id, name, price FROM products WHERE product_id = '$product_id'";
 $product_result = $conn->query($product_query);
 $product_row = $product_result->fetch_assoc();
@@ -123,6 +124,10 @@ $product_price = $product_row['price'];
 $quantity = $item['quantity'];
 $total = $product_price * $quantity;
 
+$update_stock_query = "UPDATE products SET stock_quantity = stock_quantity - $quantity WHERE product_id = '$product_id'";
+if (!$conn->query($update_stock_query)) {
+    throw new Exception("Error updating stock quantity for product with ID $product_id");
+}
 // Add item details to HTML bill
 $html_bill .= "<tr>
     <td>$product_id</td>

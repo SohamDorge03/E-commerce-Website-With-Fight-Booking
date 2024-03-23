@@ -46,7 +46,7 @@ echo '
 
     // Fetch orders with product details for the specified user ID in descending order of order date
     $sql_orders_products = "SELECT o.order_id, o.user_id, u.username AS user_name, u.email, u.address, o.order_date, o.status, o.payment_method, o.payment_status, o.transaction_id, o.total_amount,
-                            GROUP_CONCAT(CONCAT(oi.product_id, ':', p.name, ':', oi.quantity, ':$', FORMAT(p.price, 2), ':$', FORMAT(oi.quantity * p.price, 2)) SEPARATOR '<br>') AS product_details
+                            GROUP_CONCAT(CONCAT(oi.product_id, ':', p.name, ':', oi.quantity, ':', FORMAT(p.price, 2), ':', FORMAT(oi.quantity * p.price, 2)) SEPARATOR '<br>') AS product_details
                             FROM orders o
                             INNER JOIN order_items oi ON o.order_id = oi.order_id
                             INNER JOIN products p ON oi.product_id = p.product_id
@@ -73,7 +73,7 @@ echo '
                 echo "<td>" . $row['payment_method'] . "</td>";
                 echo "<td>" . $row['payment_status'] . "</td>";
                 echo "<td>" . $row['transaction_id'] . "</td>";
-                echo "<td>$" . number_format($row['total_amount'], 2) . "</td>";
+                echo "<td>" . number_format($row['total_amount'], 2) . "</td>";
                 echo "<td>";
 
                 // Display product details in a dialog box
