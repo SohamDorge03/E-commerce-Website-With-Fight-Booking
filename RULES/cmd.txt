@@ -99,9 +99,14 @@ CREATE TABLE `booked_flights` (
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `booked_flights` VALUES (37,7,18,1,NULL,NULL,'ch_3Ox2DMDwlRClWlNg0vyK20DE','1200',NULL,'success','2024-03-22 12:38:11');
+INSERT INTO `booked_flights` VALUES (38,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','2024-03-24 10:21:11');
+INSERT INTO `booked_flights` VALUES (39,9,16,1,NULL,NULL,'ch_3Oxj2GDwlRClWlNg1EhaTRHY','12000',NULL,'success','2024-03-24 10:21:28');
+INSERT INTO `booked_flights` VALUES (40,9,16,1,NULL,NULL,'ch_3Oxj4ODwlRClWlNg21giR9lz','12000',NULL,'success','2024-03-24 10:23:48');
+INSERT INTO `booked_flights` VALUES (41,9,16,1,NULL,NULL,'ch_3OxjFdDwlRClWlNg0mz03AET','12000',NULL,'success','2024-03-24 10:35:24');
+INSERT INTO `booked_flights` VALUES (42,9,16,1,NULL,NULL,'ch_3OxjHzDwlRClWlNg1dyo48Ky','12000',NULL,'success','2024-03-24 10:37:46');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -112,8 +117,9 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `cart` VALUES (62,16,4,5);
 INSERT INTO `cart` VALUES (43,10,23,2);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -191,7 +197,7 @@ CREATE TABLE `flights` (
   KEY `fk_airline_id` (`airline_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `flights` VALUES (9,'128431','2024-03-21','11:00:00','2024-03-22','01:45:00',15,13,14,'Economy',12000.00,1);
+INSERT INTO `flights` VALUES (9,'128431','2024-03-25','11:00:00','2024-03-22','01:45:00',15,13,14,'Economy',12000.00,1);
 INSERT INTO `flights` VALUES (7,'12322','2024-03-28','15:17:00','2024-03-29','16:17:00',14,18,12,'Economy',1200.00,3);
 INSERT INTO `flights` VALUES (5,'56436','2024-03-21','18:00:00','2024-03-21','21:00:00',15,13,70,'Economy',40000.00,3);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -204,7 +210,7 @@ CREATE TABLE `order_items` (
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `order_items` VALUES (1,3,26,2);
 INSERT INTO `order_items` VALUES (2,4,22,9);
@@ -234,6 +240,7 @@ INSERT INTO `order_items` VALUES (25,16,55,1);
 INSERT INTO `order_items` VALUES (26,17,57,1);
 INSERT INTO `order_items` VALUES (27,18,55,1);
 INSERT INTO `order_items` VALUES (28,19,57,2);
+INSERT INTO `order_items` VALUES (29,20,66,1);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
@@ -247,7 +254,7 @@ CREATE TABLE `orders` (
   `total_amount` decimal(10,2) NOT NULL,
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `orders` VALUES (1,5,'2024-03-08 10:57:23','Shipped','gpay','1','12333',5000.00);
 INSERT INTO `orders` VALUES (2,6,'2024-03-08 15:49:36','Pending','gpay','1','553535',5000.00);
@@ -268,6 +275,7 @@ INSERT INTO `orders` VALUES (16,16,'2024-03-23 12:27:57','Pending','Stripe','1',
 INSERT INTO `orders` VALUES (17,16,'2024-03-23 12:29:18','Pending','Stripe','Paid','tok_1OxThIDwlRClWlNgiH0y4210',7000.00);
 INSERT INTO `orders` VALUES (18,16,'2024-03-23 12:40:19','Pending','Stripe','Paid','tok_1OxTrxDwlRClWlNgfmtBHC3n',1700.00);
 INSERT INTO `orders` VALUES (19,16,'2024-03-23 12:58:12','Pending','Stripe','Paid','tok_1OxU9FDwlRClWlNgNP7yR6Ic',14000.00);
+INSERT INTO `orders` VALUES (20,16,'2024-03-23 13:11:03','Pending','Stripe','Paid','tok_1OxULhDwlRClWlNgoNh2ttGB',550.00);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passenger` (
@@ -282,8 +290,13 @@ CREATE TABLE `passenger` (
   `booking_id` int DEFAULT NULL,
   PRIMARY KEY (`passenger_id`),
   KEY `booking_id` (`booking_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `passenger` VALUES (58,'shruti',23,'2001-02-02','Male',NULL,NULL,NULL,42);
+INSERT INTO `passenger` VALUES (57,'vishal saw',1,'2023-03-04','Male',NULL,NULL,NULL,41);
+INSERT INTO `passenger` VALUES (56,'shruti',21,'2002-11-12','Male',NULL,NULL,NULL,40);
+INSERT INTO `passenger` VALUES (55,'vishal saw',20,'2003-11-12','Male',NULL,NULL,NULL,39);
+INSERT INTO `passenger` VALUES (54,'vishal saw',2021,'0002-11-12','Male',NULL,NULL,NULL,38);
 INSERT INTO `passenger` VALUES (45,'vishal saw',20,'2003-11-12','Male',NULL,NULL,NULL,27);
 INSERT INTO `passenger` VALUES (46,'vishal saw',20,'2003-11-12','Male',NULL,NULL,NULL,28);
 INSERT INTO `passenger` VALUES (47,'vishal saw',20,'2003-11-12','Male',NULL,NULL,NULL,29);
@@ -364,7 +377,7 @@ INSERT INTO `products` VALUES (61,4,'PowerMax Fitness TDM-98 (4.0HP Peak) Motori
 INSERT INTO `products` VALUES (62,4,'PowerMax Fitness MFT-410 Non-electric Manual Treadmill Foldable, Multifunction (Jogger, Stepper, Twi','products/q4.jpg','products/q41.jpg','products/q42.jpg','','\r\nBrand	PowerMax Fitness\r\nItem Weight	40000 Grams\r\nColour	White\r\nMaterial	Alloy Steel\r\nProduct Dimensions	121D x 62W x 140H Centimeters',25000.00,40,23999.00,1,2);
 INSERT INTO `products` VALUES (63,2,'PowerMax Fitness TDM-100M (4HP Peak) Multi-Function Treadmill For Home Use With Massager |treadmill ','products/q51.jpg','products/q5.jpg','products/q52.jpg','','Brand	PowerMax Fitness\r\nItem Weight	56 Kilograms\r\nColour	Black\r\nMaterial	Stainless Steel\r\nProduct Dimensions	162D x 70W x 120H Centimeters',18000.00,50,16999.00,1,2);
 INSERT INTO `products` VALUES (64,1,'Boldfit Skipping Rope For Men & Women Adjustable Jumping Rope For Men Gym Rope/Exercise Rope For Men','products/r1.jpg','products/r2.jpg','','','Brand	Boldfit\r\nTarget Audience	All\r\nSpecial Feature	Adjustable Length\r\nRecommended Uses For Product	Exercise and Fitness\r\nMaterial	Polyvinyl Chlorine (PVC)',499.00,100,399.00,1,3);
-INSERT INTO `products` VALUES (66,3,'Boldfit Aluminium Skipping Rope for Men and Women Jumping Rope With Adjustable Height Speed Skipping','products/r3.jpg','products/r31.jpg','products/r32.jpg','','Brand	Boldfit\r\nTarget Audience	Men\r\nSpecial Feature	Lightweight, Adjustable Length\r\nMaterial	Aluminium\r\nHandle Material	Aluminium',550.00,200,499.00,1,3);
+INSERT INTO `products` VALUES (66,3,'Boldfit Aluminium Skipping Rope for Men and Women Jumping Rope With Adjustable Height Speed Skipping','products/r3.jpg','products/r31.jpg','products/r32.jpg','','Brand	Boldfit\r\nTarget Audience	Men\r\nSpecial Feature	Lightweight, Adjustable Length\r\nMaterial	Aluminium\r\nHandle Material	Aluminium',550.00,199,499.00,1,3);
 INSERT INTO `products` VALUES (67,3,'Boldfit Plastic Skipping Rope For Men And Women Jumping Rope With Adjustable Height Speed Skipping R','products/r4.jpg','products/r42.jpg','products/r41.jpg','','\r\nBrand	Boldfit\r\nTarget Audience	Kid, Adult\r\nSpecial Feature	Lightweight, Adjustable Length\r\nMaterial	Plastic\r\nHandle Material	Plastic',299.00,100,199.00,1,3);
 INSERT INTO `products` VALUES (68,2,'HaloHop Skipping Rope with Calorie Counter, Cordless Weighted Skipping Jump Rope with Counter for Ex','products/r5.jpg','products/r51.jpg','','','\r\nBrand	Halohop\r\nTarget Audience	Adult\r\nSpecial Feature	Cordless, Slip Res, Adjustable Length\r\nMaterial	Polyvinyl Chlorine (PVC)\r\nHandle Material	ABS + TPE\r\n ',999.00,799,899.00,1,3);
 INSERT INTO `products` VALUES (70,2,'Xfopz Smart Jump Rope, Digital Weighted Handle Workout Jumping Rope with Counter, Cordless Weighted ','products/r62.jpg','products/r61.jpg','','','Brand	Xfopz\r\nTarget Audience	Adult\r\nSpecial Feature	Ergonomic, Cordless, Adjustable Length\r\nMaterial	Acrylonitrile Butadiene Styrene (ABS)\r\nHandle Material	Silicone',799.00,150,599.00,1,3);
