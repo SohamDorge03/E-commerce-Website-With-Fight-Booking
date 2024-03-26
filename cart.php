@@ -17,7 +17,7 @@ if (!isset($_SESSION['u'])) {
     echo '</div>';
     echo '</div>';
     echo '</div>';
-    exit(); // Exit the script if user is not logged in
+    exit(); 
 }
 
 // Fetch cart items for the current user
@@ -50,7 +50,7 @@ if ($result === false) {
                 <h2 class="">Cart</h2>
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-lg table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">Product</th>
