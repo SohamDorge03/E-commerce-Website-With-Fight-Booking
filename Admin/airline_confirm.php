@@ -95,7 +95,7 @@ if (!$result) {
     <h2>Admin Confirmation</h2>
     <table class="table">
         <thead>
-        <tr style="background-color:5f1e30; color:wheat;">
+        <tr style="background-color:#5f1e30; color:wheat;">
             <th>Request ID</th>
             <th>Airline Name</th>
             <th>Contact Email</th>

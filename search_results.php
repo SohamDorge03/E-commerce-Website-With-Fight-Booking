@@ -91,17 +91,26 @@ if (isset($_POST['searchFlights'])) {
 
                 echo "<div>";
                 echo "<p class='card-text'> " . $row["price"] . "</p>";
+                
+                // Retrieve available seats
+                $flightID = $row['flight_id'];
+                $bookedQuery = "SELECT SUM(take_seats) as total_booked_seats FROM booked_flights WHERE flight_id = $flightID AND payment_status = 'success'";
+                $bookedResult = $conn->query($bookedQuery);
+                $bookedSeats = $bookedResult->fetch_assoc()['total_booked_seats'];
+                
+
                 $totalAmount = $row["price"] * $passengers;
                 echo "<p class='card-text'>Total Amount: " . $totalAmount . "</p>";
-                if ($row["seats"] > 0) {
-                    echo "<div class='flight-seats text-success'>Only " . $row["seats"] . " seat(s) left</div>"; 
+                $availableSeats = $row['seats'] - $bookedSeats;
+                echo "<p class='text-success'>Only: " . $availableSeats ." seat(s) left </p>";
+                
+                if ($availableSeats > 0) {
+                    echo "</div>";
+                    echo "<a href='booking_form.php?flight_id=" . $row['flight_id'] . "&passengers=" . $passengers . "' class='btn btn-primary'>Book Now</a>";
+                } else {
+                    echo "<p class='text-danger'>No seats available</p>";
                 }
                 echo "</div>";
-                echo "<a href='booking_form.php?flight_id=" . $row['flight_id'] . "&passengers=" . $passengers . "' class='btn btn-primary'>Book Now</a>";
-                // Styling the button using Bootstrap
-               
-                echo "</div>";
-
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";

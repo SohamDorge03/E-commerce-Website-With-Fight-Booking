@@ -1,39 +1,94 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
 
 ?>
 <style>
-.container{
-    margin-top: 70px !important;
-    margin-left: 20px !important;
-    font-family:'poppins';
-}
-.table-header {
+    .container {
+        margin-top: 70px !important;
+        margin-left: 20px !important;
+        font-family: 'poppins';
+    }
+
+    .table-header {
         background-color: 5f1e30;
         color: wheat;
 
     }
 </style>
 <?php
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 include("include/connection.php");
 include('include/navbar.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
     $order_id = $_POST["order_id"];
     $new_status = $_POST["status"];
-    
+
     $update_status_query = "UPDATE orders SET status = '$new_status' WHERE order_id = $order_id";
     $update_status_result = $conn->query($update_status_query);
 
     if ($update_status_result) {
         echo "<script>alert('Order status updated successfully!');</script>";
+
+        // Call sendEmail function after updating order status to "Shipped"
+        if ($new_status === "Shipped") {
+            $customer_email_query = "SELECT email FROM orders WHERE order_id = $order_id";
+            $customer_email_result = $conn->query($customer_email_query);
+            if ($customer_email_result->num_rows > 0) {
+                $customer_email_row = $customer_email_result->fetch_assoc();
+                $customer_email = $customer_email_row['email'];
+                sendEmail($customer_email);
+            }
+        }
     } else {
         echo "<script>alert('Failed to update order status.');</script>";
+    }
+}
+
+// Function to send email notification to the customer
+function sendEmail($customerEmail)
+{
+    $mail = new PHPMailer(true); // Passing `true` enables exceptions
+
+    try {
+        // Server settings
+        $mail->isSMTP(); // Set mailer to use SMTP
+        $mail->Host = 'smtp.example.com'; // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true; // Enable SMTP authentication
+        $mail->Username = 'shopflix420@gmail.com'; // SMTP username
+        $mail->Password = 'vabjcndouidetrnt'; // SMTP password
+        $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587; // TCP port to connect to
+
+        // Sender
+        $mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX');
+
+        // Recipient
+        $mail->addAddress($customerEmail); // Add a recipient
+
+        // Content
+        $mail->isHTML(true); // Set email format to HTML
+        $mail->Subject = 'Your Order has been Shipped!';
+        $mail->Body    = 'Dear Customer,<br><br>Your order has been successfully shipped. Thank you for shopping with us!<br><br>Regards,<br>The Admin Team';
+        $mail->AltBody = 'Your order has been successfully shipped. Thank you for shopping with us!';
+
+        // Send email
+        $mail->send();
+        echo "<script>alert('Email notification sent to the customer.');</script>";
+    } catch (Exception $e) {
+        echo "<script>alert('Failed to send email notification.');</script>";
+        echo "Mailer Error: {$mail->ErrorInfo}";
     }
 }
 
@@ -71,7 +126,7 @@ if ($result_orders_products) {
             echo "<td>" . $row['address'] . "</td>";
             echo "<td>" . $row['order_date'] . "</td>";
             echo "<td>";
-            echo "<form method='POST' action=''>";  
+            echo "<form method='POST' action=''>";
             echo "<input type='hidden' name='order_id' value='" . $row['order_id'] . "'>";
             echo "<select name='status' class='form-control'>";
             echo "<option value='Processing'" . ($row['status'] == 'Processing' ? ' selected' : '') . ">Processing</option>";
@@ -86,10 +141,10 @@ if ($result_orders_products) {
             echo "<td>" . $row['transaction_id'] . "</td>";
             echo "<td>" . number_format($row['total_amount'], 2) . "</td>";
             echo "<td>";
-            
+
             // View Product Details Button (opens modal)
             echo "<button class='btn btn-info btn-sm' data-toggle='modal' data-target='#productDetailsModal" . $row['order_id'] . "'>View Details</button>";
-            
+
             // Product Details Modal
             echo "<div class='modal fade' id='productDetailsModal" . $row['order_id'] . "' tabindex='0' role='dialog' aria-labelledby='productDetailsModalLabel' aria-hidden='true'>";
             echo "<div class='modal-dialog modal-lg' role='document'>";
@@ -101,10 +156,11 @@ if ($result_orders_products) {
             echo "</button>";
             echo "</div>";
             echo "<div class='modal-body'>";
-            
+
             // Product Details Table in Modal
             echo "<table class='table table-bordered'>";
             echo "<thead><tr><th>Product ID</th><th>Product Name</th><th>Quantity</th><th>Product Price</th><th>Total Price</th></tr></thead>";
+
             echo "<tbody>";
             $product_details = explode("<br>", $row['product_details']);
             foreach ($product_details as $product) {
@@ -119,7 +175,7 @@ if ($result_orders_products) {
             }
             echo "</tbody>";
             echo "</table>";
-            
+
             echo "</div>";
             echo "<div class='modal-footer'>";
             echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
@@ -127,9 +183,9 @@ if ($result_orders_products) {
             echo "</div>";
             echo "</div>";
             echo "</div>";
-            
+
             echo "</td>";
-            
+
             echo "</tr>";
         }
     } else {
@@ -146,6 +202,7 @@ echo "</div>";
 // Close connection
 $conn->close();
 ?>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 

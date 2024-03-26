@@ -161,7 +161,7 @@ if ($vendorResult === false) {
                             
                             echo "<td>" . $row["address"] . "</td>";
                            
-                            echo "<td>" . $row["Status"] . "</td>";
+                            echo "<td>" . $row["confirmed_vendor"] . "</td>";
                             echo "<td>
                             <button class='btn btn-success btn-sm' onclick='confirmVendor(" . $row["vendor_id"] . ")'>Confirm</button>
                             <button class='btn btn-danger btn-sm' onclick='deleteVendor(" . $row["vendor_id"] . ")'>Delete</button>

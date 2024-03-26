@@ -16,15 +16,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Invalid CAPTCHA, please try again.";
         } else {
             // CAPTCHA verification succeeded, proceed with login validation
-            $sql = "SELECT vendor_id FROM vendors WHERE email = '$email' AND password = '$password'";
-            $result = mysqli_query($conn, $sql);
+            $sql = "SELECT * FROM vendors WHERE email = '$email' AND password = '$password'";
+            $result = $conn->query($sql);
 
-            if ($result && mysqli_num_rows($result) == 1) {
-                $row = mysqli_fetch_assoc($result);
-                $vendor_id = $row['vendor_id'];
-                $_SESSION['vendor_id'] = $vendor_id;
-                header("Location: d.php");
-                exit();
+            if ($result && $result->num_rows == 1) {
+                $row = $result->fetch_assoc();
+                if ($row['confirmed_vendor'] == 1) {
+                    $_SESSION['vendor_id'] = $row['vendor_id'];
+                    header("Location: d.php");
+                    exit();
+                } else {
+                    $error = "Your account has not been confirmed yet. Please wait for confirmation.";
+                }
             } else {
                 // Invalid email or password
                 $error = "Invalid email or password. Please try again.";
