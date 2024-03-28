@@ -1,12 +1,15 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['email'])) {
+if(!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
 
 ?>
+
+
+
 <style>
     .container {
         margin-top: 70px !important;
@@ -17,7 +20,6 @@ if (!isset($_SESSION['email'])) {
     .table-header {
         background-color: 5f1e30;
         color: wheat;
-
     }
 </style>
 <?php
@@ -43,55 +45,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
 
         // Call sendEmail function after updating order status to "Shipped"
         if ($new_status === "Shipped") {
-            $customer_email_query = "SELECT email FROM orders WHERE order_id = $order_id";
+            $customer_email_query = "SELECT email FROM users WHERE user_id IN (SELECT user_id FROM orders WHERE order_id = $order_id)";
             $customer_email_result = $conn->query($customer_email_query);
             if ($customer_email_result->num_rows > 0) {
                 $customer_email_row = $customer_email_result->fetch_assoc();
                 $customer_email = $customer_email_row['email'];
-                sendEmail($customer_email);
+                
+                
+            
+                // Send confirmation email
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'shopflix420@gmail.com';
+                $mail->Password   = 'vabjcndouidetrnt';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port       = 587;
+                $mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX');
+                $mail->addAddress($customer_email, 'User');
+                $mail->isHTML(true);
+                $mail->Subject = 'Your Order has been Shipped!';
+                $mail->Body    = 'Dear Customer,<br><br>Your order has been successfully shipped. Thank you for shopping with us!<br><br>Regards,<br>The Admin Team';
+                $mail->AltBody = 'Your order has been successfully shipped. Thank you for shopping with us!';
+            
+                // Send email
+                try {
+                    $mail->send();
+                    echo "<script>alert('Order Shipped Successfully.');</script>";
+                } catch (Exception $e) {
+                    // Display error message if sending fails
+                    echo "<script>alert('Order Shipped Successfully, but there was an error sending the confirmation email: {$mail->ErrorInfo}');</script>";
+                }
+             
             }
         }
     } else {
         echo "<script>alert('Failed to update order status.');</script>";
     }
 }
-
-// Function to send email notification to the customer
-function sendEmail($customerEmail)
-{
-    $mail = new PHPMailer(true); // Passing `true` enables exceptions
-
-    try {
-        // Server settings
-        $mail->isSMTP(); // Set mailer to use SMTP
-        $mail->Host = 'smtp.example.com'; // Specify main and backup SMTP servers
-        $mail->SMTPAuth = true; // Enable SMTP authentication
-        $mail->Username = 'shopflix420@gmail.com'; // SMTP username
-        $mail->Password = 'vabjcndouidetrnt'; // SMTP password
-        $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 587; // TCP port to connect to
-
-        // Sender
-        $mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX');
-
-        // Recipient
-        $mail->addAddress($customerEmail); // Add a recipient
-
-        // Content
-        $mail->isHTML(true); // Set email format to HTML
-        $mail->Subject = 'Your Order has been Shipped!';
-        $mail->Body    = 'Dear Customer,<br><br>Your order has been successfully shipped. Thank you for shopping with us!<br><br>Regards,<br>The Admin Team';
-        $mail->AltBody = 'Your order has been successfully shipped. Thank you for shopping with us!';
-
-        // Send email
-        $mail->send();
-        echo "<script>alert('Email notification sent to the customer.');</script>";
-    } catch (Exception $e) {
-        echo "<script>alert('Failed to send email notification.');</script>";
-        echo "Mailer Error: {$mail->ErrorInfo}";
-    }
-}
-
+ 
+    
+      
 echo "<div class='container mt-5'>";
 echo "<h2>Orders with Product Details</h2>";
 echo "<table class='table table-bordered'>";

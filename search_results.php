@@ -60,83 +60,111 @@ if (isset($_POST['searchFlights'])) {
         // Display search results or a message if no flights found
         if ($searchResult->num_rows > 0) {
             // Display search results
-            echo "<div class='container'>";
-            echo "<h2 class='text-center mb-4'>Search Results</h2>";
-            echo "<div class='row'>";
-            while ($row = $searchResult->fetch_assoc()) {
-                echo "<div class='col-md-12'>";
-                echo "<div class='shadow p-3 mb-5 bg-white rounded'>";
-                echo "<div class='card-body d-flex justify-content-between align-items-center '>";
+            ?>
+            <div class='container'>
+                <h2 class='text-center mb-4'>Search Results</h2>
+                <?php
+                while ($row = $searchResult->fetch_assoc()) {
+                    ?>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <div class='shadow p-3 mb-5 bg-white rounded flight-card'>
+                                <div class='card-body d-flex justify-content-between align-items-center'>
+                                    <!-- Card content -->
+                                    <div>
+                                        <img src='./admin<?php echo $row["logo"]; ?>' class='img-fluid' alt='Airline Logo' width='50' height='50'>
+                                        <p class='card-text mt-2'><?php echo $row["airline_name"]; ?></p>
+                                        <h6 class='card-title'><?php echo $row["flight_code"]; ?></h6>
+                                    </div>
+                                    <div>
+                                        <?php
+                                 // Fetch departure and arrival dates and times
+$departureDateTime = strtotime($row["source_date"] . ' ' . $row["source_time"]);
+$arrivalDateTime = strtotime($row["dest_date"] . ' ' . $row["dest_time"]);
 
-                echo "<div class='1'>";
-                echo "<img src='./admin" . $row["logo"] . "' class='img-fluid' alt='Airline Logo' width='50' height='50'>";
-                echo "<p class='card-text mt-2'>" . $row["airline_name"] . "</p>";
-                echo "<h6 class='card-title '>" . $row["flight_code"] . "</h6>";
-                echo "</div>";
-                echo "<div>";
-                $departureTime = strtotime($row["source_time"]);
-                $arrivalTime = strtotime($row["dest_time"]);
-                $duration = round(($arrivalTime - $departureTime) / 3600, 2); // Convert seconds to hours and round to two decimal places
-                echo "<p class='card-text'>Duration: " . $duration . " hours</p>";
-                echo "</div>";
-                echo "<div class='2'>";
-                echo "<p class='card-text'> " . $fromCity . "</p>";
-                echo "<p class='card-text'> " . $row["source_time"] . "</p>";
-                echo "</div>";
+// Calculate duration in seconds
+$durationInSeconds = $arrivalDateTime - $departureDateTime;
 
-                echo "<div>";
-                echo "<p class='card-text'> " . $toCity . "</p>";
-                echo "<p class='card-text'> " . $row["dest_time"] . "</p>";
-                echo "</div>";
+// Calculate duration in hours and minutes
+$hours = floor($durationInSeconds / 3600);
+$minutes = floor(($durationInSeconds % 3600) / 60);
 
-                echo "<div>";
-                echo "<p class='card-text'> " . $row["price"] . "</p>";
-                
-                // Retrieve available seats
-                $flightID = $row['flight_id'];
-                $bookedQuery = "SELECT SUM(take_seats) as total_booked_seats FROM booked_flights WHERE flight_id = $flightID AND payment_status = 'success'";
-                $bookedResult = $conn->query($bookedQuery);
-                $bookedSeats = $bookedResult->fetch_assoc()['total_booked_seats'];
-                
-
-                $totalAmount = $row["price"] * $passengers;
-                echo "<p class='card-text'>Total Amount: " . $totalAmount . "</p>";
-                $availableSeats = $row['seats'] - $bookedSeats;
-                echo "<p class='text-success'>Only: " . $availableSeats ." seat(s) left </p>";
-                
-                if ($availableSeats > 0) {
-                    echo "</div>";
-                    echo "<a href='booking_form.php?flight_id=" . $row['flight_id'] . "&passengers=" . $passengers . "' class='btn btn-primary'>Book Now</a>";
-                } else {
-                    echo "<p class='text-danger'>No seats available</p>";
+// Format the duration
+$duration = sprintf('%02d:%02d', $hours, $minutes);
+ // Convert seconds to hours and round to two decimal places
+                                        ?>
+                                        <p class='card-text'>Duration: <?php echo $duration; ?> hours</p>
+                                    </div>
+                                    <div>
+                                        <p class='card-text'><?php echo $fromCity; ?></p>
+                                        <p class='card-text'><?php echo $row["source_time"]; ?></p>
+                                    </div>
+                                    <div>
+                                        <p class='card-text'><?php echo $toCity; ?></p>
+                                        <p class='card-text'><?php echo $row["dest_time"]; ?></p>
+                                    </div>
+                                    <div>
+                                        <p class='card-text'><?php echo $row["price"]; ?></p>
+                                        <?php
+                                        // Retrieve available seats
+                                        $flightID = $row['flight_id'];
+                                        $bookedQuery = "SELECT SUM(take_seats) as total_booked_seats FROM booked_flights WHERE flight_id = $flightID AND payment_status = 'success'";
+                                        $bookedResult = $conn->query($bookedQuery);
+                                        $bookedSeats = $bookedResult->fetch_assoc()['total_booked_seats'];
+                                        $totalAmount = $row["price"] * $passengers;
+                                        $availableSeats = $row['seats'] - $bookedSeats;
+                                        ?>
+                                        <p class='card-text'>Total Amount: <?php echo $totalAmount; ?></p>
+                                        <p class='text-success'>Only: <?php echo $availableSeats; ?> seat(s) left</p>
+                                        <?php
+                                        if ($availableSeats > 0) {
+                                            // echo "</div>";
+                                            ?>
+                                           
+                                        <a href='booking_form.php?flight_id=<?php echo $row['flight_id']; ?>&passengers=<?php echo $passengers; ?>&airline_id=<?php echo $row["airline_id"]; ?>' class='btn btn-primary'>Book Now</a>
+                                            
+                                        <?php
+                                        
+                                        } 
+                                        
+                                        else {
+                                            ?>
+                                            <p class='text-danger'>No seats available</p>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
                 }
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
-               
-            }
-            echo "</div>";
-            
-            echo "</div>";
-           
+                ?>
+            </div>
+            <?php
         } else {
             // No flights found
-            echo "<div class='container'>";
-            echo "<h2 class='text-center mb-4'>No Flights Found</h2>";
-            echo "</div>";
+            ?>
+            <div class='container'>
+                <h2 class='text-center mb-4'>No Flights Found</h2>
+            </div>
+            <?php
         }
     } else {
         // Airport IDs not found
-        echo "<div class='container'>";
-        echo "<h2 class='text-center mb-4'>Invalid Airport Selection</h2>";
-        echo "</div>";
+        ?>
+        <div class='container'>
+            <h2 class='text-center mb-4'>Invalid Airport Selection</h2>
+        </div>
+        <?php
     }
 }
 
 // Close the database connection
 $conn->close();
 ?>
+
 <?php
 include("./include/footer.php");
 ?>

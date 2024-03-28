@@ -1,58 +1,137 @@
 <?php
-// Include the database connection file
+// Include necessary files
+require("./config.php");
 include("./include/connection.php");
+include("./include/navbar.php");
+?>
 
-// Query to fetch data from multiple tables
-$sql = "SELECT 
-            p.name,
-            p.age,
-            p.dob,
-            p.gender,
-            bf.total_amount,
-            bf.take_seats ,
-            bf.flight_class,
-            a.airline_name,
-            f.flight_code,
-            f.source_time,
-            f.source_date
-        FROM passenger p
-        INNER JOIN booked_flights bf ON p.booking_id = bf.booking_id
-        INNER JOIN airlines a ON bf.airline_id = a.airline_id
-        INNER JOIN flights f ON bf.flight_id = f.flight_id";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
 
-$result = $conn->query($sql);
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
 
-if ($result === false) {
-    // Handle query error
-    echo "Error: " . $conn->error;
-} elseif ($result->num_rows > 0) {
-    // Display fetched data in card format
-    while ($row = $result->fetch_assoc()) {
-        ?>
-        <div class="card mb-3">
-            <div class="card-header">
-                Passenger: <?php echo $row['name']; ?>
-            </div>
-            <div class="card-body">
-                <p>Age: <?php echo $row['age']; ?></p>
-                <p>Date of Birth: <?php echo $row['dob']; ?></p>
-                <p>Gender: <?php echo $row['gender']; ?></p>
-                <p>Total Amount: <?php echo $row['total_amount']; ?></p>
-                <p>Take Seat: <?php echo $row['take_seats']; ?></p>
-                <p>Flight Class: <?php echo $row['flight_class']; ?></p>
-                <p>Airline: <?php echo $row['airline_name']; ?></p>
-                <p>Flight Code: <?php echo $row['flight_code']; ?></p>
-                <p>Source Time: <?php echo $row['source_time']; ?></p>
-                <p>Source Date: <?php echo $row['source_date']; ?></p>
-            </div>
-        </div>
-        <?php
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .list-group-item {
+            background-color: transparent;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<?php
+// Check if booking_id is set in the URL
+if(isset($_GET['booking_id'])) {
+    $booking_id = $_GET['booking_id'];
+
+    // Prepare SQL query to fetch booking details with additional fields
+    $booking_query = "SELECT bf.booking_id, bf.take_seats, bf.booked_date,  
+                            p.name AS passenger_name, 
+                            f.flight_code, 
+                            a.airline_name,
+                            a1.airport_name AS source_airport,
+                            a2.airport_name AS destination_airport,
+                            f.source_date,
+                            f.source_time,
+                            p.seatno,
+                            p.gateno
+                    FROM booked_flights bf
+                    JOIN passenger p ON bf.booking_id = p.booking_id
+                    JOIN flights f ON bf.flight_id = f.flight_id
+                    JOIN airlines a ON f.airline_id = a.airline_id
+                    JOIN airports a1 ON f.dep_airport_id = a1.airport_id
+                    JOIN airports a2 ON f.arr_airport_id = a2.airport_id
+                    WHERE bf.booking_id = $booking_id";
+
+    $result = mysqli_query($conn, $booking_query);
+
+    if(mysqli_num_rows($result) > 0) {
+        // Booking details found, display them
+        $booking_data = mysqli_fetch_assoc($result);
+
+        // Display booking details here
+        echo "<div class='container'>
+                <div class='row justify-content-center'>
+                    <div class='col-md-8'>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <h2 class='card-title text-center'>Booking Details</h2>
+                                <ul class='list-group list-group-flush'>
+                                    
+                                    <li class='list-group-item'><strong>Passenger Name:</strong> ".$booking_data['passenger_name']."</li>
+                                    <li class='list-group-item'><strong>Flight:</strong> ".$booking_data['flight_code']."</li>
+                                    <li class='list-group-item'><strong>Airline Name:</strong> ".$booking_data['airline_name']."</li>
+                                    <li class='list-group-item'><strong>From:</strong> ".$booking_data['source_airport']."</li>
+                                    <li class='list-group-item'><strong>To:</strong> ".$booking_data['destination_airport']."</li>
+                                    <li class='list-group-item'><strong> Date:</strong> ".$booking_data['source_date']."</li>
+                                    <li class='list-group-item'><strong>Time:</strong> ".$booking_data['source_time']."</li>
+                                    <li class='list-group-item'><strong>Seats Booked:</strong> ".$booking_data['take_seats']."</li>
+                                    <li class='list-group-item'><strong>Seat Number:</strong> ".$booking_data['seatno']."</li>
+                                    <li class='list-group-item'><strong>Gate Number:</strong> ".$booking_data['gateno']."</li>
+                                    <li class='list-group-item'><strong>Booked Date:</strong> ".$booking_data['booked_date']."</li>
+                                </ul>
+                                <div class='text-center mt-3'>
+                                    <a href='ticket_pdf.php?booking_id=".$booking_data['booking_id']."' class='btn btn-primary'>Generate PDF</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+    } else {
+        // No booking found for the given booking_id
+        echo "<div class='container mt-5'>
+                <div class='row justify-content-center'>
+                    <div class='col-md-6'>
+                        <div class='alert alert-danger text-center' role='alert'>
+                            No booking found for the provided booking ID.
+                        </div>
+                    </div>
+                </div>
+            </div>";
     }
 } else {
-    // No results found
-    echo "No passengers found";
+    // Booking ID not provided in the URL
+    echo "<div class='container mt-5'>
+            <div class='row justify-content-center'>
+                <div class='col-md-6'>
+                    <div class='alert alert-danger text-center' role='alert'>
+                        Booking ID not provided.
+                    </div>
+                </div>
+            </div>
+        </div>";
 }
-
-// Close connection
-$conn->close();
 ?>
+</body>
+</html>

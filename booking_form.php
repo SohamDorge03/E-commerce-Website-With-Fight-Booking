@@ -13,6 +13,9 @@
             padding: 8px;
             vertical-align: middle;
         }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
     </style>
 </head>
 <body>
@@ -42,6 +45,7 @@ if (isset($_SESSION['u'])) {
 
             // Store total amount in session
             $_SESSION['total_price'] = $total_amount;
+            $_SESSION['flight_id'] = $flight_id;
 ?>
             <div class="container">
                 <h2 class="text-center mb-4">Passenger Details</h2>
@@ -51,13 +55,12 @@ if (isset($_SESSION['u'])) {
                     <input type="hidden" name="total_price" value="<?php echo $total_amount; ?>">
 
                     <!-- Loop to generate input fields for passengers -->
-                    <?php
-                    for ($i = 1; $i <= $numPassengers; $i++) {
-                    ?>
+                    <?php for ($i = 1; $i <= $numPassengers; $i++) { ?>
                         <div class="card mb-3">
-                            <div class="card-body">
+                            <div class="card-header">
                                 <h5 class="card-title">Passenger <?php echo $i; ?></h5>
-                                <!-- Other input fields for passenger details -->
+                            </div>
+                            <div class="card-body">
                                 <div class="form-group">
                                     <label for="name<?php echo $i; ?>">Name:</label>
                                     <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" required>
@@ -76,14 +79,11 @@ if (isset($_SESSION['u'])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="dob<?php echo $i; ?>">Date of Birth:</label>
-                                    <input type="date" class="form-control" id="dob<?php echo $i; ?>" name="dob<?php echo $i; ?>" onchange="calculateAge(<?php echo $i; ?>)" required>
+                                    <input type="date" class="form-control" id="dob<?php echo $i; ?>" name="dob<?php echo $i; ?>" max="<?php echo date('Y-m-d'); ?>" onchange="calculateAge(<?php echo $i; ?>)" required>
                                 </div>
-                                <!-- Other input fields for passenger details -->
                             </div>
                         </div>
-                    <?php
-                    }
-                    ?>
+                    <?php } ?>
 
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary" name="confirmBooking">Confirm Booking</button>
@@ -112,7 +112,7 @@ if (isset($_SESSION['u'])) {
         }
     } else {
         echo "<div class='container'>";
-        echo "<h2 class='text-center mb-4'> </h2>";
+        //echo "<h2 class='text-center mb-4'>Flight ID is not set in session.</h2>";
         echo "</div>";
     }
 
@@ -125,11 +125,11 @@ if (isset($_SESSION['u'])) {
             // Ensure total price is set in session
             if (isset($_SESSION['total_price'])) {
                 // Prepare INSERT statement for booked_flights table
-                $insertStatement = $conn->prepare("INSERT INTO booked_flights (flight_id, user_id, take_seats, flight_class, total_amount) VALUES (?, ?, ?, ?, ?)");
+                $insertStatement = $conn->prepare("INSERT INTO booked_flights (flight_id, user_id, take_seats, flight_class, total_amount, airline_id) VALUES (?, ?, ?, ?, ?, ?)");
 
                 if ($insertStatement) {
                     // Bind parameters and execute the INSERT statement
-                    $insertStatement->bind_param("iiisi", $_POST['flight_id'], $userid, $numPassengers, $_POST['flight_class'], $_SESSION['total_price']);
+                    $insertStatement->bind_param("iiisii", $_POST['flight_id'], $userid, $numPassengers, $_POST['flight_class'], $_SESSION['total_price'], $flight['airline_id']);
                     $insertStatement->execute();
 
                     // Get the booking ID
@@ -142,11 +142,34 @@ if (isset($_SESSION['u'])) {
                     $insertStatement->close();
 
                     // Prepare INSERT statement for passenger table
-                    $passengerStatement = $conn->prepare("INSERT INTO passenger (name, age, gender, dob, booking_id) VALUES (?, ?, ?, ?, ?)");
+                    $passengerStatement = $conn->prepare("INSERT INTO passenger (name, age, gender, dob, booking_id, pnr_no, seatno, gateno) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
                     if ($passengerStatement) {
+                        // Initialize PNR number
+                        $pnr_no = null;
+
+                        // Check if booking ID already exists to retrieve the same PNR number
+                        $checkBookingQuery = "SELECT pnr_no FROM passenger WHERE booking_id = ?";
+                        $checkBookingStatement = $conn->prepare($checkBookingQuery);
+                        $checkBookingStatement->bind_param("i", $booking_id);
+                        $checkBookingStatement->execute();
+                        $checkBookingStatement->store_result();
+
+                        if ($checkBookingStatement->num_rows > 0) {
+                            $checkBookingStatement->bind_result($pnr_result);
+                            $checkBookingStatement->fetch();
+                            $pnr_no = $pnr_result;
+                        } else {
+                            // Generate new PNR number if booking ID doesn't exist
+                            $pnr_no = mt_rand(1000000000, 9999999999);
+                        }
+
                         // Loop through passengers
                         for ($i = 1; $i <= $numPassengers; $i++) {
+                            // Generate random seat number and gate number
+                            $seatno = rand(1, 50); // Assuming there are 50 seats
+                            $gateno = rand(1, 10); // Assuming there are 10 gates
+
                             // Retrieve form data for each passenger
                             $name = $_POST["name$i"];
                             $age = $_POST["age$i"];
@@ -154,7 +177,7 @@ if (isset($_SESSION['u'])) {
                             $dob = $_POST["dob$i"];
 
                             // Bind parameters and execute the INSERT statement for passenger table
-                            $passengerStatement->bind_param("sissi", $name, $age, $gender, $dob, $booking_id);
+                            $passengerStatement->bind_param("sissiiss", $name, $age, $gender, $dob, $booking_id, $pnr_no, $seatno, $gateno);
                             $passengerStatement->execute();
                         }
 
@@ -172,14 +195,17 @@ if (isset($_SESSION['u'])) {
                         ?>
                         <div class="container mt-5">
                             <h2 class="mb-3">Traveller Details</h2>
-                            <div class="table-responsive "  >
+                            <div class="table-responsive ">
                                 <table class="table table-bordered ">
-                                    <thead class="thead-dark" >
+                                    <thead class="thead-dark">
                                     <tr style="background-color:red;">
                                         <th scope="col" class="bg-primary text-white">Name</th>
                                         <th scope="col" class="bg-primary text-white">Age</th>
                                         <th scope="col" class="bg-primary text-white">Gender</th>
                                         <th scope="col" class="bg-primary text-white">Date of Birth</th>
+                                        <!-- <th scope="col" class="bg-primary text-white">PNR No</th>
+                                        <th scope="col" class="bg-primary text-white">Seat No</th>
+                                        <th scope="col" class="bg-primary text-white">Gate No</th> -->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -190,6 +216,9 @@ if (isset($_SESSION['u'])) {
                                         echo "<td>" . $row['age'] . "</td>";
                                         echo "<td>" . $row['gender'] . "</td>";
                                         echo "<td>" . $row['dob'] . "</td>";
+                                        // echo "<td>" . $row['pnr_no'] . "</td>";
+                                        // echo "<td>" . $row['seatno'] . "</td>";
+                                        // echo "<td>" . $row['gateno'] . "</td>";
                                         echo "</tr>";
                                     }
                                     ?>
@@ -234,7 +263,6 @@ if (isset($_SESSION['u'])) {
                 } else {
                     echo "Error fetching latest booking details: " . $conn->error;
                 }
-
             } else {
                 echo "Error preparing statement for booked_flights table: " . $conn->error;
             }

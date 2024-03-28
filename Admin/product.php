@@ -121,13 +121,13 @@ $result = $conn->query($sql);
 
                         echo "<td class='description-cell'>" . $row["description"] . "</td>";
 
-                        echo "<td>$" . $row["price"] . "</td>";
+                        echo "<td>" . $row["price"] . "</td>";
                         echo "<td>" . $row["stock_quantity"] . "</td>";
                         echo "<td>" . $row["discount_price"] . "</td>";
                         echo "<td>" . $row["category_id"] . "</td>";
                         echo "<td>" . $row["subcategory_id"] . "</td>";
 
-                        echo "<td><button class='btn btn-success btn-sm' onclick='confirmProduct(" . $row['product_id'] . ")'>Confirm</button></td>";
+                        
                         echo "<td><button class='btn btn-danger btn-sm' onclick='removeProduct(" . $row['product_id'] . ")'>Remove</button></td>";
                         echo "</tr>";
                     }

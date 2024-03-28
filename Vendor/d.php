@@ -3,7 +3,6 @@ session_start();
 
 // Check if the vendor ID is not set in the session
 if (!isset($_SESSION['vendor_id'])) {
- 
     header("Location: login.php");
     exit();
 }
@@ -96,10 +95,28 @@ include('include/navbar.php');
         <div class="stats">
             <?php
             include("./include/connection.php");
+            
+            // SQL query to count the products category-wise
+            $sql_query = "SELECT categories.name, COUNT(products.product_id) AS total_products 
+                          FROM products 
+                          INNER JOIN categories ON products.category_id = categories.category_id 
+                          WHERE products.vendor_id = {$_SESSION['vendor_id']} 
+                          GROUP BY categories.name";
+            
+            $result = $conn->query($sql_query);
+            if ($result === false) {
+                echo "<p>Error: " . $conn->error . "</p>";
+            } else {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='stat'>";
+                    echo "<h2>{$row['name']}</h2>";
+                    echo "<p>{$row['total_products']}</p>";
+                    echo "</div>";
+                }
+            }
             $sql_queries = array(
                 "SELECT COUNT(*) AS Orders FROM orders INNER JOIN order_items ON orders.order_id = order_items.order_id INNER JOIN products ON order_items.product_id = products.product_id INNER JOIN vendors ON products.vendor_id = vendors.vendor_id WHERE vendors.vendor_id = {$_SESSION['vendor_id']}",
                 "SELECT COUNT(*) AS Products FROM products WHERE vendor_id = {$_SESSION['vendor_id']}",
-             
                 "SELECT COUNT(*) AS book_demo FROM book_demo INNER JOIN products ON book_demo.product_id = products.product_id INNER JOIN vendors ON products.vendor_id = vendors.vendor_id WHERE vendors.vendor_id = {$_SESSION['vendor_id']}"
             );
             

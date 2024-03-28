@@ -48,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="sty.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>Shopflix Login</title>
     <style>
@@ -132,25 +133,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <img src="../include/captcha.php" alt="CAPTCHA Image" id="captcha_image" style="margin-left: 10px;"> <!-- Added ID for CAPTCHA image -->
                         <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
                             <i class="fas fa-sync-alt"></i>
-                            Refresh
                         </button>
                     </div>
 
                     <?php if (!empty($error)) : ?>
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <?php echo $error; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php endif; ?>
-                
+
                     <div class="input-group mb-5" style="margin-top: 25px;">
-                        <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                        <button type="submit" class="btn btn-lg btn-primary w-100 fs-6 rounded-4">Login</button>
+                        <a href="register.php" class="btn btn-lg btn-outline-dark w-100 fs-6 mt-3 rounded-4" class="btn btn-link btn-register">New Vendor? Register Yourself</a>
                     </div>
                 </form>
             </div>
         </div>
-
     </div>
 </div>
+
 <script>
     document.getElementById('refresh_captcha').addEventListener('click', function () {
         document.getElementById('captcha_image').src = '../include/captcha.php?rand=' + new Date().getTime(); // Corrected path and added 'captcha_image' ID
@@ -158,3 +160,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </script>
 </body>
 </html>
+

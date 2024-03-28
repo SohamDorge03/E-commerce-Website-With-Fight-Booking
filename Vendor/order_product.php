@@ -12,13 +12,44 @@ $vendor_id = $_SESSION['vendor_id'];
 // Database connection
 include './include/connection.php';
 
-// Query to fetch data from order_items table along with order_date, status, and company_name
+// Initialize variables for date filtering
+$filterFromDate = '';
+$filterToDate = '';
+
+// Check if form is submitted with date filter
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $filterFromDate = $_POST['filter_from_date'];
+    $filterToDate = $_POST['filter_to_date'];
+
+    // Validate dates to ensure from date is not greater than to date
+    if ($filterFromDate > $filterToDate) {
+        $temp = $filterFromDate;
+        $filterFromDate = $filterToDate;
+        $filterToDate = $temp;
+    }
+
+    // Validate to prevent selecting future dates
+    $currentDate = date('Y-m-d');
+    if ($filterFromDate > $currentDate) {
+        $filterFromDate = $currentDate;
+    }
+    if ($filterToDate > $currentDate) {
+        $filterToDate = $currentDate;
+    }
+}
+
+// Query to fetch data from order_items table along with order_date, status, and company_name with date filter
 $query = "SELECT oi.order_item_id, oi.order_id, oi.product_id, oi.quantity, p.vendor_id, o.order_date, o.status, v.company_name
           FROM order_items oi
           JOIN products p ON oi.product_id = p.product_id
           JOIN orders o ON oi.order_id = o.order_id
           JOIN vendors v ON p.vendor_id = v.vendor_id
           WHERE p.vendor_id = $vendor_id";
+
+// Apply date filter if provided
+if (!empty($filterFromDate) && !empty($filterToDate)) {
+    $query .= " AND o.order_date BETWEEN '$filterFromDate' AND DATE_ADD('$filterToDate', INTERVAL 1 DAY)";
+}
 
 $result = mysqli_query($conn, $query);
 
@@ -31,13 +62,45 @@ $result = mysqli_query($conn, $query);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order Items with Vendor ID</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .date-filter-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .date-filter-container label {
+      margin-right: 10px;
+    }
+
+    .date-filter-container input[type="date"] {
+      width: 150px;
+      margin-right: 10px;
+    }
+
+    .date-filter-container button {
+      padding: 8px 20px;
+    }
+  </style>
 </head>
 <body>
-<?php
-include("./include/navbar.php");
-?>
+<?php include("./include/navbar.php"); ?>
 <div class="container mt-4">
   <h2>Order Items with Vendor ID</h2>
+  <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="date-filter-container">
+    <div>
+      <label for="filter_from_date">From Date:</label>
+      <input type="date" id="filter_from_date" name="filter_from_date" class="form-control" value="<?php echo $filterFromDate; ?>" max="<?php echo date('Y-m-d'); ?>">
+    </div>
+    <div>
+      <label for="filter_to_date">To Date:</label>
+      <input type="date" id="filter_to_date" name="filter_to_date" class="form-control" value="<?php echo $filterToDate; ?>" max="<?php echo date('Y-m-d'); ?>">
+    </div>
+    <div>
+      <button type="submit" class="btn btn-primary">Apply Filter</button>
+    </div>
+  </form>
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>

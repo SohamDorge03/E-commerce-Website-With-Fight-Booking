@@ -173,6 +173,9 @@ session_start();
                     <div class="input-group mb-3">
                         <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
                     </div>
+                    <div class="text-center">
+                        <a href="register.php" class="btn btn-lg btn-outline-dark w-100 fs-6 mt-3 rounded-4" class="btn btn-link btn-register">New Vendor? Register Yourself</a>
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,14 +1,9 @@
 <?php
 session_start();
- 
+
 include("./include/connection.php");
 
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$username = $_SESSION['username'];
+$username = $_SESSION['vendor_username'] ?? ''; // Using null coalescing operator to handle undefined key error
 $error = "";
 
 if (isset($_POST['verify'])) {
@@ -36,7 +31,6 @@ if (isset($_POST['verify'])) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,15 +39,12 @@ if (isset($_POST['verify'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <title>Email Verification</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff;
-            /* background-image: url("./image/background.png"); */
             color: #000;
         }
 
@@ -93,13 +84,9 @@ if (isset($_POST['verify'])) {
 </head>
 
 <body>
-
     <div class="container">
-
         <div class="box-area border rounded-4 shadow">
-
             <h2 class="mb-3">Email Verification</h2>
-
             <form action="" method="POST">
                 <div class="mb-3">
                     <label for="verification_code" class="form-label">Enter Verification Code:</label>
@@ -112,11 +99,8 @@ if (isset($_POST['verify'])) {
                 <?php endif; ?>
                 <button type="submit" name="verify" class="btn btn-primary rounded-4">Verify</button>
             </form>
-
         </div>
-
     </div>
-
 </body>
 
 </html>
