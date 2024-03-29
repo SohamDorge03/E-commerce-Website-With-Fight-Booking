@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $document_temp_path = $document_file['tmp_name'];
     
     // Move uploaded files to desired directory (you need to create this directory)
-    $upload_dir = "./admin";
+    $upload_dir = "../admin/image";
     move_uploaded_file($logo_temp_path, $upload_dir . $logo_filename);
     move_uploaded_file($document_temp_path, $upload_dir . $document_filename);
     

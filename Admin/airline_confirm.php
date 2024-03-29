@@ -39,7 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->addAddress($_POST['contact_email']); // Adding recipient's email
             $mail->isHTML(true);
             $mail->Subject = 'Your Request Approval';
-            $mail->Body = 'Your request has been approved.';
+            
+            $mail->Body = 'Your request has been approved. 
+            <p>We are pleased to inform you that your request has been successfully approved by our team at Shopflix.</p>
+            <p>Thank you for choosing Shopflix for your airline needs. We look forward to collaborating with you and ensuring a seamless experience for your customers.</p>
+            <p>Should you have any questions or require further assistance, please feel free to contact us.</p>
+            <p>Best regards,<br>Bharagv Tiwari<br>MD<br>Shopflix Team</p>';
 
             if ($mail->send()) {
                 echo "Confirmation successful and email sent.";
@@ -74,72 +79,82 @@ if (!$result) {
     echo "Error fetching data: " . mysqli_error($conn);
 } else {
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Confirmation</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script>
-        function confirmDelete() {
-            return confirm("Are you sure you want to cancel this request?");
-        }
-    </script>
-</head>
-<body>
-    <?php
-    include("./include/navbar.php");
-    ?>
-<div class="container">
-    <h2>Admin Confirmation</h2>
-    <table class="table">
-        <thead>
-        <tr style="background-color:#5f1e30; color:wheat;">
-            <th>Request ID</th>
-            <th>Airline Name</th>
-            <th>Contact Email</th>
-            <th>Logo</th>
-            <th>Status</th>
-            <th>Date Requested</th>
-            <th>Last Updated</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-            <tr>
-                <td><?php echo $row['request_id']; ?></td>
-                <td><?php echo $row['airline_name']; ?></td>
-                <td><?php echo $row['contact_email']; ?></td>
-                <td><?php echo $row['logo']; ?></td>
-                <td><?php echo $row['status']; ?></td>
-                <td><?php echo $row['date_requested']; ?></td>
-                <td><?php echo $row['last_updated']; ?></td>
-                <td>
-                    <?php if ($row['status'] == 'Pending') { ?>
-                        <form action="" method="POST">
-                            <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
-                            <input type="hidden" name="contact_email" value="<?php echo $row['contact_email']; ?>">
-                            <button type="submit" class="btn btn-primary" name="confirm">Confirm</button>
-                        </form>
-                        <form action="" method="POST" onsubmit="return confirmDelete();">
-                            <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
-                            <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
-                        </form>
-                    <?php } elseif ($row['status'] == 'Approved') { ?>
-                        <button type="button" class="btn btn-primary" disabled>Confirmed</button>
-                    <?php } else { ?>
-                        <p>Status: <?php echo $row['status']; ?></p>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Confirmation</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script>
+            function confirmDelete() {
+                return confirm("Are you sure you want to cancel this request?");
+            }
+        </script>
+    </head>
+
+    <body>
+        <?php
+        include("./include/navbar.php");
+        ?>
+        <div class="container">
+            <h2>Admin Confirmation</h2>
+            <table class="table">
+                <thead>
+                    <tr style="background-color:#5f1e30; color:wheat;">
+                        <th>Request ID</th>
+                        <th>Airline Name</th>
+                        <th>Contact Email</th>
+                        <th>Logo</th>
+                        <th>Status</th>
+                        <th>Date Requested</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
+                            <td><?php echo $row['request_id']; ?></td>
+                            <td><?php echo $row['airline_name']; ?></td>
+                            <td><?php echo $row['contact_email']; ?></td>
+                            <td>
+                                <?php if (!empty($row['logo'])) { ?>
+                                    <img src="../admin/image/<?php echo $row['logo']; ?>" alt="Airline Logo" style="max-width: 100px;">
+                                <?php } else { ?>
+                                    <p>No Logo Available</p>
+                                <?php } ?>
+                            </td>
+
+                            <td><?php echo $row['status']; ?></td>
+                            <td><?php echo $row['date_requested']; ?></td>
+                            <td><?php echo $row['last_updated']; ?></td>
+                            <td>
+                                <?php if ($row['status'] == 'Pending') { ?>
+                                    <form action="" method="POST">
+                                        <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
+                                        <input type="hidden" name="contact_email" value="<?php echo $row['contact_email']; ?>">
+                                        <button type="submit" class="btn btn-primary" name="confirm">Confirm</button>
+                                    </form>
+                                    <form action="" method="POST" onsubmit="return confirmDelete();">
+                                        <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
+                                        <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+                                    </form>
+                                <?php } elseif ($row['status'] == 'Approved') { ?>
+                                    <button type="button" class="btn btn-primary" disabled>Confirmed</button>
+                                <?php } else { ?>
+                                    <p>Status: <?php echo $row['status']; ?></p>
+                                <?php } ?>
+                            </td>
+                        </tr>
                     <?php } ?>
-                </td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
-</div>
-</body>
-</html>
+                </tbody>
+            </table>
+        </div>
+    </body>
+
+    </html>
 <?php
 }
 
