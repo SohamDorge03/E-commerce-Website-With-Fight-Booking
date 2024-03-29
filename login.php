@@ -49,11 +49,7 @@ $conn->close();
     <title>User Login</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #ffffff;
-        }
+ 
 
         .container {
             color: #fff;
@@ -62,7 +58,7 @@ $conn->close();
         }
 
         .box-area {
-            backdrop-filter: blur(1rem);
+             
             width: 850px;
         }
 
@@ -101,9 +97,9 @@ $conn->close();
 
 <body>
 
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container d-flex justify-content-center align-items-center  " style="margin-top: 42px;">
 
-        <div class="row border rounded-5 p-3  shadow box-area">
+        <div class="row  rounded-5 p-0    box-area">
 
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box left-box1">
                 <div class="featured-image mb-3">

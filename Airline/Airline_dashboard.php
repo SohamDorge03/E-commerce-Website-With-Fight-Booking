@@ -93,74 +93,93 @@ include("./connection.php");
             
             // Check if 'airline_id' session variable is set
             if(isset($_SESSION['airline_id'])) {
-                // Use the session variable in the SQL queries
-                $sql_query1 = "SELECT COUNT(*) AS Booked_Flights FROM booked_flights WHERE airline_id = {$_SESSION['airline_id']}";
-                $sql_query2 = "SELECT COUNT(*) AS Flights FROM flights WHERE airline_id = {$_SESSION['airline_id']}";
-                $sql_query3 = "SELECT COUNT(*) AS Airports FROM airports"; // Count airports
-                $sql_query4 = "SELECT COUNT(*) AS Location FROM airports"; // Count airports
-                $sql_query5 = "SELECT COUNT(*) AS Passenger FROM passenger"; // Count passengers
+                // Use the session variable in the SQL query
+                $sql_query = "SELECT flight_class, COUNT(*) AS class_count 
+                              FROM flights 
+                              WHERE airline_id = {$_SESSION['airline_id']} 
+                              GROUP BY flight_class";
 
-                $result1 = $conn->query($sql_query1);
-                $result2 = $conn->query($sql_query2);
-                $result3 = $conn->query($sql_query3); // Execute query for airports count
-                $result4 = $conn->query($sql_query4);
-                $result5 = $conn->query($sql_query5); // Execute query for passengers count
-
-                if ($result1 === false || $result2 === false || $result3 === false || $result4 === false || $result5 === false) {
+                $result = $conn->query($sql_query);
+                if ($result === false) {
                     echo "<p>Error: " . $conn->error . "</p>";
                 } else {
-                    $row1 = $result1->fetch_assoc();
-                    $row2 = $result2->fetch_assoc();
-                    $row3 = $result3->fetch_assoc(); // Fetch result for airports count
-                    $row4 = $result4->fetch_assoc();
-                    $row5 = $result5->fetch_assoc(); // Fetch result for passengers count
+                    // Define the expected flight classes
+                    $expected_classes = array("First Class", "Business	", "Economy");
 
-                    echo "<div class='stat'>";
-                    foreach ($row1 as $key => $value) {
-                        echo "<h2>$key</h2>";
-                        echo "<p>$value</p>";
-                    }
-                    echo "</div>";
+                    // Initialize counts for each class
+                    $class_counts = array_fill_keys($expected_classes, 0);
 
-                    echo "<div class='stat'>";
-                    foreach ($row2 as $key => $value) {
-                        echo "<h2>$key</h2>";
-                        echo "<p>$value</p>";
+                  
+                    while ($row = $result->fetch_assoc()) {
+                        $class = $row['flight_class'];
+                        if (in_array($class, $expected_classes)) {
+                            $class_counts[$class] += $row['class_count'];
+                        }
                     }
-                    echo "</div>";
-
-                    // Display airports count
-                    echo "<div class='stat'>";
-                    foreach ($row3 as $key => $value) {
-                        echo "<h2>$key</h2>";
-                        echo "<p>$value</p>";
+                    foreach ($class_counts as $class => $count) {
+                        echo "<div class='stat'>";
+                        echo "<h2>$class</h2>";
+                        echo "<p>$count</p>";
+                        echo "</div>";
                     }
-                    echo "</div>";
-
-                    // Display passengers count
-                    echo "<div class='stat'>";
-                    foreach ($row4 as $key => $value) {
-                        echo "<h2>$key</h2>";
-                        echo "<p>$value</p>";
-                    }
-                    echo "</div>";
-                    echo "<div class='stat'>";
-                    foreach ($row5 as $key => $value) {
-                        echo "<h2>$key</h2>";
-                        echo "<p>$value</p>";
-                    }
-                    echo "</div>";
                 }
             } else {
                 // Handle case when 'airline_id' session variable is not set
                 echo "<p>Error: 'airline_id' session variable is not set.</p>";
             }
             ?>
+            <?php
+             $sql_query1 = "SELECT COUNT(*) AS Booked_Flights FROM booked_flights WHERE airline_id = {$_SESSION['airline_id']}";
+             $sql_query2 = "SELECT COUNT(*) AS Flights FROM flights WHERE airline_id = {$_SESSION['airline_id']}";
+             $sql_query3 = "SELECT COUNT(*) AS Airports FROM airports"; // Count airports
+             $sql_query4 = "SELECT COUNT(*) AS Passengers FROM passenger"; // Count passengers
+
+             $result1 = $conn->query($sql_query1);
+             $result2 = $conn->query($sql_query2);
+             $result3 = $conn->query($sql_query3); // Execute query for airports count
+             $result4 = $conn->query($sql_query4); // Execute query for passengers count
+
+             if ($result1 === false || $result2 === false || $result3 === false || $result4 === false) {
+                 echo "<p>Error: " . $conn->error . "</p>";
+             } else {
+                 $row1 = $result1->fetch_assoc();
+                 $row2 = $result2->fetch_assoc();
+                 $row3 = $result3->fetch_assoc(); // Fetch result for airports count
+                 $row4 = $result4->fetch_assoc(); // Fetch result for passengers count
+
+                 echo "<div class='stat'>";
+                 foreach ($row1 as $key => $value) {
+                     echo "<h2>$key</h2>";
+                     echo "<p>$value</p>";
+                 }
+                 echo "</div>";
+
+                 echo "<div class='stat'>";
+                 foreach ($row2 as $key => $value) {
+                     echo "<h2>$key</h2>";
+                     echo "<p>$value</p>";
+                 }
+                 echo "</div>";
+
+                 // Display airports count
+                 echo "<div class='stat'>";
+                 foreach ($row3 as $key => $value) {
+                     echo "<h2>$key</h2>";
+                     echo "<p>$value</p>";
+                 }
+                 echo "</div>";
+
+                 // Display passengers count
+                 echo "<div class='stat'>";
+                 foreach ($row4 as $key => $value) {
+                     echo "<h2>$key</h2>";
+                     echo "<p>$value</p>";
+                 }
+                 echo "</div>";
+             }
+         
+            ?>
         </div>
     </div>
 </body>
 </html>
-<?php
-// Close connection
-$conn->close();
-?>
