@@ -26,6 +26,9 @@ $mail->SMTPSecure = 'tls';
 $mail->Port       = 587;
 $mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX');
 
+// Variable to store the success message
+$successMsg = "";
+
 // Check if confirm or cancel actions are triggered
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle confirmation
@@ -39,17 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->addAddress($_POST['contact_email']); // Adding recipient's email
             $mail->isHTML(true);
             $mail->Subject = 'Your Request Approval';
-            
-            $mail->Body = 'Your request has been approved. 
-            <p>We are pleased to inform you that your request has been successfully approved by our team at Shopflix.</p>
-            <p>Thank you for choosing Shopflix for your airline needs. We look forward to collaborating with you and ensuring a seamless experience for your customers.</p>
-            <p>Should you have any questions or require further assistance, please feel free to contact us.</p>
-            <p>Best regards,<br>Bharagv Tiwari<br>MD<br>Shopflix Team</p>';
+            $mail->Body = 'Your request has been approved.';
 
             if ($mail->send()) {
-                echo "Confirmation successful and email sent.";
+                $successMsg = "Confirmation successful and email sent.";
             } else {
-                echo "Confirmation successful but email sending failed: " . $mail->ErrorInfo;
+                $successMsg = "Confirmation successful but email sending failed: " . $mail->ErrorInfo;
             }
         } else {
             echo "Error updating record: " . mysqli_error($conn);
@@ -63,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Delete the request from the airline_requests table
         $sql = "DELETE FROM airline_requests WHERE request_id = '$request_id'";
         if (mysqli_query($conn, $sql)) {
-            echo "Request canceled.";
+            $successMsg = "Request canceled.";
         } else {
             echo "Error deleting record: " . mysqli_error($conn);
         }
@@ -91,6 +89,18 @@ if (!$result) {
             function confirmDelete() {
                 return confirm("Are you sure you want to cancel this request?");
             }
+
+            // Function to display success message in a popup
+            function displaySuccessMessage(msg) {
+                alert(msg);
+            }
+
+            // Check if success message exists and display it
+            <?php if (!empty($successMsg)) { ?>
+                window.onload = function() {
+                    displaySuccessMessage("<?php echo $successMsg; ?>");
+                };
+            <?php } ?>
         </script>
     </head>
 

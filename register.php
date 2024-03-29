@@ -23,7 +23,7 @@ if (isset($_POST['register'])) {
 
 
 
-    
+
     // Generate a 6-digit verification code
     $verificationCode = mt_rand(100000, 999999);
 
@@ -51,7 +51,7 @@ if (isset($_POST['register'])) {
             $_SESSION['username'] = $username;
             // Redirect to verification page or any other desired page
             // header("Location: verify.php");
-            echo"<script>
+            echo "<script>
             // Redirect to verify.php
             window.location.href = 'verify.php';
         </script>";
@@ -85,7 +85,7 @@ if (isset($_POST['register'])) {
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff;
-           
+
         }
 
         .container {
@@ -95,7 +95,7 @@ if (isset($_POST['register'])) {
         }
 
         .box-area {
-            backdrop-filter: blur(1rem);
+
             width: 850px;
         }
 
@@ -135,16 +135,16 @@ if (isset($_POST['register'])) {
 
 <body>
 
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container d-flex justify-content-center align-items-center  ">
 
-        <div class="row border rounded-5 p-3  shadow box-area">
+        <div class="row  rounded-5     box-area">
 
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box left-box1">
                 <div class="featured-image mb-3">
                     <img src="./image/login.png" class="img-fluid" style="width: 250px;" alt="Register">
                 </div>
-                <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">SHOPFLIX</p>
-                <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join us and start shopping today!</small>
+                <p class="text-dark fs-2" style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: 600;">SHOPFLIX</p>
+                <small class="text-dark text-wrap text-center" style="width: 17rem; color: black; font-family: 'Courier New', Courier, monospace;"><strong>Join us and start shopping today!</strong></small>
             </div>
             <div class="col-md-6 right-box" id="right-box">
                 <div class="row align-items-center">
@@ -163,29 +163,29 @@ if (isset($_POST['register'])) {
                             <input type="email" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Email" name="email" required>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="First Name" name="first_name" required>
-                        </div>
-                        <div class="input-group mb-3">
+                            <input type="text" class="mr-3 form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="First Name" name="first_name" required>
                             <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Last Name" name="last_name" required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="tel" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Phone Number" name="phone_number">
+
                         </div>
 
-
-                     <div class="input-group mb-3">
-    <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Address" name="address" required>
-</div>
-
-
-
                         <div class="input-group mb-3">
-                            <select class="form-select form-select-lg bg-light text-dark fs-6 rounded-4" name="gender" required>
+                            <input type="tel" class=" form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Phone Number" name="phone_number">
+
+                            <select class=" ml-3 form-select form-select-lg bg-light text-dark fs-6 rounded-4" name="gender" required>
                                 <option value="" disabled selected>Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>
                             </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-lg bg-light text-dark fs-6 rounded-4" placeholder="Address" name="address" required>
+                        </div>
+
+
+
+                        <div class="input-group mb-3">
+
                         </div>
                         <div class="input-group mb-3 d-flex justify-content-between">
                             <button type="submit" name="register" class="btn btn-lg btn-primary w-100 fs-6 rounded-4">Register</button>

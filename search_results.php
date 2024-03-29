@@ -78,22 +78,22 @@ if (isset($_POST['searchFlights'])) {
                                     </div>
                                     <div>
                                         <?php
-                                 // Fetch departure and arrival dates and times
-$departureDateTime = strtotime($row["source_date"] . ' ' . $row["source_time"]);
-$arrivalDateTime = strtotime($row["dest_date"] . ' ' . $row["dest_time"]);
+                                        // Fetch departure and arrival dates and times
+                                        $departureDateTime = strtotime($row["source_date"] . ' ' . $row["source_time"]);
+                                        $arrivalDateTime = strtotime($row["dest_date"] . ' ' . $row["dest_time"]);
 
-// Calculate duration in seconds
-$durationInSeconds = $arrivalDateTime - $departureDateTime;
+                                        // Calculate duration in seconds
+                                        $durationInSeconds = $arrivalDateTime - $departureDateTime;
 
-// Calculate duration in hours and minutes
-$hours = floor($durationInSeconds / 3600);
-$minutes = floor(($durationInSeconds % 3600) / 60);
+                                        // Calculate duration in hours and minutes
+                                        $hours = floor($durationInSeconds / 3600);
+                                        $minutes = floor(($durationInSeconds % 3600) / 60);
 
-// Format the duration
-$duration = sprintf('%02d:%02d', $hours, $minutes);
- // Convert seconds to hours and round to two decimal places
+                                        // Format the duration
+                                        $duration = sprintf('%02d:%02d', $hours, $minutes);
                                         ?>
-                                        <p class='card-text'>Duration: <?php echo $duration; ?> hours</p>
+                                        <p class='card-text'>Duration: <?php echo $duration; ?> 
+                                        HH:MM</p>
                                     </div>
                                     <div>
                                         <p class='card-text'><?php echo $fromCity; ?></p>

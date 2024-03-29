@@ -8,6 +8,19 @@ if (!isset($_SESSION['airline_id'])) {
 }
 include("./navbar.php");
 include("./connection.php");
+$airline_id = $_SESSION['airline_id'];
+$sql = "SELECT airline_name FROM airlines WHERE airline_id = $airline_id";
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if ($result->num_rows > 0) {
+    // Fetch the airline's name
+    $row = $result->fetch_assoc();
+    $airline_name = $row['airline_name'];
+} else {
+    $airline_name = "Unknown Airline";
+}
+?>
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +44,7 @@ include("./connection.php");
             margin-top: 70px !important;
         }
 
-        h1 {
+        h1,h2{
             text-align: center;
             margin-bottom: 40px;
             color: #333;
@@ -86,7 +99,11 @@ include("./connection.php");
     </style>
 </head>
 <body>
+
+ 
+ 
     <div class="container mt-5">
+    <h1>Welcome, <?php echo $airline_name; ?>!</h1>
         <h1>Dashboard</h1>
         <div class="stats">
             <?php
@@ -104,9 +121,7 @@ include("./connection.php");
                     echo "<p>Error: " . $conn->error . "</p>";
                 } else {
                     // Define the expected flight classes
-                    $expected_classes = array("First Class", "Business	", "Economy");
-
-                    // Initialize counts for each class
+                    $expected_classes = array("First Class", "Business", "Economy");
                     $class_counts = array_fill_keys($expected_classes, 0);
 
                   

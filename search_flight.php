@@ -86,10 +86,21 @@ if(isset($_POST['searchFlights'])) {
     // Retrieve user input
     $fromCity = $_POST['fromCity'];
     $toCity = $_POST['toCity'];
+
+    // Check if both cities are the same
+    if($fromCity == $toCity) {
+        // Display error message
+        echo "<div class='container'>";
+        echo "<h2 class='text-center mb-4'>Error: Same Airport Selected</h2>";
+        echo "<p class='text-center'>Please select different airports for departure and arrival.</p>";
+        echo "</div>";
+        exit; // Stop further execution
+    }
+
+    // Continue processing if cities are different
     $travelDate = $_POST['travelDate'];
     $passengers = $_POST['passengers'];
     $class = $_POST['class'];
-
 
     // Query to get airport IDs based on city names
     $fromCityQuery = "SELECT airport_id FROM airports WHERE airport_name = '$fromCity'";
@@ -174,7 +185,7 @@ if(isset($_POST['searchFlights'])) {
 
                         // Check if there are rows in the result
                         if ($result->num_rows > 0) {
-                            echo "<select class='form-control' name='fromCity' required>";
+                            echo "<select class='form-control' name='fromCity' id='fromCity' required>";
                             echo "<option value=''>Select From City</option>";
                             while($row = $result->fetch_assoc()) {
                                 echo "<option value='" . $row['airport_name'] . "'>" . $row['airport_name'] . "</option>";
@@ -192,7 +203,7 @@ if(isset($_POST['searchFlights'])) {
 
                         // Check if there are rows in the result
                         if ($result->num_rows > 0) {
-                            echo "<select class='form-control' name='toCity' required>";
+                            echo "<select class='form-control' name='toCity' id='toCity' required>";
                             echo "<option value=''>Select To City</option>";
                             while($row = $result->fetch_assoc()) {
                                 echo "<option value='" . $row['airport_name'] . "'>" . $row['airport_name'] . "</option>";
@@ -223,7 +234,7 @@ if(isset($_POST['searchFlights'])) {
                         <select class="form-control" name="class" required>
                             <option value="economy">Economy Class</option>
                             <option value="business">Business Class</option>
-                            <option value="first">First Class</option>
+                            <option value="first class">First Class</option>
                         </select>
                     </div>
                 </div>
@@ -266,15 +277,13 @@ if(isset($_POST['searchFlights'])) {
             if ($result->num_rows > 0) {
                 // Output data of each row
                 while($row = $result->fetch_assoc()) {
-                    // Display airline logo images
-                    echo "<img src='admin" . $row["logo"] . "' alt='" . $row["airline_name"] . " Logo' style='max-width: 180px; margin: 10px;'>";
+                    echo "<img src='admin" . $row["logo"] . "' alt='" . $row["airline_name"] . " Logo' style='max-width: 140px; margin: 10px;'>";
                 }
             } else {
-                // If no airlines are found
+
                 echo "No airlines found.";
             }
 
-            // Close the database connection
             $conn->close();
             ?>
         </div>
@@ -300,6 +309,19 @@ include("./include/footer.php");
 
     // Call the function when the page loads
     window.onload = disableBackdate;
+
+    // Function to hide selected "From City" option in "To City" dropdown
+    document.getElementById('fromCity').addEventListener('change', function() {
+        var fromCity = this.value;
+        var toCitySelect = document.getElementById('toCity');
+        for (var i = 0; i < toCitySelect.options.length; i++) {
+            if (toCitySelect.options[i].value === fromCity) {
+                toCitySelect.options[i].disabled = true;
+            } else {
+                toCitySelect.options[i].disabled = false;
+            }
+        }
+    });
 </script>
 
 </body>

@@ -40,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (strtotime($source_date) < strtotime(date("Y-m-d"))) {
         $error = "Source date cannot be a past date";
     }
-    // Check if destination date is after source date
-    elseif (strtotime($dest_date) <= strtotime($source_date)) {
-        $error = "Destination date must be after source date";
+    // Check if destination date is after or the same as source date
+    elseif (strtotime($dest_date) < strtotime($source_date)) {
+        $error = "Destination date must be after or the same as the source date";
     } else {
         // Retrieve airline ID from session
         $airline_id = $_SESSION['airline_id'];
@@ -209,8 +209,7 @@ $result = $conn->query($flight_query);
                                 }
                                 ?>
                             </select>
-</div>
-
+                        </div>
                         <div class="form-group">
                             <label for="seats">Number of Seats:</label>
                             <input type="number" class="form-control" id="seats" name="seats" required>
@@ -247,8 +246,8 @@ $result = $conn->query($flight_query);
                 alert('Please select source and destination dates');
                 return false;
             }
-            if (new Date(destDate) <= new Date(sourceDate)) {
-                alert('Destination date must be after source date');
+            if (new Date(destDate) < new Date(sourceDate)) {
+                alert('Destination date must be after or the same as the source date');
                 return false;
             }
             return true;

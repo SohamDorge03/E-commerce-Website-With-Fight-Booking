@@ -8,7 +8,18 @@ if (!isset($_SESSION['vendor_id'])) {
 }
 
 include './include/connection.php'; 
+// Fetch the username associated with the vendor ID
+$vendor_id = $_SESSION['vendor_id'];
+$username_query = "SELECT username FROM vendors WHERE vendor_id = $vendor_id";
+$username_result = $conn->query($username_query);
 
+// Check if the query was successful
+if ($username_result->num_rows > 0) {
+    $username_row = $username_result->fetch_assoc();
+    $username = $username_row['username'];
+} else {
+    $username = "Unknown"; // Set a default username if not found
+}
 ?>
 
 <?php
@@ -35,7 +46,7 @@ include('include/navbar.php');
             margin-top: 70px !important;
         }
 
-        h1 {
+        h1,h2{
             text-align: center;
             margin-bottom: 40px;
             color: #333;
@@ -91,6 +102,7 @@ include('include/navbar.php');
 </head>
 <body>
     <div class="container mt-5">
+    <h1>Welcome, <?php echo $username; ?>!</h1>
         <h1>Dashboard</h1>
         <div class="stats">
             <?php

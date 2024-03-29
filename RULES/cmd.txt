@@ -26,10 +26,7 @@ CREATE TABLE `airline_requests` (
   PRIMARY KEY (`request_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `airline_requests` VALUES (5,'Airindia','sohamdorge45@gmail.com','air india.png',_binary 'vistara.png','Pending','2024-03-29 04:08:22','2024-03-29 04:08:22',0);
-INSERT INTO `airline_requests` VALUES (6,'Airindia','sohamdorge45@gmail.com','air india.png',_binary 'vistara.png','Approved','2024-03-29 04:08:30','2024-03-29 04:22:06',0);
-INSERT INTO `airline_requests` VALUES (7,'Airindia','sohamdorge45@gmail.com','air india.png',_binary 'IndiGo-Logo.png','Approved','2024-03-29 04:15:35','2024-03-29 04:18:18',0);
-INSERT INTO `airline_requests` VALUES (4,'akasaair','sohamdorge45@gmail.com','akasa air.png',_binary 'db54.jpg','Approved','2024-03-21 03:48:18','2024-03-21 04:22:19',0);
+INSERT INTO `airline_requests` VALUES (5,'Airindia','sohamdorge45@gmail.com','air india.png',_binary 'vistara.png','Approved','2024-03-29 04:08:22','2024-03-29 04:26:20',0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airlines` (
@@ -110,7 +107,7 @@ CREATE TABLE `booked_flights` (
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `booked_flights` VALUES (50,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','2024-03-28 17:10:12');
 INSERT INTO `booked_flights` VALUES (49,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','2024-03-28 17:08:54');
@@ -127,6 +124,7 @@ INSERT INTO `booked_flights` VALUES (41,9,16,1,NULL,NULL,'ch_3OxjFdDwlRClWlNg0mz
 INSERT INTO `booked_flights` VALUES (42,9,16,1,NULL,NULL,'ch_3OxjHzDwlRClWlNg1dyo48Ky','12000',NULL,'success','2024-03-24 10:37:46');
 INSERT INTO `booked_flights` VALUES (43,9,16,1,NULL,NULL,'ch_3OySD9DwlRClWlNg1TnbUnAv','12000',NULL,'success','2024-03-26 10:35:38');
 INSERT INTO `booked_flights` VALUES (51,9,16,1,NULL,1,'ch_3OzHKMDwlRClWlNg2uRluSrp','12000',NULL,'success','2024-03-28 17:10:38');
+INSERT INTO `booked_flights` VALUES (52,11,16,1,NULL,1,'ch_3OzaIGDwlRClWlNg2wNShgzi','9000',NULL,'success','2024-03-29 13:25:46');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -194,7 +192,7 @@ CREATE TABLE `flights` (
   KEY `dep_airport_id` (`dep_airport_id`),
   KEY `arr_airport_id` (`arr_airport_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `flights` VALUES (14,'21444','2024-04-10','02:43:00','2024-04-11','09:43:00',15,14,99,'Economy',7000.00,1);
 INSERT INTO `flights` VALUES (7,'12322','2024-03-28','15:17:00','2024-03-29','16:17:00',14,18,12,'Economy',1200.00,3);
@@ -228,6 +226,63 @@ INSERT INTO `flights` VALUES (36,'123111','2024-04-10','22:27:00','2024-04-11','
 INSERT INTO `flights` VALUES (37,'123267','2024-04-11','00:28:00','2024-04-12','09:28:00',24,18,100,'First Class',1232.00,8);
 INSERT INTO `flights` VALUES (38,'21311','2024-04-08','21:29:00','2024-04-09','12:29:00',21,12,100,'First Class',12320.00,8);
 INSERT INTO `flights` VALUES (39,'231762','2024-04-07','01:30:00','2024-04-08','08:30:00',24,20,100,'Economy',14000.00,8);
+INSERT INTO `flights` VALUES (40,'123222','2024-04-08','20:22:00','2024-04-09','00:24:00',24,16,100,'Economy',50000.00,10);
+INSERT INTO `flights` VALUES (41,'123111','2024-04-08','15:24:00','2024-04-09','20:30:00',16,24,100,'Business',12320.00,10);
+INSERT INTO `flights` VALUES (42,'123111','2024-04-08','01:26:00','2024-04-09','11:26:00',24,16,100,'First Class',12000.00,10);
+INSERT INTO `flights` VALUES (43,'13244','2024-04-09','20:28:00','2024-04-10','21:29:00',22,16,100,'Economy',15220.00,10);
+INSERT INTO `flights` VALUES (44,'34222','2024-04-08','00:31:00','2024-04-09','05:31:00',12,15,100,'Business',12320.00,10);
+INSERT INTO `flights` VALUES (45,'123222','2024-04-08','15:33:00','2024-04-09','14:33:00',21,12,100,'First Class',8540.00,10);
+INSERT INTO `flights` VALUES (46,'12377','2024-04-08','16:34:00','2024-04-08','18:34:00',12,15,100,'Economy',5002.00,10);
+INSERT INTO `flights` VALUES (47,'43122','2024-04-08','01:40:00','2024-04-08','14:38:00',16,12,100,'Economy',9820.00,10);
+INSERT INTO `flights` VALUES (48,'123876','2024-04-08','21:39:00','2024-04-08','22:39:00',13,25,100,'Business',13200.00,10);
+INSERT INTO `flights` VALUES (49,'13897','2024-04-09','07:40:00','2024-04-10','12:41:00',21,16,100,'First Class',6590.00,10);
+INSERT INTO `flights` VALUES (51,'123222','2024-04-08','17:48:00','2024-04-08','21:48:00',25,20,100,'Business',7620.00,9);
+INSERT INTO `flights` VALUES (52,'254876','2024-04-08','01:50:00','2024-04-09','14:49:00',14,12,100,'Business',7650.00,9);
+INSERT INTO `flights` VALUES (53,'23455','2024-04-09','21:50:00','2024-04-09','00:54:00',12,18,100,'Business',5220.00,9);
+INSERT INTO `flights` VALUES (54,'43987','2024-04-09','18:51:00','2024-04-09','21:51:00',27,12,100,'Business',7654.00,9);
+INSERT INTO `flights` VALUES (55,'2347654','2024-04-08','04:52:00','2024-04-08','11:53:00',26,15,99,'Economy',8655.00,9);
+INSERT INTO `flights` VALUES (56,'652453','2024-04-08','03:53:00','2024-04-08','21:54:00',13,12,100,'Economy',8298.00,9);
+INSERT INTO `flights` VALUES (57,'14309','2024-04-08','13:56:00','2024-04-08','20:56:00',23,12,100,'Economy',6520.00,9);
+INSERT INTO `flights` VALUES (58,'964333','2024-04-08','18:00:00','2024-04-08','23:57:00',22,15,100,'Economy',7800.00,9);
+INSERT INTO `flights` VALUES (59,'87500','2024-04-08','04:58:00','2024-04-08','13:59:00',12,23,100,'Economy',6800.00,9);
+INSERT INTO `flights` VALUES (60,'853990','2024-04-08','15:00:00','2024-04-09','20:00:00',12,23,100,'Business',7655.00,9);
+INSERT INTO `flights` VALUES (61,'90654','2024-04-08','01:01:00','2024-04-09','12:02:00',26,16,100,'Business',7850.00,9);
+INSERT INTO `flights` VALUES (62,'87455','2024-04-08','21:03:00','2024-04-08','23:04:00',24,20,100,'Business',9000.00,9);
+INSERT INTO `flights` VALUES (63,'98567','2024-04-08','06:05:00','2024-04-09','17:06:00',20,12,100,'First Class',7650.00,9);
+INSERT INTO `flights` VALUES (64,'45098','2024-04-09','15:07:00','2024-04-09','20:07:00',12,25,100,'First Class',8600.00,9);
+INSERT INTO `flights` VALUES (65,'287456','2024-04-08','05:09:00','2024-04-08','10:09:00',12,25,100,'First Class',7867.00,9);
+INSERT INTO `flights` VALUES (66,'7584435','2024-04-08','18:11:00','2024-04-08','22:11:00',23,12,100,'First Class',6550.00,9);
+INSERT INTO `flights` VALUES (67,'76958','2024-04-08','01:12:00','2024-04-09','10:12:00',18,23,100,'First Class',6500.00,9);
+INSERT INTO `flights` VALUES (68,'57664','2024-04-08','15:21:00','2024-04-09','20:21:00',20,23,100,'Economy',7640.00,5);
+INSERT INTO `flights` VALUES (69,'87600','2024-04-08','20:22:00','2024-04-08','23:22:00',24,16,100,'Economy',8700.00,5);
+INSERT INTO `flights` VALUES (70,'6578865','2024-04-08','15:23:00','2024-04-09','20:23:00',15,14,100,'Economy',6755.00,5);
+INSERT INTO `flights` VALUES (71,'75866','2024-04-08','10:24:00','2024-04-08','15:24:00',24,12,100,'Economy',9800.00,5);
+INSERT INTO `flights` VALUES (72,'78666','2024-04-08','20:27:00','2024-04-08','23:27:00',21,12,100,'Economy',7860.00,5);
+INSERT INTO `flights` VALUES (73,'87500','2024-04-08','14:28:00','2024-04-09','20:28:00',26,12,99,'Business',7540.00,5);
+INSERT INTO `flights` VALUES (74,'87688','2024-04-08','10:28:00','2024-04-09','19:29:00',23,12,97,'Business',9800.00,5);
+INSERT INTO `flights` VALUES (75,'57888','2024-04-08','20:31:00','2024-04-09','15:32:00',18,12,99,'Business',7850.00,5);
+INSERT INTO `flights` VALUES (76,'764999','2024-04-08','16:32:00','2024-04-09','20:33:00',12,25,99,'Business',9000.00,5);
+INSERT INTO `flights` VALUES (77,'758654','2024-04-08','15:33:00','2024-04-08','16:35:00',12,18,100,'Business',8760.00,5);
+INSERT INTO `flights` VALUES (78,'765999','2024-04-08','14:39:00','2024-04-08','23:39:00',23,12,100,'First Class',9800.00,5);
+INSERT INTO `flights` VALUES (79,'74699','2024-04-08','20:40:00','2024-04-09','23:40:00',12,16,100,'First Class',7460.00,5);
+INSERT INTO `flights` VALUES (80,'435299','2024-04-08','07:41:00','2024-04-08','01:41:00',14,25,100,'First Class',5400.00,5);
+INSERT INTO `flights` VALUES (81,'7453811','2024-04-10','10:42:00','2024-04-10','17:42:00',12,25,98,'First Class',8700.00,5);
+INSERT INTO `flights` VALUES (82,'8568899','2024-04-08','16:43:00','2024-04-08','20:43:00',12,12,100,'First Class',6500.00,5);
+INSERT INTO `flights` VALUES (83,'746788','2024-04-08','16:49:00','2024-04-08','18:49:00',12,14,100,'Economy',6740.00,6);
+INSERT INTO `flights` VALUES (84,'74578','2024-04-08','12:49:00','2024-04-08','19:50:00',12,14,100,'Economy',7650.00,6);
+INSERT INTO `flights` VALUES (85,'8643672','2024-04-08','09:50:00','2024-04-08','16:50:00',12,14,100,'Business',7500.00,6);
+INSERT INTO `flights` VALUES (86,'8266783','2024-04-08','01:51:00','2024-04-08','08:52:00',12,14,100,'First Class',5421.00,6);
+INSERT INTO `flights` VALUES (87,'52457831','2024-04-08','21:52:00','2024-04-08','23:52:00',14,12,100,'Economy',8640.00,6);
+INSERT INTO `flights` VALUES (88,'8753673','2024-04-08','19:53:00','2024-04-08','21:53:00',12,25,100,'Economy',7640.00,6);
+INSERT INTO `flights` VALUES (89,'8367800','2024-04-08','06:54:00','2024-04-09','18:54:00',12,25,100,'Business',6730.00,6);
+INSERT INTO `flights` VALUES (90,'84679309','2024-04-08','01:56:00','2024-04-09','03:56:00',12,14,100,'Business',5403.00,6);
+INSERT INTO `flights` VALUES (91,'876287','2024-04-08','01:57:00','2024-04-08','02:57:00',12,16,100,'Business',8702.00,6);
+INSERT INTO `flights` VALUES (92,'8764898','2024-04-08','01:00:00','2024-04-08','10:58:00',12,25,100,'Business',7367.00,6);
+INSERT INTO `flights` VALUES (93,'547883','2024-04-08','20:59:00','2024-04-08','23:59:00',12,25,100,'First Class',9022.00,6);
+INSERT INTO `flights` VALUES (94,'67494','2024-04-08','03:01:00','2024-04-08','23:02:00',25,12,99,'First Class',8730.00,6);
+INSERT INTO `flights` VALUES (95,'846789','2024-04-08','09:03:00','2024-04-08','22:03:00',12,14,100,'First Class',5090.00,6);
+INSERT INTO `flights` VALUES (96,'230956','2024-04-08','07:03:00','2024-04-08','18:04:00',21,12,100,'First Class',6702.00,6);
+INSERT INTO `flights` VALUES (97,'756885','2024-04-08','12:06:00','2024-04-08','20:06:00',12,18,100,'First Class',7659.00,6);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_items` (
@@ -318,7 +373,7 @@ CREATE TABLE `passenger` (
   `booking_id` int DEFAULT NULL,
   PRIMARY KEY (`passenger_id`),
   KEY `booking_id` (`booking_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `passenger` VALUES (59,'vishal saw',22,'2002-03-12','Male',NULL,NULL,NULL,43);
 INSERT INTO `passenger` VALUES (58,'shruti',23,'2001-02-02','Male',NULL,NULL,NULL,42);
@@ -343,6 +398,7 @@ INSERT INTO `passenger` VALUES (64,'shruti javiya',21,'2002-12-12','Male','5','6
 INSERT INTO `passenger` VALUES (65,'raj patil',20,'2003-11-12','Male','40','1',2147483647,49);
 INSERT INTO `passenger` VALUES (66,'raj patil',21,'2002-12-12','Male','10','6',1747879265,50);
 INSERT INTO `passenger` VALUES (67,'vishal saw',18,'2005-11-12','Male','50','1',2147483647,51);
+INSERT INTO `passenger` VALUES (68,'prachi sen',18,'2005-11-12','Male','7','6',2147483647,52);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
@@ -524,7 +580,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `users` VALUES (20,'','','soham','sohamdorge45@gmail.com','$2y$10$BsdHsZx8D7Yb.CyHXK.DG..ubIK1hA9.lLAfF5U6bHyUnqB9qcTIa',NULL,NULL,0,NULL,'480377');
 INSERT INTO `users` VALUES (19,'yagnesh','prajapati','yagnesh12','sohamdorge45@gmail.com','123','7778889990','Male',1,'60 feet road surat','766126');
 INSERT INTO `users` VALUES (16,'soham','dorge','soham','sohamdorge45@gmail.com','123456','7778889990','Male',1,'surat','932200');
 INSERT INTO `users` VALUES (17,'yagnesh','prajapati','yagnesh','sohamdorge45@gmail.com','1234','1234567890','Male',1,'surat','397276');
@@ -545,7 +600,7 @@ CREATE TABLE `vendors` (
   PRIMARY KEY (`vendor_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123456',1,0,'bings','9997778880','surat',0);
+INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123456',1,1,'bings','9997778880','surat',0);
 INSERT INTO `vendors` VALUES (2,'yagnesh','okyagnesh@gmail.com','123456',0,1,'dexon','9997778880','dindoli',0);
 INSERT INTO `vendors` VALUES (3,'vishal saw','vishal@gmail.com','123456',0,0,'vision care','7778889990','Surat ',0);
 INSERT INTO `vendors` VALUES (4,'soham_dorge','soh@gmail.com','123456',0,1,'zexon','7778889990','Surat ',0);
