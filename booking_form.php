@@ -6,7 +6,6 @@
     <title>Passenger Booking</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-          /* CSS for table records */
           .table-bordered th,
         .table-bordered td {
             border: 1px solid #23395d;
@@ -14,15 +13,15 @@
             vertical-align: middle;
         }
 
-        /* Additional styling for card form */
+    
         .card {
-            border-radius: 20px; /* Curved edges */
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Shadow */
-            transition: 0.3s; /* Transition effect */
+            border-radius: 20px; 
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+            transition: 0.3s; 
         }
 
         .card:hover {
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); 
         }
     </style>
 </head>
@@ -34,7 +33,6 @@ include("./include/connection.php");
 
 $flight_id = null;
 
-// Check if user is logged in
 if (isset($_SESSION['u'])) {
     $userid = $_SESSION['u'];
 
@@ -48,10 +46,8 @@ if (isset($_SESSION['u'])) {
         if ($flightResult && $flightResult->num_rows > 0) {
             $flight = $flightResult->fetch_assoc();
 
-            // Calculate total amount
             $total_amount = $flight['price'] * $numPassengers;
 
-            // Store total amount in session
             $_SESSION['total_price'] = $total_amount;
             $_SESSION['flight_id'] = $flight_id;
 ?>
@@ -62,18 +58,16 @@ if (isset($_SESSION['u'])) {
                     <input type="hidden" name="passengers" value="<?php echo $numPassengers; ?>">
                     <input type="hidden" name="total_price" value="<?php echo $total_amount; ?>">
 
-                    <!-- Loop to generate input fields for passengers -->
                     <?php
                     for ($i = 1; $i <= $numPassengers; $i++) {
-                        $seatno = rand(1, 100); // Assuming there are 100 seats
-                        $gateno = rand(1, 10); // Assuming there are 10 gates
+                        $seatno = rand(1, 100); 
+                        $gateno = rand(1, 10); 
                         $pnr_no = mt_rand(1000000000, 9999999999);
 
                     ?>
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">Passenger <?php echo $i; ?></h5>
-                                <!-- Other input fields for passenger details -->
                                 <div class="form-group">
                                     <label for="name<?php echo $i; ?>">Name:</label>
                                     <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" required>
@@ -94,14 +88,12 @@ if (isset($_SESSION['u'])) {
                                     <label for="dob<?php echo $i; ?>">Date of Birth:</label>
                                     <input type="date" class="form-control" id="dob<?php echo $i; ?>" name="dob<?php echo $i; ?>" max="<?php echo date('Y-m-d'); ?>" onchange="calculateAge(<?php echo $i; ?>)" required>
                                 </div>
-                                <!-- Other input fields for passenger details -->
                             </div>
                         </div>
                     <?php
                     }
                     ?>
 
-                    <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary" name="confirmBooking">Confirm Booking</button>
                 </form>
             </div>
@@ -128,73 +120,64 @@ if (isset($_SESSION['u'])) {
         }
     } else {
         echo "<div class='container'>";
-        //echo "<h2 class='text-center mb-4'>Flight ID is not set in session.</h2>";
+        
         echo "</div>";
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Check if form is submitted
         if (isset($_POST['confirmBooking'])) {
-            // Ensure $numPassengers is defined
             $numPassengers = isset($_POST['passengers']) ? $_POST['passengers'] : 0;
 
-            // Ensure total price is set in session
             if (isset($_SESSION['total_price'])) {
-                // Prepare INSERT statement for booked_flights table
+                
                 $insertStatement = $conn->prepare("INSERT INTO booked_flights (flight_id, user_id, take_seats, flight_class, total_amount, airline_id) VALUES (?, ?, ?, ?, ?, ?)");
 
                 if ($insertStatement) {
-                    // Bind parameters and execute the INSERT statement
+                    
                     $insertStatement->bind_param("iiisii", $_POST['flight_id'], $userid, $numPassengers, $_POST['flight_class'], $_SESSION['total_price'], $flight['airline_id']);
                     $insertStatement->execute();
 
-                    // Get the booking ID
                     $booking_id = $insertStatement->insert_id;
 
-                    // Store the booking ID in session
+                   
                     $_SESSION['booking_id'] = $booking_id;
 
-                    // Close the prepared statement
+                  
                     $insertStatement->close();
 
-                    // Prepare INSERT statement for passenger table
                     $passengerStatement = $conn->prepare("INSERT INTO passenger (name, age, gender, dob, booking_id, pnr_no, seatno, gateno) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
                     if ($passengerStatement) {
-                        // Loop through passengers
                         for ($i = 1; $i <= $numPassengers; $i++) {
-                            // Generate random seat number
-                            $seatno = rand(1, 100); // Assuming there are 100 seats
+                            $seatno = rand(1, 100); 
 
-                            // Generate PNR number and gate number
+                            
                             if ($numPassengers > 1) {
-                                // If more than one passenger, use the same PNR and gate number
+                                
                                 $pnr_no = $pnr_no ?? mt_rand(1000000000, 9999999999);
-                                $gateno = $gateno ?? rand(1, 10); // Assuming there are 10 gates
+                                $gateno = $gateno ?? rand(1, 10);
                             } else {
-                                // If only one passenger, generate different PNR and gate numbers
+                              
                                 $pnr_no = mt_rand(1000000000, 9999999999);
-                                $gateno = rand(1, 10); // Assuming there are 10 gates
+                                $gateno = rand(1, 10); 
                             }
 
-                            // Retrieve form data for each passenger
+                        
                             $name = $_POST["name$i"];
                             $age = $_POST["age$i"];
                             $gender = $_POST["gender$i"];
                             $dob = $_POST["dob$i"];
 
-                            // Bind parameters and execute the INSERT statement for passenger table
+                            
                             $passengerStatement->bind_param("sissiiss", $name, $age, $gender, $dob, $booking_id, $pnr_no, $seatno, $gateno);
                             $passengerStatement->execute();
                         }
 
-                        // Close the prepared statement for passenger table
                         $passengerStatement->close();
                     } else {
                         echo "Error preparing statement for passenger table: " . $conn->error;
                     }
 
-                    // Fetch the latest booking details based on booking_id
                     $latest_booking_query = "SELECT * FROM passenger WHERE booking_id = $booking_id";
                     $latest_booking_result = mysqli_query($conn, $latest_booking_query);
 
@@ -210,9 +193,7 @@ if (isset($_SESSION['u'])) {
                                         <th scope="col" class="bg-primary text-white">Age</th>
                                         <th scope="col" class="bg-primary text-white">Gender</th>
                                         <th scope="col" class="bg-primary text-white">Date of Birth</th>
-                                        <!-- <th scope="col" class="bg-primary text-white">PNR No</th>
-                                        <th scope="col" class="bg-primary text-white">Seat No</th>
-                                        <th scope="col" class="bg-primary text-white">Gate No</th> -->
+                                        
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -223,9 +204,7 @@ if (isset($_SESSION['u'])) {
                                         echo "<td>" . $row['age'] . "</td>";
                                         echo "<td>" . $row['gender'] . "</td>";
                                         echo "<td>" . $row['dob'] . "</td>";
-                                        // echo "<td>" . $row['pnr_no'] . "</td>";
-                                        // echo "<td>" . $row['seatno'] . "</td>";
-                                        // echo "<td>" . $row['gateno'] . "</td>";
+                                     
                                         echo "</tr>";
                                     }
                                     ?>
@@ -240,7 +219,6 @@ if (isset($_SESSION['u'])) {
                         echo "</div>";
                     }
 
-                    // Display Stripe payment form
                     ?>
                     <div class="container mt-3">
                         <div class="row">
@@ -278,7 +256,6 @@ if (isset($_SESSION['u'])) {
         }
     }
 } else {
-    // User is not logged in, redirect to login page
     echo '<script>window.location.href = "login.php";</script>';
     exit();
 }

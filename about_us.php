@@ -10,7 +10,6 @@
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     color: #333;
-    /* padding-top: 50px; */
     padding-bottom: 50px;
   }
 
@@ -51,7 +50,7 @@
 
   .team-member img {
     width: 150px;
-    height: 150px; /* Set a fixed size for all team member images */
+    height: 150px; 
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 10px;
@@ -62,14 +61,12 @@
 <?php
 include("./include/navbar.php");
 ?>
-<!-- Page Content -->
 <div class="container">
   <div class="jumbotron text-center">
     <h1 class="display-4">About Us</h1>
     <p class="lead">Discover more about Shopflix - Your Ultimate Shopping Destination</p>
   </div>
 
-  <!-- Mission and Vision Section -->
   <div class="section-header">
     <h2 class="section-title">Our Mission & Vision</h2>
   </div>
@@ -80,7 +77,6 @@ include("./include/navbar.php");
     <p>To be the preferred online platform, offering a seamless shopping experience and innovative solutions.</p>
   </div>
 
-  <!-- About Shopflix Section -->
   <div class="section-header">
     <h2 class="section-title">About Shopflix</h2>
   </div>
@@ -89,11 +85,10 @@ include("./include/navbar.php");
     <p>Our commitment to excellence extends to our flight booking services, ensuring you have access to seamless travel solutions at competitive prices.</p>
   </div>
 
-  <!-- Team Section -->
   <div class="section-header">
     <h2 class="section-title">Meet Our Team</h2>
   </div>
-<!-- Team Section -->
+
 <div class="section-header">
   <h2 class="section-title">Meet Our Team</h2>
 </div>

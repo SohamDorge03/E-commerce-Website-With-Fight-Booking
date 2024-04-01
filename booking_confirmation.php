@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Confirmation</title>
-    <!-- Include Bootstrap CSS -->
+   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -16,10 +16,10 @@
                 <ul>
                     <li><strong>Flight ID:</strong> <?php echo $_GET['flight_id']; ?></li>
                     <li><strong>Number of Passengers:</strong> <?php echo $_GET['passengers']; ?></li>
-                    <!-- Add more details as needed -->
+                    
                 </ul>
                 <p>Your booking is confirmed. Please proceed with payment.</p>
-                <!-- Add payment options or links to payment page here -->
+                
                 <a href="payment_option.php" class="btn btn-primary">Proceed to Payment</a>
             </div>
         </div>
