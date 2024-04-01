@@ -61,7 +61,7 @@ if (isset($_POST['searchFlights'])) {
         if ($searchResult->num_rows > 0) {
             // Display search results
             ?>
-            <div class='container'>
+            <div class='container mt-5'>
                 <h2 class='text-center mb-4'>Search Results</h2>
                 <?php
                 while ($row = $searchResult->fetch_assoc()) {

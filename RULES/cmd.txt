@@ -5,12 +5,17 @@ CREATE TABLE `admins` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `verify_code` varchar(6) NOT NULL,
+  `confirmed_email` tinyint NOT NULL,
   PRIMARY KEY (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `admins` VALUES (3,'soham','soh@gmail.com','123456');
-INSERT INTO `admins` VALUES (9,'bhargav','bhargav123@gmail.com','786');
-INSERT INTO `admins` VALUES (10,'yagnesh','okyagnesh@gmail.com','123456');
+INSERT INTO `admins` VALUES (3,'soham','soh@gmail.com','123456','',0);
+INSERT INTO `admins` VALUES (9,'bhargav','bhargav123@gmail.com','786','',0);
+INSERT INTO `admins` VALUES (10,'yagnesh','okyagnesh@gmail.com','123456','',0);
+INSERT INTO `admins` VALUES (11,'vishal','sawvishal2004@gmail.com','$2y$10$zhL0veFaOUZQuITGTAaKdO2MtE1MNvDQpjJvih.ls5ql96SzyGOfq','666764',1);
+INSERT INTO `admins` VALUES (12,'vishal ','sawvishal2004@gmail.com','$2y$10$NNDMOOwFekvNLH8kvx.pqut5Cchol39eYWJ1XHQJCQqRm860ZpKfy','109677',1);
+INSERT INTO `admins` VALUES (13,'vis','sawvishal2004@gmail.com','12345678','195820',1);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airline_requests` (
@@ -24,9 +29,16 @@ CREATE TABLE `airline_requests` (
   `last_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `confirmed` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`request_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `airline_requests` VALUES (8,'Indigo','sawvishal2004@gmail.com','IndiGo-Logo.png',_binary 'db53.jpg','Approved','2024-03-29 10:51:22','2024-03-29 11:04:11',0);
 INSERT INTO `airline_requests` VALUES (5,'Airindia','sohamdorge45@gmail.com','air india.png',_binary 'vistara.png','Approved','2024-03-29 04:08:22','2024-03-29 04:26:20',0);
+INSERT INTO `airline_requests` VALUES (9,'airasia','okyagnesh@gmail.com','Air Asia.png',_binary 'b1.jpg','Pending','2024-03-29 10:54:10','2024-03-29 10:54:10',0);
+INSERT INTO `airline_requests` VALUES (10,'Visatara','vishalsaw952@gmail.com','vistara.png',_binary 'v1.jpg','Approved','2024-03-29 10:55:58','2024-03-29 10:56:15',0);
+INSERT INTO `airline_requests` VALUES (11,'Emirates','okyagnesh@gmail.com','Emirates.png',_binary 'y1.jpg','Pending','2024-03-29 10:59:09','2024-03-29 10:59:09',0);
+INSERT INTO `airline_requests` VALUES (13,'Spicejet','sohamdorge45@gmail.com','spicejet.png',_binary 't2.jpg','Pending','2024-03-29 11:01:07','2024-03-29 11:01:07',0);
+INSERT INTO `airline_requests` VALUES (14,'Qatar','sawvishal2004@gmail.com','Qatar.png',_binary 'A.png','Pending','2024-03-29 11:02:40','2024-03-29 11:02:40',0);
+INSERT INTO `airline_requests` VALUES (16,'Go first','sohamdorge45@gmail.com','go first.png',_binary 'go first.png','Pending','2024-03-29 11:06:21','2024-03-29 11:06:21',0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airlines` (
@@ -84,11 +96,9 @@ CREATE TABLE `book_demo` (
   PRIMARY KEY (`demo_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `book_demo` VALUES (19,18,36,'2024-03-23 00:00:00','2024-03-21 08:31:16','Confirmed');
-INSERT INTO `book_demo` VALUES (17,9,1,'0000-00-00 00:00:00','2024-03-19 20:30:35','Pending');
-INSERT INTO `book_demo` VALUES (18,9,36,'2024-03-22 10:00:00','2024-03-19 20:34:42','Confirmed');
+INSERT INTO `book_demo` VALUES (21,22,126,'2024-04-12 00:00:00','2024-03-30 12:21:12','Pending');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booked_flights` (
@@ -107,7 +117,7 @@ CREATE TABLE `booked_flights` (
   KEY `flight_id` (`flight_id`),
   KEY `user_id` (`user_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `booked_flights` VALUES (50,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','2024-03-28 17:10:12');
 INSERT INTO `booked_flights` VALUES (49,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','2024-03-28 17:08:54');
@@ -116,7 +126,7 @@ INSERT INTO `booked_flights` VALUES (47,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','
 INSERT INTO `booked_flights` VALUES (46,9,16,1,NULL,NULL,'ch_3OyyvFDwlRClWlNg22a7HfYH','12000',NULL,'success','2024-03-27 21:30:36');
 INSERT INTO `booked_flights` VALUES (45,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','2024-03-27 21:29:40');
 INSERT INTO `booked_flights` VALUES (44,9,16,1,NULL,NULL,'ch_3Oyw6WDwlRClWlNg1qCNDMlu','12000',NULL,'success','2024-03-27 18:30:51');
-INSERT INTO `booked_flights` VALUES (37,7,18,1,NULL,NULL,'ch_3Ox2DMDwlRClWlNg0vyK20DE','1200',NULL,'success','2024-03-22 12:38:11');
+INSERT INTO `booked_flights` VALUES (37,7,21,1,NULL,NULL,'ch_3Ox2DMDwlRClWlNg0vyK20DE','1200',NULL,'success','2024-03-22 12:38:11');
 INSERT INTO `booked_flights` VALUES (38,9,16,1,NULL,NULL,NULL,'12000',NULL,'0','2024-03-24 10:21:11');
 INSERT INTO `booked_flights` VALUES (39,9,16,1,NULL,NULL,'ch_3Oxj2GDwlRClWlNg1EhaTRHY','12000',NULL,'success','2024-03-24 10:21:28');
 INSERT INTO `booked_flights` VALUES (40,9,16,1,NULL,NULL,'ch_3Oxj4ODwlRClWlNg21giR9lz','12000',NULL,'success','2024-03-24 10:23:48');
@@ -125,6 +135,18 @@ INSERT INTO `booked_flights` VALUES (42,9,16,1,NULL,NULL,'ch_3OxjHzDwlRClWlNg1dy
 INSERT INTO `booked_flights` VALUES (43,9,16,1,NULL,NULL,'ch_3OySD9DwlRClWlNg1TnbUnAv','12000',NULL,'success','2024-03-26 10:35:38');
 INSERT INTO `booked_flights` VALUES (51,9,16,1,NULL,1,'ch_3OzHKMDwlRClWlNg2uRluSrp','12000',NULL,'success','2024-03-28 17:10:38');
 INSERT INTO `booked_flights` VALUES (52,11,16,1,NULL,1,'ch_3OzaIGDwlRClWlNg2wNShgzi','9000',NULL,'success','2024-03-29 13:25:46');
+INSERT INTO `booked_flights` VALUES (53,65,17,1,NULL,9,'ch_3OzdaaDwlRClWlNg1JNyofMU','7867',NULL,'success','2024-03-29 16:56:48');
+INSERT INTO `booked_flights` VALUES (54,7,22,1,NULL,8,'ch_3OzwcUDwlRClWlNg01Tr3IF8','1200',NULL,'success','2024-03-30 13:16:05');
+INSERT INTO `booked_flights` VALUES (55,64,19,2,NULL,9,'ch_3OzwilDwlRClWlNg1mk5dE7b','17200',NULL,'success','2024-03-30 13:21:52');
+INSERT INTO `booked_flights` VALUES (56,11,23,2,NULL,1,'ch_3OzwpLDwlRClWlNg2cEwkXrc','18000',NULL,'success','2024-03-30 13:29:23');
+INSERT INTO `booked_flights` VALUES (59,19,16,3,NULL,3,'ch_3OzxDuDwlRClWlNg02ZfXiRS','36000',NULL,'success','2024-03-30 13:54:45');
+INSERT INTO `booked_flights` VALUES (58,17,21,6,NULL,3,'ch_3Ozx48DwlRClWlNg14G7bexH','60000',NULL,'success','2024-03-30 13:44:15');
+INSERT INTO `booked_flights` VALUES (60,20,22,3,NULL,3,'ch_3OzxLrDwlRClWlNg085HVVil','24000',NULL,'success','2024-03-30 14:02:53');
+INSERT INTO `booked_flights` VALUES (61,18,22,1,NULL,3,'ch_3OzxPBDwlRClWlNg0SJ295bX','11000',NULL,'success','2024-03-30 14:06:17');
+INSERT INTO `booked_flights` VALUES (62,107,16,1,NULL,3,'ch_3OzznMDwlRClWlNg2DVeOOaU','5200',NULL,'success','2024-03-30 16:39:26');
+INSERT INTO `booked_flights` VALUES (63,5,16,1,NULL,3,'ch_3OzzyXDwlRClWlNg2JqtD3YW','4000',NULL,'success','2024-03-30 16:50:58');
+INSERT INTO `booked_flights` VALUES (64,18,16,1,NULL,NULL,NULL,'11000',NULL,'0','2024-03-30 17:18:44');
+INSERT INTO `booked_flights` VALUES (65,111,21,4,NULL,3,'ch_3P0IYaDwlRClWlNg0cBJELbt','19600',NULL,'success','2024-03-31 12:41:20');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -135,10 +157,10 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `cart` VALUES (93,16,38,1);
-INSERT INTO `cart` VALUES (92,16,23,1);
+INSERT INTO `cart` VALUES (92,16,23,4);
 INSERT INTO `cart` VALUES (43,10,23,2);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -170,9 +192,16 @@ CREATE TABLE `feedback` (
   `email` varchar(100) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`feedback_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `feedback` VALUES (1,'jay@gmail.com','thank you');
+INSERT INTO `feedback` VALUES (2,'chirag@gmail.com','Thank you so much for your continued support....');
+INSERT INTO `feedback` VALUES (3,'sohamdorge45@gmail.com','your website services are beneficial...! ');
+INSERT INTO `feedback` VALUES (4,'sawvishal2004@gmail.com','\"Your website\'s design is visually appealing, but slow loading times and broken links detract from the user experience. Improving these aspects could enhance overall satisfaction.\"');
+INSERT INTO `feedback` VALUES (5,'patilprasad2824@gmail.com','\"Your website\'s design is captivating and user-friendly, offering an enjoyable browsing experience\".\r\n');
+INSERT INTO `feedback` VALUES (6,'bhargavtiwari6813@gmail.com','Unfortunately,\" navigating your website has been frustrating due to slow loading times\".');
+INSERT INTO `feedback` VALUES (7,'okyagnesh@gmail.com','\r\n\"Your flight booking section offers a unique blend of convenience and affordability, seamlessly guiding users through the booking process while ensuring access to budget-friendly options. It\'s a refreshing experience to find such a combination, making travel planning both efficient and cost-effective.');
+INSERT INTO `feedback` VALUES (8,'mahesh452@gmail.com','\r\n\"Your product exceeded my expectations! From its sleek design to its impressive functionality, it\'s clear that a lot of thought went into its development. However, I did encounter a minor issue with [specific feature or aspect], which could be improved for an even better user experience. Overall, though, I\'m highly satisfied with my purchase and would highly recommend it to others.\"');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flights` (
@@ -192,11 +221,11 @@ CREATE TABLE `flights` (
   KEY `dep_airport_id` (`dep_airport_id`),
   KEY `arr_airport_id` (`arr_airport_id`),
   KEY `fk_airline_id` (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `flights` VALUES (14,'21444','2024-04-10','02:43:00','2024-04-11','09:43:00',15,14,99,'Economy',7000.00,1);
-INSERT INTO `flights` VALUES (7,'12322','2024-03-28','15:17:00','2024-03-29','16:17:00',14,18,12,'Economy',1200.00,3);
-INSERT INTO `flights` VALUES (5,'56436','2024-03-21','18:00:00','2024-03-21','21:00:00',15,13,70,'Economy',40000.00,3);
+INSERT INTO `flights` VALUES (7,'12322','2024-04-09','15:17:00','2024-04-09','16:17:00',14,18,12,'Economy',1200.00,8);
+INSERT INTO `flights` VALUES (5,'56436','2024-04-12','18:00:00','2024-04-12','21:00:00',13,14,70,'Economy',4000.00,3);
 INSERT INTO `flights` VALUES (10,'19044','2024-04-06','18:32:00','2024-04-07','01:33:00',22,26,100,'Economy',7000.00,1);
 INSERT INTO `flights` VALUES (11,'10255','2024-04-07','21:37:00','2024-04-08','05:37:00',25,18,100,'Business',9000.00,1);
 INSERT INTO `flights` VALUES (12,'12533','2024-04-08','21:39:00','2024-04-09','04:39:00',27,16,99,'First Class',10000.00,1);
@@ -283,6 +312,20 @@ INSERT INTO `flights` VALUES (94,'67494','2024-04-08','03:01:00','2024-04-08','2
 INSERT INTO `flights` VALUES (95,'846789','2024-04-08','09:03:00','2024-04-08','22:03:00',12,14,100,'First Class',5090.00,6);
 INSERT INTO `flights` VALUES (96,'230956','2024-04-08','07:03:00','2024-04-08','18:04:00',21,12,100,'First Class',6702.00,6);
 INSERT INTO `flights` VALUES (97,'756885','2024-04-08','12:06:00','2024-04-08','20:06:00',12,18,100,'First Class',7659.00,6);
+INSERT INTO `flights` VALUES (98,'45782','2024-04-09','11:00:00','2024-04-09','16:00:00',14,21,100,'Economy',5000.00,3);
+INSERT INTO `flights` VALUES (99,'78950','2024-04-10','12:00:00','2024-04-10','16:30:00',25,23,100,'Economy',7500.00,3);
+INSERT INTO `flights` VALUES (100,'89988','2024-04-12','07:00:00','2024-04-12','15:00:00',13,24,80,'Economy',8999.00,3);
+INSERT INTO `flights` VALUES (101,'53421','2024-05-04','19:00:00','2024-05-05','01:00:00',27,24,100,'Economy',4500.00,3);
+INSERT INTO `flights` VALUES (102,'06321','2024-04-09','10:00:00','2024-04-09','15:00:00',15,22,100,'Business',7999.00,3);
+INSERT INTO `flights` VALUES (103,'72421','2024-04-20','23:00:00','2024-04-21','04:00:00',12,18,100,'Business',8999.00,3);
+INSERT INTO `flights` VALUES (104,'98211','2024-04-12','21:00:00','2024-04-13','10:00:00',12,15,100,'Business',5000.00,3);
+INSERT INTO `flights` VALUES (105,'36985','2024-04-09','12:00:00','2024-04-09','17:00:00',13,25,100,'Business',5000.00,3);
+INSERT INTO `flights` VALUES (106,'12980','2024-04-12','19:00:00','2024-04-12','23:00:00',12,20,100,'First Class',9500.00,3);
+INSERT INTO `flights` VALUES (107,'43111','2024-04-09','12:00:00','2024-04-09','15:00:00',12,13,1000,'First Class',5200.00,3);
+INSERT INTO `flights` VALUES (108,'55279','2024-04-08','12:00:00','2024-04-08','17:00:00',20,22,100,'First Class',7599.00,1);
+INSERT INTO `flights` VALUES (109,'21444','2024-04-08','13:49:00','2024-04-08','14:48:00',14,12,100,'Economy',4300.00,3);
+INSERT INTO `flights` VALUES (110,'20011','2024-04-08','14:49:00','2024-04-08','16:49:00',22,25,100,'Business',6500.00,3);
+INSERT INTO `flights` VALUES (111,'54542','2024-04-08','15:37:00','2024-04-08','18:37:00',12,20,100,'First Class',4900.00,3);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_items` (
@@ -293,7 +336,7 @@ CREATE TABLE `order_items` (
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `order_items` VALUES (1,3,26,2);
 INSERT INTO `order_items` VALUES (2,4,22,9);
@@ -324,6 +367,7 @@ INSERT INTO `order_items` VALUES (26,17,57,1);
 INSERT INTO `order_items` VALUES (27,18,55,1);
 INSERT INTO `order_items` VALUES (28,19,57,2);
 INSERT INTO `order_items` VALUES (29,20,66,1);
+INSERT INTO `order_items` VALUES (30,21,126,1);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
@@ -337,7 +381,7 @@ CREATE TABLE `orders` (
   `total_amount` decimal(10,2) NOT NULL,
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `orders` VALUES (1,5,'2024-03-08 10:57:23','Shipped','gpay','1','12333',5000.00);
 INSERT INTO `orders` VALUES (2,6,'2024-03-08 15:49:36','Pending','gpay','1','553535',5000.00);
@@ -349,16 +393,17 @@ INSERT INTO `orders` VALUES (7,9,'2024-03-17 09:00:51','Shipped','Stripe','Paid'
 INSERT INTO `orders` VALUES (8,5,'2024-03-19 16:02:50','Confirmed','Stripe','Paid','tok_1Ow57jDwlRClWlNg3V157088',90000.00);
 INSERT INTO `orders` VALUES (9,9,'2024-03-19 20:47:18','Pending','Stripe','Paid','tok_1Ow9Z0DwlRClWlNg2Kj888rQ',70198.00);
 INSERT INTO `orders` VALUES (10,10,'2024-03-19 20:49:36','Pending','Stripe','Paid','tok_1Ow9bDDwlRClWlNgBqq4WPLp',27000.00);
-INSERT INTO `orders` VALUES (11,9,'2024-03-21 02:55:24','Pending','Stripe','Paid','tok_1OwbmmDwlRClWlNg5ivsf9YU',19999.00);
-INSERT INTO `orders` VALUES (12,18,'2024-03-21 03:00:26','Shipped','Stripe','Paid','tok_1OwbreDwlRClWlNgSmmqCzHD',90000.00);
+INSERT INTO `orders` VALUES (11,9,'2024-03-21 02:55:24','Confirmed','Stripe','Paid','tok_1OwbmmDwlRClWlNg5ivsf9YU',19999.00);
+INSERT INTO `orders` VALUES (12,18,'2024-03-21 03:00:26','Confirmed','Stripe','Paid','tok_1OwbreDwlRClWlNgSmmqCzHD',90000.00);
 INSERT INTO `orders` VALUES (13,19,'2024-03-21 04:43:42','Shipped','Stripe','Paid','tok_1OwdTZDwlRClWlNgWAcHgVG9',69999.00);
 INSERT INTO `orders` VALUES (14,16,'2024-03-23 04:58:13','Shipped','Stripe','Paid','tok_1OxMekDwlRClWlNga2MV3gPW',17000.00);
-INSERT INTO `orders` VALUES (15,16,'2024-03-23 11:55:10','Pending','Stripe','Paid','tok_1OxTAGDwlRClWlNgYYy1aRJW',27000.00);
-INSERT INTO `orders` VALUES (16,16,'2024-03-23 12:27:57','Pending','Stripe','1','ch_3OxTg3DwlRClWlNg0WvmCsY6',1700.00);
-INSERT INTO `orders` VALUES (17,16,'2024-03-23 12:29:18','Pending','Stripe','Paid','tok_1OxThIDwlRClWlNgiH0y4210',7000.00);
-INSERT INTO `orders` VALUES (18,16,'2024-03-23 12:40:19','Pending','Stripe','Paid','tok_1OxTrxDwlRClWlNgfmtBHC3n',1700.00);
+INSERT INTO `orders` VALUES (15,22,'2024-03-23 11:55:10','Shipped','Stripe','Paid','tok_1OxTAGDwlRClWlNgYYy1aRJW',27000.00);
+INSERT INTO `orders` VALUES (16,23,'2024-03-23 12:27:57','Pending','Stripe','1','ch_3OxTg3DwlRClWlNg0WvmCsY6',1700.00);
+INSERT INTO `orders` VALUES (17,21,'2024-03-23 12:29:18','Pending','Stripe','Paid','tok_1OxThIDwlRClWlNgiH0y4210',7000.00);
+INSERT INTO `orders` VALUES (18,19,'2024-03-23 12:40:19','Pending','Stripe','Paid','tok_1OxTrxDwlRClWlNgfmtBHC3n',1700.00);
 INSERT INTO `orders` VALUES (19,16,'2024-03-23 12:58:12','Pending','Stripe','Paid','tok_1OxU9FDwlRClWlNgNP7yR6Ic',14000.00);
 INSERT INTO `orders` VALUES (20,16,'2024-03-23 13:11:03','Pending','Stripe','Paid','tok_1OxULhDwlRClWlNgoNh2ttGB',550.00);
+INSERT INTO `orders` VALUES (21,22,'2024-03-30 06:50:02','Pending','Stripe','Paid','tok_1OzvjqDwlRClWlNglCBxuJcx',22999.00);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passenger` (
@@ -373,7 +418,7 @@ CREATE TABLE `passenger` (
   `booking_id` int DEFAULT NULL,
   PRIMARY KEY (`passenger_id`),
   KEY `booking_id` (`booking_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `passenger` VALUES (59,'vishal saw',22,'2002-03-12','Male',NULL,NULL,NULL,43);
 INSERT INTO `passenger` VALUES (58,'shruti',23,'2001-02-02','Male',NULL,NULL,NULL,42);
@@ -399,6 +444,38 @@ INSERT INTO `passenger` VALUES (65,'raj patil',20,'2003-11-12','Male','40','1',2
 INSERT INTO `passenger` VALUES (66,'raj patil',21,'2002-12-12','Male','10','6',1747879265,50);
 INSERT INTO `passenger` VALUES (67,'vishal saw',18,'2005-11-12','Male','50','1',2147483647,51);
 INSERT INTO `passenger` VALUES (68,'prachi sen',18,'2005-11-12','Male','7','6',2147483647,52);
+INSERT INTO `passenger` VALUES (69,'prachi sen',24,'1999-04-28','Male','47','6',2147483647,53);
+INSERT INTO `passenger` VALUES (70,'prachi sen',23,'2001-01-01','Male','4','7',2147483647,54);
+INSERT INTO `passenger` VALUES (71,'gautam nath',15,'2009-02-12','Male','57','1',2147483647,55);
+INSERT INTO `passenger` VALUES (72,'bhupendra patel',34,'1990-01-12','Male','73','1',2147483647,55);
+INSERT INTO `passenger` VALUES (73,'Bhargav tiwari',20,'2004-01-01','Male','77','7',2147483647,56);
+INSERT INTO `passenger` VALUES (74,'Sweta tiwari',20,'2004-01-01','Female','63','7',2147483647,56);
+INSERT INTO `passenger` VALUES (75,'vishal saw',23,'2001-01-01','Male','94','5',2147483647,57);
+INSERT INTO `passenger` VALUES (76,'soham dorge',20,'2003-11-12','Male','56','5',2147483647,57);
+INSERT INTO `passenger` VALUES (77,'bhargav tiwari',19,'2004-07-07','Male','21','5',2147483647,57);
+INSERT INTO `passenger` VALUES (78,'yagnesh prajapati',20,'2004-01-01','Male','90','5',2147483647,57);
+INSERT INTO `passenger` VALUES (79,'prasad patil',26,'1998-02-02','Male','4','5',2147483647,57);
+INSERT INTO `passenger` VALUES (80,'Lalita sharma',24,'1999-08-18','Male','86','5',2147483647,57);
+INSERT INTO `passenger` VALUES (81,'vishal saw',23,'2001-01-01','Male','96','9',2147483647,58);
+INSERT INTO `passenger` VALUES (82,'soham dorge',20,'2003-11-12','Male','97','9',2147483647,58);
+INSERT INTO `passenger` VALUES (83,'bhargav tiwari',19,'2004-07-07','Male','32','9',2147483647,58);
+INSERT INTO `passenger` VALUES (84,'yagnesh prajapati',20,'2004-01-01','Male','32','9',2147483647,58);
+INSERT INTO `passenger` VALUES (85,'prasad patil',26,'1998-02-02','Male','53','9',2147483647,58);
+INSERT INTO `passenger` VALUES (86,'Lalit sharma',24,'1999-08-18','Male','22','9',2147483647,58);
+INSERT INTO `passenger` VALUES (87,'raghav kale',15,'2009-01-01','Male','18','8',2147483647,59);
+INSERT INTO `passenger` VALUES (88,'gopal chunawala',26,'1998-01-14','Male','76','8',2147483647,59);
+INSERT INTO `passenger` VALUES (89,'mohit jariwala',23,'2000-06-07','Male','48','8',2147483647,59);
+INSERT INTO `passenger` VALUES (90,'deepak patil',28,'1996-02-10','Male','72','5',2147483647,60);
+INSERT INTO `passenger` VALUES (91,'chirag jain',19,'2004-09-12','Male','62','5',2147483647,60);
+INSERT INTO `passenger` VALUES (92,'kiran sen',18,'2005-10-25','Female','3','5',2147483647,60);
+INSERT INTO `passenger` VALUES (93,'raj patil',24,'1999-04-12','Male','91','6',2147483647,61);
+INSERT INTO `passenger` VALUES (94,'soham dorge',19,'2004-11-12','Male','79','8',2147483647,62);
+INSERT INTO `passenger` VALUES (95,'vishal saw',23,'2001-02-12','Male','10','10',1830908677,63);
+INSERT INTO `passenger` VALUES (96,'raj patil',22,'2001-11-12','Male','43','5',2147483647,64);
+INSERT INTO `passenger` VALUES (97,'gopal shetty',15,'2009-02-12','Male','1','10',1729026638,65);
+INSERT INTO `passenger` VALUES (98,'mayank kumar',23,'2001-02-13','Male','54','10',1729026638,65);
+INSERT INTO `passenger` VALUES (99,'akruti panda',25,'1998-11-23','Female','49','10',1729026638,65);
+INSERT INTO `passenger` VALUES (100,'mohini devi',27,'1997-01-12','Female','20','10',1729026638,65);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
@@ -454,8 +531,7 @@ INSERT INTO `products` VALUES (45,2,'Panasonic 20L Solo Microwave Oven (NN-SM25J
 INSERT INTO `products` VALUES (46,3,'LG 28 L Scan to Cook Wi-Fi Enabled Charcoal Convection Healthy Microwave Oven (MJEN286VIW, Black, He','products/o6.jpg','products/o61.jpg','products/o62.jpg','products/o63.jpg','Brand	LG\r\nProduct Dimensions	48.8D x 51.2W x 31.1H Centimeters\r\nColour	Black\r\nCapacity	28 litres\r\nSpecial Feature	Auto Cook, Wi-Fi, Timer, Child Safety Lock, Grill Function',20000.00,50,18999.00,3,8);
 INSERT INTO `products` VALUES (47,2,'Panasonic 23L Convection Microwave Oven(NN-CT353BFDG,Black Mirror, 360° Heat Wrap, Magic Grill)','products/o7.jpg','products/o71.jpg','products/o72.jpg','','\r\nBrand	Panasonic\r\nProduct Dimensions	29.2D x 48.3W x 34.3H Centimeters\r\nColour	Black Mirror\r\nCapacity	23 litres\r\nSpecial Feature	Auto_cook',11000.00,70,9999.00,3,8);
 INSERT INTO `products` VALUES (48,2,'Philips HD6976/00 36 Litre Digital Oven Toaster Grill, 2000W, with Opti Temp Technology, Temperature','products/o8.jpg','products/o81.jpg','products/o82.jpg','','\r\nBrand	PHILIPS\r\nColour	BLACK\r\nProduct Dimensions	57.8D x 47.8W x 37.2H Centimeters\r\nSpecial Feature	Temperature Control, Timer\r\nControl Type	Button Control\r\n',13000.00,50,12500.00,3,8);
-INSERT INTO `products` VALUES (126,1,'Haier 8 Kg 5 Star In-built Heater Fully Automatic Top Load Washing Machine (HWM80-H826S6, Oceanus Wa','products/lg41.jpg','products/lg42.jpg','products/lg43.jpg','','Fully-automatic top load washing machine : Affordable with great wash quality, Easy to use; Has both washing and drying functions\r\nCapacity 8 kg: Suitable for large families\r\nEnergy Star rating: 5 Star: Best in class efficiency\r\nManufacturer Warranty: 5 years on product and 12 years on motor\r\n780 RPM: Higher spin speeds helps in faster wash and drying;\r\nWash Programs: 15 Programs\r\nDrum type: 5D Pulsator',22999.00,40,21999.00,3,11);
-INSERT INTO `products` VALUES (125,1,'Whirlpool 9 Kg 5 Star BloomWash Royal Plus Fully Automatic Top Load Washing Machine (BW ROYAL PLUS H','products/LG31.JPG','products/lg32.jpg','products/lg33.jpg','products/lg34.jpg','Product Dimensions	59D x 57W x 105H Centimeters\r\nBrand	Whirlpool\r\nCapacity	9 Kilograms\r\nSpecial Feature	Hard Water Wash Programme, Zero Pressure Fill Technology, Inbuilt Heater, Aqua Store\r\nFinish Type	Stainless Steel',24999.00,10,23999.00,3,11);
+INSERT INTO `products` VALUES (126,1,'Haier 8 Kg 5 Star In-built Heater Fully Automatic Top Load Washing Machine (HWM80-H826S6, Oceanus Wa','products/lg41.jpg','products/lg42.jpg','products/lg43.jpg','','Fully-automatic top load washing machine : Affordable with great wash quality, Easy to use; Has both washing and drying functions\r\nCapacity 8 kg: Suitable for large families\r\nEnergy Star rating: 5 Star: Best in class efficiency\r\nManufacturer Warranty: 5 years on product and 12 years on motor\r\n780 RPM: Higher spin speeds helps in faster wash and drying;\r\nWash Programs: 15 Programs\r\nDrum type: 5D Pulsator',22999.00,39,21999.00,3,11);
 INSERT INTO `products` VALUES (1,2,'Apple iPhone 15 (128 GB) - Green','products/x1.jpg','products/x11.jpg','products/x12.jpg','','\r\nBrand	Apple\r\nModel Name	iPhone 15\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	iOS\r\nCellular Technology	5G',70000.00,100,65999.00,3,9);
 INSERT INTO `products` VALUES (2,4,'iQOO Neo 7 Pro 5G (Dark Storm, 12Gb Ram, 256Gb Storage) | Snapdragon 8+ Gen 1 | Independent Gaming C','products/x2.jpg','products/x21.jpg','products/x22.jpg','','\r\nBrand	iQOO\r\nModel Name	iQOO Neo 7 Pro 5G\r\nNetwork Service Provider	Unlocked for All Carriers\r\nOperating System	Funtouch OS 13 Based On Android 13\r\nCellular Technology	5G',35000.00,50,33999.00,3,9);
 INSERT INTO `products` VALUES (124,1,'LG 8 Kg 5 Star Inverter Direct Drive Fully Automatic Front Load Washing Machine (FHM1408BDW, Steam W','products/LG21.jpg','products/LG22.jpg','products/LG24.jpg','products/LG23.jpg','\r\nCapacity	8 Kilograms\r\nColour	White\r\nBrand	LG\r\nProduct Dimensions	55D x 60W x 85H Centimeters\r\nSpecial Feature	Inverter, Child Lock, Auto Restart, Hygiene Steam, High Efficiency, Inbuilt Heater',35000.00,50,33999.00,3,11);
@@ -476,8 +552,8 @@ INSERT INTO `products` VALUES (68,2,'HaloHop Skipping Rope with Calorie Counter,
 INSERT INTO `products` VALUES (70,2,'Xfopz Smart Jump Rope, Digital Weighted Handle Workout Jumping Rope with Counter, Cordless Weighted ','products/r62.jpg','products/r61.jpg','','','Brand	Xfopz\r\nTarget Audience	Adult\r\nSpecial Feature	Ergonomic, Cordless, Adjustable Length\r\nMaterial	Acrylonitrile Butadiene Styrene (ABS)\r\nHandle Material	Silicone',799.00,150,599.00,1,3);
 INSERT INTO `products` VALUES (71,1,'NXTGEN MISURAA Imported Venice Ergonomic Office & Home Chair with Extandable Legrest, Dynamic Lumbar','products/c1.jpg','products/c11.jpg','products/c12.jpg','products/c13.jpg','\r\nBrand	NXTGEN MISURAA\r\nColour	White/Grey\r\nMaterial	Aluminium\r\nProduct Dimensions	66D x 68W x 129H Centimeters\r\nSize	Single\r\nBack Style	Solid Back',35000.00,50,33999.00,2,6);
 INSERT INTO `products` VALUES (72,1,'Urbancart ® Relax Bamboo Wooden Rocking Chair for Home Living Room and Outdoor Lounge, Brown (Design','products/c2.jpg','products/c21.jpg','products/c22.jpg','','\r\nBrand	Urbancart\r\nColour	Brown\r\nMaterial	Bamboo\r\nProduct Dimensions	94D x 61W x 106H Centimeters\r\nSize	Design-1\r\nBack Style	low back',9000.00,69,7999.00,2,6);
-INSERT INTO `products` VALUES (73,1,'CANE CRAFTS Premium Bamboo Chair | Kursi | Chairs for Home, Dining Room, Bedroom, Kitchen, Living Ro','products/c3.jpg','products/c4.jpg','products/c31.jpg','','Brand	CANE CRAFTS\r\nColour	Brown\r\nMaterial	Bamboo\r\nSize	Standard\r\nBack Style	Solid Back\r\nSpecial Feature	These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.00 count\r\nSeat Material Type	Wood\r\nRecommended Uses For Product	These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.\r\n',4999.00,100,3999.00,2,6);
-INSERT INTO `products` VALUES (74,1,'CANE CRAFTS Designer Premium Bamboo Modren Chair | Seating Treasures: Appreciating The Artisanal Her','products/c41.jpg','products/c42.jpg','products/c43.jpg','','Brand	CANE CRAFTS\r\nColour	Brown\r\nMaterial	Bamboo\r\nSize	Standard\r\nBack Style	Solid Back\r\nSpecial Feature	These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.00 count\r\nSeat Material Type	Wood\r\nRecommended Uses For Product	These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.These Chairs Are Preferred For Both Indoor And Outdoor Activities. Let There Be A Party, Family Gatherings, Kids’ Day Out Etc.\r\n',2999.00,98,1999.00,2,6);
+INSERT INTO `products` VALUES (73,1,'CANE CRAFTS Premium Bamboo Chair | Kursi | Chairs for Home, Dining Room, Bedroom, Kitchen, Living Ro','products/c3.jpg','products/c4.jpg','products/c31.jpg','','Brand	CANE CRAFTS\r\nColour	Brown\r\nMaterial	Bamboo\r\nSize	Standard\r\nBack Style	Solid Back\r\nSpecial Feature	These Chairs Are Preferred For Both Indoor And Outdoor Activities.\r\nProduct Care Instructions	Wipe Clean\r\nNet Quantity	1.00 count\r\nSeat Material Type	Wood\r\n',5999.00,100,3999.00,2,6);
+INSERT INTO `products` VALUES (74,1,'CANE CRAFTS Designer Premium Bamboo Modren Chair | Seating Treasures: Appreciating The Artisanal Her','products/c41.jpg','products/c42.jpg','products/c43.jpg','','Brand	CANE CRAFTS\r\nColour	Brown\r\nMaterial	Bamboo\r\nSize	Standard\r\nBack Style	Solid Back\r\nSpecial Feature	These Chairs Are Preferred For Both Indoor And Outdoor Activities.Product Care Instructions	Wipe Clean\r\nNet Quantity	1.00 count\r\nSeat Material Type	Wood\r\n\r\n',2999.00,98,1999.00,2,6);
 INSERT INTO `products` VALUES (75,1,'Avika Bhatiacane Bamboo Cane Chairs For Living Room With Cushion Study Chair With Arm Rest|Use In Ho','products/c5.jpg','products/c51.jpg','products/c52.jpg','','\r\nBrand	Avika\r\nColour	Brown\r\nMaterial	Rattan\r\nProduct Dimensions	70D x 66W x 70H Centimeters\r\nSize	single seater\r\nBack Style	Solid Back',4000.00,100,3050.00,2,6);
 INSERT INTO `products` VALUES (76,1,'Cane Crafts Medium Size Designer Bamboo Chair for Lawn Chair, Arm Chair, Room Chair, Indoor and Outd','products/c61.jpg','products/c62.jpg','','','\r\nBrand	Generic\r\nColour	Brown\r\nMaterial	Bamboo\r\nProduct Dimensions	10D x 10W x 10H Centimeters\r\nSize	Medium\r\nBack Style	Solid Back',4500.00,90,50.00,2,6);
 INSERT INTO `products` VALUES (77,1,'Vinay Enterprises Plastic tub Chair Rosewood Color Pack of 2','products/c7.jpg','products/c71.jpg','','','\r\nBrand	Generic\r\nColour	Rosewood\r\nMaterial	Plastic\r\nProduct Dimensions	11D x 15W x 11H Centimeters\r\nSize	Standard\r\nSpecial Feature	Portable, Lightweight',2500.00,100,1999.00,2,6);
@@ -578,12 +654,15 @@ CREATE TABLE `users` (
   `address` varchar(255) DEFAULT NULL,
   `verify_code` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `users` VALUES (19,'yagnesh','prajapati','yagnesh12','sohamdorge45@gmail.com','123','7778889990','Male',1,'60 feet road surat','766126');
-INSERT INTO `users` VALUES (16,'soham','dorge','soham','sohamdorge45@gmail.com','123456','7778889990','Male',1,'surat','932200');
-INSERT INTO `users` VALUES (17,'yagnesh','prajapati','yagnesh','sohamdorge45@gmail.com','1234','1234567890','Male',1,'surat','397276');
-INSERT INTO `users` VALUES (18,'bharagav','tiwari','bhargav','sohamdorge45@gmail.com','123456','7778889990','Male',1,'surat','234891');
+INSERT INTO `users` VALUES (23,'Bhargav ','tiwari','bhargav123','bhargavtiwari6813@gmail.com','123456','7623979323','Male',1,'pandesra','160929');
+INSERT INTO `users` VALUES (21,'vishal','saw','vishal','sawvishal2004@gmail.com','123456','987654321','Male',1,'Bamaroli','829818');
+INSERT INTO `users` VALUES (19,'yagnesh','prajapati','yagnesh','okyagnesh@gmail.com','123456','7778889990','Male',1,'Dindoli','766126');
+INSERT INTO `users` VALUES (16,'soham','dorge','soham','sohamdorge45@gmail.com','123456','6351109347','Male',1,'Udhna','932200');
+INSERT INTO `users` VALUES (17,'bharagav ','tiwari','Bharagv','bg@gmail.com','1234','7899005252','Male',1,'Housing','397276');
+INSERT INTO `users` VALUES (22,'Prasad','Patil','prasad123','patilprasad2824@gmail.com','123456','7896541230','Male',1,'Godadara','819615');
+INSERT INTO `users` VALUES (18,'chirag','Sharma','chirag','chiragsharma@gmail.com','123456','9979054870','Male',1,'Navagam','234891');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vendors` (
@@ -600,8 +679,8 @@ CREATE TABLE `vendors` (
   PRIMARY KEY (`vendor_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `vendors` VALUES (1,'bharagav','bg@gmail.com','123456',1,1,'bings','9997778880','surat',0);
-INSERT INTO `vendors` VALUES (2,'yagnesh','okyagnesh@gmail.com','123456',0,1,'dexon','9997778880','dindoli',0);
-INSERT INTO `vendors` VALUES (3,'vishal saw','vishal@gmail.com','123456',0,0,'vision care','7778889990','Surat ',0);
-INSERT INTO `vendors` VALUES (4,'soham_dorge','soh@gmail.com','123456',0,1,'zexon','7778889990','Surat ',0);
-INSERT INTO `vendors` VALUES (5,'soham','sohamdorge45@gmail.com','123456',1,0,'apple','7778889990','60 feet road',675381);
+INSERT INTO `vendors` VALUES (1,'Bharagav','bg@gmail.com','123456',1,1,'bings','9997778880','surat',0);
+INSERT INTO `vendors` VALUES (2,'Yagnesh','okyagnesh@gmail.com','123456',0,1,'dexon','9997778880','dindoli',0);
+INSERT INTO `vendors` VALUES (3,'Vishal saw','vishal@gmail.com','123456',0,1,'vision care','7778889990','Surat ',0);
+INSERT INTO `vendors` VALUES (4,'prasad','soh@gmail.com','123456',0,1,'zexon','7778889990','Surat ',0);
+INSERT INTO `vendors` VALUES (5,'soham','sohamdorge45@gmail.com','123456',1,1,'apple','7778889990','60 feet road',675381);

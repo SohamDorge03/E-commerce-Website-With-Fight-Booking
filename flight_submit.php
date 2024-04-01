@@ -88,39 +88,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                 $user_email = $user_row['email'];
                                 
                                 // Fetch dynamic seat number, gate number, and PNR number from passenger table
-                                $passenger_query = "SELECT seatno, gateno, pnr_no FROM passenger WHERE booking_id = $booking_id";
+                                $passenger_query = "SELECT name, seatno, gateno, pnr_no FROM passenger WHERE booking_id = $booking_id";
                                 $passenger_result = mysqli_query($conn, $passenger_query);
                                 if ($passenger_result && mysqli_num_rows($passenger_result) > 0) {
-                                    $passenger_row = mysqli_fetch_assoc($passenger_result);
-                                    $seat_no = $passenger_row['seatno'];
-                                    $gate_no = $passenger_row['gateno'];
-                                    $pnr_no = $passenger_row['pnr_no'];
+                                    $seats_info = "";
+                                    $count = 1;
+                                    while ($passenger_row = mysqli_fetch_assoc($passenger_result)) {
+                                        $passenger_name = $passenger_row['name'];
+                                        $seat_no = $passenger_row['seatno'];
+                                        $gate_no = $passenger_row['gateno'];
+                                        $pnr_no = $passenger_row['pnr_no'];
+                                        $seats_info .= "<br>Passenger $count: $passenger_name - Seat No: $seat_no - Gate No: $gate_no";
+                                        $count++;
+                                    }
                                 } else {
-                                    $seat_no = "Seat Number";
-                                    $gate_no = "Gate Number";
-                                    $pnr_no
-                                    = "PNR Number";
+                                    $seats_info = "Seat Information not available";
                                 }
 
-                                // Fetch airline name from airlines table using airline_id
-                                $airline_query = "SELECT airline_name FROM airlines WHERE airline_id = $airline_id";
-                                $airline_result = mysqli_query($conn, $airline_query);
-                                if ($airline_result && mysqli_num_rows($airline_result) > 0) {
-                                    $airline_row = mysqli_fetch_assoc($airline_result);
-                                    $airline_name = $airline_row['airline_name'];
+                                // Fetch airline name and flight code from airlines and flights tables using airline_id and flight_id
+                                $flight_query = "SELECT a.airline_name, f.flight_code FROM airlines a INNER JOIN flights f ON a.airline_id = f.airline_id WHERE f.flight_id = $flight_id";
+                                $flight_result = mysqli_query($conn, $flight_query);
+                                if ($flight_result && mysqli_num_rows($flight_result) > 0) {
+                                    $flight_row = mysqli_fetch_assoc($flight_result);
+                                    $airline_name = $flight_row['airline_name'];
+                                    $flight_code = $flight_row['flight_code'];
                                 } else {
                                     $airline_name = "Airline Name";
+                                    $flight_code = "Flight Code";
                                 }
+                                
+                                // Fetch a single PNR number for the booking
+                                $pnr_query = "SELECT DISTINCT pnr_no FROM passenger WHERE booking_id = $booking_id LIMIT 1";
+                                $pnr_result = mysqli_query($conn, $pnr_query);
+                                $pnr_row = mysqli_fetch_assoc($pnr_result);
+                                $pnr_no = $pnr_row['pnr_no'];
                                 
                                 // Send email containing necessary information
                                 $to = $user_email;
                                 $subject = 'Flight Booking Details';
                                 $body = "Thank you for booking your flight with us!<br><br>
-                                        Your Seat Number: $seat_no<br>
-                                        Gate Number: $gate_no<br>
-                                        PNR Number: $pnr_no<br>
+                                        Flight Code: $flight_code<br>
+                                        $seats_info<br>
                                         Airline Name: $airline_name<br>
-                                        HAPPY JOURNY ";
+                                        PNR Number: $pnr_no<br>
+                                        HAPPY JOURNEY <br>
+                                        Regards,<br>
+                                         The SHOPFLIX Team";
                                 $email_sent = sendEmail($to, $subject, $body);
                                 
                                 if (!$email_sent) {

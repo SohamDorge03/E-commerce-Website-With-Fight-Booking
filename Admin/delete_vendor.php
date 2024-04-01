@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error deleting vendor: " . $conn->error;
     }
 } else {
-    // Handle invalid request method
+  
     echo "Invalid request method";
 }
 ?>

@@ -8,28 +8,23 @@ if(!isset($_SESSION['email'])) {
 
 ?>
 
-
 <?php
 include("./include/connection.php");
 
-// Initialize an empty variable to store the table HTML
 $table_output = '';
 
-// Fetch all vendors from the database
 $sql_vendors = "SELECT DISTINCT p.vendor_id, v.company_name
                 FROM products p
                 INNER JOIN vendors v ON p.vendor_id = v.vendor_id";
 $result_vendors = $conn->query($sql_vendors);
 
-// Check for query execution error
 if ($result_vendors === false) {
-    // Handle query error
+    
     echo "Error fetching vendors: " . $conn->error;
 } else {
-    // Initialize an empty array to store vendor options
+   
     $vendor_options = [];
 
-    // Store vendor options in the array
     if ($result_vendors->num_rows > 0) {
         while ($row_vendor = $result_vendors->fetch_assoc()) {
             $vendor_options[] = $row_vendor;
@@ -38,14 +33,12 @@ if ($result_vendors === false) {
         echo "No vendors found";
     }
 
-    // Check if form is submitted with dates and a vendor ID
     if(isset($_POST['from_date']) && isset($_POST['to_date'])) {
         $from_date = $_POST['from_date'];
         $to_date = $_POST['to_date'];
-        
-        // Check if specific vendor or all vendors is selected
+   
         if($_POST['vendor_id'] == 'all') {
-            // Query to fetch sales report for all vendors
+          
             $sql = "SELECT p.vendor_id, v.company_name, SUM(oi.quantity) AS total_quantity
                     FROM order_items oi
                     INNER JOIN products p ON oi.product_id = p.product_id
@@ -54,7 +47,7 @@ if ($result_vendors === false) {
                     WHERE o.order_date BETWEEN '$from_date' AND '$to_date'
                     GROUP BY p.vendor_id";
         } else {
-            // Specific vendor selected, query only for that vendor
+ 
             $vendor_id = $_POST['vendor_id'];
             $sql = "SELECT p.vendor_id, v.company_name, SUM(oi.quantity) AS total_quantity
                     FROM order_items oi
@@ -69,10 +62,10 @@ if ($result_vendors === false) {
         $result = $conn->query($sql);
 
         if ($result === false) {
-            // Handle query error
+            
             echo "Error: " . $conn->error;
         } elseif ($result->num_rows > 0) {
-            // Start building the table
+          
             $table_output .= '<table class="table">
                                 <thead>
                                     <tr>
@@ -83,7 +76,6 @@ if ($result_vendors === false) {
                                 </thead>
                                 <tbody>';
 
-            // Output data of each row
             while($row = $result->fetch_assoc()) {
                 $table_output .= '<tr>
                                     <td>' . $row["vendor_id"] . '</td>
@@ -92,7 +84,7 @@ if ($result_vendors === false) {
                                 </tr>';
             }
 
-            // Close the table
+     
             $table_output .= '</tbody></table>';
         } else {
             $table_output = '<p>No results found</p>';
@@ -100,7 +92,6 @@ if ($result_vendors === false) {
     }
 }
 
-// Close connection
 $conn->close();
 ?>
 
@@ -113,7 +104,7 @@ $conn->close();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .form-group {
-            margin-bottom: 0; /* Remove bottom margin to align inputs in a single line */
+            margin-bottom: 0; 
         }
     </style>
 </head>
@@ -132,7 +123,7 @@ include("./include/navbar.php");
                     <select class="form-control" id="vendor" name="vendor_id">
                         <option value="all">All Vendors</option>
                         <?php
-                        // Display options for each vendor
+                        
                         foreach($vendor_options as $vendor) {
                             echo '<option value="' . $vendor["vendor_id"] . '">' . $vendor["company_name"] . '</option>';
                         }
@@ -161,7 +152,6 @@ include("./include/navbar.php");
         </div>
     </form>
     
-    <!-- Display the table -->
     <?php echo $table_output; ?>
 </div>
 

@@ -1,11 +1,10 @@
 <?php
-// Start the session
+
 session_start();
 
-    // Include database connection
     include("./include/connection.php");
 
-    // Function to verify CAPTCHA
+  
     function verifyCaptcha($userCaptcha) {
         if(isset($_SESSION['captcha']) && strtolower($userCaptcha) == strtolower($_SESSION['captcha'])) {
             return true;
@@ -14,50 +13,49 @@ session_start();
         }
     }
 
-    // Check if form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve user input
+       
         $email = $_POST["email"];
         $password = $_POST["password"];
         $captcha = $_POST["captcha"];
 
-        // Validate user input (You should also add more validation as needed)
+       
         if (!empty($email) && !empty($password) && !empty($captcha)) {
-            // Verify CAPTCHA
+            
             if (verifyCaptcha($captcha)) {
-                // Prepare SQL statement to fetch user from database
+              
                 $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ? AND password = ?");
                 $stmt->bind_param("ss", $email, $password);
 
-                // Execute SQL statement
+                
                 $stmt->execute();
 
-                // Get result
+               
                 $result = $stmt->get_result();
 
-                // Check if user exists
+                
                 if ($result->num_rows == 1) {
-                    // User exists, redirect to dashboard
-                    $_SESSION["email"] = $email; // Store user email in session
+                
+                    $_SESSION["email"] = $email; 
                     header("Location: dashboard.php");
                     exit();
                 } else {
-                    // User does not exist or invalid credentials
+                   
                     $error = "Invalid email or password.";
                 }
             } else {
-                // CAPTCHA verification failed
+                
                 $error = "Invalid CAPTCHA, please try again.";
             }
         } else {
-            // Invalid input
+          
             $error = "Please enter email, password, and CAPTCHA.";
         }
     }
 
-    // Generate CAPTCHA
-    $randomNumber = substr(rand(),0,5); // Generate random number
-    $_SESSION['captcha'] = $randomNumber; // Store random number in session
+
+    $randomNumber = substr(rand(),0,5); 
+    $_SESSION['captcha'] = $randomNumber; 
 ?>
 
 
@@ -131,8 +129,9 @@ session_start();
             <p class="text-white fs-2"
                style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
             <small class="text-white text-wrap text-center"
-                   style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join expeienced Designers
-                on this platform.
+                   style="width: 17rem;font-family:Courier, monospace;">
+                   <strong>
+"Where every click leads to delight – welcome to Shopflix</strong>
             </small>
         </div>
 
@@ -174,7 +173,7 @@ session_start();
                         <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
                     </div>
                     <div class="text-center">
-                        <a href="register.php" class="btn btn-lg btn-outline-dark w-100 fs-6 mt-3 rounded-4" class="btn btn-link btn-register">New Vendor? Register Yourself</a>
+                        <a href="register.php" class="btn btn-lg btn-outline-dark w-100 fs-6 mt-3 rounded-4" class="btn btn-link btn-register">New Admin? Register Yourself</a>
                     </div>
                 </form>
             </div>

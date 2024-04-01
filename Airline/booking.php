@@ -18,23 +18,25 @@ include("./connection.php");
 $result = null;
 
 // Fetch the logged-in user's airline ID from the session
-$airline_id = $_SESSION['airline_id'];
+$airline_id = $_SESSION['airline_id']; 
 
-// SQL query to fetch booked flights data for the current logged-in airline
-$sql = "SELECT bf.booking_id, bf.flight_id, bf.user_id, bf.take_seats, bf.flight_class, a.airline_name, bf.TransactionID, bf.total_amount, bf.payment_status, bf.booked_date 
+
+// SQL query to fetch booked flights data for the current logged-in airline with date filtering
+$sql = "SELECT bf.booking_id, bf.flight_id, bf.user_id, bf.take_seats, bf.flight_class, a.airline_name, bf.TransactionID, bf.total_amount, bf.payment_status, bf.booked_date, f.source_date
         FROM booked_flights bf
         LEFT JOIN airlines a ON bf.airline_id = a.airline_id
-        WHERE bf.airline_id = $airline_id";
+        LEFT JOIN flights f ON bf.flight_id = f.flight_id
+        WHERE bf.airline_id = $airline_id 
+        ORDER BY bf.booked_date DESC"; // Order by booked date descending
 
 // Execute the query and handle errors
 $result = $conn->query($sql);
 if ($result === false) {
     // Handle query execution error
     echo "Error executing SQL query: " . $conn->error;
-    // Optionally, you can log the error or redirect the user to an error page
+   
 }
 
-// Close the database connection
 $conn->close();
 ?>
 
@@ -45,14 +47,26 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booked Flights</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .date-input {
+            width: 200px;
+            padding: 10px;
+            font-size: 26px; /* Adjust the font size as needed */
+        }
+        table {
+            font-size: 18px; /* Adjust the font size as needed */
+        }
+    </style>
+  
 </head>
 <body>
     <?php include("./navbar.php"); ?>
     <div class="container mt-5">
         <h2>Booked Flights</h2>
+      
         <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead style="background-color: black; color:white">
+            <table class="table table-bordered " style="font-size: 16px;">
+                <thead style="background-color:#000080; color:white">
                     <tr>
                         <th>Booking ID</th>
                         <th>Flight ID</th>
@@ -64,6 +78,7 @@ $conn->close();
                         <th>Total Amount</th>
                         <th>Payment Status</th>
                         <th>Booked Date</th>
+                        <th>Source Date</th> <!-- New column for source date -->
                     </tr>
                 </thead>
                 <tbody>
@@ -77,17 +92,17 @@ $conn->close();
                                     <td>".$row["flight_id"]."</td>
                                     <td>".$row["user_id"]."</td>
                                     <td>".$row["take_seats"]."</td>
-                            
                                     <td>".$row["airline_name"]."</td>
                                     <td>".$row["TransactionID"]."</td>
                                     <td>".$row["total_amount"]."</td>
                                     <td>".$row["payment_status"]."</td>
                                     <td>".$row["booked_date"]."</td>
+                                    <td>".$row["source_date"]."</td> <!-- Display source date -->
                                 </tr>";
                         }
                     } else {
                         // No results found for the current user
-                        echo "<tr><td colspan='10'>No results found for the current user.</td></tr>";
+                        echo "<tr><td colspan='11'>No results found for the current user.</td></tr>";
                     }
                     ?>
                 </tbody>

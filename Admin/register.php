@@ -5,7 +5,6 @@ include("./include/connection.php");
 
 $error = "";
 
-// Import PHPMailer classes
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/SMTP.php';
@@ -13,35 +12,34 @@ require 'PHPMailer/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+$error = "";
+
 if (isset($_POST['register'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $confirmPassword = mysqli_real_escape_string($conn, $_POST['confirm_password']);
 
-    // Check if passwords match
-    if ($password !== $confirmPassword) {
-        $error = "Passwords do not match.";
+    if (strlen($password) < 8) {
+        $error = " Password must be at least 8 characters long.";
+    } elseif ($password !== $confirmPassword) {
+        $error = " Passwords do not match.";
     } else {
-        // Hash the password
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Generate a 6-digit verification code
         $verificationCode = mt_rand(100000, 999999);
 
-        // Insert user data into the database
-        $sql = "INSERT INTO users (username, email, password, verify_code, confirmed_email) VALUES ('$username', '$email', '$hashedPassword', '$verificationCode', 0)";
+        $sql = "INSERT INTO Admins (username, email, password, verify_code, confirmed_email) VALUES ('$username', '$email', '$password', '$verificationCode', 0)";
         if (mysqli_query($conn, $sql)) {
-            // Send email verification
+    
             $mail = new PHPMailer(true);
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com'; // Update with your SMTP host
+            $mail->Host       = 'smtp.gmail.com'; 
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'shopflix420@gmail.com'; // Update with your email
-            $mail->Password   = 'vabjcndouidetrnt'; // Update with your email password
+            $mail->Username   = 'shopflix420@gmail.com'; 
+            $mail->Password   = 'vabjcndouidetrnt'; 
             $mail->SMTPSecure = 'tls';
             $mail->Port       = 587;
-            $mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX'); // Update with your email and name
+            $mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX'); 
             $mail->addAddress($email, $username);
             $mail->isHTML(true);
             $mail->Subject = 'Email Verification from Your Website';
@@ -54,10 +52,10 @@ if (isset($_POST['register'])) {
                 header("Location: verify.php");
                 exit();
             } else {
-                $error = "Error sending email: " . $mail->ErrorInfo;
+                $error = "&#10060; Error sending email: " . $mail->ErrorInfo;
             }
         } else {
-            $error = "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $error = "&#10060; Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
 }
@@ -79,7 +77,7 @@ if (isset($_POST['register'])) {
         }
 
         .container {
-            max-width: 900px; /* Increased max-width */
+            max-width: 900px; 
             margin: 50px auto;
         }
 
@@ -88,7 +86,7 @@ if (isset($_POST['register'])) {
             border-radius: 10px;
             margin-top: 150px;
             box-shadow: 10px 10px 10px rgba(0.5, 0.5, 0.5, 0.1);
-            height: 500px; /* Increased height */
+            height: 500px; 
             text-align: center;
             justify-content: center;
         }
@@ -152,16 +150,18 @@ if (isset($_POST['register'])) {
                             <button type="submit" name="register" class="btn btn-primary">Register</button>
                         </form>
                         <?php if ($error) : ?>
-                            <div class="alert alert-danger mt-3" role="alert">
+                            <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert">
                                 <?php echo $error; ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php endif; ?>
                     </div>
-                    <p>Already have an account? <a href="login.php">Login</a></p> <!-- Add this line -->
+                    <p>Already have an account? <a href="login.php">Login</a></p> 
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

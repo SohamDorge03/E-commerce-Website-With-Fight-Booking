@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Booking</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         /* CSS styles */
         body {
@@ -29,8 +30,9 @@
 
         .search-container {
             background-color: #fff;
-            border-radius: 10px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 40px;
+            width:100%;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
@@ -196,6 +198,9 @@ if(isset($_POST['searchFlights'])) {
                         }
                         ?>
                     </div>
+                    <div class="">
+                    <button type="button" class="btn btn-light ml-2" onclick="reverseCities()"><i class="fas fa-exchange-alt"></i></button>
+                    </div>
                     <div class="col-md-3 mb-3">
                         <?php
                         // Execute the same query for the 'To City' dropdown
@@ -217,7 +222,7 @@ if(isset($_POST['searchFlights'])) {
                         $conn->close();
                         ?>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class=" mb-3">
                         <input type="date" class="form-control" name="travelDate" id="travelDate" required>
                     </div>
                     <div class="col-md-2 mb-3">
@@ -230,15 +235,17 @@ if(isset($_POST['searchFlights'])) {
                             <option value="6">6 Passengers</option>
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-1 mb-3">
                         <select class="form-control" name="class" required>
+                            
                             <option value="economy">Economy Class</option>
                             <option value="business">Business Class</option>
                             <option value="first class">First Class</option>
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-primary" type="submit" name="searchFlights">Search Flights</button>
+                <button class="btn btn-primary" type="submit" name="searchFlights"><i class="fas fa-plane-departure"></i> Search Flights</button>
+                
             </form>
         </div>
     </div>
@@ -322,6 +329,14 @@ include("./include/footer.php");
             }
         }
     });
+
+    // Function to reverse the selected "From City" and "To City"
+    function reverseCities() {
+        var fromCity = document.getElementById('fromCity').value;
+        var toCity = document.getElementById('toCity').value;
+        document.getElementById('fromCity').value = toCity;
+        document.getElementById('toCity').value = fromCity;
+    }
 </script>
 
 </body>

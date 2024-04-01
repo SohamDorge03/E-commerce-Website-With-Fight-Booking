@@ -1,10 +1,10 @@
 :root {
 
-    --p-color: #6ea8ff; /* Light Blue */
-    --s-color: #ffffff; /* White */
-    --bg-color: #f8f9fa; /* Light Grey */
-    --text-color: #333333; /* Dark Grey */
-    --font-family: 'Roboto', sans-serif; /* Change to your preferred font family */
+    --p-color: #6ea8ff; 
+    --s-color: #ffffff; 
+    --bg-color: #f8f9fa; 
+    --text-color: #333333; 
+    --font-family: 'Roboto', sans-serif;
   
 }
 

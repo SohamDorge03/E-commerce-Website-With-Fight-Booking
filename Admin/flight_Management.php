@@ -1,16 +1,32 @@
-
 <?php
 include("./include/connection.php");    
 
-$sql = "SELECT 
-            f.*, 
-            dep.airport_name AS dep_airport_name, 
-            arr.airport_name AS arr_airport_name,
-            a.airline_name
-        FROM flights f
-        INNER JOIN airports dep ON f.dep_airport_id = dep.airport_id
-        INNER JOIN airports arr ON f.arr_airport_id = arr.airport_id
-        INNER JOIN airlines a ON f.airline_id = a.airline_id";
+if (isset($_GET['from_date']) && isset($_GET['to_date'])) {
+    $fromDate = $_GET['from_date'];
+    $toDate = $_GET['to_date'];
+
+    $sql = "SELECT 
+                f.*, 
+                dep.airport_name AS dep_airport_name, 
+                arr.airport_name AS arr_airport_name,
+                a.airline_name
+            FROM flights f
+            INNER JOIN airports dep ON f.dep_airport_id = dep.airport_id
+            INNER JOIN airports arr ON f.arr_airport_id = arr.airport_id
+            INNER JOIN airlines a ON f.airline_id = a.airline_id
+            WHERE f.source_date BETWEEN '$fromDate' AND '$toDate'";
+} else {
+
+    $sql = "SELECT 
+                f.*, 
+                dep.airport_name AS dep_airport_name, 
+                arr.airport_name AS arr_airport_name,
+                a.airline_name
+            FROM flights f
+            INNER JOIN airports dep ON f.dep_airport_id = dep.airport_id
+            INNER JOIN airports arr ON f.arr_airport_id = arr.airport_id
+            INNER JOIN airlines a ON f.airline_id = a.airline_id";
+}
 
 $result = $conn->query($sql);
 ?>
@@ -20,7 +36,6 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flights Data</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -29,6 +44,22 @@ include("./include/navbar.php");
 ?>
 <div class="container mt-5">
     <h2>Flights Data</h2>
+    <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="fromDate">From Date:</label>
+                <input type="date" class="form-control" id="fromDate" name="from_date" value="<?php echo isset($_GET['from_date']) ? $_GET['from_date'] : ''; ?>">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="toDate">To Date:</label>
+                <input type="date" class="form-control" id="toDate" name="to_date" value="<?php echo isset($_GET['to_date']) ? $_GET['to_date'] : ''; ?>">
+            </div>
+            <div class="form-group col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </form>
+
     <table class="table">
         <thead style="background-color: #5F1E30;">
             <tr style="color: wheat;">
@@ -47,7 +78,6 @@ include("./include/navbar.php");
         </thead>
         <tbody>
             <?php
-            // Output data of each row
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $row["flight_id"] . "</td>";
@@ -68,7 +98,6 @@ include("./include/navbar.php");
     </table>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -77,6 +106,6 @@ include("./include/navbar.php");
 </html>
 
 <?php
-// Close connection
+
 $conn->close();
 ?>

@@ -210,13 +210,13 @@ else{
   background-color: #ddd;
 }
 
-/* Show the dropdown content on hover */
-.dropdown:hover .dropdown-content {
+/* Show the dropdown content on click */
+.dropdown.show .dropdown-content {
   display: block;
 }
 
-/* Change the button text color on hover */
-#loginDropdown:hover {
+/* Change the button text color on click */
+#loginDropdown.show {
   color: blue;
 }
 
@@ -279,12 +279,25 @@ else{
    <script>
     function toggleDropdown() {
         var dropdownContent = document.getElementById("dropdownContent");
-        dropdownContent.style.display === "none" ? dropdownContent.style.display = "block" : dropdownContent.style.display = "none";
+        var loginDropdown = document.getElementById("loginDropdown");
+        loginDropdown.classList.toggle("show");
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
     }
 </script>
 </section>
 
 <section id="new" class="swanavbar"  style="padding: 15px 77px;">
+<style>
+
+.navlink .active {
+color: blue;
+
+}
+</style>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'electronics.php' ? 'active' : ''; ?>" href="electronics.php">Electronic</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'furniture.php' ? 'active' : ''; ?>" href="furniture.php">Furniture</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'gym.php' ? 'active' : ''; ?>" href="gym.php">Gym tools</a>
@@ -299,7 +312,13 @@ else{
 <script>
   function toggleDropdown() {
     var dropdownContent = document.getElementById("dropdownContent");
-    dropdownContent.classList.toggle("show");
+    var loginDropdown = document.getElementById("loginDropdown");
+    loginDropdown.classList.toggle("show");
+    if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+    } else {
+        dropdownContent.style.display = "block";
+    }
   }
 
   // Close the dropdown if the user clicks outside of it

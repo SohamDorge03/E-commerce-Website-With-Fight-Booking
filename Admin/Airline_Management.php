@@ -222,21 +222,21 @@ if(isset($_POST['submit_edit'])) {
                 $uploadOk = 0;
             }
         }
-        // Check file size
+       
         if ($_FILES["edit_logo"]["size"] > 500000) {
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }
-        // Allow certain file formats
+        
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
         }
-        // Check if $uploadOk is set to 0 by an error
+       
         if ($uploadOk == 0) {
             echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
+        
         } else {
             if (move_uploaded_file($_FILES["edit_logo"]["tmp_name"], $target_file_edit)) {
                 echo "The file ". htmlspecialchars( basename( $_FILES["edit_logo"]["name"])). " has been uploaded.";
@@ -247,7 +247,6 @@ if(isset($_POST['submit_edit'])) {
         }
     }
 
-    // Update data in database
     $sql = "UPDATE airlines SET email='$edit_email', pass='$edit_pass', airline_name='$edit_airline_name', logo='$edit_logo' WHERE airline_id=$edit_airline_id";
     if ($conn->query($sql) === TRUE) {
         echo "<script>alert('Airline updated successfully');</script>";

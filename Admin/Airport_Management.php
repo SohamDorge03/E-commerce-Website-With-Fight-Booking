@@ -30,7 +30,6 @@ if (isset($_POST['submit'])) {
                 WHERE airport_code='$airport_code'";
     }
 
-    // Execute SQL statement
     if ($conn->query($sql) === TRUE) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                   Record ' . ($_POST['submit'] == 'Add' ? 'added' : 'updated') . ' successfully

@@ -6,15 +6,23 @@
     <title>Passenger Booking</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* CSS for table records */
-        .table-bordered th,
+          /* CSS for table records */
+          .table-bordered th,
         .table-bordered td {
             border: 1px solid #23395d;
             padding: 8px;
             vertical-align: middle;
         }
+
+        /* Additional styling for card form */
         .card {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            border-radius: 20px; /* Curved edges */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Shadow */
+            transition: 0.3s; /* Transition effect */
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
         }
     </style>
 </head>
@@ -47,7 +55,7 @@ if (isset($_SESSION['u'])) {
             $_SESSION['total_price'] = $total_amount;
             $_SESSION['flight_id'] = $flight_id;
 ?>
-            <div class="container">
+            <div class="container mt-3">
                 <h2 class="text-center mb-4">Passenger Details</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <input type="hidden" name="flight_id" value="<?php echo $flight['flight_id']; ?>">
@@ -55,12 +63,17 @@ if (isset($_SESSION['u'])) {
                     <input type="hidden" name="total_price" value="<?php echo $total_amount; ?>">
 
                     <!-- Loop to generate input fields for passengers -->
-                    <?php for ($i = 1; $i <= $numPassengers; $i++) { ?>
+                    <?php
+                    for ($i = 1; $i <= $numPassengers; $i++) {
+                        $seatno = rand(1, 100); // Assuming there are 100 seats
+                        $gateno = rand(1, 10); // Assuming there are 10 gates
+                        $pnr_no = mt_rand(1000000000, 9999999999);
+
+                    ?>
                         <div class="card mb-3">
-                            <div class="card-header">
-                                <h5 class="card-title">Passenger <?php echo $i; ?></h5>
-                            </div>
                             <div class="card-body">
+                                <h5 class="card-title">Passenger <?php echo $i; ?></h5>
+                                <!-- Other input fields for passenger details -->
                                 <div class="form-group">
                                     <label for="name<?php echo $i; ?>">Name:</label>
                                     <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" required>
@@ -81,9 +94,12 @@ if (isset($_SESSION['u'])) {
                                     <label for="dob<?php echo $i; ?>">Date of Birth:</label>
                                     <input type="date" class="form-control" id="dob<?php echo $i; ?>" name="dob<?php echo $i; ?>" max="<?php echo date('Y-m-d'); ?>" onchange="calculateAge(<?php echo $i; ?>)" required>
                                 </div>
+                                <!-- Other input fields for passenger details -->
                             </div>
                         </div>
-                    <?php } ?>
+                    <?php
+                    }
+                    ?>
 
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary" name="confirmBooking">Confirm Booking</button>
@@ -145,30 +161,21 @@ if (isset($_SESSION['u'])) {
                     $passengerStatement = $conn->prepare("INSERT INTO passenger (name, age, gender, dob, booking_id, pnr_no, seatno, gateno) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
                     if ($passengerStatement) {
-                        // Initialize PNR number
-                        $pnr_no = null;
-
-                        // Check if booking ID already exists to retrieve the same PNR number
-                        $checkBookingQuery = "SELECT pnr_no FROM passenger WHERE booking_id = ?";
-                        $checkBookingStatement = $conn->prepare($checkBookingQuery);
-                        $checkBookingStatement->bind_param("i", $booking_id);
-                        $checkBookingStatement->execute();
-                        $checkBookingStatement->store_result();
-
-                        if ($checkBookingStatement->num_rows > 0) {
-                            $checkBookingStatement->bind_result($pnr_result);
-                            $checkBookingStatement->fetch();
-                            $pnr_no = $pnr_result;
-                        } else {
-                            // Generate new PNR number if booking ID doesn't exist
-                            $pnr_no = mt_rand(1000000000, 9999999999);
-                        }
-
                         // Loop through passengers
                         for ($i = 1; $i <= $numPassengers; $i++) {
-                            // Generate random seat number and gate number
-                            $seatno = rand(1, 50); // Assuming there are 50 seats
-                            $gateno = rand(1, 10); // Assuming there are 10 gates
+                            // Generate random seat number
+                            $seatno = rand(1, 100); // Assuming there are 100 seats
+
+                            // Generate PNR number and gate number
+                            if ($numPassengers > 1) {
+                                // If more than one passenger, use the same PNR and gate number
+                                $pnr_no = $pnr_no ?? mt_rand(1000000000, 9999999999);
+                                $gateno = $gateno ?? rand(1, 10); // Assuming there are 10 gates
+                            } else {
+                                // If only one passenger, generate different PNR and gate numbers
+                                $pnr_no = mt_rand(1000000000, 9999999999);
+                                $gateno = rand(1, 10); // Assuming there are 10 gates
+                            }
 
                             // Retrieve form data for each passenger
                             $name = $_POST["name$i"];

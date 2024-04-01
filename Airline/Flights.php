@@ -1,10 +1,10 @@
 <?php
-session_start(); // Start the session
-// Check if the user is not logged in
+session_start(); 
+
 if (!isset($_SESSION['airline_id'])) {
-    // Redirect to the login page
+    
     header("Location: log.php");
-    exit; // Stop further execution
+    exit; 
 }
 
 $servername = "localhost";
@@ -12,17 +12,15 @@ $username = "root";
 $password = "";
 $database = "shopflix";
 
-// Create connection
+
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}   
+}
 
-$error = ""; // Variable to store error message
-
-// Check if the form is submitted
+$error = ""; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $flight_code = $_POST["flight_code"];
@@ -36,39 +34,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $flight_class = $_POST["flight_class"];
     $price = $_POST["price"];
 
-    // Check for back date
-    if (strtotime($source_date) < strtotime(date("Y-m-d"))) {
-        $error = "Source date cannot be a past date";
+    
+    $check_flight_code_query = "SELECT * FROM flights WHERE flight_code = '$flight_code'";
+    $check_flight_code_result = $conn->query($check_flight_code_query);
+    if ($check_flight_code_result && $check_flight_code_result->num_rows > 0) {
+        $error = "Flight with the same code already exists";
     }
-    // Check if destination date is after or the same as source date
-    elseif (strtotime($dest_date) < strtotime($source_date)) {
-        $error = "Destination date must be after or the same as the source date";
-    } else {
-        // Retrieve airline ID from session
-        $airline_id = $_SESSION['airline_id'];
+    
+    elseif ($dep_airport_id == $arr_airport_id) {
+        $error = "Departure and arrival airports cannot be the same";
+    }
+    
+    else {
+        $check_time_query = "SELECT * FROM flights WHERE source_date = '$source_date' AND source_time = '$source_time' AND dest_time = '$dest_time'";
+        $check_time_result = $conn->query($check_time_query);
+        if ($check_time_result && $check_time_result->num_rows > 0) {
+            $error = "Flight with the same departure and arrival times on the same date already exists";
+        } else {
+            
+            $airline_id = $_SESSION['airline_id'];
 
-        // SQL query to insert new flight record
-        $sql = "INSERT INTO flights (flight_code, source_date, source_time, dest_date, dest_time, dep_airport_id, arr_airport_id, seats, flight_class, price, airline_id) 
+            
+            $sql = "INSERT INTO flights (flight_code, source_date, source_time, dest_date, dest_time, dep_airport_id, arr_airport_id, seats, flight_class, price, airline_id) 
                 VALUES ('$flight_code', '$source_date', '$source_time', '$dest_date', '$dest_time', '$dep_airport_id', '$arr_airport_id', '$seats', '$flight_class', '$price', '$airline_id')";
 
-        if ($conn->query($sql) === TRUE) {
-            echo "<script>alert('Flight added successfully');</script>";
-            // Redirect to the same page to avoid resubmission on page refresh
-            echo "<script>window.location.href = 'Flights.php';</script>";
-        } else {
-            $error = "Error: " . $sql . "<br>" . $conn->error;
+            if ($conn->query($sql) === TRUE) {
+                echo "<script>alert('Flight added successfully');</script>";
+                
+                echo "<script>window.location.href = 'Flights.php';</script>";
+            } else {
+                $error = "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
     }
 }
 
-// Retrieve airline ID from session
+
 $airline_id = $_SESSION['airline_id'];
 
-// Fetch airports for dropdown
+
 $airport_query = "SELECT airport_id, airport_name FROM airports";
 $airport_result = $conn->query($airport_query);
 
-// Fetch flight records associated with the logged-in airline admin
+
 $flight_query = "SELECT * FROM flights WHERE airline_id = '$airline_id'";
 $result = $conn->query($flight_query);
 
@@ -90,9 +98,9 @@ $result = $conn->query($flight_query);
 </head>
 
 <body>
-<?php
- include("./navbar.php");
-                ?>
+    <?php
+    include("./navbar.php");
+    ?>
     <div class="container mt-5">
         <?php if (!empty($error)) : ?>
             <div class="alert alert-danger" role="alert">
@@ -105,8 +113,8 @@ $result = $conn->query($flight_query);
         <h2>Flight Details</h2>
         <div class="table-responsive">
             <table class="table table-bordered">
-                <thead>
-                    <tr>
+                <thead style="color:wheat;" >
+                    <tr style="background-color:#000080;">
                         <th>Flight ID</th>
                         <th>Flight Code</th>
                         <th>Source Date</th>
@@ -139,7 +147,7 @@ $result = $conn->query($flight_query);
                             echo "<td>" . $row["price"] . "</td>";
                             echo "<td>
                                     <a href='update_flight.php?id=" . $row["flight_id"] . "' class='btn btn-sm btn-primary'>Update</a>
-                                    <a href='delete_flight.php?id=" . $row["flight_id"] . "' class='btn btn-sm btn-danger'>Delete</a>
+                                    <a href='delete_flight.php?id=" . $row["flight_id"] . "' class='btn btn-sm btn-danger' style='margin-top:5px';>Delete</a>
                                   </td>";
                             echo "</tr>";
                         }
@@ -152,7 +160,7 @@ $result = $conn->query($flight_query);
         </div>
     </div>
 
-    <!-- Add Flight Modal -->
+    
     <div class="modal fade" id="addFlightModal" tabindex="-1" role="dialog" aria-labelledby="addFlightModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -164,7 +172,7 @@ $result = $conn->query($flight_query);
                 </div>
                 <div class="modal-body">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" onsubmit="return validateForm()">
-                        <!-- Flight details form -->
+                        
                         <div class="form-group">
                             <label for="flight_code">Flight Code:</label>
                             <input type="text" class="form-control" id="flight_code" name="flight_code" required>
@@ -233,7 +241,7 @@ $result = $conn->query($flight_query);
         </div>
     </div>
 
-    <!-- JavaScript and Bootstrap dependencies -->
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -242,6 +250,9 @@ $result = $conn->query($flight_query);
         function validateForm() {
             var sourceDate = document.getElementById('source_date').value;
             var destDate = document.getElementById('dest_date').value;
+            var sourceTime = document.getElementById('source_time').value;
+            var destTime = document.getElementById('dest_time').value;
+
             if (sourceDate == '' || destDate == '') {
                 alert('Please select source and destination dates');
                 return false;
@@ -250,21 +261,25 @@ $result = $conn->query($flight_query);
                 alert('Destination date must be after or the same as the source date');
                 return false;
             }
+            if (sourceTime === destTime) {
+                alert('Departure and arrival times cannot be the same');
+                return false;
+            }
             return true;
         }
 
         function updateArrivalAirports(selectedDepAirportId) {
             var arrAirportDropdown = document.getElementById("arr_airport_id");
-            // Remove all existing options
+            
             arrAirportDropdown.innerHTML = "";
 
-            // Add a default option
+            
             var defaultOption = document.createElement("option");
             defaultOption.text = "Select Arrival Airport";
             defaultOption.value = "";
             arrAirportDropdown.add(defaultOption);
 
-            // Add arrival airports dynamically based on the selected departure airport
+            
             <?php
             if ($airport_result && $airport_result->num_rows > 0) {
                 $airport_result->data_seek(0);

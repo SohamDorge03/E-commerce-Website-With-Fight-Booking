@@ -1,15 +1,15 @@
 <?php
 require('vendor/autoload.php');
 
-// Get parameters from URL
+
 $from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '';
 $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : '';
 $status = isset($_GET['status']) ? $_GET['status'] : '';
 
-// Include database connection
+
 include("./include/connection.php");
 
-// Construct SQL query based on selected options
+
 $sql = "SELECT * FROM booked_flights WHERE 1=1";
 if (!empty($from_date) && !empty($to_date)) {
     $sql .= " AND booked_date BETWEEN '$from_date 00:00:00' AND '$to_date 23:59:59'";
@@ -18,14 +18,13 @@ if (!empty($status)) {
     $sql .= " AND payment_status = '$status'";
 }
 
-// Execute the query
 $res = mysqli_query($conn, $sql);
 
 if (!$res) {
-    // Query failed
+ 
     echo "Error: " . mysqli_error($conn);
 } elseif (mysqli_num_rows($res) > 0) {
-    // Data found, proceed with generating PDF
+    
     $html = '<style>';
     $html .= '.table { width: 100%; border-collapse: collapse; }';
     $html .= '.table td, .table th { border: 1px solid #ddd; padding: 8px; }';
@@ -54,10 +53,10 @@ if (!$res) {
     $mpdf->Output($file, 'D');
     exit;
 } else {
-    // No data found
+   
     echo "No data found matching the criteria.";
 }
 
-// Close database connection
+
 mysqli_close($conn);
 ?>

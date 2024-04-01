@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Report</title>
-    <!-- Bootstrap CSS -->
+    
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -34,14 +34,13 @@
             <button type="submit" class="btn btn-primary">Generate Report</button>
         </form>
         <?php
-        // Check if form is submitted
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             include("./include/connection.php");
             $from_date = $_POST['from_date'];
             $to_date = $_POST['to_date'];
             $status = $_POST['status'];
 
-            // Construct SQL query based on selected options
             $sql = "SELECT * FROM orders WHERE order_date BETWEEN '$from_date' AND '$to_date'";
             if (!empty($status)) {
                 if ($status != "All Details") {
@@ -49,7 +48,7 @@
                 }
             }
 
-            // Execute the query
+
             $result = $conn->query($sql);
 
             if ($result !== false && $result->num_rows > 0) {

@@ -108,7 +108,7 @@ $result = mysqli_query($conn, $query);
           <th>Order Item ID</th>
           <th>Order ID</th>
           <th>Order Date</th>
-          <th>Status</th>
+          <!-- <th>Status</th> -->
           <th>Product ID</th>
           <th>Quantity</th>
           <th>Vendor ID</th>
@@ -124,7 +124,7 @@ $result = mysqli_query($conn, $query);
                 echo "<td>{$row['order_item_id']}</td>";
                 echo "<td>{$row['order_id']}</td>";
                 echo "<td>{$row['order_date']}</td>";
-                echo "<td>{$row['status']}</td>";
+                // echo "<td>{$row['status']}</td>";
                 echo "<td>{$row['product_id']}</td>";
                 echo "<td>{$row['quantity']}</td>";
                 echo "<td>{$row['vendor_id']}</td>";

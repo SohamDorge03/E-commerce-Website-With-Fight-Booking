@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Report</title>
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
     .container{
         margin-top: 70px;
         margin-left: 26px;
+    }
+    tr{
+        text-align: center;
     }
 </style>
 <body>
@@ -36,7 +38,6 @@ include("./include/navbar.php");
                         <option value="Pending">Pending</option>
                         <option value="Processing">Processing</option>
                         <option value="Completed">Completed</option>
-                        <!-- Add more options as needed -->
                     </select>
                 </div>
             </div>

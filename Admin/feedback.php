@@ -13,7 +13,7 @@ if(!isset($_SESSION['email'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback Table</title>
-    <!-- Bootstrap CSS -->
+    
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -34,7 +34,6 @@ if(!isset($_SESSION['email'])) {
             <tbody>
               <?php
 
-                // Fetch data from database
                 $sql = "SELECT * FROM feedback";
                 $result = $conn->query($sql);
 
@@ -50,13 +49,11 @@ if(!isset($_SESSION['email'])) {
                     echo "<tr><td colspan='3'>No feedback found</td></tr>";
                 }
 
-                // Close connection
                 $conn->close();
                 ?>
             </tbody>
         </table>
     </div>
-    <!-- Bootstrap JS (optional) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

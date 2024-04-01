@@ -8,8 +8,6 @@ if(!isset($_SESSION['email'])) {
 
 ?>
 
-
-
 <style>
     .container {
         margin-top: 70px !important;
@@ -43,17 +41,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
     if ($update_status_result) {
         echo "<script>alert('Order status updated successfully!');</script>";
 
-        // Call sendEmail function after updating order status to "Shipped"
+       
         if ($new_status === "Shipped") {
             $customer_email_query = "SELECT email FROM users WHERE user_id IN (SELECT user_id FROM orders WHERE order_id = $order_id)";
             $customer_email_result = $conn->query($customer_email_query);
             if ($customer_email_result->num_rows > 0) {
                 $customer_email_row = $customer_email_result->fetch_assoc();
                 $customer_email = $customer_email_row['email'];
-                
-                
-            
-                // Send confirmation email
+
                 $mail = new PHPMailer(true);
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.gmail.com';
@@ -66,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
                 $mail->addAddress($customer_email, 'User');
                 $mail->isHTML(true);
                 $mail->Subject = 'Your Order has been Shipped!';
-                $mail->Body    = 'Dear Customer,<br><br>Your order has been successfully shipped. Thank you for shopping with us!<br><br>Regards,<br>The Admin Team';
+                $mail->Body    = 'Dear Customer,<br><br>Your order has been successfully shipped. Thank you for shopping with us!<br><br>Regards,<br>The SHOPFLIX Team';
                 $mail->AltBody = 'Your order has been successfully shipped. Thank you for shopping with us!';
             
                 // Send email
@@ -74,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
                     $mail->send();
                     echo "<script>alert('Order Shipped Successfully.');</script>";
                 } catch (Exception $e) {
-                    // Display error message if sending fails
+                
                     echo "<script>alert('Order Shipped Successfully, but there was an error sending the confirmation email: {$mail->ErrorInfo}');</script>";
                 }
              
@@ -84,9 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
         echo "<script>alert('Failed to update order status.');</script>";
     }
 }
- 
-    
-      
+     
 echo "<div class='container mt-5'>";
 echo "<h2>Orders with Product Details</h2>";
 echo "<table class='table table-bordered'>";
@@ -101,7 +94,7 @@ echo "</thead>";
 echo "<tbody>";
 
 $sql_orders_products = "SELECT o.order_id, o.user_id, u.username AS user_name, u.email, u.address, o.order_date, o.status, o.payment_method, o.payment_status, o.transaction_id, o.total_amount,
-                        GROUP_CONCAT(CONCAT(oi.product_id, ':', p.name, ':', oi.quantity, ':$', FORMAT(p.price, 2), ':$', FORMAT(oi.quantity * p.price, 2)) SEPARATOR '<br>') AS product_details
+                        GROUP_CONCAT(CONCAT(oi.product_id, ':', p.name, ':', oi.quantity, ':', FORMAT(p.price, 2), ':', FORMAT(oi.quantity * p.price, 2)) SEPARATOR '<br>') AS product_details
                         FROM orders o
                         INNER JOIN order_items oi ON o.order_id = oi.order_id
                         INNER JOIN products p ON oi.product_id = p.product_id
@@ -137,10 +130,8 @@ if ($result_orders_products) {
             echo "<td>" . number_format($row['total_amount'], 2) . "</td>";
             echo "<td>";
 
-            // View Product Details Button (opens modal)
             echo "<button class='btn btn-info btn-sm' data-toggle='modal' data-target='#productDetailsModal" . $row['order_id'] . "'>View Details</button>";
 
-            // Product Details Modal
             echo "<div class='modal fade' id='productDetailsModal" . $row['order_id'] . "' tabindex='0' role='dialog' aria-labelledby='productDetailsModalLabel' aria-hidden='true'>";
             echo "<div class='modal-dialog modal-lg' role='document'>";
             echo "<div class='modal-content'>";
@@ -152,7 +143,6 @@ if ($result_orders_products) {
             echo "</div>";
             echo "<div class='modal-body'>";
 
-            // Product Details Table in Modal
             echo "<table class='table table-bordered'>";
             echo "<thead><tr><th>Product ID</th><th>Product Name</th><th>Quantity</th><th>Product Price</th><th>Total Price</th></tr></thead>";
 
@@ -194,14 +184,11 @@ echo "</tbody>";
 echo "</table>";
 echo "</div>";
 
-// Close connection
 $conn->close();
 ?>
 
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<!-- Bootstrap JS and Popper.js -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

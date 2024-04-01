@@ -186,18 +186,17 @@ if ($vendorResult === false) {
                 vendor_id: vendorId
             },
             success: function(response) {
-                // Show success alert
+                
                 $('#customAlert').removeClass('alert-danger').addClass('alert-success');
                 $('#alertMessage').text('Vendor confirmed successfully');
                 $('#customAlert').fadeIn();
 
-                // Reload the page after 2 seconds
                 setTimeout(function() {
                     location.reload();
                 }, 2000);
             },
             error: function(xhr, status, error) {
-                // Show error alert
+             
                 $('#customAlert').removeClass('alert-success').addClass('alert-danger');
                 $('#alertMessage').text('Error toggling vendor status');
                 $('#customAlert').fadeIn();
@@ -214,18 +213,17 @@ if ($vendorResult === false) {
                     vendor_id: vendorId
                 },
                 success: function(response) {
-                    // Show success alert
+                   
                     $('#customAlert').removeClass('alert-danger').addClass('alert-success');
                     $('#alertMessage').text('Vendor deleted successfully');
                     $('#customAlert').fadeIn();
 
-                    // Reload the page after 2 seconds
                     setTimeout(function() {
                         location.reload();
                     }, 2000);
                 },
                 error: function(xhr, status, error) {
-                    // Show error alert
+                   
                     $('#customAlert').removeClass('alert-success').addClass('alert-danger');
                     $('#alertMessage').text('Error deleting vendor');
                     $('#customAlert').fadeIn();

@@ -8,15 +8,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Check for database connection errors
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Initialize PHPMailer
 $mail = new PHPMailer(true);
 
-// Set SMTP settings
 $mail->isSMTP();
 $mail->Host       = 'smtp.gmail.com';
 $mail->SMTPAuth   = true;
@@ -26,20 +23,19 @@ $mail->SMTPSecure = 'tls';
 $mail->Port       = 587;
 $mail->setFrom('shopflix420@gmail.com', 'SHOPFLIX');
 
-// Variable to store the success message
+
 $successMsg = "";
 
-// Check if confirm or cancel actions are triggered
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Handle confirmation
     if (isset($_POST['confirm'])) {
         $request_id = $_POST['request_id'];
 
-        // Update confirmed status in the airline_requests table
+ 
         $sql = "UPDATE airline_requests SET status = 'Approved' WHERE request_id = '$request_id'";
         if (mysqli_query($conn, $sql)) {
-            // Send email
-            $mail->addAddress($_POST['contact_email']); // Adding recipient's email
+           
+            $mail->addAddress($_POST['contact_email']); 
             $mail->isHTML(true);
             $mail->Subject = 'Your Request Approval';
             $mail->Body = 'Your request has been approved.';
@@ -54,11 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Handle cancellation
     if (isset($_POST['cancel'])) {
         $request_id = $_POST['request_id'];
 
-        // Delete the request from the airline_requests table
         $sql = "DELETE FROM airline_requests WHERE request_id = '$request_id'";
         if (mysqli_query($conn, $sql)) {
             $successMsg = "Request canceled.";
@@ -68,11 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Retrieve all requests
 $sql = "SELECT * FROM airline_requests";
 $result = mysqli_query($conn, $sql);
 
-// Check if $result is defined
+
 if (!$result) {
     echo "Error fetching data: " . mysqli_error($conn);
 } else {
@@ -83,19 +76,17 @@ if (!$result) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Confirmation</title>
+        <title>Airline Confirmation</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script>
             function confirmDelete() {
                 return confirm("Are you sure you want to cancel this request?");
             }
 
-            // Function to display success message in a popup
             function displaySuccessMessage(msg) {
                 alert(msg);
             }
 
-            // Check if success message exists and display it
             <?php if (!empty($successMsg)) { ?>
                 window.onload = function() {
                     displaySuccessMessage("<?php echo $successMsg; ?>");
@@ -109,7 +100,7 @@ if (!$result) {
         include("./include/navbar.php");
         ?>
         <div class="container">
-            <h2>Admin Confirmation</h2>
+            <h2>Airline Confirmation</h2>
             <table class="table">
                 <thead>
                     <tr style="background-color:#5f1e30; color:wheat;">
@@ -145,14 +136,14 @@ if (!$result) {
                                     <form action="" method="POST">
                                         <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
                                         <input type="hidden" name="contact_email" value="<?php echo $row['contact_email']; ?>">
-                                        <button type="submit" class="btn btn-primary" name="confirm">Confirm</button>
+                                        <button type="submit" class="btn btn-success" name="confirm">Confirm</button>
                                     </form>
                                     <form action="" method="POST" onsubmit="return confirmDelete();">
                                         <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
-                                        <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+                                        <button type="submit" class="btn btn-danger" name="cancel" style="margin-top: 5px;">Cancel</button>
                                     </form>
                                 <?php } elseif ($row['status'] == 'Approved') { ?>
-                                    <button type="button" class="btn btn-primary" disabled>Confirmed</button>
+                                    <button type="button" class="btn btn-success" disabled>Confirmed</button>
                                 <?php } else { ?>
                                     <p>Status: <?php echo $row['status']; ?></p>
                                 <?php } ?>

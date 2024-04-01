@@ -13,26 +13,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $logo_filename = $logo_file['name'];
     $logo_temp_path = $logo_file['tmp_name'];
     
-    // File upload handling for document
+
     $document_file = $_FILES['document'];
     $document_filename = $document_file['name'];
     $document_temp_path = $document_file['tmp_name'];
     
-    // Move uploaded files to desired directory (you need to create this directory)
     $upload_dir = "../admin/image";
     move_uploaded_file($logo_temp_path, $upload_dir . $logo_filename);
     move_uploaded_file($document_temp_path, $upload_dir . $document_filename);
     
-    // Insert data into database
     $sql = "INSERT INTO airline_requests (airline_name, contact_email, logo, document) VALUES ('$airline_name', '$contact_email', '$logo_filename', '$document_filename')";
     
     if (mysqli_query($conn, $sql)) {
-        echo "Data inserted successfully.";
+        // Show success message using JavaScript
+        echo "<script>alert('Data inserted successfully.');</script>";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
-?>X`
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,17 +45,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             width: 500px;
         }
         .custom-shadow {
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Change the shadow values as needed */
-            border-radius: 10px; /* Optional: Add border radius for a rounded corner effect */
-            padding: 20px; /* Optional: Add padding for better spacing */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+            border-radius: 10px; 
+            padding: 20px; 
         }
     </style>
 </head>
 <body>
 <?php include("./include/navbar.php"); ?>
 <div class="container mt-5">
-    <div class="d-flex justify-content-center"> <!-- Center content horizontally -->
-        <div class="custom-shadow"> <!-- Apply the custom shadow class here -->
+    <div class="d-flex justify-content-center"> 
+        <div class="custom-shadow"> 
             <h2>Airline Request Form</h2>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -80,9 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </div>
-<?php
-include("./include/footer.php");
-?>
+<?php include("./include/footer.php"); ?>
 </body>
 </html>
-

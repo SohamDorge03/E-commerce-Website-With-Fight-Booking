@@ -28,13 +28,12 @@ if (isset($_POST['confirm_product_id'])) {
 
     $update_sql = "UPDATE products SET confirmation_status = 1 WHERE product_id = $product_id";
 
-    // Execute the query
     if ($conn->query($update_sql) === TRUE) {
         echo "Confirmation status updated successfully";
         exit;
     } else {
         echo "Error updating confirmation status: " . $conn->error;
-        exit; // Exit after echoing response to prevent further HTML output
+        exit; 
     }
 }
 
@@ -50,7 +49,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
-    <!-- Bootstrap CSS -->
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         #container {
@@ -60,7 +59,6 @@ $result = $conn->query($sql);
 
         .description-cell {
             max-width: 200px;
-            /* Adjust the width as needed */
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -75,7 +73,6 @@ $result = $conn->query($sql);
             padding: 10px;
             z-index: 100;
             max-width: 400px;
-            /* Adjust the width as needed */
         }
     </style>
 </head>
@@ -139,7 +136,6 @@ $result = $conn->query($sql);
         </table>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -170,14 +166,14 @@ $result = $conn->query($sql);
         function removeProduct(productId) {
             if (confirm('Are you sure you want to remove this product?')) {
                 $.ajax({
-                    url: window.location.href, // Send AJAX request to the same page
+                    url: window.location.href, 
                     type: 'POST',
                     data: {
                         remove_product_id: productId
                     },
                     success: function(response) {
                         alert('Product removed successfully');
-                        // Reload the page to reflect changes
+                        
                         location.reload();
                     },
                     error: function(xhr, status, error) {
@@ -190,14 +186,14 @@ $result = $conn->query($sql);
         function confirmProduct(productId) {
             if (confirm('Are you sure you want to confirm this product?')) {
                 $.ajax({
-                    url: window.location.href, // Send AJAX request to the same page
+                    url: window.location.href,
                     type: 'POST',
                     data: {
                         confirm_product_id: productId
-                    }, // Send product ID to server
+                    }, 
                     success: function(response) {
                         alert('Confirmation status updated successfully');
-                        // Reload the page to reflect changes
+                       
                         location.reload();
                     },
                     error: function(xhr, status, error) {

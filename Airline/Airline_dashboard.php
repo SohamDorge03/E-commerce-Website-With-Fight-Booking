@@ -41,12 +41,12 @@ if ($result->num_rows > 0) {
             max-width: 1200px;
             margin: 20px auto;
             padding: 0 20px;
-            margin-top: 70px !important;
+            margin-top: 10px !important;
         }
 
-        h1,h2{
+        h1{
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
             color: #333;
         }
 
@@ -102,7 +102,7 @@ if ($result->num_rows > 0) {
 
  
  
-    <div class="container mt-5">
+    <div class="container mt-2">
     <h1>Welcome, <?php echo $airline_name; ?>!</h1>
         <h1>Dashboard</h1>
         <div class="stats">

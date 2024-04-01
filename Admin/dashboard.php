@@ -8,17 +8,17 @@ if(!isset($_SESSION['email'])) {
 
 include("./include/connection.php");
 
-// Fetch the username associated with the email
+
 $email = $_SESSION['email'];
 $username_query = "SELECT username FROM admins WHERE email = '$email'";
 $username_result = $conn->query($username_query);
 
-// Check if the query was successful
+
 if ($username_result !== false && $username_result->num_rows > 0) {
     $username_row = $username_result->fetch_assoc();
     $username = $username_row['username'];
 } else {
-    $username = "Unknown"; // Set a default username if not found
+    $username = "Unknown"; 
 }
 ?>
 <!DOCTYPE html>
@@ -101,7 +101,7 @@ if ($username_result !== false && $username_result->num_rows > 0) {
         <div class="stats">
             <?php
              include("./include/navbar.php");
-            // Fetch data from tables
+           
             $sql_queries = array(
                 "SELECT COUNT(*) AS Airlines FROM airlines",
                 "SELECT COUNT(*) AS Users FROM users",
@@ -110,7 +110,7 @@ if ($username_result !== false && $username_result->num_rows > 0) {
                 "SELECT COUNT(*) AS Vendors FROM vendors",
                 "SELECT COUNT(*) AS Products FROM products",
                 "SELECT COUNT(*) AS Airports FROM airports",
-                "SELECT COUNT(*) AS Flights FROM flights" // New query for counting flights
+                "SELECT COUNT(*) AS Flights FROM flights" 
             );
 
             foreach ($sql_queries as $sql_query) {
@@ -133,6 +133,6 @@ if ($username_result !== false && $username_result->num_rows > 0) {
 </body>
 </html>
 <?php
-// Close connection
+
 $conn->close();
 ?>

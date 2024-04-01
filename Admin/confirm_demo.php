@@ -1,5 +1,4 @@
 <?php
-// Include database connection
 include("./include/connection.php");
 
 if(isset($_POST['demo_id']) && !empty($_POST['demo_id'])) {

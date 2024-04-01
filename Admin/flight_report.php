@@ -81,14 +81,14 @@ include("./include/navbar.php");
 <?php
 include("./include/connection.php");
 
-// Fetch data for the specified month if no filters are applied
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $flight_class = $_POST['flight_class'];
     $payment_status = $_POST['payment_status'];
 
-    // Construct the SQL query based on selected filters
+
     $sql = "SELECT * FROM booked_flights WHERE booked_date BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
     if (!empty($flight_class)) {
         $sql .= " AND flight_class = '$flight_class'";
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '<div class="alert alert-warning">No booked flights found for the selected filters.</div>';
     }
 } else {
-    // If form is not submitted, display instructions
+  
     echo '<div class="alert alert-info">Please select a date range to generate the report.</div>';
 }
 

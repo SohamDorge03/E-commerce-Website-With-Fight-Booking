@@ -13,9 +13,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Financial Reports</title>
-        <!-- Bootstrap CSS -->
+        
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Custom CSS -->
+       
         <style>
             .card {
                 margin-bottom: 20px;
@@ -40,7 +40,7 @@
         <div class="container mt-5">
             <H1>Financial Reports</H1>
             <div class="row">
-                <!-- Total Revenue of Booked Flights -->
+    
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
@@ -75,7 +75,6 @@
                     </div>
                 </div>
 
-                <!-- Total Revenue of Booked Flights after Shopflix fee -->
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
@@ -96,7 +95,7 @@
                                     echo "<tr>";
                                     echo "<td>" . $row["year"] . "</td>";
                                     echo "<td>" . date('F', mktime(0, 0, 0, $row["month"], 1)) . "</td>"; // Convert month number to month name
-                                    // Calculate the total revenue after deducting 5% fee
+                                    
                                     $total_revenue_after_fee = $row["total_revenue"] * 0.95;
                                     echo "<td>" . number_format($total_revenue_after_fee, 2) . "</td>";
                                     echo "</tr>";
@@ -211,10 +210,9 @@
                             </div>
                             <div class="card-body">
                                 <?php
-                                // Include your database connection file here
+                                
                                 include("./include/connection.php");
 
-                                // SQL query to fetch vendors with the most sales
                                 $sql = "SELECT vendors.company_name, COUNT(order_items.order_id) AS total_sales
             FROM order_items
             JOIN products ON order_items.product_id = products.product_id
@@ -224,10 +222,10 @@
 
                                 $result = $conn->query($sql);
 
-                                // Check if there are results
+                               
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
-                                        // Display each vendor's sales in a card format
+                                        
                                         echo '<div class="card">';
                                         echo '<div class="card-body">';
                                         echo '<h5 class="card-title">' . $row["company_name"] . '</h5>';
@@ -239,7 +237,7 @@
                                     echo "No vendors found with sales.";
                                 }
 
-                                // Close the database connection
+                                
                                 $conn->close();
                                 ?>
 
@@ -252,7 +250,6 @@
             </div>
         </div>
 
-        <!-- Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 

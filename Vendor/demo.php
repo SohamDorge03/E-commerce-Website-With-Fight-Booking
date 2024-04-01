@@ -109,6 +109,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-top: 70px !important;
             margin-left: 20px;
         }
+        .confirm-btn {
+            margin-top: 10px;
+            
+        }
     </style>
 </head>
 <body>

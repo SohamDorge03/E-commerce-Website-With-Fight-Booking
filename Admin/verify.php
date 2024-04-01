@@ -11,14 +11,14 @@ if (isset($_POST['verify'])) {
     $username = $_SESSION['username'] ?? '';
     $email = $_SESSION['email'] ?? '';
 
-    $sql = "SELECT * FROM users WHERE username = '$username' AND email = '$email' AND verify_code = '$enteredCode' AND confirmed_email = 0";
+    $sql = "SELECT * FROM admins WHERE username = '$username' AND email = '$email' AND verify_code = '$enteredCode' AND confirmed_email = 0";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
         $rowCount = mysqli_num_rows($result);
 
         if ($rowCount == 1) {
-            $updateSql = "UPDATE users SET confirmed_email = 1 WHERE username = '$username'";
+            $updateSql = "UPDATE admins SET confirmed_email = 1 WHERE username = '$username'";
             if (mysqli_query($conn, $updateSql)) {
                 header("Location: login.php");
                 exit();

@@ -42,7 +42,6 @@
             text-decoration: none !important;
         }
 
-        /* Minimalistic Scrollbar */
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -105,7 +104,7 @@
             padding: .5rem 1rem 0 0;
             transition: .5s;
             z-index: var(--z-fixed);
-            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-y: auto; 
         }
 
         .nav {
@@ -303,7 +302,7 @@
     </nav>
 </div>
     <div class="container">
-        <!-- Here pages load by include or any -->
+       
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
@@ -314,16 +313,16 @@
                     bodypd = document.getElementById(bodyId),
                     headerpd = document.getElementById(headerId)
 
-                // Validate that all variables exist
+                
                 if (toggle && nav && bodypd && headerpd) {
                     toggle.addEventListener('click', () => {
-                        // show navbar
+                     
                         nav.classList.toggle('show')
-                        // change icon
+                     
                         toggle.classList.toggle('bx-x')
-                        // add padding to body
+                       
                         bodypd.classList.toggle('body-pd')
-                        // add padding to header
+                        
                         headerpd.classList.toggle('body-pd')
                     })
                 }
@@ -331,29 +330,26 @@
 
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
 
-            /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')
 
             function colorLink() {
-                // Remove 'active' class from all links
+                
                 linkColor.forEach(l => l.classList.remove('active'));
 
-                // Add 'active' class only to the clicked link
+                
                 this.classList.add('active');
             }
 
             linkColor.forEach(l => l.addEventListener('click', colorLink))
 
-            // Your code to run since DOM is loaded and ready
+            
         });
     </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"> </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
-    <!--Container Main end-->
-
-    <!-- Container Main end -->
+    
 </body>
 
 </html>
