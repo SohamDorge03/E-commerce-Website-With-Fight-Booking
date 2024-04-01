@@ -11,11 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pass = $_POST['pass'];
         $captcha = $_POST['captcha'];
 
-        // Validate CAPTCHA
         if($_SESSION['captcha'] !== $captcha) {
             $error = "Invalid CAPTCHA, please try again.";
         } else {
-            // CAPTCHA verification succeeded, proceed with login validation
             $sql = "SELECT airline_id FROM airlines WHERE email = '$email' AND pass = '$pass'";
             $result = mysqli_query($conn, $sql);
 
@@ -26,12 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: Airline_dashboard.php");
                 exit();
             } else {
-                // Invalid email or password
                 $error = "Invalid email or password. Please try again.";
             }
         }
     } else {
-        // Invalid input
+    
         $error = "Please enter email, password, and CAPTCHA.";
     }
 }

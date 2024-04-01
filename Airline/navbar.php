@@ -37,7 +37,6 @@
             text-decoration: none;
         }
 
-        /* Minimalistic Scrollbar */
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -101,7 +100,7 @@
             padding: .5rem 1rem 0 0;
             transition: .5s;
             z-index: var(--z-fixed);
-            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-y: auto; 
         }
 
         .nav {
@@ -228,10 +227,6 @@
                         <span class="nav_name">Dashboard</span>
                     </a>
             
-                    <!-- <a href="./user.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'user.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-box nav_icon"></i>
-                        <span class="nav_name">Users</span>
-                    </a> -->
                     <a href="./flights.php" class="nav_link <?php echo basename($_SERVER['PHP_SELF']) == 'flights.php' ? 'active' : ''; ?>">
                         <i class="fas fa-box nav_icon"></i>
                         <span class="nav_name">Flight</span>
@@ -287,16 +282,14 @@
             const linkColor = document.querySelectorAll('.nav_link')
 
             function colorLink() {
-                // Remove 'active' class from all links
+                
                 linkColor.forEach(l => l.classList.remove('active'));
 
-                // Add 'active' class only to the clicked link
                 this.classList.add('active');
             }
 
             linkColor.forEach(l => l.addEventListener('click', colorLink))
 
-            // Your code to run since DOM is loaded and ready
         });
     </script>
 

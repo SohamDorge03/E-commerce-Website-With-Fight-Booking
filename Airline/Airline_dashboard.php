@@ -1,8 +1,8 @@
 <?php
-session_start(); // Starting the session
+session_start();
 
 if (!isset($_SESSION['airline_id'])) {
-    // Redirect to the login page if not logged in
+    
     header("Location: log.php");
     exit();
 }
@@ -12,9 +12,9 @@ $airline_id = $_SESSION['airline_id'];
 $sql = "SELECT airline_name FROM airlines WHERE airline_id = $airline_id";
 $result = $conn->query($sql);
 
-// Check if the query was successful
+
 if ($result->num_rows > 0) {
-    // Fetch the airline's name
+    
     $row = $result->fetch_assoc();
     $airline_name = $row['airline_name'];
 } else {
@@ -108,9 +108,8 @@ if ($result->num_rows > 0) {
         <div class="stats">
             <?php
             
-            // Check if 'airline_id' session variable is set
             if(isset($_SESSION['airline_id'])) {
-                // Use the session variable in the SQL query
+                
                 $sql_query = "SELECT flight_class, COUNT(*) AS class_count 
                               FROM flights 
                               WHERE airline_id = {$_SESSION['airline_id']} 
@@ -120,7 +119,7 @@ if ($result->num_rows > 0) {
                 if ($result === false) {
                     echo "<p>Error: " . $conn->error . "</p>";
                 } else {
-                    // Define the expected flight classes
+                    
                     $expected_classes = array("First Class", "Business", "Economy");
                     $class_counts = array_fill_keys($expected_classes, 0);
 
@@ -139,28 +138,28 @@ if ($result->num_rows > 0) {
                     }
                 }
             } else {
-                // Handle case when 'airline_id' session variable is not set
+             
                 echo "<p>Error: 'airline_id' session variable is not set.</p>";
             }
             ?>
             <?php
              $sql_query1 = "SELECT COUNT(*) AS Booked_Flights FROM booked_flights WHERE airline_id = {$_SESSION['airline_id']}";
              $sql_query2 = "SELECT COUNT(*) AS Flights FROM flights WHERE airline_id = {$_SESSION['airline_id']}";
-             $sql_query3 = "SELECT COUNT(*) AS Airports FROM airports"; // Count airports
-             $sql_query4 = "SELECT COUNT(*) AS Passengers FROM passenger"; // Count passengers
+             $sql_query3 = "SELECT COUNT(*) AS Airports FROM airports"; 
+             $sql_query4 = "SELECT COUNT(*) AS Passengers FROM passenger"; 
 
              $result1 = $conn->query($sql_query1);
              $result2 = $conn->query($sql_query2);
-             $result3 = $conn->query($sql_query3); // Execute query for airports count
-             $result4 = $conn->query($sql_query4); // Execute query for passengers count
+             $result3 = $conn->query($sql_query3); 
+             $result4 = $conn->query($sql_query4); 
 
              if ($result1 === false || $result2 === false || $result3 === false || $result4 === false) {
                  echo "<p>Error: " . $conn->error . "</p>";
              } else {
                  $row1 = $result1->fetch_assoc();
                  $row2 = $result2->fetch_assoc();
-                 $row3 = $result3->fetch_assoc(); // Fetch result for airports count
-                 $row4 = $result4->fetch_assoc(); // Fetch result for passengers count
+                 $row3 = $result3->fetch_assoc(); 
+                 $row4 = $result4->fetch_assoc(); 
 
                  echo "<div class='stat'>";
                  foreach ($row1 as $key => $value) {
@@ -176,7 +175,6 @@ if ($result->num_rows > 0) {
                  }
                  echo "</div>";
 
-                 // Display airports count
                  echo "<div class='stat'>";
                  foreach ($row3 as $key => $value) {
                      echo "<h2>$key</h2>";
@@ -184,7 +182,7 @@ if ($result->num_rows > 0) {
                  }
                  echo "</div>";
 
-                 // Display passengers count
+                
                  echo "<div class='stat'>";
                  foreach ($row4 as $key => $value) {
                      echo "<h2>$key</h2>";

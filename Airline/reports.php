@@ -79,21 +79,18 @@ if(!isset($_SESSION['email'])) {
 <?php
   include("./connection.php");
 
-  // Fetch data based on submitted filters
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $flight_class = $_POST['flight_class'];
     $payment_status = $_POST['payment_status'];
     $airline_id = $_SESSION['airline_id'];
-
-    // Extracting month and year from selected dates
+ 
     $start_month = date('m', strtotime($start_date));
     $end_month = date('m', strtotime($end_date));
     $start_year = date('Y', strtotime($start_date));
     $end_year = date('Y', strtotime($end_date));
 
-    // Construct the SQL query based on selected filters
     $sql = "SELECT * FROM booked_flights WHERE (MONTH(booked_date) BETWEEN $start_month AND $end_month) AND (YEAR(booked_date) BETWEEN $start_year AND $end_year) AND airline_id = '$airline_id'";
     if (!empty($flight_class)) {
       $sql .= " AND flight_class = '$flight_class'";

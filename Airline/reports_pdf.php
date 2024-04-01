@@ -1,33 +1,26 @@
 <?php
 require('../Admin/vendor/autoload.php');
 
-// Start session
 session_start();
 
-// Check if user is logged in
 if (!isset($_SESSION['airline_id'])) {
     echo "User not logged in.";
     exit;
 }
 
-// Get parameters from URL
 $from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '';
 $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : '';
 $status = isset($_GET['status']) ? $_GET['status'] : '';
 
-// Create database connection
 $con = mysqli_connect('localhost', 'root', '', 'shopflix');
 
-// Get current logged-in user's airline_id
 $airline_id = $_SESSION['airline_id'];
 
-// Construct SQL query based on selected options and current user's airline_id
 $sql = "SELECT * FROM booked_flights WHERE airline_id = '$airline_id'";
 if (!empty($from_date) && !empty($to_date)) {
     $sql .= " AND booked_date BETWEEN '$from_date 00:00:00' AND '$to_date 23:59:59'";
 }
 
-// Execute the query
 $res = mysqli_query($con, $sql);
 
 if (mysqli_num_rows($res) > 0) {

@@ -1,12 +1,10 @@
 <?php
-session_start(); // Start the session
+session_start();
 
 include("connection.php");
 
 
-// Check if airline is logged in
 if(isset($_SESSION['airline_id'])) {
-    // Retrieve the airline ID from the session
     $airline_id = $_SESSION['airline_id'];
 
     $sql = "SELECT p.*, b.*, f.*, a.airline_name 
@@ -17,14 +15,11 @@ if(isset($_SESSION['airline_id'])) {
     WHERE a.airline_id = $airline_id";
 
 
-    // Execute query
     $result = $conn->query($sql);
 
-    // Check for errors in query execution
     if (!$result) {
         echo "Error: " . $conn->error;
     } else {
-        // Check if any rows were returned
         if ($result->num_rows > 0) {
             ?>
             <!DOCTYPE html>
@@ -49,9 +44,6 @@ if(isset($_SESSION['airline_id'])) {
                                 <th>Age</th>
                                 <th>DOB</th>
                                 <th>Gender</th>
-                                <!-- <th>Seat Number</th>
-                                <th>Gate Number</th>
-                                <th>Boarding Time</th> -->
                                 <th>Booking ID</th>
                                 <th>Flight ID</th>
                                 <th>Flight Code</th>
@@ -60,7 +52,6 @@ if(isset($_SESSION['airline_id'])) {
                         </thead>
                         <tbody>
                             <?php
-                            // Loop through each row of data
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
@@ -69,9 +60,6 @@ if(isset($_SESSION['airline_id'])) {
                                     <td><?php echo $row['age']; ?></td>
                                     <td><?php echo $row['dob']; ?></td>
                                     <td><?php echo $row['gender']; ?></td>
-                                    <!-- <td><?php echo $row['seatno']; ?></td>
-                                    <td><?php echo $row['gateno']; ?></td>
-                                    <td><?php echo $row['boarding_time']; ?></td> -->
                                     <td><?php echo $row['booking_id']; ?></td>
                                     <td><?php echo $row['flight_id']; ?></td>
                                     <td><?php echo $row['flight_code']; ?></td>
@@ -91,12 +79,10 @@ if(isset($_SESSION['airline_id'])) {
         }
     }
 } else {
-    // Redirect to log.php if not logged in
     echo "<script>window.location.href = 'log.php';</script>";
 
     exit();
 }
 
-// Close connection
 $conn->close();
 ?>

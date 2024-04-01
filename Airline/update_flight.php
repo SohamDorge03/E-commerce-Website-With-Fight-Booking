@@ -4,13 +4,11 @@ include("./connection.php");
 if(isset($_GET['id']) && !empty($_GET['id'])) {
     $flight_id = $_GET['id'];
 
-    // Fetch flight details based on the flight ID
     $sql = "SELECT * FROM flights WHERE flight_id = $flight_id";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // Display the form with flight details populated
         include("./navbar.php");
 ?>
 
@@ -28,7 +26,6 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
     <div class="container mt-5">
         <h1>Update Flight</h1>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <!-- Hidden input field to store flight ID -->
             <input type="hidden" name="flight_id" value="<?php echo $row['flight_id']; ?>">
             <div class="form-group">
                 <label for="flight_code">Flight Code:</label>
@@ -92,9 +89,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Handle form submission to update flight details in the database
     $flight_id = $_POST['flight_id'];
-    // Retrieve other form data
     $flight_code = $_POST["flight_code"];
     $source_date = $_POST["source_date"];
     $source_time = $_POST["source_time"];
@@ -107,7 +102,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $_POST["price"];
     $airline_id = $_POST["airline_id"];
 
-    // SQL query to update flight details
     $sql_update = "UPDATE flights SET 
                     flight_code = '$flight_code', 
                     source_date = '$source_date', 
@@ -124,7 +118,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sql_update) === TRUE) {
         echo "<script>alert('Flight updated successfully');</script>";
-        // Redirect to the same page to avoid resubmission on page refresh
+      
         echo "<script>window.location.href = 'Flights.php';</script>";
     }   
 }
