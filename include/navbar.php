@@ -1,241 +1,242 @@
-<?php 
+<?php
 session_start();
-if(isset($_SESSION['u'])){
+if (isset($_SESSION['u'])) {
   $user_id = $_SESSION['u'];
-}
-else{
-
+} else {
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
- 
-    <style>
-  html {
-  scroll-behavior: smooth;
-}
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Arial", sans-serif; /* Changed font to Arial */
-}
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-.section-p1 {
-  padding: 30px 60px; /* Reduced padding for a cleaner look */
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Arial", sans-serif;
+    }
 
-.section-m1 {
-  padding: 30px 0; /* Reduced padding for a cleaner look */
-}
- 
+    .section-p1 {
+      padding: 30px 60px;
+    }
 
-#header, #new {
-  
-  width: 100%;
-  overflow: hidden;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 40px; /* Reduced padding for a cleaner look */
-  background-color: #fff; /* Changed background color to white */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added a subtle box shadow */
-}
+    .section-m1 {
+      padding: 30px 0;
 
-#new {
-  top: 60px; /* Adjusted top position */
-}
+    }
 
-#navbar, .swanavbar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.quantity {
-  background-color: #3552dc;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    position: absolute;
-    top: -8px;
-    left: 56%;
-    padding: 3px 8px;
-    font-size: 12px;
-}
+    #header,
+    #new {
 
-#mobile {
-  display: none;
-  align-items: center;
-}
+      width: 100%;
+      overflow: hidden;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-#close {
-  display: none;
-}
+    #new {
+      top: 60px;
+    }
 
-#navbar li, .swanavbar li {
-  list-style: none;
-  padding: 0 15px; /* Reduced padding for a cleaner look */
-  position: relative;
-}
+    #navbar,
+    .swanavbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-#navbar li a, .swanavbar li a {
-  text-decoration: none;
-  font-size: 14px; /* Adjusted font size for a cleaner look */
-  font-weight: 600;
-  color: #333;
-  transition: 10s ease;
-}
+    .quantity {
+      background-color: #3552dc;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      position: absolute;
+      top: -8px;
+      left: 56%;
+      padding: 3px 8px;
+      font-size: 12px;
+    }
 
-#navbar li a:hover, .swanavbar li a:hover,
-#navbar li a.active, .swanavbar li a.active {
-  color: #088178;
-}
+    #mobile {
+      display: none;
+      align-items: center;
+    }
 
-#navbar li a:hover::after, .swanavbar li a:hover::after,
-#navbar li a.active::after, .swanavbar li a.active::after {
-  content: " ";
-  width: 30%;
-  height: 2px;
-  background: #088178; /* Changed to a more vibrant green */
-  position: absolute;
-  bottom: -4px;
-  left: 15px; /* Adjusted left position */
-}
-#navbar li a, .swanavbar .navlink {
-  text-decoration: none; /* Add this line to remove underline */
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  transition:50000ms ease;
-}
+    #close {
+      display: none;
+    }
 
-</style>
+    #navbar li,
+    .swanavbar li {
+      list-style: none;
+      padding: 0 15px;
+      position: relative;
+    }
+
+    #navbar li a,
+    .swanavbar li a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      transition: 10s ease;
+    }
+
+    #navbar li a:hover,
+    .swanavbar li a:hover,
+    #navbar li a.active,
+    .swanavbar li a.active {
+      color: #088178;
+    }
+
+    #navbar li a:hover::after,
+    .swanavbar li a:hover::after,
+    #navbar li a.active::after,
+    .swanavbar li a.active::after {
+      content: " ";
+      width: 30%;
+      height: 2px;
+      background: #088178;
+      position: absolute;
+      bottom: -4px;
+      left: 15px;
+    }
+
+    #navbar li a,
+    .swanavbar .navlink {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      transition: 50000ms ease;
+    }
+  </style>
 </head>
+
 <body>
 
-<section id="header" style="padding: 15px 77px;">
+  <section id="header" style="padding: 15px 77px;">
 
-    <a href="#" style="text-decoration: none; color: #007eff; font-weight: 700; font-size:30px;">✨ ShopFlix  </a> 
+    <a href="#" style="text-decoration: none; color: #007eff; font-weight: 700; font-size:30px;">✨ ShopFlix </a>
 
-  
-        <ul id="navbar">
-       <style>
+
+    <ul id="navbar">
+      <style>
         .search-cont {
-  display: flex;
-  align-items: center;
-}
+          display: flex;
+          align-items: center;
+        }
+        .search-input,
+        .search-btn {
+        
+          padding: 4px;
+          margin: 6px;
+          font-size: 16px;
+          border: 2px solid #ffc107;
+         
+        }
 
-.search-input,
-.search-btn { /* Target both elements with same styles */
-  padding: 4px;
-  margin: 6px;
-  font-size: 16px;
-  border: 2px solid #ffc107; /* Consistent border for both */
-}
+        .search-input {
+          flex: 1;
+        }
 
-.search-input {
-  flex: 1;
-}
+        .search-btn {
+          background-color: white;
+          color: #000;
+          border: none;
 
-.search-btn {
-  background-color:white;
-  color: #000;
-  border: none;
+          cursor: pointer;
+        }
+      </style>
+      <form action="search.php" method="GET">
+        <div class="search-cont">
+          <input type="text" id="search-input" name="q" class="search-input" placeholder="Search products...">
+          <button type="submit" id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+      </form>
 
-  cursor: pointer;
-}
+      <li><a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a></li>
+      <li><a href="shop.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>">Shop</a></li>
 
-       </style>
-        <form action="search.php" method="GET">
-    <div class="search-cont">
-        <input type="text" id="search-input" name="q" class="search-input" placeholder="Search products...">
-        <button type="submit" id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
-    </div>
-</form>
+      <li><a href="about_us.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'about_us.php' ? 'active' : ''; ?>">About</a></li>
+      <li><a href="contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contact</a></li>
 
+      </head>
 
-            <li><a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a></li>
-            <li><a href="shop.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>">Shop</a></li>
-
-            <li><a href="about_us.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'about_us.php' ? 'active' : ''; ?>">About</a></li>
-            <li><a href="contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contact</a></li>
-
+      <body>
+        <style>
        
-</head>
-<body>
-<style>
+          .dropdown {
+            position: relative;
+            display: inline-block;
 
-  /* Style the dropdown button */
-.dropdown {
-  position: relative;
-  display: inline-block;
+          }
 
-}
+          .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 180;
+            top: 63px;
+          }
 
-/* Style the dropdown content (hidden by default) */
-.dropdown-content {
-  display: none;
-  position: fixed;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 180;
-    top: 63px;
-}
+          .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+          }
 
-/* Style the links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
+          .dropdown-content a:hover {
+            background-color: #ddd;
+          }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
+          .dropdown.show .dropdown-content {
+            display: block;
+          }
 
-/* Show the dropdown content on click */
-.dropdown.show .dropdown-content {
-  display: block;
-}
-
-/* Change the button text color on click */
-#loginDropdown.show {
-  color: blue;
-}
-
-</style>
+          #loginDropdown.show {
+            color: blue;
+          }
+        </style>
 
 
-<?php
-include('connection.php');
+        <?php
+        include('connection.php');
 
 
-?>
+        ?>
 
-<?php
+        <?php
 
-            if(isset($_SESSION['u'])){
-                  echo '<li><a href="logout.php" class="btn">log out</a></li>';
-            }
-            else{
-              echo '
+        if (isset($_SESSION['u'])) {
+          echo '<li><a href="logout.php" class="btn">log out</a></li>';
+        } else {
+          echo '
             <div class="dropdown">
                 <button class="btn dropdown-toggle" id="loginDropdown" onclick="toggleDropdown()">
                     Login
@@ -247,57 +248,52 @@ include('connection.php');
                 </div>
             </div>';
 
+          echo '<li style=" margin-left: -20px;   font-weight: 600;"><a href="register.php" class="btn">regestration </a></li>';
+        }
 
-              
-              echo '<li style=" margin-left: -20px;   font-weight: 600;"><a href="register.php" class="btn">regestration </a></li>';
-            }
+        ?>
 
-            ?>
-            
-            <?php
-if(isset($_SESSION['u'])){
+        <?php
+        if (isset($_SESSION['u'])) {
 
-$sql_cart_quantity = "SELECT SUM(quantity) AS cart_quantity FROM cart WHERE user_id = $user_id";
-$result_cart_quantity = $conn->query($sql_cart_quantity);
+          $sql_cart_quantity = "SELECT SUM(quantity) AS cart_quantity FROM cart WHERE user_id = $user_id";
+          $result_cart_quantity = $conn->query($sql_cart_quantity);
 
-if ($result_cart_quantity) {
-    $row_cart_quantity = $result_cart_quantity->fetch_assoc();
-    $cart_quantity = $row_cart_quantity['cart_quantity'];
-} else {
-    
-    $cart_quantity = 0;
-}
-      echo "<li><a href='cart.php' id='lg-cart' class='btn'><i class='fal fa-shopping-cart'></i></a> <span class='quantity'>" .  $cart_quantity . "</span> </li>   <li><a href='#' id='close'><i class='far fa-times'></i></a></li>";
-  }
-else{
+          if ($result_cart_quantity) {
+            $row_cart_quantity = $result_cart_quantity->fetch_assoc();
+            $cart_quantity = $row_cart_quantity['cart_quantity'];
+          } else {
 
-}
-?>
-       
-        </ul>
+            $cart_quantity = 0;
+          }
+          echo "<li><a href='cart.php' id='lg-cart' class='btn'><i class='fal fa-shopping-cart'></i></a> <span class='quantity'>" .  $cart_quantity . "</span> </li>   <li><a href='#' id='close'><i class='far fa-times'></i></a></li>";
+        } else {
+        }
+        ?>
+
+    </ul>
     </div>
-   <script>
-    function toggleDropdown() {
+    <script>
+      function toggleDropdown() {
         var dropdownContent = document.getElementById("dropdownContent");
         var loginDropdown = document.getElementById("loginDropdown");
         loginDropdown.classList.toggle("show");
         if (dropdownContent.style.display === "block") {
-            dropdownContent.style.display = "none";
+          dropdownContent.style.display = "none";
         } else {
-            dropdownContent.style.display = "block";
+          dropdownContent.style.display = "block";
         }
-    }
-</script>
-</section>
+      }
+    </script>
+  </section>
 
-<section id="new" class="swanavbar"  style="padding: 15px 77px;">
-<style>
+  <section id="new" class="swanavbar" style="padding: 15px 77px;">
+    <style>
+      .navlink .active {
+        color: blue;
 
-.navlink .active {
-color: blue;
-
-}
-</style>
+      }
+    </style>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'electronics.php' ? 'active' : ''; ?>" href="electronics.php">Electronic</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'furniture.php' ? 'active' : ''; ?>" href="furniture.php">Furniture</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'gym.php' ? 'active' : ''; ?>" href="gym.php">Gym tools</a>
@@ -307,35 +303,36 @@ color: blue;
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'request_airline.php' ? 'active' : ''; ?>" href="request_airline.php">request_airline</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">report issues</a>
-</section>
+  </section>
 
-<script>
-  function toggleDropdown() {
-    var dropdownContent = document.getElementById("dropdownContent");
-    var loginDropdown = document.getElementById("loginDropdown");
-    loginDropdown.classList.toggle("show");
-    if (dropdownContent.style.display === "block") {
+  <script>
+    function toggleDropdown() {
+      var dropdownContent = document.getElementById("dropdownContent");
+      var loginDropdown = document.getElementById("loginDropdown");
+      loginDropdown.classList.toggle("show");
+      if (dropdownContent.style.display === "block") {
         dropdownContent.style.display = "none";
-    } else {
+      } else {
         dropdownContent.style.display = "block";
+      }
     }
-  }
 
-  // Close the dropdown if the user clicks outside of it
-  window.onclick = function(event) {
-    if (!event.target.matches('.btn.dropdown-toggle')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.btn.dropdown-toggle')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
         }
       }
     }
-  }
-</script>
+  </script>
 
 
 </body>
+
 </html>

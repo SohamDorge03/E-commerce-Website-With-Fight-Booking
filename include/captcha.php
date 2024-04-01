@@ -27,19 +27,17 @@ for ($i = 0; $i < $length; $i++) {
     $captcha .= $chars[rand(0, strlen($chars) - 1)];
 }
 
-// Save the generated CAPTCHA string into the session
 $_SESSION['captcha'] = $captcha;
 
-// Draw the text on the image
+
 $text_color = imagecolorallocate($image, 0, 0, 0);
 imagestring($image, 5, 20, 10, $captcha, $text_color);
 
-// Set the content type header
+
 header('Content-Type: image/png');
 
-// Output the image
+
 imagepng($image);
 
-// Free up memory
 imagedestroy($image);
 ?>
