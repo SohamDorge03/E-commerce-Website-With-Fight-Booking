@@ -33,12 +33,15 @@ if (isset($_POST['submit'])) {
     if ($conn->query($sql) === TRUE) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                   Record ' . ($_POST['submit'] == 'Add' ? 'added' : 'updated') . ' successfully
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </button>
               </div>';
     } else {
-        echo '<div class="alert alert-danger" role="alert">Error: ' . $sql . '<br>' . $conn->error . '</div>';
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  Error: ' . $sql . '<br>' . $conn->error . '
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </button>
+              </div>';
     }
 }
 
@@ -52,21 +55,23 @@ if (isset($_POST['delete'])) {
     if ($conn->query($delete_sql) === TRUE) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                   Record deleted successfully
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </button>
               </div>';
     } else {
-        echo '<div class="alert alert-danger" role="alert">Error deleting record: ' . $conn->error . '</div>';
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  Error deleting record: ' . $conn->error . '
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </button>
+              </div>';
     }
 }
 ?>
-
 <div class="content">
     <div class="container mt-5">
         <h2>Airport Management</h2>
 
-        <button type="button" class="btn btn-info btn-sm-6" id="button-add" data-toggle="modal" data-target="#airportModal">
+        <button type="button" class="btn btn-success btn-sm-6" id="button-add" data-toggle="modal" data-target="#airportModal">
             Add Airport
         </button>
     </div>
@@ -102,8 +107,8 @@ if (isset($_POST['delete'])) {
                             <label for="location">Location:</label>
                             <input type="text" class="form-control" id="location" name="location" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="submit" value="Add">Add</button>
-                        <button type="submit" class="btn btn-success" name="submit" value="Update">Update</button>
+                        <button type="submit" class="btn btn-primary" name="submit" value="Add" style="margin-top: 20px;">Add</button>
+                        <button type="submit" class="btn btn-success" name="submit" value="Update" style="margin-top: 20px;">Update</button>
                     </form>
                 </div>
 
@@ -160,21 +165,20 @@ if (isset($_POST['delete'])) {
             </tbody>
         </table>
     </div>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        function populateForm(button) {
-            var modal = $('#airportModal');
-            modal.find('#state').val(button.getAttribute('data-state'));
-            modal.find('#city').val(button.getAttribute('data-city'));
-            modal.find('#airport_name').val(button.getAttribute('data-airport-name'));
-            modal.find('#airport_code').val(button.getAttribute('data-airport-code'));
-            modal.find('#location').val(button.getAttribute('data-location'));
-            modal.find('[name=submit]').val('Update');
-        }
-    </script>
-
-    </body>
+<script>
+    function populateForm(button) {
+        var modal = $('#airportModal');
+        modal.find('#state').val(button.getAttribute('data-state'));
+        modal.find('#city').val(button.getAttribute('data-city'));
+        modal.find('#airport_name').val(button.getAttribute('data-airport-name'));
+        modal.find('#airport_code').val(button.getAttribute('data-airport-code'));
+        modal.find('#location').val(button.getAttribute('data-location'));
+        modal.find('[name=submit]').val('Update');
+    }
+</script>

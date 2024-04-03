@@ -123,17 +123,15 @@ $result = $conn->query($sql);
                     <th>Product Name</th>
                     <th>Demo Date</th>
                     <th>Application Date</th>
-                    
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 if ($result === false) {
-                 
                     echo "<tr><td colspan='14'>Error: " . $conn->error . "</td></tr>";
                 } else {
                     if ($result->num_rows > 0) {
-                        
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $row["demo_id"] . "</td>";
@@ -148,9 +146,8 @@ $result = $conn->query($sql);
                             echo "<td>" . $row["product_name"] . "</td>";
                             echo "<td>" . $row["demo_date"] . "</td>";
                             echo "<td>" . $row["Application_date"] . "</td>";
-                           
                             echo "<td>";
-                           
+                            echo "<button class='btn btn-danger btn-sm' onclick='removeDemo(" . $row["demo_id"] . ")'>Remove</button>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -167,5 +164,26 @@ $result = $conn->query($sql);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function removeDemo(demoId) {
+            if (confirm("Are you sure you want to remove this demo?")) {
+               
+                $.ajax({
+                    url: 'remove_demo.php',
+                    type: 'POST',
+                    data: {
+                        demo_id: demoId
+                    },
+                    success: function(response) {
+                        alert('Demo removed successfully');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error removing demo');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>

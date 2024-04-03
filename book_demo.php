@@ -152,7 +152,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
       $(document).ready(function() {
-        // Close alert message when close button is clicked
+       
         $(".close-btn").click(function() {
           $(this).parent().parent().remove();
         });

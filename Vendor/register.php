@@ -172,7 +172,10 @@ mysqli_close($conn);
             <?php if (!empty($errors)) : ?>
                 <div class="alert alert-danger">
                     <?php foreach ($errors as $error) : ?>
-                        <div><?php echo $error; ?></div>
+                        <div>
+                            <?php echo $error; ?>
+                            <button type="button" style="margin-left: 80px;" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
@@ -199,6 +202,7 @@ mysqli_close($conn);
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

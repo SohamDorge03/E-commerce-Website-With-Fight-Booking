@@ -33,7 +33,7 @@ CREATE TABLE `airline_requests` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airline_requests` VALUES (8,'Indigo','sawvishal2004@gmail.com','IndiGo-Logo.png',_binary 'db53.jpg','Approved','2024-03-29 10:51:22','2024-03-29 11:04:11',0);
 INSERT INTO `airline_requests` VALUES (5,'Airindia','sohamdorge45@gmail.com','air india.png',_binary 'vistara.png','Approved','2024-03-29 04:08:22','2024-03-29 04:26:20',0);
-INSERT INTO `airline_requests` VALUES (9,'airasia','okyagnesh@gmail.com','Air Asia.png',_binary 'b1.jpg','Pending','2024-03-29 10:54:10','2024-03-29 10:54:10',0);
+INSERT INTO `airline_requests` VALUES (9,'airasia','okyagnesh@gmail.com','Air Asia.png',_binary 'b1.jpg','Approved','2024-03-29 10:54:10','2024-04-03 08:36:01',0);
 INSERT INTO `airline_requests` VALUES (10,'Visatara','vishalsaw952@gmail.com','vistara.png',_binary 'v1.jpg','Approved','2024-03-29 10:55:58','2024-03-29 10:56:15',0);
 INSERT INTO `airline_requests` VALUES (11,'Emirates','okyagnesh@gmail.com','Emirates.png',_binary 'y1.jpg','Pending','2024-03-29 10:59:09','2024-03-29 10:59:09',0);
 INSERT INTO `airline_requests` VALUES (13,'Spicejet','sohamdorge45@gmail.com','spicejet.png',_binary 't2.jpg','Pending','2024-03-29 11:01:07','2024-03-29 11:01:07',0);
@@ -48,7 +48,7 @@ CREATE TABLE `airlines` (
   `airline_name` varchar(40) DEFAULT NULL,
   `logo` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`airline_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airlines` VALUES (1,'AirAsia333@gmail.com','123456','airasia','./upload/Air Asia.png');
 INSERT INTO `airlines` VALUES (3,'indigo898@gimail.com','123456','indigo','./upload/IndiGo-Logo.png');
@@ -68,22 +68,22 @@ CREATE TABLE `airports` (
   `city` varchar(100) NOT NULL,
   `location` varchar(100) NOT NULL,
   PRIMARY KEY (`airport_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `airports` VALUES (12,'Surat International Airport','STV','Gujarat','Surat','Surat');
 INSERT INTO `airports` VALUES (13,'Maharana Pratap Airport','UDR','Rajasthan','Udaipur','Udaipur');
 INSERT INTO `airports` VALUES (14,'Chhatrapti shivaji maharaj airport','BOM',' Maharashtra ','Mumbai','mumbai');
 INSERT INTO `airports` VALUES (15,'pune airport','PUN','Maharashtra ','pune','pune');
-INSERT INTO `airports` VALUES (16,'delhi airport','DLE','Delhi','Delhi','delhi');
-INSERT INTO `airports` VALUES (20,'rajkot airport','RAJ','Gujarat','rajkot','rajkot');
+INSERT INTO `airports` VALUES (16,'Delhi airport','DLE','Delhi','Delhi','Delhi');
+INSERT INTO `airports` VALUES (20,'Rajkot airport','RAJ','Gujarat','Rajkot','Rajkot');
 INSERT INTO `airports` VALUES (18,'Kempegowda International Airport Bengaluru','BLA','Karnataka ','Bengaluru','Bengaluru');
-INSERT INTO `airports` VALUES (21,'ranchi airport','RNC','jharkhand','ranchi','ranchi');
-INSERT INTO `airports` VALUES (22,'valmiki','VMK','uttar pradesh','Yaudheya','uttar pradesh');
+INSERT INTO `airports` VALUES (21,'Ranchi airport','RNC','Jharkhand','Ranchi','Ranchi');
+INSERT INTO `airports` VALUES (22,'Valmiki AIRPORT','VMK','Uttar pradesh','Yaudheya','Uttar pradesh');
 INSERT INTO `airports` VALUES (23,'Bangalore airport','BNG','karnataka','Bangalore','Bangalore');
 INSERT INTO `airports` VALUES (24,'Chennai airport','CHN','tamilnadu','Chennai','tamilnadu');
 INSERT INTO `airports` VALUES (25,'Sardar Vallabhbhai Patel International Airport','AMD','Gujrat','Ahmedabad','Ahmedabad');
 INSERT INTO `airports` VALUES (26,'Hisar Airport','HSS','Haryana','Hisar','Haryana');
 INSERT INTO `airports` VALUES (27,'Beas Airport','ATQ','Punjab','Amritsar','Amritsar');
+INSERT INTO `airports` VALUES (28,'Goa International Airport','GOI','Goa','Panaji ','Panaji');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `book_demo` (
@@ -102,7 +102,6 @@ INSERT INTO `book_demo` VALUES (21,22,126,'2024-04-12 00:00:00','2024-03-30 12:2
 INSERT INTO `book_demo` VALUES (26,16,36,'2024-04-04 00:00:00','2024-04-03 10:47:46','Pending');
 INSERT INTO `book_demo` VALUES (25,16,36,'2024-04-04 00:00:00','2024-04-03 10:46:46','Pending');
 INSERT INTO `book_demo` VALUES (23,16,127,'2024-04-04 00:00:00','2024-04-03 10:28:24','Pending');
-INSERT INTO `book_demo` VALUES (24,16,127,'2024-04-11 00:00:00','2024-04-03 10:46:34','Pending');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booked_flights` (
@@ -406,7 +405,7 @@ INSERT INTO `orders` VALUES (15,22,'2024-03-23 11:55:10','Shipped','Stripe','Pai
 INSERT INTO `orders` VALUES (16,23,'2024-03-23 12:27:57','Pending','Stripe','1','ch_3OxTg3DwlRClWlNg0WvmCsY6',1700.00);
 INSERT INTO `orders` VALUES (17,21,'2024-03-23 12:29:18','Pending','Stripe','Paid','tok_1OxThIDwlRClWlNgiH0y4210',7000.00);
 INSERT INTO `orders` VALUES (18,19,'2024-03-23 12:40:19','Pending','Stripe','Paid','tok_1OxTrxDwlRClWlNgfmtBHC3n',1700.00);
-INSERT INTO `orders` VALUES (19,16,'2024-03-23 12:58:12','Pending','Stripe','Paid','tok_1OxU9FDwlRClWlNgNP7yR6Ic',14000.00);
+INSERT INTO `orders` VALUES (19,16,'2024-03-23 12:58:12','Shipped','Stripe','Paid','tok_1OxU9FDwlRClWlNgNP7yR6Ic',14000.00);
 INSERT INTO `orders` VALUES (20,16,'2024-03-23 13:11:03','Pending','Stripe','Paid','tok_1OxULhDwlRClWlNgoNh2ttGB',550.00);
 INSERT INTO `orders` VALUES (21,22,'2024-03-30 06:50:02','Pending','Stripe','Paid','tok_1OzvjqDwlRClWlNglCBxuJcx',22999.00);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -643,7 +642,6 @@ INSERT INTO `subcategories` VALUES (7,'Table',2);
 INSERT INTO `subcategories` VALUES (8,'Microwave',3);
 INSERT INTO `subcategories` VALUES (9,'Mobile',3);
 INSERT INTO `subcategories` VALUES (11,'Washing Machine',3);
-INSERT INTO `subcategories` VALUES (15,'kitchen',7);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
@@ -682,10 +680,9 @@ CREATE TABLE `vendors` (
   `address` varchar(255) DEFAULT NULL,
   `verify_code` int NOT NULL,
   PRIMARY KEY (`vendor_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `vendors` VALUES (1,'Bharagav','bg@gmail.com','12345678',1,1,'bings','9997778880','surat',0);
 INSERT INTO `vendors` VALUES (2,'Yagnesh','okyagnesh@gmail.com','12345678',0,1,'dexon','9997778880','dindoli',0);
 INSERT INTO `vendors` VALUES (3,'Vishal saw','vishal@gmail.com','12345678',0,1,'vision care','7778889990','Surat ',0);
 INSERT INTO `vendors` VALUES (4,'prasad','soh@gmail.com','12345678',0,1,'zexon','7778889990','Surat ',0);
-INSERT INTO `vendors` VALUES (5,'soham','sohamdorge45@gmail.com','12345678',1,1,'apple','7778889990','60 feet road',675381);
