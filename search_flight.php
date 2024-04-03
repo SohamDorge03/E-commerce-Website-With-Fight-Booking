@@ -7,7 +7,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* CSS styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -66,67 +65,46 @@
 </head>
 <body>
 <?php
-// Include the navbar file
 include("./include/navbar.php");
 
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "shopflix";
+include("./include/connection.php");
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if form is submitted
 if(isset($_POST['searchFlights'])) {
-    // Retrieve user input
+
     $fromCity = $_POST['fromCity'];
     $toCity = $_POST['toCity'];
 
-    // Check if both cities are the same
+
     if($fromCity == $toCity) {
-        // Display error message
+   
         echo "<div class='container'>";
         echo "<h2 class='text-center mb-4'>Error: Same Airport Selected</h2>";
         echo "<p class='text-center'>Please select different airports for departure and arrival.</p>";
         echo "</div>";
-        exit; // Stop further execution
+        exit;
     }
-
-    // Continue processing if cities are different
     $travelDate = $_POST['travelDate'];
     $passengers = $_POST['passengers'];
     $class = $_POST['class'];
 
-    // Query to get airport IDs based on city names
     $fromCityQuery = "SELECT airport_id FROM airports WHERE airport_name = '$fromCity'";
     $toCityQuery = "SELECT airport_id FROM airports WHERE airport_name = '$toCity'";
 
-    // Execute queries
     $fromCityResult = $conn->query($fromCityQuery);
     $toCityResult = $conn->query($toCityQuery);
 
-    // Check if both airport IDs are found
     if ($fromCityResult->num_rows > 0 && $toCityResult->num_rows > 0) {
-        // Fetch airport IDs
+        
         $fromAirportID = $fromCityResult->fetch_assoc()['airport_id'];
         $toAirportID = $toCityResult->fetch_assoc()['airport_id'];
 
-        // Query to search for flights based on user input
         $searchQuery = "SELECT * FROM flights WHERE dep_airport_id = $fromAirportID AND arr_airport_id = $toAirportID AND source_date = '$travelDate' AND flight_class = '$class'";
 
-        // Execute search query
         $searchResult = $conn->query($searchQuery);
 
-        // Display search results or a message if no flights found
         if ($searchResult->num_rows > 0) {
-            // Display search results
+            
             echo "<div class='container'>";
             echo "<h2 class='text-center mb-4'>Search Results</h2>";
             echo "<div class='table-responsive'>";
@@ -159,13 +137,13 @@ if(isset($_POST['searchFlights'])) {
             echo "</div>";
             echo "</div>";
         } else {
-            // No flights found
+           
             echo "<div class='container'>";
             echo "<h2 class='text-center mb-4'>No Flights Found</h2>";
             echo "</div>";
         }
     } else {
-        // Airport IDs not found
+       
         echo "<div class='container'>";
         echo "<h2 class='text-center mb-4'>Invalid Airport Selection</h2>";
         echo "</div>";
@@ -177,7 +155,7 @@ if(isset($_POST['searchFlights'])) {
     <div class="container">
         <h1>Book Your Flight Now</h1>
         <div class="search-container">
-        <!-- <form action="search_results.php"> -->
+        
         <form action="search_results.php" method="post">
                 <div class="form-row">
                     <div class="col-md-3 mb-3">
@@ -185,7 +163,7 @@ if(isset($_POST['searchFlights'])) {
                         $sql = "SELECT airport_name FROM airports";
                         $result = $conn->query($sql);
 
-                        // Check if there are rows in the result
+                      
                         if ($result->num_rows > 0) {
                             echo "<select class='form-control' name='fromCity' id='fromCity' required>";
                             echo "<option value=''>Select From City</option>";
@@ -203,10 +181,8 @@ if(isset($_POST['searchFlights'])) {
                     </div>
                     <div class="col-md-3 mb-3">
                         <?php
-                        // Execute the same query for the 'To City' dropdown
+                       
                         $result = $conn->query($sql);
-
-                        // Check if there are rows in the result
                         if ($result->num_rows > 0) {
                             echo "<select class='form-control' name='toCity' id='toCity' required>";
                             echo "<option value=''>Select To City</option>";
@@ -218,7 +194,7 @@ if(isset($_POST['searchFlights'])) {
                             echo "<input type='text' class='form-control' name='toCity' placeholder='To City' required>";
                         }
 
-                        // Close the database connection
+
                         $conn->close();
                         ?>
                     </div>
@@ -232,7 +208,7 @@ if(isset($_POST['searchFlights'])) {
                             <option value="3">3 Passengers</option>
                             <option value="4">4 Passengers</option>
                             <option value="5">5 Passengers</option>
-                            <option value="6">6 Passengers</option>
+                          
                         </select>
                     </div>
                     <div class="col-md-1 mb-3">
@@ -271,18 +247,17 @@ if(isset($_POST['searchFlights'])) {
         <h1 class="text-center">Supporting Airlines</h1>
         <div class="d-flex justify-content-center align-items-center">
             <?php
-            // Include the connection file
+            
             include("include/connection.php");
 
-            // Query to retrieve data from the Airlines table
             $sql = "SELECT * FROM airlines";
 
-            // Execute the query
+        
             $result = $conn->query($sql);
 
-            // Check if there are rows in the result
+        
             if ($result->num_rows > 0) {
-                // Output data of each row
+              
                 while($row = $result->fetch_assoc()) {
                     echo "<img src='admin" . $row["logo"] . "' alt='" . $row["airline_name"] . " Logo' style='max-width: 140px; margin: 10px;'>";
                 }
@@ -297,27 +272,21 @@ if(isset($_POST['searchFlights'])) {
     </div>
 </section>
 
-<!-- <div class="footer">
-    <p>&copy; <?php echo date("Y"); ?> Flight Booking. All Rights Reserved.</p>
-</div> -->
+
 <?php
 include("./include/footer.php");
 ?>
 
 <script>
-    // JavaScript code goes here
-    // You can add JavaScript logic for any dynamic behavior on the page
-
-    // Function to disable backdate selection
+   
     function disableBackdate() {
         var today = new Date().toISOString().split('T')[0];
         document.getElementById("travelDate").setAttribute('min', today);
     }
 
-    // Call the function when the page loads
     window.onload = disableBackdate;
 
-    // Function to hide selected "From City" option in "To City" dropdown
+
     document.getElementById('fromCity').addEventListener('change', function() {
         var fromCity = this.value;
         var toCitySelect = document.getElementById('toCity');
@@ -330,7 +299,6 @@ include("./include/footer.php");
         }
     });
 
-    // Function to reverse the selected "From City" and "To City"
     function reverseCities() {
         var fromCity = document.getElementById('fromCity').value;
         var toCity = document.getElementById('toCity').value;

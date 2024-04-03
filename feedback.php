@@ -20,7 +20,7 @@
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6 form-container"> <!-- Apply the custom shadow class here -->
+            <div class="col-md-6 form-container"> 
                 <h2 class="mb-4">Feedback Form</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group">
@@ -39,21 +39,19 @@
     <?php
 include("./include/footer.php");
 ?>
-    <!-- Bootstrap JS (optional) -->
+    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 
 <?php
-// Check if the form is submitted
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     include("./include/connection.php");
-    // Escape user inputs for security
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
 
-    // Attempt to insert feedback into database
     $sql = "INSERT INTO feedback (email, description) VALUES ('$email', '$description')";
 
     if (mysqli_query($conn, $sql)) {
@@ -62,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-    // Close connection
     mysqli_close($conn);
 }
 ?>

@@ -1,5 +1,4 @@
 <?php
-// Include necessary files
 require("./config.php");
 include("./include/connection.php");
 include("./include/navbar.php");
@@ -50,11 +49,10 @@ include("./include/navbar.php");
 </head>
 <body>
 <?php
-// Check if booking_id is set in the URL
+
 if(isset($_GET['booking_id'])) {
     $booking_id = $_GET['booking_id'];
 
-    // Prepare SQL query to fetch booking details with additional fields
     $booking_query = "SELECT bf.booking_id, bf.take_seats, bf.booked_date,  
                             p.name AS passenger_name, 
                             f.flight_code, 
@@ -76,10 +74,9 @@ if(isset($_GET['booking_id'])) {
     $result = mysqli_query($conn, $booking_query);
 
     if(mysqli_num_rows($result) > 0) {
-        // Booking details found, display them
+ 
         $booking_data = mysqli_fetch_assoc($result);
 
-        // Display booking details here
         echo "<div class='container'>
                 <div class='row justify-content-center'>
                     <div class='col-md-8'>
@@ -109,7 +106,7 @@ if(isset($_GET['booking_id'])) {
                 </div>
             </div>";
     } else {
-        // No booking found for the given booking_id
+       
         echo "<div class='container mt-5'>
                 <div class='row justify-content-center'>
                     <div class='col-md-6'>
@@ -121,7 +118,7 @@ if(isset($_GET['booking_id'])) {
             </div>";
     }
 } else {
-    // Booking ID not provided in the URL
+  
     echo "<div class='container mt-5'>
             <div class='row justify-content-center'>
                 <div class='col-md-6'>

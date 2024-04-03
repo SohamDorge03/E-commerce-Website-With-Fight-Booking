@@ -1,14 +1,12 @@
 <?php
-// Database connection
+
 include("./include/connection.php");
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
+
     $airline_name = $_POST['airline_name'];
     $contact_email = $_POST['contact_email'];
     
-    // File upload handling for logo
     $logo_file = $_FILES['logo'];
     $logo_filename = $logo_file['name'];
     $logo_temp_path = $logo_file['tmp_name'];
@@ -25,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO airline_requests (airline_name, contact_email, logo, document) VALUES ('$airline_name', '$contact_email', '$logo_filename', '$document_filename')";
     
     if (mysqli_query($conn, $sql)) {
-        // Show success message using JavaScript
-        echo "<script>alert('Data inserted successfully.');</script>";
+   
+        echo "<script>alert('Your Request sent successfully....');</script>";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }

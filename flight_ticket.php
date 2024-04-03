@@ -1,13 +1,12 @@
 <?php
 include("./include/connection.php");
 
-// Fetch booked flight details from the database
-$booking_id = $_GET['booking_id']; // Assuming you pass the booking ID via GET parameter
+
+$booking_id = $_GET['booking_id'];
 $query = "SELECT * FROM booked_flights WHERE booking_id = $booking_id";
 $result = mysqli_query($conn, $query);
 $flight = mysqli_fetch_assoc($result);
 
-// Generate flight ticket HTML
 $ticket_html = '
 <!DOCTYPE html>
 <html>
@@ -57,6 +56,5 @@ $ticket_html = '
 </html>
 ';
 
-// Output the ticket HTML
 echo $ticket_html;
 ?>

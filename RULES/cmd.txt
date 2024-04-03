@@ -29,7 +29,7 @@ CREATE TABLE `airline_requests` (
   `last_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `confirmed` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`request_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `airline_requests` VALUES (8,'Indigo','sawvishal2004@gmail.com','IndiGo-Logo.png',_binary 'db53.jpg','Approved','2024-03-29 10:51:22','2024-03-29 11:04:11',0);
 INSERT INTO `airline_requests` VALUES (5,'Airindia','sohamdorge45@gmail.com','air india.png',_binary 'vistara.png','Approved','2024-03-29 04:08:22','2024-03-29 04:26:20',0);
@@ -96,9 +96,13 @@ CREATE TABLE `book_demo` (
   PRIMARY KEY (`demo_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `book_demo` VALUES (21,22,126,'2024-04-12 00:00:00','2024-03-30 12:21:12','Pending');
+INSERT INTO `book_demo` VALUES (26,16,36,'2024-04-04 00:00:00','2024-04-03 10:47:46','Pending');
+INSERT INTO `book_demo` VALUES (25,16,36,'2024-04-04 00:00:00','2024-04-03 10:46:46','Pending');
+INSERT INTO `book_demo` VALUES (23,16,127,'2024-04-04 00:00:00','2024-04-03 10:28:24','Pending');
+INSERT INTO `book_demo` VALUES (24,16,127,'2024-04-11 00:00:00','2024-04-03 10:46:34','Pending');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booked_flights` (
@@ -157,18 +161,18 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `cart` VALUES (93,16,38,1);
-INSERT INTO `cart` VALUES (92,16,23,4);
+INSERT INTO `cart` VALUES (104,16,22,1);
 INSERT INTO `cart` VALUES (43,10,23,2);
+INSERT INTO `cart` VALUES (103,16,36,1);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
   `category_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `categories` VALUES (1,'GYM');
 INSERT INTO `categories` VALUES (2,'Furniture ');
@@ -192,7 +196,7 @@ CREATE TABLE `feedback` (
   `email` varchar(100) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`feedback_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `feedback` VALUES (1,'jay@gmail.com','thank you');
 INSERT INTO `feedback` VALUES (2,'chirag@gmail.com','Thank you so much for your continued support....');
@@ -202,6 +206,7 @@ INSERT INTO `feedback` VALUES (5,'patilprasad2824@gmail.com','\"Your website\'s 
 INSERT INTO `feedback` VALUES (6,'bhargavtiwari6813@gmail.com','Unfortunately,\" navigating your website has been frustrating due to slow loading times\".');
 INSERT INTO `feedback` VALUES (7,'okyagnesh@gmail.com','\r\n\"Your flight booking section offers a unique blend of convenience and affordability, seamlessly guiding users through the booking process while ensuring access to budget-friendly options. It\'s a refreshing experience to find such a combination, making travel planning both efficient and cost-effective.');
 INSERT INTO `feedback` VALUES (8,'mahesh452@gmail.com','\r\n\"Your product exceeded my expectations! From its sleek design to its impressive functionality, it\'s clear that a lot of thought went into its development. However, I did encounter a minor issue with [specific feature or aspect], which could be improved for an even better user experience. Overall, though, I\'m highly satisfied with my purchase and would highly recommend it to others.\"');
+INSERT INTO `feedback` VALUES (9,'soh@gmail.com','THANKS FOR GOOD EXPERIENCE........');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flights` (
@@ -616,7 +621,7 @@ CREATE TABLE `report_issue` (
   PRIMARY KEY (`issue_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `report_issue` VALUES (1,1,10,'bjkkjkjgl g','2024-03-14 07:21:12');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -679,15 +684,8 @@ CREATE TABLE `vendors` (
   PRIMARY KEY (`vendor_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `vendors` VALUES (1,'Bharagav','bg@gmail.com','123456',1,1,'bings','9997778880','surat',0);
-INSERT INTO `vendors` VALUES (2,'Yagnesh','okyagnesh@gmail.com','123456',0,1,'dexon','9997778880','dindoli',0);
-INSERT INTO `vendors` VALUES (3,'Vishal saw','vishal@gmail.com','123456',0,1,'vision care','7778889990','Surat ',0);
-INSERT INTO `vendors` VALUES (4,'prasad','soh@gmail.com','123456',0,1,'zexon','7778889990','Surat ',0);
-INSERT INTO `vendors` VALUES (5,'soham','sohamdorge45@gmail.com','123456',1,1,'apple','7778889990','60 feet road',675381);
-INSERT INTO `vendors` VALUES (6,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',306476);
-INSERT INTO `vendors` VALUES (7,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',833854);
-INSERT INTO `vendors` VALUES (8,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',114577);
-INSERT INTO `vendors` VALUES (9,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',793148);
-INSERT INTO `vendors` VALUES (10,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',737102);
-INSERT INTO `vendors` VALUES (11,'soham','sohamdorge45@gmail.com','123',0,0,'apple','4585','navasari',886025);
-INSERT INTO `vendors` VALUES (12,'soham_dorge','dorgeshom2003@gmail.com','12345678',1,0,'bitex','8529637410','surat',800026);
+INSERT INTO `vendors` VALUES (1,'Bharagav','bg@gmail.com','12345678',1,1,'bings','9997778880','surat',0);
+INSERT INTO `vendors` VALUES (2,'Yagnesh','okyagnesh@gmail.com','12345678',0,1,'dexon','9997778880','dindoli',0);
+INSERT INTO `vendors` VALUES (3,'Vishal saw','vishal@gmail.com','12345678',0,1,'vision care','7778889990','Surat ',0);
+INSERT INTO `vendors` VALUES (4,'prasad','soh@gmail.com','12345678',0,1,'zexon','7778889990','Surat ',0);
+INSERT INTO `vendors` VALUES (5,'soham','sohamdorge45@gmail.com','12345678',1,1,'apple','7778889990','60 feet road',675381);

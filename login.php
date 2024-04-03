@@ -2,23 +2,22 @@
 
 include("./include/connection.php");
 include("./include/navbar.php");
-// Check if form is submitted
 if(isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $captcha = $_POST['captcha'];
 
-    // Validate captcha
+    
     if($captcha !== $_SESSION['captcha']) {
         $message = "Invalid captcha.";
     } else {
-        // Prepare SQL query to check if the user exists
+      
         $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
         $result = $conn->query($sql);
 
-        // Check if any rows are returned
+     
         if ($result->num_rows > 0) {
-            // User exists, redirect to home.php
+            
             $row = $result->fetch_assoc();
             $_SESSION['u'] = $row['user_id'];
       echo '<script>
@@ -27,13 +26,13 @@ if(isset($_POST['login'])) {
     </script>';
             exit();
         } else {
-            // User does not exist, display error message
+        
             $message = "Invalid username or password.";
         }
     }
 }
 
-// Close connection
+
 $conn->close();
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-// Include necessary files
+
 require("./config.php");
 include("./include/connection.php");
 include("./include/navbar.php");
@@ -11,7 +11,6 @@ require 'PHPMailer/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Function to send email
 function sendEmail($to, $subject, $body) {
     $mail = new PHPMailer(true);
     $mail->isSMTP();
@@ -68,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
 
                         $update_airline_sql = "UPDATE booked_flights SET airline_id = $airline_id WHERE booking_id = $booking_id";
                         if (mysqli_query($conn, $update_airline_sql)) {
-                            // Payment success message
+                         
                             echo "<div class='container mt-5'>
                                     <div class='row justify-content-center'>
                                         <div class='col-md-6'>
@@ -80,14 +79,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                     </div>
                                 </div>";
 
-                            // Fetch user email from the database
                             $email_query = "SELECT email FROM users WHERE user_id = $user_id";
                             $email_result = mysqli_query($conn, $email_query);
                             if ($email_result && mysqli_num_rows($email_result) > 0) {
                                 $user_row = mysqli_fetch_assoc($email_result);
                                 $user_email = $user_row['email'];
                                 
-                                // Fetch dynamic seat number, gate number, and PNR number from passenger table
+                               
                                 $passenger_query = "SELECT name, seatno, gateno, pnr_no FROM passenger WHERE booking_id = $booking_id";
                                 $passenger_result = mysqli_query($conn, $passenger_query);
                                 if ($passenger_result && mysqli_num_rows($passenger_result) > 0) {
@@ -104,8 +102,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                 } else {
                                     $seats_info = "Seat Information not available";
                                 }
-
-                                // Fetch airline name and flight code from airlines and flights tables using airline_id and flight_id
                                 $flight_query = "SELECT a.airline_name, f.flight_code FROM airlines a INNER JOIN flights f ON a.airline_id = f.airline_id WHERE f.flight_id = $flight_id";
                                 $flight_result = mysqli_query($conn, $flight_query);
                                 if ($flight_result && mysqli_num_rows($flight_result) > 0) {
@@ -117,13 +113,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                     $flight_code = "Flight Code";
                                 }
                                 
-                                // Fetch a single PNR number for the booking
                                 $pnr_query = "SELECT DISTINCT pnr_no FROM passenger WHERE booking_id = $booking_id LIMIT 1";
                                 $pnr_result = mysqli_query($conn, $pnr_query);
                                 $pnr_row = mysqli_fetch_assoc($pnr_result);
                                 $pnr_no = $pnr_row['pnr_no'];
                                 
-                                // Send email containing necessary information
                                 $to = $user_email;
                                 $subject = 'Flight Booking Details';
                                 $body = "Thank you for booking your flight with us!<br><br>

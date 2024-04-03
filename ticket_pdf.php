@@ -1,16 +1,14 @@
 <?php
-// Include mpdf library
+
 include('admin/vendor/autoload.php');
 
-// Connect to your MySQL database (replace with your actual database credentials)
+
 include("./include/connection.php");
 
 if (isset($_GET['booking_id'])) {
 
-    // Get the booking_id from the URL
     $booking_id = $_GET['booking_id'];
 
-    // Fetch data for the ticket
     $sql = "SELECT bf.booking_id, bf.take_seats, bf.booked_date, bf.TransactionID, 
     GROUP_CONCAT(p.name) AS passenger_names, 
     f.flight_code, 
@@ -32,10 +30,10 @@ if (isset($_GET['booking_id'])) {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Initialize mPDF
+        
         $mpdf = new \Mpdf\Mpdf();
 
-        // Start buffer capture
+     
         ob_start();
 ?>
         <!DOCTYPE html>
@@ -46,7 +44,6 @@ if (isset($_GET['booking_id'])) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Flight Ticket</title>
             <style>
-                /* Add your CSS styles here */
                 .card {
                     border: 1px solid #ccc;
                     border-radius: 10px;
@@ -68,7 +65,7 @@ if (isset($_GET['booking_id'])) {
 
                 .detail-container {
                     margin-bottom: 10px;
-                    /* Add some spacing between each pair */
+
                 }
 
                 .detail-label {
@@ -77,14 +74,14 @@ if (isset($_GET['booking_id'])) {
 
                 .detail-value {
                     margin-left: 10px;
-                    /* Adjust spacing between label and value */
+                    
                 }
             </style>
         </head>
 
         <body>
             <?php
-            // Output data of each row
+            
             while ($row = $result->fetch_assoc()) {
             ?>
                 <div class="container">
@@ -93,7 +90,7 @@ if (isset($_GET['booking_id'])) {
                             <div class="card">
                                 <div class="card-header">
                                     <h3>BOARDING PASS</h3>
-                                    <!-- <img src="image.png" alt="Airline Logo" class="airline-logo"> -->
+                    
                                 </div>
                                 <div class="details">
                                     <div class="detail">
@@ -145,16 +142,13 @@ if (isset($_GET['booking_id'])) {
         </html>
 <?php
 
-        // Get the generated HTML content from the buffer
+       
         $html = ob_get_contents();
 
-        // Clean the output buffer
         ob_end_clean();
 
-        // Write HTML content to PDF
         $mpdf->WriteHTML($html);
 
-        // Output PDF as inline
         $mpdf->Output('ticket.pdf', 'I');
     } else {
         echo "0 results";

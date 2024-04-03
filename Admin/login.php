@@ -1,64 +1,60 @@
 <?php
-
 session_start();
 
-    include("./include/connection.php");
+include("./include/connection.php");
 
-  
-    function verifyCaptcha($userCaptcha) {
-        if(isset($_SESSION['captcha']) && strtolower($userCaptcha) == strtolower($_SESSION['captcha'])) {
-            return true;
-        } else {
-            return false;
-        }
+function verifyCaptcha($userCaptcha) {
+    if(isset($_SESSION['captcha']) && strtolower($userCaptcha) == strtolower($_SESSION['captcha'])) {
+        return true;
+    } else {
+        return false;
     }
+}
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-       
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $captcha = $_POST["captcha"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $captcha = $_POST["captcha"];
 
-       
-        if (!empty($email) && !empty($password) && !empty($captcha)) {
+   
+    if (!empty($email) && !empty($password) && !empty($captcha)) {
+        
+        if (verifyCaptcha($captcha)) {
+          
+            $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ? AND password = ?");
+            $stmt->bind_param("ss", $email, $password);
+
             
-            if (verifyCaptcha($captcha)) {
-              
-                $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ? AND password = ?");
-                $stmt->bind_param("ss", $email, $password);
+            $stmt->execute();
 
-                
-                $stmt->execute();
+           
+            $result = $stmt->get_result();
 
-               
-                $result = $stmt->get_result();
-
-                
-                if ($result->num_rows == 1) {
-                
-                    $_SESSION["email"] = $email; 
-                    header("Location: dashboard.php");
-                    exit();
-                } else {
-                   
-                    $error = "Invalid email or password.";
-                }
+            
+            if ($result->num_rows == 1) {
+            
+                $_SESSION["email"] = $email; 
+                header("Location: dashboard.php");
+                exit();
             } else {
-                
-                $error = "Invalid CAPTCHA, please try again.";
+               
+                $error = "Invalid email or password.";
             }
         } else {
-          
-            $error = "Please enter email, password, and CAPTCHA.";
+            
+            $error = "Invalid CAPTCHA, please try again.";
         }
+    } else {
+      
+        $error = "Please enter email, password, and CAPTCHA.";
     }
+}
 
 
-    $randomNumber = substr(rand(),0,5); 
-    $_SESSION['captcha'] = $randomNumber; 
+$randomNumber = substr(rand(),0,5); 
+$_SESSION['captcha'] = $randomNumber; 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -151,7 +147,10 @@ session_start();
                                placeholder="Password" required>
                     </div>
                     <?php if (isset($error)) { ?>
-                        <div class="alert alert-danger"><?php echo $error; ?></div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo $error; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     <?php } ?>
                     <div class="input-group mb-4 d-flex justify-content-between">
                         <div class="form-group">
@@ -163,7 +162,6 @@ session_start();
                                          id="captcha_image"/>
                                     <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
                                         <i class="fas fa-sync-alt"></i>
-                                        
                                     </button>
                                 </div>
                             </div>
@@ -185,6 +183,15 @@ session_start();
 <script>
     document.getElementById('refresh_captcha').addEventListener('click', function () {
         document.getElementById('captcha_image').src = './include/captcha.php?rand=' + new Date().getTime();
+    });
+
+   
+    var closeButtons = document.querySelectorAll('.btn-close');
+    closeButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var alert = this.closest('.alert');
+            alert.remove();
+        });
     });
 </script>
 </body>

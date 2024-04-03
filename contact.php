@@ -70,7 +70,6 @@
     border-color: #0056b3;
   }
 
-  /* Dummy Map Image */
   .dummy-map {
     width: 100%;
     height: 400px;
@@ -85,7 +84,6 @@
     display: block;
   }
 
-  /* Shopflix Headquarters */
   .shopflix-headquarters {
     padding-top: 20px;
     font-size: 28px;
@@ -106,11 +104,11 @@
 <?php
 include("./include/navbar.php");
 ?>
-<!-- Page Content -->
+
 <div class="container">
   <h1 class="text-center mb-5">Contact Us</h1>
 
-  <!-- Contact Information -->
+ 
   <div class="row contact-info">
     <div class="col-md-6">
       <h3>Contact Details</h3>
@@ -151,12 +149,10 @@ include("./include/navbar.php");
     Shopflix Headquarter
   </div>
 
-  <!-- Dummy Map Image -->
+
   <div class="dummy-map">
     <img src="./image/map.jpg" alt="Dummy Map Image">
   </div>
-
-  <!-- Shopflix Address -->
   <div class="shopflix-address">
     near shyam mandir, Vesu, Surat, Gujarat 394210
   </div>
@@ -165,22 +161,15 @@ include("./include/navbar.php");
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Include database configuration
     include("./include/connection.php");
-
-    // Get form data
     $name = $_POST["name"];
     $email = $_POST["email"];
     $description = $_POST["message"];
 
-    // Prepare insert statement
     $sql = "INSERT INTO contact_us (name, email, description) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
-    // // Bind parameters and execute statement
-    // $stmt->execute([$name, $email, $description]);
 
-    // Check if data is inserted successfully
     
 }
 ?>

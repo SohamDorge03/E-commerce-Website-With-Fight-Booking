@@ -3,12 +3,10 @@ require("./config.php");
 include("include/connection.php");
 include("include/navbar.php");
 
-// Initialize total price
+
 $total_price = 0;
 
-// Check if the user is logged in
 if (!isset($_SESSION['u'])) {
-    // If not logged in, show a message and exit
     echo '<div class="container mt-5">';
     echo '<div class="row">';
     echo '<div class="col-md-8">';
@@ -20,15 +18,13 @@ if (!isset($_SESSION['u'])) {
     exit(); 
 }
 
-// Fetch cart items for the current user
 $user_id = $_SESSION['u'];
 $sql = "SELECT c.*, p.name, p.price, p.img1 FROM cart c INNER JOIN products p ON c.product_id = p.product_id WHERE c.user_id = '$user_id'";
 $result = $conn->query($sql);
 
-// Check if the query was successful
 if ($result === false) {
     echo "Error: " . $conn->error;
-    exit; // Stop execution if there's an error
+    exit; 
 }
 
 ?>
@@ -62,7 +58,7 @@ if ($result === false) {
                             </thead>
                             <tbody>
                                 <?php
-                                // Calculate total price and display individual cart items
+                                
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         $total_price += $row['price'] * $row['quantity'];
@@ -77,10 +73,10 @@ if ($result === false) {
                                                 <form action="" method="post" class="form-inline">
                                                     <input type="hidden" name="action" value="update">
                                                     <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                    <!-- Plus button to increase quantity -->
+                                                    
                                                     <button type="submit" class="btn btn-lg" name="update" value="plus">+</button>
                                                     <span class="mx-2"><?php echo $row['quantity']; ?></span>
-                                                    <!-- Minus button to decrease quantity -->
+                                                    
                                                     <button type="submit" class="btn btn-lg" name="update" value="minus">-</button>
                                                 </form>
                                             </td>
@@ -125,11 +121,9 @@ if ($result === false) {
 </html>
 
 <?php
-// Remove item from cart if 'action' is set to 'remove'
 if (isset($_POST['action']) && $_POST['action'] === 'remove' && isset($_POST['product_id'])) {
     $product_id = $_POST['product_id'];
 
-    // Remove the product from the cart
     $remove_sql = "DELETE FROM cart WHERE user_id = '$user_id' AND product_id = '$product_id'";
     $remove_result = $conn->query($remove_sql);
 
@@ -140,7 +134,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'remove' && isset($_POST['pr
     }
 }
 
-// Update item quantity if 'action' is set to 'update'
 if (isset($_POST['action']) && $_POST['action'] === 'update' && isset($_POST['product_id']) && isset($_POST['update'])) {
     $product_id = $_POST['product_id'];
     $update = $_POST['update'];
@@ -153,7 +146,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'update' && isset($_POST['pr
         $row = $fetch_result->fetch_assoc();
         $current_quantity = $row['quantity'];
 
-        // Update quantity based on plus or minus action
         if ($update === 'plus') {
             $new_quantity = $current_quantity + 1;
         } elseif (
@@ -162,11 +154,10 @@ if (isset($_POST['action']) && $_POST['action'] === 'update' && isset($_POST['pr
         ) {
             $new_quantity = $current_quantity - 1;
         } else {
-            // If current quantity is 1 and minus button is clicked, don't update
+          
             $new_quantity = $current_quantity;
         }
 
-        // Update the quantity in the cart
         $update_sql = "UPDATE cart SET quantity = '$new_quantity' WHERE user_id = '$user_id' AND product_id = '$product_id'";
         $update_result = $conn->query($update_sql);
 

@@ -3,7 +3,7 @@
 <head>
 
   <style>
-    /* Option 2: Import via CSS */
+  
     @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 
@@ -97,7 +97,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-  <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
@@ -165,7 +164,6 @@
   <section class="products">
     <h1 style="text-align: center;">New Arrival Products</h1>
     <?php
-// Display products
 include("./include/connection.php");
 
 function displayProducts($sql)
@@ -215,7 +213,6 @@ displayProducts($sql);
 
 
 <?php
-// Display products
 include("./include/connection.php");
 
 function displayProducts1($sql1)
@@ -236,8 +233,7 @@ function displayProducts1($sql1)
             echo '<span class="stock" style="font-size: 16px; font-weight: thin; margin-top: 1px; margin-left: 30px; color: green" >In stock  ' . $row['stock_quantity'] . '</span>';
             echo '<p class="description" style="margin-top: 1px; color: #606063; font-size: 12px; overflow: hidden; text-overflow: ellipsis;">' . substr($row['description'], 0, 30) . '...</p>';
 
-            // Check if user is logged in
-           
+  
 
             echo '</div>';
             echo '</div>';
@@ -266,7 +262,6 @@ displayProducts1($sql1);
 <h1 style="text-align: center;">Furniture</h1>
 
 <?php
-// Display products
 include("./include/connection.php");
 
 function displayProducts2($sql3)
@@ -312,7 +307,7 @@ displayProducts2($sql3);
   <h1 style="text-align: center;">Electronics</h1>
  
   <?php
-// Display products
+
 include("./include/connection.php");
 
 function displayProducts3($sql3)
@@ -336,7 +331,7 @@ function displayProducts3($sql3)
             echo '</div>';
         }
         echo '</div>';
-        // Add View More button
+        
         echo '<div style="text-align: center; margin-top: 20px; margin-bottom:40px;">';
         echo '<a href="electronics.php" class="btn btn-primary">View More <i class="fas fa-arrow-right"></i></a>';
         echo '</div>';
@@ -359,30 +354,27 @@ displayProducts3($sql3);
         <h1 class="text-center">Supporting Airlines</h1>
         <div class="d-flex justify-content-center align-items-center">
             <?php
-            // Include the connection file
+         
             include("include/connection.php");
 
-            // Query to retrieve data from the Airlines table
             $sql = "SELECT * FROM airlines";
 
-            // Execute the query
             $result = $conn->query($sql);
 
-            // Check if there are rows in the result
             if ($result->num_rows > 0) {
-                // Output data of each row
+ 
                 while($row = $result->fetch_assoc()) {
-                    // Display airline logo images
+                
                     echo "<div style='width: 120px; height: 120px; margin: 10px; overflow: hidden;'>";
                     echo "<img src='admin" . $row["logo"] . "' alt='" . $row["airline_name"] . " Logo' style='width: 100%; height: auto;'>";
                     echo "</div>";
                 }
             } else {
-                // If no airlines are found
+               
                 echo "No airlines found.";
             }
 
-            // Close the database connection
+            
             $conn->close();
             ?>
         </div>
@@ -408,7 +400,7 @@ include("./include/footer.php");
 function addToCart(productId) {
     var quantity = $('select[name="quantity_' + productId + '"]').val();
 
-    // Store the current scroll position
+    
     var scrollPosition = $(window).scrollTop();
 
     $.ajax({
@@ -419,13 +411,12 @@ function addToCart(productId) {
             quantity: quantity
         },
         success: function(response) {
-            // Reload the content of the main content area
+      
             $('.pro-container').load(window.location.href + ' .pro-container > *');
 
-            // Set the scroll position back to where it was
+           
             $(window).scrollTop(scrollPosition);
 
-            // Show Bootstrap alert
             $('.alert').html('<strong>Success!</strong> Product added to cart.').addClass('alert-success').removeClass('d-none');
         }
     });

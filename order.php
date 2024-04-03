@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Details</title>
-    <!-- Bootstrap CSS -->
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .container {
@@ -20,18 +20,9 @@
     include("include/connection.php");
     include('include/navbar.php');
 
-    
-
 if(isset($_SESSION['u'])){
     $user_id = $_SESSION['u']; 
 
-
-
-
-
-
-
-    // Display Orders Table with Product Details for the specified user ID
     echo "<div class='container mt-5'>";
 echo '
 <a class="btn btn-primary " style="" href="./book_demo.php">Book a Demo</a>';
@@ -44,7 +35,6 @@ echo '
     echo "</thead>";
     echo "<tbody>";
 
-    // Fetch orders with product details for the specified user ID in descending order of order date
     $sql_orders_products = "SELECT o.order_id, o.user_id, u.username AS user_name, u.email, u.address, o.order_date, o.status, o.payment_method, o.payment_status, o.transaction_id, o.total_amount,
                             GROUP_CONCAT(CONCAT(oi.product_id, ':', p.name, ':', oi.quantity, ':', FORMAT(p.price, 2), ':', FORMAT(oi.quantity * p.price, 2)) SEPARATOR '<br>') AS product_details
                             FROM orders o
@@ -64,22 +54,21 @@ echo '
                 echo "<td>" . $row['order_id'] . "</td>";
               
                 echo "<td>";
-                // Check if the current order is the most recent one
+           
                 if ($row === $result_orders_products->fetch_assoc()) {
                     echo "<span class='badge badge-primary'>Recent Order</span><br>";
                 }
                 echo $row['order_date'] . "</td>";
-                echo "<td>" . $row['status'] . "</td>"; // Display status directly
+                echo "<td>" . $row['status'] . "</td>";
                 echo "<td>" . $row['payment_method'] . "</td>";
                 echo "<td>" . $row['payment_status'] . "</td>";
                 echo "<td>" . $row['transaction_id'] . "</td>";
                 echo "<td>" . number_format($row['total_amount'], 2) . "</td>";
                 echo "<td>";
 
-                // Display product details in a dialog box
                 echo "<button class='btn btn-info btn-sm' data-toggle='modal' data-target='#productDetailsModal" . $row['order_id'] . "'>View Details</button>";
 
-                // Product Details Modal
+                
                 echo "<div class='modal fade' id='productDetailsModal" . $row['order_id'] . "' tabindex='-1' role='dialog' aria-labelledby='productDetailsModalLabel' aria-hidden='true'>";
                 echo "<div class='modal-dialog modal-lg' role='document'>";
                 echo "<div class='modal-content'>";
@@ -91,7 +80,6 @@ echo '
                 echo "</div>";
                 echo "<div class='modal-body'>";
 
-                // Product Details Table in Modal
                 echo "<table class='table table-bordered'>";
                 echo "<thead><tr><th>Product ID</th><th>Product Name</th><th>Quantity</th><th>Product Price</th><th>Total Price</th></tr></thead>";
                 echo "<tbody>";
@@ -132,7 +120,7 @@ echo '
     echo "</table>";
     echo "</div>";
 
-    // Close connection
+  
     $conn->close();
 
     
@@ -142,7 +130,7 @@ echo '
     echo '<a class="btn "> login to see orders <a/> ';
 }
     ?>
-    <!-- Bootstrap JS and Popper.js -->
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

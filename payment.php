@@ -2,7 +2,7 @@
 require("./config.php");
 include("include/connection.php");
 session_start();
-    // Send HTML email with the bill
+    
     require 'PHPMailer/PHPMailer.php';
     require 'PHPMailer/Exception.php';
     require 'PHPMailer/SMTP.php';
@@ -10,20 +10,19 @@ session_start();
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-// Fetch cart items for the current user
 if (isset($_SESSION['u'])) {
     $user_id = $_SESSION['u'];
     $sql = "SELECT c.*, p.name, p.price FROM cart c INNER JOIN products p ON c.product_id = p.product_id WHERE c.user_id = '$user_id'";
     $result = $conn->query($sql);
 
-    // Calculate total price
+    
    
-    $order_items = array(); // Array to store order items
+    $order_items = array(); 
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $total_price += $row['price'] * $row['quantity'];
-            // Add item to order_items array
+            
             $order_items[] = array(
                 'product_id' => $row['product_id'],
                 'quantity' => $row['quantity']
@@ -36,7 +35,6 @@ if (isset($_SESSION['u'])) {
     $total_price = 0;
 }
 
-// Get user's email
 $user_email = "";
 if ($user_id) {
     $user_query = "SELECT email FROM users WHERE user_id = '$user_id'";
@@ -47,18 +45,15 @@ if ($user_id) {
     }
 }
 
-// Create order in the database
 if ($result && $total_price > 0 && $user_email) {
     $payment_method = "Stripe";  
     $payment_status = "Paid";  
     $transaction_id = $_SESSION['t']; 
 
-    // Insert order into orders table
     $insert_order_query = "INSERT INTO orders (user_id, order_date, status, payment_method, payment_status, transaction_id, total_amount) VALUES ('$user_id', NOW(), 'Pending', '$payment_method', '$payment_status', '$transaction_id', '$total_price')";
     if ($conn->query($insert_order_query) === TRUE) {
         $order_id = $conn->insert_id;
 
-        // Insert order items into order_items table
         foreach ($order_items as $item) {
             $product_id = $item['product_id'];
             $quantity = $item['quantity'];
@@ -66,7 +61,6 @@ if ($result && $total_price > 0 && $user_email) {
             $conn->query($insert_order_item_query);
         }
 
-        // Empty the cart for the user
         $delete_cart_items_query = "DELETE FROM cart WHERE user_id = '$user_id'";
         $conn->query($delete_cart_items_query);
 
@@ -85,8 +79,7 @@ if ($result && $total_price > 0 && $user_email) {
             $mail->isHTML(true);
             $mail->Subject = 'Your Order Details';
 
-            // Construct HTML bill
-           // Construct HTML bill
+          
 $html_bill = "<style>
 table {
     width: 100%;
@@ -112,7 +105,7 @@ $html_bill .= "<table>
     <th>Total</th>
 </tr>";
 foreach ($order_items as $item) {
-// Fetch product details for each item
+
 $product_id = $item['product_id'];
 $quantity = $item['quantity'];
 $product_query = "SELECT product_id, name, price FROM products WHERE product_id = '$product_id'";
@@ -128,7 +121,7 @@ $update_stock_query = "UPDATE products SET stock_quantity = stock_quantity - $qu
 if (!$conn->query($update_stock_query)) {
     throw new Exception("Error updating stock quantity for product with ID $product_id");
 }
-// Add item details to HTML bill
+
 $html_bill .= "<tr>
     <td>$product_id</td>
     <td>$product_name</td>
@@ -140,10 +133,8 @@ $html_bill .= "<tr>
 $html_bill .= "<tr><td colspan='4'>Total Amount</td><td>$total_price</td></tr></table>";
 
 
-            // Set HTML bill as the email body
             $mail->Body = $html_bill;
 
-            // Send email
             if ($mail->send()) {
                 echo 'Email sent successfully.';
             } else {
@@ -153,7 +144,6 @@ $html_bill .= "<tr><td colspan='4'>Total Amount</td><td>$total_price</td></tr></
             echo "Email could not be sent. Error: {$mail->ErrorInfo}";
         }
 
-        // Redirect to a success page
         header("Location: order.php");
 
         exit();

@@ -1,11 +1,11 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Report_issue - Shopflix</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-      
         .warranty-form {
             max-width: 500px;
             margin: auto;
@@ -42,11 +42,42 @@
     </style>
 </head>
 <body>
+    <?php include('./include/navbar.php'); ?>
+
     <?php
-include('./include/navbar.php');
+    if(isset($_POST['submit'])){
+        include("./include/connection.php");
+        $productId = $_POST['productId'];
+        $topic = $_POST['topic'];
+        $description = $_POST['description'];
+
+        $productId = mysqli_real_escape_string($conn, $productId);
+        $topic = mysqli_real_escape_string($conn, $topic);
+        $description = mysqli_real_escape_string($conn, $description);
+        $sql = "INSERT INTO report_issue (user_id, product_id, description) VALUES (1, '$productId', '$description')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Submitted successfully
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>';
+        } else {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Error: ' . $sql . '<br>' . $conn->error . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>';
+        }
+
+        $conn->close();
+    }
     ?>
+
     <div class="container abc" style="margin-top: 20px;">
-        <h2 class="text-center mb-6"><b>report issues</b></h2>
+        <h2 class="text-center mb-6"><b>Report Issues</b></h2>
         <form class="warranty-form" method="post">
             <div class="form-group">
                 <label for="productId">Product ID:</label>
@@ -64,32 +95,8 @@ include('./include/navbar.php');
         </form>
     </div>
 
-    <?php
-    if(isset($_POST['submit'])){
-     
-include("./include/connection.php");
-        // Retrieve form data
-        $productId = $_POST['productId'];
-        $topic = $_POST['topic'];
-        $description = $_POST['description'];
-
-        // Sanitize inputs to prevent SQL injection
-        $productId = mysqli_real_escape_string($conn, $productId);
-        $topic = mysqli_real_escape_string($conn, $topic);
-        $description = mysqli_real_escape_string($conn, $description);
-
-        // Insert data into database
-        $sql = "INSERT INTO report_issue (user_id, product_id, description) VALUES (1, '$productId', '$description')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "<p class='text-success alert'>submitted successfully</p>";
-        } else {
-            echo "<p class='text-danger'>Error: " . $sql . "<br>" . $conn->error . "</p>";
-        }
-
-        $conn->close();
-    }
-    ?>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
