@@ -2,7 +2,6 @@
 session_start();
 include './include/connection.php';
 
-// Check if the vendor ID is not set in the session
 if (!isset($_SESSION['vendor_id'])) {
     header("Location: login.php");
     exit();
@@ -10,11 +9,8 @@ if (!isset($_SESSION['vendor_id'])) {
 
 include './include/navbar.php';
 
-// For now until login is done
-
 $vendor_id = $_SESSION['vendor_id'];
 
-// Fetch all categories
 function getAllCategories() {
     global $conn;
     $sql = "SELECT * FROM categories";
@@ -42,11 +38,11 @@ function getAllSubcategories() {
 $categories = getAllCategories();
 $subcategories = getAllSubcategories();
 
-function addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $discountPrice, $category_id, $subcategory_id, $vendor_id) {
+function addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $category_id, $subcategory_id, $vendor_id) {
     global $conn;
 
-    $sql = "INSERT INTO products (name, img1, img2, img3, img4, description, price, stock_quantity, discount_price, category_id, subcategory_id, vendor_id) 
-            VALUES ('$name', '$img1', '$img2', '$img3', '$img4', '$description', $price, $stockQuantity, $discountPrice, $category_id, $subcategory_id, $vendor_id)";
+    $sql = "INSERT INTO products (name, img1, img2, img3, img4, description, price, stock_quantity, category_id, subcategory_id, vendor_id) 
+            VALUES ('$name', '$img1', '$img2', '$img3', '$img4', '$description', $price, $stockQuantity, $category_id, $subcategory_id, $vendor_id)";
 
     if ($conn->query($sql) === TRUE) {
         $GLOBALS['success'] = true; // Set success flag
@@ -55,64 +51,56 @@ function addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $st
     }
 }
 
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['submit'])) {
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price = $_POST['price'];
         $stockQuantity = $_POST['stockQuantity'];
-        $discountPrice = $_POST['discountPrice'];
         $category_id = $_POST['category_id'];
         $subcategory_id = $_POST['subcategory_id'];
-
-        // Handle image uploads
+   
         $targetDir = "products/";
         $img1 = uploadImage($_FILES["img1"], $targetDir);
         $img2 = uploadImage($_FILES["img2"], $targetDir);
         $img3 = uploadImage($_FILES["img3"], $targetDir);
         $img4 = uploadImage($_FILES["img4"], $targetDir);
 
-        addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $discountPrice, $category_id, $subcategory_id, $vendor_id);
+        addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $category_id, $subcategory_id, $vendor_id);
     }
 }
 
-// Function to handle image uploads
 function uploadImage($file, $targetDir) {
     if (!isset($file['tmp_name']) || $file['tmp_name'] === '') {
-        return ""; // If no file is uploaded, return an empty string
+        return "";
     }
 
     $targetFile = $targetDir . basename($file["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-
-    // Check if image file is an actual image or fake image
+    
     $check = getimagesize($file["tmp_name"]);
     if ($check === false) {
         echo "File is not an image.";
         $uploadOk = 0;
     }
-
-    // Check file size
+   
     if ($file["size"] > 500000) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }
-
-    // Allow certain file formats
+    
     $allowedFormats = ["jpg", "jpeg", "png", "gif"];
     if (!in_array($imageFileType, $allowedFormats)) {
         echo "Sorry, only JPG, JPEG, PNG, GIF files are allowed.";
         $uploadOk = 0;
     }
-
-    // Check if $uploadOk is set to 0 by an error
+    
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
         return "";
     } else {
-        // If everything is ok, try to upload file
+        
         if (move_uploaded_file($file["tmp_name"], $targetFile)) {
             echo "The file ". htmlspecialchars( basename( $file["name"])). " has been uploaded.";
             return $targetFile;
@@ -178,10 +166,6 @@ function uploadImage($file, $targetDir) {
             <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" required>
         </div>
         <div class="mb-3">
-            <label for="discountPrice" class="form-label">Discount Price</label>
-            <input type="text" class="form-control" id="discountPrice" name="discountPrice">
-        </div>
-        <div class="mb-3">
             <label for="category_id" class="form-label">Category</label>
             <select class="form-select" id="category_id" name="category_id" required>
                 <option value="" selected disabled>Select Category</option>
@@ -203,7 +187,6 @@ function uploadImage($file, $targetDir) {
     </form>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -221,7 +204,6 @@ function uploadImage($file, $targetDir) {
     </div>
 </div>
 
-<!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

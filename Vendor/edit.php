@@ -2,7 +2,6 @@
 include './include/connection.php';
 session_start();
 
-// Check if the vendor ID is not set in the session
 if (!isset($_SESSION['vendor_id'])) {
     header("Location: login.php");
     exit();
@@ -23,26 +22,24 @@ function getProductById($product_id) {
     }
 }
 
-// Handle product update and delete
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['action']) && isset($_GET['id'])) {
     $productId = $_GET['id'];
     
     if ($_GET['action'] == 'update') {
-        // Update action
+       
         $productToUpdate = getProductById($productId);
         if ($productToUpdate) {
             showUpdateForm($productToUpdate);
-            exit(); // Add exit() after displaying the form to stop further execution
+            exit();
         } else {
             echo "Product not found.";
         }
     } elseif ($_GET['action'] == 'delete') {
-        // Delete action
+       
         deleteProduct($productId);
     }
 }
 
-// Function to show update form
 function showUpdateForm($product) {
     ?>
     <!DOCTYPE html>
@@ -105,7 +102,6 @@ function showUpdateForm($product) {
     exit();
 }
 
-// Function to handle product update form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $productId = $_POST['id'];
     $name = $_POST['name'];
@@ -113,18 +109,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $price = $_POST['price'];
     $stockQuantity = $_POST['stockQuantity'];
 
-    // Call function to update product
     updateProduct($productId, $name, $description, $price, $stockQuantity);
 }
 
-// Function to update product
 function updateProduct($productId, $name, $description, $price, $stockQuantity) {
     global $conn;
 
-    // Update the product details in the database
     $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity";
 
-    // Check if new images are uploaded and update the image paths accordingly
     $targetDir = "products/";
     for ($i = 1; $i <= 4; $i++) {
         $fieldName = "img" . $i;
@@ -143,38 +135,32 @@ function updateProduct($productId, $name, $description, $price, $stockQuantity) 
     }
 }
 
-// Function to handle image uploads
 function uploadImage($file, $targetDir) {
     $targetFile = $targetDir . basename($file["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-    // Check if image file is an actual image or fake image
     $check = getimagesize($file["tmp_name"]);
     if ($check === false) {
         echo "File is not an image.";
         $uploadOk = 0;
     }
 
-    // Check file size
     if ($file["size"] > 500000) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 
-    // Allow certain file formats
     $allowedFormats = ["jpg", "jpeg", "png", "gif"];
     if (!in_array($imageFileType, $allowedFormats)) {
         echo "Sorry, only JPG, JPEG, PNG, GIF files are allowed.";
         $uploadOk = 0;
     }
 
-    // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
         return "";
     } else {
-        // If everything is ok, try to upload file
         if (move_uploaded_file($file["tmp_name"], $targetFile)) {
             return $targetFile;
         } else {
@@ -184,7 +170,6 @@ function uploadImage($file, $targetDir) {
     }
 }
 
-// Function to delete a product
 function deleteProduct($productId) {
     global $conn;
 
@@ -197,7 +182,6 @@ function deleteProduct($productId) {
     }
 }
 
-// Fetch products for the specific vendor
 function getVendorProducts($vendor_id) {
     global $conn;
     $sql = "SELECT * FROM products WHERE vendor_id = $vendor_id";
@@ -230,11 +214,11 @@ $products = getVendorProducts($vendor_id);
         }
        .card-img-top {
             height:200px !important;
-            width: 190px !important; /* Set a reduced height for the card images */
+            width: 190px !important; 
             object-fit: cover;
         }
         .btn-group .btn {
-            margin-right: 10px; /* Adjust the margin to create a gap between buttons */
+            margin-right: 10px; 
         }
         .container{
             margin-top: 70px !important;

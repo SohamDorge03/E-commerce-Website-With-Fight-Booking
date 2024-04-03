@@ -3,7 +3,7 @@ session_start();
 
 include("./include/connection.php");
 
-$username = $_SESSION['vendor_username'] ?? ''; // Using null coalescing operator to handle undefined key error
+$username = $_SESSION['vendor_username'] ?? ''; 
 $error = "";
 
 if (isset($_POST['verify'])) {

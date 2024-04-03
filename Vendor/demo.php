@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Check if the vendor ID is not set in the session
 if (!isset($_SESSION['vendor_id'])) {
     header("Location: login.php");
     exit();
@@ -23,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $demoDate = $_POST["demo_date"];
         $currentDate = date("Y-m-d H:i:s");
 
-        // Validate the selected date and time
+        
         if (strtotime($demoDate) <= strtotime($currentDate)) {
             echo "<script>alert('Please select a date and time after the current date and time.');</script>";
         } else {
@@ -33,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("si", $demoDate, $demoId);
 
             if ($stmt->execute()) {
-                // Get user email
+                
                 $getUserEmailQuery = "SELECT u.email FROM book_demo bd INNER JOIN users u ON bd.user_id = u.user_id WHERE bd.demo_id = ?";
                 $stmt = $conn->prepare($getUserEmailQuery);
                 $stmt->bind_param("i", $demoId);
@@ -44,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $row = $userEmailResult->fetch_assoc();
                     $userEmail = $row["email"];
 
-                    // Send confirmation email
+                   
                     $mail = new PHPMailer(true);
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.gmail.com';
@@ -59,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->Subject = 'Demo Booking Confirmation';
                     $mail->Body = "Your demo booking with Demo ID <h1> $demoId has been confirmed on $currentDate. </h1>";
 
-                    // Send email
+             
                     try {
                         $mail->send();
                         echo "<script>alert('Demo confirmed successfully. Confirmation email sent.');</script>";
@@ -76,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (isset($_POST['remove_demo_id'])) {
         $demoId = $_POST['remove_demo_id'];
 
-        // Delete demo data from the database
+        
         $sql = "DELETE FROM book_demo WHERE demo_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $demoId);
@@ -89,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Display demo data
 ?>
 
 <!DOCTYPE html>
@@ -98,11 +96,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Demo Data</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Bootstrap Datepicker CSS -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <!-- Bootstrap Timepicker CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
     <style>
         .container {
@@ -180,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result = $stmt->get_result();
 
                 if ($result->num_rows > 0) {
-                    // Output data of each row
+                 
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $row["demo_id"] . "</td>";
@@ -217,14 +213,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Bootstrap Datepicker JS -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<!-- Bootstrap Timepicker JS -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
 
 <script>
     $(document).ready(function(){
-        // Initialize the datepicker with validation
+       
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
@@ -232,14 +228,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             endDate: '+1w'    
         });
 
-        // Initialize the timepicker
         $('.timepicker').timepicker({
             showMeridian: false,
             minuteStep: 1,
             defaultTime: false
         });
 
-        // Remove demo data
         $('.remove-btn').click(function() {
             var demoId = $(this).data('demo-id');
             if (confirm("Are you sure you want to remove this demo data?")) {
@@ -249,7 +243,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     data: { demo_id: demoId },
                     success: function(response) {
                         alert(response);
-                        location.reload(); // Reload the page after removal
+                        location.reload(); 
                     },
                     error: function(xhr, status, error) {
                         alert("Error: " + error);
@@ -258,17 +252,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         });
 
-        // Form submission
         $('form').submit(function(event) {
             var selectedDate = new Date($('[name="demo_date"]').val());
             var minDate = new Date();
-            minDate.setDate(minDate.getDate() + 1); // Minimum date is one day from today
+            minDate.setDate(minDate.getDate() + 1); 
             var maxDate = new Date();
-            maxDate.setDate(maxDate.getDate() + 7); // Maximum date is one week from today
+            maxDate.setDate(maxDate.getDate() + 7); 
 
             if (selectedDate < minDate || selectedDate > maxDate) {
                 $('#validationAlert').show();
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
             } else {
                 $('#validationAlert').hide();
             }

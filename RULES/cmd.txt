@@ -677,10 +677,17 @@ CREATE TABLE `vendors` (
   `address` varchar(255) DEFAULT NULL,
   `verify_code` int NOT NULL,
   PRIMARY KEY (`vendor_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `vendors` VALUES (1,'Bharagav','bg@gmail.com','123456',1,1,'bings','9997778880','surat',0);
 INSERT INTO `vendors` VALUES (2,'Yagnesh','okyagnesh@gmail.com','123456',0,1,'dexon','9997778880','dindoli',0);
 INSERT INTO `vendors` VALUES (3,'Vishal saw','vishal@gmail.com','123456',0,1,'vision care','7778889990','Surat ',0);
 INSERT INTO `vendors` VALUES (4,'prasad','soh@gmail.com','123456',0,1,'zexon','7778889990','Surat ',0);
 INSERT INTO `vendors` VALUES (5,'soham','sohamdorge45@gmail.com','123456',1,1,'apple','7778889990','60 feet road',675381);
+INSERT INTO `vendors` VALUES (6,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',306476);
+INSERT INTO `vendors` VALUES (7,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',833854);
+INSERT INTO `vendors` VALUES (8,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',114577);
+INSERT INTO `vendors` VALUES (9,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',793148);
+INSERT INTO `vendors` VALUES (10,'soham','soh@gmail.com','123',0,0,'apple','4585','navasari',737102);
+INSERT INTO `vendors` VALUES (11,'soham','sohamdorge45@gmail.com','123',0,0,'apple','4585','navasari',886025);
+INSERT INTO `vendors` VALUES (12,'soham_dorge','dorgeshom2003@gmail.com','12345678',1,0,'bitex','8529637410','surat',800026);

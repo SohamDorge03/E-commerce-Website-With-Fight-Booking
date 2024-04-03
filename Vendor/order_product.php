@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session
+session_start(); 
 
 // Check if vendor_id is set in the session
 if (!isset($_SESSION['vendor_id'])) {
@@ -12,23 +12,19 @@ $vendor_id = $_SESSION['vendor_id'];
 // Database connection
 include './include/connection.php';
 
-// Initialize variables for date filtering
 $filterFromDate = '';
 $filterToDate = '';
 
-// Check if form is submitted with date filter
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filterFromDate = $_POST['filter_from_date'];
     $filterToDate = $_POST['filter_to_date'];
 
-    // Validate dates to ensure from date is not greater than to date
     if ($filterFromDate > $filterToDate) {
         $temp = $filterFromDate;
         $filterFromDate = $filterToDate;
         $filterToDate = $temp;
     }
 
-    // Validate to prevent selecting future dates
     $currentDate = date('Y-m-d');
     if ($filterFromDate > $currentDate) {
         $filterFromDate = $currentDate;
@@ -38,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Query to fetch data from order_items table along with order_date, status, and company_name with date filter
+
 $query = "SELECT oi.order_item_id, oi.order_id, oi.product_id, oi.quantity, p.vendor_id, o.order_date, o.status, v.company_name
           FROM order_items oi
           JOIN products p ON oi.product_id = p.product_id
@@ -46,7 +42,6 @@ $query = "SELECT oi.order_item_id, oi.order_id, oi.product_id, oi.quantity, p.ve
           JOIN vendors v ON p.vendor_id = v.vendor_id
           WHERE p.vendor_id = $vendor_id";
 
-// Apply date filter if provided
 if (!empty($filterFromDate) && !empty($filterToDate)) {
     $query .= " AND o.order_date BETWEEN '$filterFromDate' AND DATE_ADD('$filterToDate', INTERVAL 1 DAY)";
 }

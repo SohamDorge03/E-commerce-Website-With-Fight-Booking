@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($_SESSION['captcha'] !== $captcha) {
             $error = "Invalid CAPTCHA, please try again.";
         } else {
-            // CAPTCHA verification succeeded, proceed with login validation
+           
             $sql = "SELECT * FROM vendors WHERE email = '$email' AND password = '$password'";
             $result = $conn->query($sql);
 
@@ -29,12 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $error = "Your account has not been confirmed yet. Please wait for confirmation.";
                 }
             } else {
-                // Invalid email or password
+                
                 $error = "Invalid email or password. Please try again.";
             }
         }
     } else {
-        // Invalid input
+     
         $error = "Please enter email, password, and CAPTCHA.";
     }
 }
