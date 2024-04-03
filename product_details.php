@@ -72,16 +72,12 @@
 
 <body>
 
-
     <?php
     include("include/connection.php");
     include("include/navbar.php");
 
     echo '<div class="container22">';
     if (isset($_GET['productId'])) {
-    ?>
-         
-    <?php
         $productId = intval($_GET['productId']);
 
         $stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ?");
@@ -93,7 +89,6 @@
             $product = $result->fetch_assoc();
 
             echo '<div class="product-details">';
-
             echo '<div class="product-images">';
             $imageKeys = array('img1', 'img2', 'img3', 'img4');
             foreach ($imageKeys as $imgKey) {
@@ -103,42 +98,43 @@
             }
             echo '</div>';
 
-
             echo '<div class="product-info">';
             echo '<h2 class="name">' . $product['name'] . '</h2>';
             echo '<p><strong>Description:</strong> ' . $product['description'] . '</p>';
-            echo '<p><strong>Price:</strong> $' . $product['price'] . '</p>';
+            echo '<p><strong>Price:</strong> ' . $product['price'] . '</p>';
             echo '<p><strong>Stock Quantity:</strong> ' . $product['stock_quantity'] . '</p>';
+            echo '<p><strong>Warranty:</strong> ';
+            if ($product['warranty'] > 0) {
+                echo $product['warranty'];
+            } else {
+                echo 'No warranty';
+            }
+            echo '</p>'; // Display warranty information
             $_SESSION['subcategory_id'] = $product['subcategory_id'];
 
-
+            // Add to cart form
             if (isset($_SESSION['u'])) {
-                   
                 $stmt = $conn->prepare("SELECT * FROM cart WHERE user_id = ? AND product_id = ?");
                 $stmt->bind_param("ii", $_SESSION['u'], $productId);
                 $stmt->execute();
                 $result_cart = $stmt->get_result();
                 if ($result_cart->num_rows > 0) {
+                    // Product already in cart
                     echo '<form class="add-to-cart-form d-flex   align-items-center" method="post">';
-
                     echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
-
                     echo '<select name="quantity_' . $product['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
-              
                     for ($i = 1; $i <= $product['stock_quantity']; $i++) {
                         echo "<option value='$i'>$i</option>";
                     }
                     echo '</select>';
-
                     echo '<button type="button" onclick="addToCart(' . $product['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;" disabled>';
-                    echo '';
                     echo 'Added to Cart</button>';
                     echo '</form>';
                 } else {
+                    // Product not in cart
                     echo '<form class="add-to-cart-form d-flex  align-items-center" method="post">';
                     echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
                     echo '<select name="quantity_' . $product['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
-                    
                     for ($i = 1; $i <= $product['stock_quantity']; $i++) {
                         echo "<option value='$i'>$i</option>";
                     }
@@ -148,23 +144,21 @@
                     echo '</form>';
                 }
             } else {
-    
+                // User not logged in
                 echo '<a href="login.php" class="btn btn-primary">Login to Add to Cart</a>';
             }
 
-            echo '</div>'; 
-            echo '</div>'; 
-
+            echo '</div>';
+            echo '</div>';
         } else {
-        
+            // Product not found
             echo '<p>Product not found.</p>';
         }
     } else {
-      
+        // Product ID not provided
         echo '<p>Product ID not provided.</p>';
     }
     ?>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -172,10 +166,8 @@
             var quantity = $('select[name="quantity_' + productId + '"]').val();
             var addButton = $('button[data-product-id="' + productId + '"]');
 
-            
             var scrollPosition = $(window).scrollTop();
 
-            
             addButton.prop('disabled', true);
 
             $.ajax({
@@ -186,36 +178,18 @@
                     quantity: quantity
                 },
                 success: function(response) {
-                   
                     $('.product-details').load(window.location.href + ' .product-details > *');
                     $('#navbar').load(window.location.href + ' #navbar > *');
 
                     $(window).scrollTop(scrollPosition);
-
-                 
                 }
-
-               
             });
         }
     </script>
 
-
-
-
-
-
-
-
-
-
-
-
     <div class="main-content">
-        <h2 class="sec">Similar Products
-        </h2>
+        <h2 class="sec">Similar Products</h2>
         <?php
-
         // Display products
         function displayProducts($sql)
         {
@@ -233,7 +207,6 @@
                     echo '<h5 style="padding-top: 7px; color: #1a1a1a; font-size: 14px; overflow: hidden; text-overflow: ellipsis;">' . substr($row['name'], 0, 43) . '</h5>';
                     echo '<span class="price" style="font-size: 18px; font-weight: bold; margin-top: 1px;">' . $row['price'] . '</span>';
                     echo '<span class="stock" style="font-size: 16px; font-weight: thin; margin-top: 1px; margin-left: 30px; color: green" >In stock ' . $row['stock_quantity'] . '</span>';
-
                     echo '<p class="description" style="margin-top: 1px; color: #606063; font-size: 12px; overflow: hidden; text-overflow: ellipsis;">' . substr($row['description'], 0, 30) . '...</p>';
 
                     // Check if user is logged in
@@ -245,38 +218,25 @@
                         $result_cart = $stmt->get_result();
                         if ($result_cart->num_rows > 0) {
                             echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
-
                             echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
-
-                            // Styling for the quantity input field
                             echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
-                            // Populate the dropdown with available quantities
                             for ($i = 1; $i <= $row['stock_quantity']; $i++) {
                                 echo "<option value='$i'>$i</option>";
                             }
                             echo '</select>';
-
-                            // Styling for the "Add to Cart" button
                             echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;" disabled>';
-                            echo '';
                             echo 'Added to Cart</button>';
                             echo '</form>';
                         } else {
                             echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
                             echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
                             echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
-                            // Populate the dropdown with available quantities
                             for ($i = 1; $i <= $row['stock_quantity']; $i++) {
                                 echo "<option value='$i'>$i</option>";
                             }
                             echo '</select>';
-
-                            // Remove the disabled attribute from the button
                             echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;">';
                             echo 'Add to Cart</button>';
-
-
-
                             echo '</form>';
                         }
                     } else {
@@ -293,16 +253,13 @@
             }
         }
 
-
         $sql = "SELECT * FROM products where subcategory_id =" . $_SESSION['subcategory_id'] . " limit 8";
 
         displayProducts($sql);
         $_SESSION['scroll_position'] = isset($_GET['scroll_position']) ? $_GET['scroll_position'] : 0;
         ?>
     </div>
-    </div>
 
-    </div>
     <?php
     include("./include/footer.php");
     ?><!-- Closing container -->

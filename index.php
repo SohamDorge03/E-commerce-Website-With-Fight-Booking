@@ -151,8 +151,8 @@
     </div>
 
     <div class="fe-box" >
-      <img src="./image/flight.png" alt="">
-      <h6>Flight Services</h6>
+      <img src="./image/wa.png" alt="">
+      <h6>Warrenty Services</h6>
     </div>
 
     <div class="fe-box">

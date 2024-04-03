@@ -36,7 +36,6 @@ if (isset($_POST['confirm_product_id'])) {
         exit; 
     }
 }
-
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 
@@ -96,7 +95,6 @@ $result = $conn->query($sql);
                     <th>Description</th>
                     <th>Price</th>
                     <th>Stock Quantity</th>
-                    <th>Discount Price</th>
                     <th>Category ID</th>
                     <th>Subcategory ID</th>
                     <th>Action
@@ -120,7 +118,7 @@ $result = $conn->query($sql);
 
                         echo "<td>" . $row["price"] . "</td>";
                         echo "<td>" . $row["stock_quantity"] . "</td>";
-                        echo "<td>" . $row["discount_price"] . "</td>";
+                        
                         echo "<td>" . $row["category_id"] . "</td>";
                         echo "<td>" . $row["subcategory_id"] . "</td>";
 

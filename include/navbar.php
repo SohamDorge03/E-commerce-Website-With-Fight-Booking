@@ -302,8 +302,8 @@ if (isset($_SESSION['u'])) {
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'trading_products.php' ? 'active' : ''; ?>" href="trading_products.php">Tranding products</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>" href="feedback.php">Feedback</a>
     <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'book_demo.php' ? 'active' : ''; ?>" href="book_demo.php">Book a demo</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'request_airline.php' ? 'active' : ''; ?>" href="request_airline.php">request_airline</a>
-    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">report issues</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'request_airline.php' ? 'active' : ''; ?>" href="request_airline.php">Request_airline</a>
+    <a class="navlink <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">Report issues</a>
   </section>
 
   <script>

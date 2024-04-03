@@ -38,22 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airline Request Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .form-group {
-            width: 500px;
-        }
-        .custom-shadow {
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-            border-radius: 10px; 
-            padding: 20px; 
-        }
-    </style>
 </head>
 <body>
 <?php include("./include/navbar.php"); ?>
 <div class="container mt-5">
     <div class="d-flex justify-content-center"> 
-        <div class="custom-shadow"> 
+        <div style="width: 520px;"> <!-- Increase the width of the form -->
             <h2>Airline Request Form</h2>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">

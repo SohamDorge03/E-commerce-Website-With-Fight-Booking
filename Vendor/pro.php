@@ -38,11 +38,11 @@ function getAllSubcategories() {
 $categories = getAllCategories();
 $subcategories = getAllSubcategories();
 
-function addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $category_id, $subcategory_id, $vendor_id) {
+function addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $warranty, $category_id, $subcategory_id, $vendor_id) {
     global $conn;
 
-    $sql = "INSERT INTO products (name, img1, img2, img3, img4, description, price, stock_quantity, category_id, subcategory_id, vendor_id) 
-            VALUES ('$name', '$img1', '$img2', '$img3', '$img4', '$description', $price, $stockQuantity, $category_id, $subcategory_id, $vendor_id)";
+    $sql = "INSERT INTO products (name, img1, img2, img3, img4, description, price, stock_quantity, warranty, category_id, subcategory_id, vendor_id) 
+            VALUES ('$name', '$img1', '$img2', '$img3', '$img4', '$description', $price, $stockQuantity, $warranty, $category_id, $subcategory_id, $vendor_id)";
 
     if ($conn->query($sql) === TRUE) {
         $GLOBALS['success'] = true; // Set success flag
@@ -57,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $description = $_POST['description'];
         $price = $_POST['price'];
         $stockQuantity = $_POST['stockQuantity'];
+        $warranty = $_POST['warranty']; // Add warranty variable
         $category_id = $_POST['category_id'];
         $subcategory_id = $_POST['subcategory_id'];
    
@@ -66,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $img3 = uploadImage($_FILES["img3"], $targetDir);
         $img4 = uploadImage($_FILES["img4"], $targetDir);
 
-        addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $category_id, $subcategory_id, $vendor_id);
+        addProduct($name, $img1, $img2, $img3, $img4, $description, $price, $stockQuantity, $warranty, $category_id, $subcategory_id, $vendor_id);
     }
 }
 
@@ -122,7 +123,6 @@ function uploadImage($file, $targetDir) {
         .uploadDiv {
             display: flex;
         }
-
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -135,11 +135,12 @@ function uploadImage($file, $targetDir) {
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="uploadDiv">
-
+            <!-- Image fields -->
             <div class="mb-3">
                 <label for="img1" class="form-label">Image 1</label>
                 <input type="file" class="form-control" id="img1" name="img1" accept="image/*" required>
             </div>
+            <!-- Additional image fields -->
             <div class="mb-3">
                 <label for="img2" class="form-label">Image 2 (Optional)</label>
                 <input type="file" class="form-control" id="img2" name="img2" accept="image/*">
@@ -165,6 +166,19 @@ function uploadImage($file, $targetDir) {
             <label for="stockQuantity" class="form-label">Stock Quantity</label>
             <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" required>
         </div>
+        <!-- Warranty field -->
+        <div class="mb-3">
+    <label for="warranty" class="form-label">Warranty</label>
+    <select class="form-select" id="warranty" name="warranty">
+        <option value="" selected disabled>Select Warranty Period</option>
+        <option value="0">No Warrenty</option>
+        <option value="1">1Year</option>
+        <option value="2">2Year</option>
+        <option value="3">3Year</option>
+
+    </select>
+</div>
+
         <div class="mb-3">
             <label for="category_id" class="form-label">Category</label>
             <select class="form-select" id="category_id" name="category_id" required>

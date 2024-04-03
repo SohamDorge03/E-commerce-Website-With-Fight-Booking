@@ -113,8 +113,8 @@ include("./include/navbar.php");
     <div class="col-md-6">
       <h3>Contact Details</h3>
       <p><strong>Address:</strong> Shopflix Headquarter, near Shyam Mandir, Vesu, Surat, Gujarat</p>
-      <p><strong>Email:</strong> info@shopflix.com</p>
-      <p><strong>Phone:</strong> 01125532553</p>
+      <p><strong>Email:</strong> shopflix420@gmail.com</p>
+      <p><strong>Phone:</strong>7623979355</p>
     </div>
     <div class="col-md-6">
       <h3>Business Hours</h3>
