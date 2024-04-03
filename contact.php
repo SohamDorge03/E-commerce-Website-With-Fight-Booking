@@ -153,8 +153,8 @@ include("./include/navbar.php");
   <div class="dummy-map">
     <img src="./image/map.jpg" alt="Dummy Map Image">
   </div>
-  <div class="shopflix-address">
-    near shyam mandir, Vesu, Surat, Gujarat 394210
+  <div class="shopflix-address mt-5">
+  Near Shyam Mandir, Vesu, Surat, Gujarat 394210
   </div>
 </div>
 
@@ -168,10 +168,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     $sql = "INSERT INTO contact_us (name, email, description) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-
-
+    if ($stmt) {
+        $stmt->bind_param("sss", $name, $email, $description);
+        if ($stmt->execute()) {
+            
+            echo '<script>alert("Thank you! Your message has been sent successfully.");</script>';
+        } else {
+           
+            echo '<script>alert("Oops! Something went wrong. Please try again later.");</script>';
+        }
+    } else {
     
+        echo '<script>alert("Oops! Something went wrong. Please try again later.");</script>';
+    }
+    $stmt->close();
+    $conn->close();
 }
+?>
+<?php
+include("./include/footer.php");
 ?>
 
 </body>

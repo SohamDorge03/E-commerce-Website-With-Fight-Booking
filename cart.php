@@ -3,7 +3,6 @@ require("./config.php");
 include("include/connection.php");
 include("include/navbar.php");
 
-
 $total_price = 0;
 
 if (!isset($_SESSION['u'])) {
@@ -15,7 +14,7 @@ if (!isset($_SESSION['u'])) {
     echo '</div>';
     echo '</div>';
     echo '</div>';
-    exit(); 
+    exit();
 }
 
 $user_id = $_SESSION['u'];
@@ -24,9 +23,8 @@ $result = $conn->query($sql);
 
 if ($result === false) {
     echo "Error: " . $conn->error;
-    exit; 
+    exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -37,12 +35,17 @@ if ($result === false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopflix Cart</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .payment-form {
+            margin-top: 70px; /* Adjust margin top */
+        }
+    </style>
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <h2 class="">Cart</h2>
                 <div class="card">
                     <div class="card-body">
@@ -58,25 +61,29 @@ if ($result === false) {
                             </thead>
                             <tbody>
                                 <?php
-                                
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
+                                        // Truncate product name if it exceeds 20 characters
+                                        $productName = $row['name'];
+                                        if (strlen($productName) > 20) {
+                                            $productName = substr($productName, 0, 20) . '...';
+                                        }
                                         $total_price += $row['price'] * $row['quantity'];
                                 ?>
                                         <tr>
                                             <td>
                                                 <img src="vendor/<?php echo $row['img1']; ?>" alt="<?php echo $row['name']; ?>" height="50">
-                                                <?php echo $row['name']; ?>
+                                                <?php echo $productName; ?>
                                             </td>
                                             <td><?php echo $row['price']; ?></td>
                                             <td>
                                                 <form action="" method="post" class="form-inline">
                                                     <input type="hidden" name="action" value="update">
                                                     <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                    
+
                                                     <button type="submit" class="btn btn-lg" name="update" value="plus">+</button>
                                                     <span class="mx-2"><?php echo $row['quantity']; ?></span>
-                                                    
+
                                                     <button type="submit" class="btn btn-lg" name="update" value="minus">-</button>
                                                 </form>
                                             </td>
@@ -102,15 +109,17 @@ if ($result === false) {
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card mt-5">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Price: Rs. <?php echo $total_price; ?></h5>
-                        <form action="submit.php" method="post">
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<?php echo $Publishablekey; ?>" data-amount="<?php echo $total_price * 100; ?>" data-name="Shopflix" data-description="Shopflix" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiUuPgu-yLEY2NbaZa7MdSibC9nDZQZ8AjEGH022Vpvw&s" data-currency="INR" data-email="shopfilx420@gmail.com">
-                            </script>
-                            <input type="hidden" name="total_amount" value="<?php echo $total_price; ?>">
-                            <input type="hidden" name="stripeToken" value="<?php echo $_SESSION['u'] . random_int(1000, 2000); ?> ">
-                        </form>
+                <div class="payment-form">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Price: Rs. <?php echo $total_price; ?></h5>
+                            <form action="submit.php" method="post">
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<?php echo $Publishablekey; ?>" data-amount="<?php echo $total_price * 100; ?>" data-name="Shopflix" data-description="Shopflix" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiUuPgu-yLEY2NbaZa7MdSibC9nDZQZ8AjEGH022Vpvw&s" data-currency="INR" data-email="shopfilx420@gmail.com">
+                                </script>
+                                <input type="hidden" name="total_amount" value="<?php echo $total_price; ?>">
+                                <input type="hidden" name="stripeToken" value="<?php echo $_SESSION['u'] . random_int(1000, 2000); ?> ">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,7 +163,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update' && isset($_POST['pr
         ) {
             $new_quantity = $current_quantity - 1;
         } else {
-          
+
             $new_quantity = $current_quantity;
         }
 

@@ -163,12 +163,12 @@ CREATE TABLE `cart` (
 ) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `cart` VALUES (108,16,23,1);
-INSERT INTO `cart` VALUES (107,16,134,1);
+INSERT INTO `cart` VALUES (107,16,134,2);
 INSERT INTO `cart` VALUES (106,16,57,1);
 INSERT INTO `cart` VALUES (105,16,55,1);
 INSERT INTO `cart` VALUES (104,16,22,1);
 INSERT INTO `cart` VALUES (43,10,23,2);
-INSERT INTO `cart` VALUES (103,16,36,1);
+INSERT INTO `cart` VALUES (103,16,36,2);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
@@ -190,8 +190,9 @@ CREATE TABLE `contact_us` (
   `description` text NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `contact_us` VALUES (1,'jayesh','sohamdorge45@gmail.com','jjhj','2024-04-03 16:17:41');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feedback` (

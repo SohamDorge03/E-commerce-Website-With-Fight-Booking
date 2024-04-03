@@ -61,7 +61,7 @@
 <?php
 include("./include/navbar.php");
 ?>
-<div class="container">
+<div class="container mt-5">
   <div class="jumbotron text-center">
     <h1 class="display-4">About Us</h1>
     <p class="lead">Discover more about Shopflix - Your Ultimate Shopping Destination</p>
@@ -83,10 +83,6 @@ include("./include/navbar.php");
   <div class="section-content">
     <p>Shopflix is your go-to destination for a wide range of products, including electronics, furniture, and gym equipment. With a focus on quality, reliability, and convenience, we strive to make your shopping experience enjoyable and hassle-free.</p>
     <p>Our commitment to excellence extends to our flight booking services, ensuring you have access to seamless travel solutions at competitive prices.</p>
-  </div>
-
-  <div class="section-header">
-    <h2 class="section-title">Meet Our Team</h2>
   </div>
 
 <div class="section-header">
@@ -134,3 +130,6 @@ include("./include/navbar.php");
 
 </body>
 </html>
+<?php
+include("./include/footer.php");
+?>

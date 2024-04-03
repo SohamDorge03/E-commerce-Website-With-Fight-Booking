@@ -148,14 +148,15 @@ if (isset($_SESSION['u'])) {
           display: flex;
           align-items: center;
         }
+
         .search-input,
         .search-btn {
-        
+
           padding: 4px;
           margin: 6px;
           font-size: 16px;
           border: 2px solid #ffc107;
-         
+
         }
 
         .search-input {
@@ -187,11 +188,13 @@ if (isset($_SESSION['u'])) {
 
       <body>
         <style>
-       
           .dropdown {
             position: relative;
             display: inline-block;
 
+          }
+          .dropdown-toggle{
+            font-weight: bold !important;
           }
 
           .dropdown-content {
@@ -207,7 +210,7 @@ if (isset($_SESSION['u'])) {
           .dropdown-content a {
             color: black;
             padding: 12px 16px;
-            text-decoration: none;
+            text-decoration: none !important;
             display: block;
           }
 
@@ -217,38 +220,36 @@ if (isset($_SESSION['u'])) {
 
           .dropdown.show .dropdown-content {
             display: block;
+  
           }
 
           #loginDropdown.show {
             color: blue;
+
           }
         </style>
 
 
         <?php
         include('connection.php');
-
-
         ?>
-
         <?php
-
         if (isset($_SESSION['u'])) {
           echo '<li><a href="logout.php" class="btn">log out</a></li>';
         } else {
           echo '
             <div class="dropdown">
                 <button class="btn dropdown-toggle" id="loginDropdown" onclick="toggleDropdown()">
-                    Login
+                   Login
                 </button>
                 <div class="dropdown-content" id="dropdownContent">
-                    <a href="Vendor/login.php">Vendor Login</a>
+                    <a href="Vendor/login.php" style="">Vendor Login</a>
                     <a href="Airline/log.php">Airline Login</a>
                     <a href="login.php">User Login</a>
                 </div>
             </div>';
 
-          echo '<li style=" margin-left: -20px;   font-weight: 600;"><a href="register.php" class="btn">regestration </a></li>';
+          echo '<li style=" margin-left: -20px;   font-weight: 600;"><a href="register.php" class="btn">Regestration </a></li>';
         }
 
         ?>
