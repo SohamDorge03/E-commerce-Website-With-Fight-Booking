@@ -160,8 +160,12 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `cart` VALUES (108,16,23,1);
+INSERT INTO `cart` VALUES (107,16,134,1);
+INSERT INTO `cart` VALUES (106,16,57,1);
+INSERT INTO `cart` VALUES (105,16,55,1);
 INSERT INTO `cart` VALUES (104,16,22,1);
 INSERT INTO `cart` VALUES (43,10,23,2);
 INSERT INTO `cart` VALUES (103,16,36,1);

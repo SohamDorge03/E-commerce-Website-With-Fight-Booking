@@ -151,10 +151,7 @@ include("include/connection.php");
         $selectedCategories = $_GET['category'];
         $sql .= " WHERE subcategory_id IN (SELECT subcategory_id FROM subcategories WHERE category_id IN (" . implode(',', $selectedCategories) . "))";
     }
-    if (isset($_GET['price_range'])) {
-        $priceRange = $_GET['price_range'];
-        $sql .= " AND price <= $priceRange";
-    }
+    
     displayProducts($sql);
     $_SESSION['scroll_position'] = isset($_GET['scroll_position']) ? $_GET['scroll_position'] : 0;
     ?>
@@ -180,6 +177,7 @@ include("include/connection.php");
             success: function(response) {
                 
                 $('.main-content').load(window.location.href + ' .main-content > *');
+                $('#navbar').load(window.location.href + ' #navbar > *');
 
                 
                 $(window).scrollTop(scrollPosition);

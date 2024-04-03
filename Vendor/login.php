@@ -104,13 +104,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
              style="background: #480938;">
             <div class="featured-image mb-3">
-                <img src="../image/login.png" class="img-fluid" style="width: 250px;">
+                <img src="vendor.png" class="img-fluid" style="width: 350px;">
             </div>
             <p class="text-white fs-2"
                style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
             <small class="text-white text-wrap text-center"
-                   style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Vendors
-                on this platform.
+                   style="width: 17rem;font-family: 'Courier New', Courier, monospace;">"Fuel your multivendor website with our powerful platform."
             </small>
         </div>
 

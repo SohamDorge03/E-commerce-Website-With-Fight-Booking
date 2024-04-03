@@ -150,9 +150,9 @@
       <h6>Free Demo booking</h6>
     </div>
 
-    <div class="fe-box">
-      <img src="./image/wa.png" alt="">
-      <h6>Warrunty Services</h6>
+    <div class="fe-box" >
+      <img src="./image/flight.png" alt="">
+      <h6>Flight Services</h6>
     </div>
 
     <div class="fe-box">

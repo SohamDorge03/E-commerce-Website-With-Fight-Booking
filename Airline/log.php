@@ -6,12 +6,12 @@ include("connection.php");
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if(isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['captcha'])) {
+    if (isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['captcha'])) {
         $email = $_POST['email'];
         $pass = $_POST['pass'];
         $captcha = $_POST['captcha'];
 
-        if($_SESSION['captcha'] !== $captcha) {
+        if ($_SESSION['captcha'] !== $captcha) {
             $error = "Invalid CAPTCHA, please try again.";
         } else {
             $sql = "SELECT airline_id FROM airlines WHERE email = '$email' AND pass = '$pass'";
@@ -28,13 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     } else {
-    
+
         $error = "Please enter email, password, and CAPTCHA.";
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -88,67 +89,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 </head>
+
 <body>
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
 
-    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <div class="row border rounded-5 p-3 bg-white shadow box-area">
 
-        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-             style="background: #480938;">
-            <div class="featured-image mb-3">
-                <img src="../image/login.png" class="img-fluid" style="width: 250px;">
-            </div>
-            <p class="text-white fs-2"
-               style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
-            <small class="text-white text-wrap text-center"
-                   style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Vendors
-                on this platform.
-            </small>
-        </div>
-
-        <div class="col-md-6 right-box">
-            <div class="row align-items-center">
-                <div class="header-text mb-4">
-                    <h2>Hello, Airline</h2>
-                    <p>We are happy to have you back.</p>
+            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #480938;">
+                <div class="featured-image mb-3">
+                    <img src="airline.png" class="img-fluid" style="width: 250px;">
                 </div>
-                <form method="post" action="">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="email"  placeholder="Email address" required>
-                    </div>
-                    <div class="input-group mb-1">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" name="pass"
-                               placeholder="Password" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="captcha" placeholder="Enter CAPTCHA" required>
-                        <img src="../include/captcha.php" alt="CAPTCHA Image" id="captcha_image" style="margin-left: 10px;"> <!-- Added ID for CAPTCHA image -->
-                        <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
-                            <i class="fas fa-sync-alt"></i>
-                            Refresh
-                        </button>
-                    </div>
-
-                    <?php if (!empty($error)) : ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?php echo $error; ?>
-                        </div>
-                    <?php endif; ?>
-                
-                    <div class="input-group mb-5" style="margin-top: 25px;">
-                        <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
-                    </div>
-                </form>
+                <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
+                <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">
+                    "Fly high with ease – book your flights hassle-free on our website!"
+                </small>
             </div>
-        </div>
+        
+            <div class="col-md-6 right-box">
+                <div class="row align-items-center">
+                    <div class="header-text mb-4">
+                        <h2>Hello, Airline</h2>
+                        <p>We are happy to have you back.</p>
+                    </div>
+                    <form method="post" action="">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-lg bg-light fs-6" name="email" placeholder="Email address" required>
+                        </div>
+                        <div class="input-group mb-1">
+                            <input type="password" class="form-control form-control-lg bg-light fs-6" name="pass" placeholder="Password" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-lg bg-light fs-6" name="captcha" placeholder="Enter CAPTCHA" required>
+                            <img src="../include/captcha.php" alt="CAPTCHA Image" id="captcha_image" style="margin-left: 10px;"> <!-- Added ID for CAPTCHA image -->
+                            <button class="btn btn-outline-dark rounded-4" type="button" id="refresh_captcha">
+                                <i class="fas fa-sync-alt"></i>
 
+                            </button>
+                        </div>
+
+                        <?php if (!empty($error)) : ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="input-group mb-5" style="margin-top: 25px;">
+                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
-<script>
-    document.getElementById('refresh_captcha').addEventListener('click', function () {
-        document.getElementById('captcha_image').src = '../include/captcha.php?rand=' + new Date().getTime(); // Corrected path and added 'captcha_image' ID
-    });
-</script>
+    <script>
+        document.getElementById('refresh_captcha').addEventListener('click', function() {
+            document.getElementById('captcha_image').src = '../include/captcha.php?rand=' + new Date().getTime(); // Corrected path and added 'captcha_image' ID
+        });
+    </script>
 </body>
+
 </html>

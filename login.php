@@ -1,5 +1,4 @@
 <?php
-
 include("./include/connection.php");
 include("./include/navbar.php");
 if(isset($_POST['login'])) {
@@ -7,14 +6,12 @@ if(isset($_POST['login'])) {
     $password = $_POST['password'];
     $captcha = $_POST['captcha'];
 
-    
     if($captcha !== $_SESSION['captcha']) {
         $message = "Invalid captcha.";
     } else {
       
         $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
         $result = $conn->query($sql);
-
      
         if ($result->num_rows > 0) {
             
@@ -32,7 +29,6 @@ if(isset($_POST['login'])) {
     }
 }
 
-
 $conn->close();
 ?>
 
@@ -49,7 +45,6 @@ $conn->close();
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
  
-
         .container {
             color: #fff;
             position: relative;
@@ -77,7 +72,6 @@ $conn->close();
         .rounded-5 {
             border-radius: 30px;
         }
-
         @media only screen and (max-width: 768px) {
             .box-area {
                 margin: 0 10px;
