@@ -1,8 +1,9 @@
 <div class="main-content">
     <?php
-    
+
     include("./include/connection.php");
     include("./include/navbar.php");
+
     function displayProducts($sql)
     {
         global $conn;
@@ -22,9 +23,9 @@
 
                 echo '<p class="description" style="margin-top: 1px; color: #606063; font-size: 12px; overflow: hidden; text-overflow: ellipsis;">' . substr($row['description'], 0, 30) . '...</p>';
 
-                
+
                 if (isset($_SESSION['u'])) {
-              
+
                     $stmt = $conn->prepare("SELECT * FROM cart WHERE user_id = ? AND product_id = ?");
                     $stmt->bind_param("ii", $_SESSION['u'], $productId);
                     $stmt->execute();
@@ -34,30 +35,29 @@
 
                         echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
 
-                
+
                         echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
-                       
+
                         for ($i = 1; $i <= $row['stock_quantity']; $i++) {
                             echo "<option value='$i'>$i</option>";
                         }
                         echo '</select>';
 
-                        
-                        echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 10px;" disabled>';
-                        echo '';
+
+                        echo '<button type="button" data-product-id="' . $row['product_id'] . '" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 10px;">';
                         echo 'Added to Cart</button>';
                         echo '</form>';
                     } else {
                         echo '<form class="add-to-cart-form d-flex justify-content-between align-items-center" method="post">';
                         echo '<input type="hidden" name="product_id" value="' . $row['product_id'] . '">';
                         echo '<select name="quantity_' . $row['product_id'] . '" style="height: 30px; width: 70px; border-radius: 5px; border: 1px solid #ccc;">';
-                       
+
                         for ($i = 1; $i <= $row['stock_quantity']; $i++) {
                             echo "<option value='$i'>$i</option>";
                         }
                         echo '</select>';
 
-                        echo '<button type="button" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;">';
+                        echo '<button type="button" data-product-id="' . $row['product_id'] . '" onclick="addToCart(' . $row['product_id'] . ')" class="btn btn-primary d-flex justify-content-center align-items-center" style="height: 30px; width: 130px; background-color: #0062cc; margin-left: 20px;">';
                         echo 'Add to Cart</button>';
 
 
@@ -65,7 +65,7 @@
                         echo '</form>';
                     }
                 } else {
-                  
+
                     echo '<a href="login.php" class="btn btn-primary">Login to Add to Cart</a>';
                 }
 
@@ -81,7 +81,7 @@
 
 
     if (isset($_GET['q'])) {
-        
+
         $search_query = $_GET['q'];
 
         $sql = "SELECT * FROM products WHERE name LIKE '%$search_query%'";
@@ -102,8 +102,8 @@
 <script>
     function addToCart(productId) {
         var quantity = $('select[name="quantity_' + productId + '"]').val();
-
         var scrollPosition = $(window).scrollTop();
+        var addToCartButton = $('button[data-product-id="' + productId + '"]');
 
         $.ajax({
             type: "POST",
@@ -113,11 +113,12 @@
                 quantity: quantity
             },
             success: function(response) {
-             
                 $('.main-content').load(window.location.href + ' .main-content > *');
-
                 $(window).scrollTop(scrollPosition);
 
+                addToCartButton.prop('disabled', true); 
+                addToCartButton.text('Added to Cart'); 
+                addToCartButton.removeClass('btn-primary').addClass('btn-secondary'); 
                 $('.alert').html('<strong>Success!</strong> Product added to cart.').addClass('alert-success').removeClass('d-none');
             }
         });

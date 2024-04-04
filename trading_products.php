@@ -189,6 +189,7 @@ include("include/connection.php");
             success: function(response) {
                 
                 $('.main-content').load(window.location.href + ' .main-content > *');
+                $('#navbar').load(window.location.href + ' #navbar > *');
 
               
                 $(window).scrollTop(scrollPosition);
