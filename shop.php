@@ -162,7 +162,7 @@ include("./include/navbar.php");
 
         if (isset($_SESSION['selected_category'])) {
             $selectedCategories = $_SESSION['selected_category'];
-            echo "<h4>Subcategories</h4><form method='GET'><ul>";
+            echo "<h4 style='margin-top:30px;'>Subcategories</h4><form method='GET'><ul>";
             foreach ($selectedCategories as $selectedCategory) {
                 $subcategories = fetchSubcategoryNames($selectedCategory);
                 if ($subcategories) {
@@ -180,7 +180,7 @@ include("./include/navbar.php");
 
     </div>
 
-    <div class="main-content">
+    <div class="main-content " style="margin-bottom:40px;">
         <?php
 
         function displayProducts($sql)

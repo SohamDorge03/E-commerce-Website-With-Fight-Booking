@@ -82,6 +82,10 @@
       bottom: 20px;
       right: 10px;
     }
+    .carousel-item img{
+      height: 350px;
+    }
+ 
   </style>
 
   <meta charset="UTF-8">
@@ -109,13 +113,19 @@
 
   ?>
 
-  <div id="carouselExample" class="carousel slide ">
+  <div id="carouselExample" class="carousel slide">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="image/red (1).jpg" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="image/Electro (1).jpg" class="d-block w-100" alt="...">
+        <img src="./image/furn.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="./image/gym.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="./image/fur.jpeg" class="d-block w-100" alt="...">
       </div>
 
     </div>
@@ -162,7 +172,7 @@
 
   </section>
   <section class="products">
-    <h1 style="text-align: center;">New Arrival Products</h1>
+    <h1 style="text-align:center;">New Arrival Products</h1>
     <?php
 include("./include/connection.php");
 

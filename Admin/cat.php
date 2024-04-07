@@ -9,9 +9,7 @@ if (!isset($_SESSION['email'])) {
 ?>
 <?php
 include("./include/connection.php");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["addCategory"])) {
         $newCategoryName = $_POST["newCategoryName"];
@@ -41,7 +39,6 @@ if ($categoryResult === false) {
 
     die("Error executing the category query: " . $conn->error);
 }
-
 
 $subCategorySql = "SELECT * FROM subcategories";
 $subCategoryResult = $conn->query($subCategorySql);

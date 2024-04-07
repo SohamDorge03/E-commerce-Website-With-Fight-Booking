@@ -37,8 +37,8 @@ if(isset($_SESSION['airline_id'])) {
                 <div class="container mt-5">
                     <h1>Passenger Details</h1>
                     <table class="table">
-                        <thead>
-                            <tr>
+                        <thead style="color:wheat;">
+                            <tr style="background-color:#000080;">
                                 <th>Passenger ID</th>
                                 <th>Name</th>
                                 <th>Age</th>

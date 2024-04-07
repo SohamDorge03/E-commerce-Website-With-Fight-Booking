@@ -6,14 +6,9 @@
 <title>About Us - Shopflix</title>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    padding-bottom: 50px;
-  }
 
-  .container {
+
+  .containera {
     max-width: 800px;
     margin: 0 auto;
   }
@@ -124,8 +119,7 @@ include("./include/navbar.php");
       <h4>Vishal Saw</h4>
       <p>Marketing Manager</p>
     </div>
-  </div>
-</div>
+    </div></div></div>
 
 
 </body>

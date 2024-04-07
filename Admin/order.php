@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
     if ($update_status_result) {
         echo "<script>alert('Order status updated successfully!');</script>";
 
-       
+
         if ($new_status === "Shipped") {
             $customer_email_query = "SELECT email FROM users WHERE user_id IN (SELECT user_id FROM orders WHERE order_id = $order_id)";
             $customer_email_result = $conn->query($customer_email_query);
@@ -63,23 +63,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_status"])) {
                 $mail->Subject = 'Your Order has been Shipped!';
                 $mail->Body    = 'Dear Customer,<br><br>Your order has been successfully shipped. Thank you for shopping with us!<br><br>Regards,<br>The SHOPFLIX Team';
                 $mail->AltBody = 'Your order has been successfully shipped. Thank you for shopping with us!';
-            
+
                 // Send email
                 try {
                     $mail->send();
                     echo "<script>alert('Order Shipped Successfully.');</script>";
                 } catch (Exception $e) {
-                
+
                     echo "<script>alert('Order Shipped Successfully, but there was an error sending the confirmation email: {$mail->ErrorInfo}');</script>";
                 }
-             
             }
         }
     } else {
         echo "<script>alert('Failed to update order status.');</script>";
     }
 }
-     
+
 echo "<div class='container mt-5'>";
 echo "<h2>Orders with Product Details</h2>";
 echo "<table class='table table-bordered'>";

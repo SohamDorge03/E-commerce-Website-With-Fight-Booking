@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <?php include("./include/navbar.php"); ?>
-<div class="container mt-5">
+<div class="container mt-5" style="margin-bottom:80px;">
     <div class="d-flex justify-content-center"> 
         <div style="width: 520px;"> <!-- Increase the width of the form -->
             <h2>Airline Request Form</h2>

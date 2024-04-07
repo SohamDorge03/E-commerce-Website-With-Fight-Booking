@@ -59,23 +59,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
 
                 $update_sql = "UPDATE booked_flights SET payment_status = 'success', TransactionID = '$transaction_id' WHERE booking_id = $booking_id";
                 if (mysqli_query($conn, $update_sql)) {
-                    $airline_query = "SELECT f.airline_id FROM flights f INNER JOIN booked_flights bf ON f.flight_id = bf.flight_id WHERE bf.booking_id = $booking_id";
-                    $airline_result = mysqli_query($conn, $airline_query);
-                    if ($airline_result && mysqli_num_rows($airline_result) > 0) {
-                        $row = mysqli_fetch_assoc($airline_result);
+                    // Fetch flight class and airline_id from flights table
+                    $flight_info_query = "SELECT flight_class, airline_id FROM flights WHERE flight_id = $flight_id";
+                    $flight_info_result = mysqli_query($conn, $flight_info_query);
+                    if ($flight_info_result && mysqli_num_rows($flight_info_result) > 0) {
+                        $row = mysqli_fetch_assoc($flight_info_result);
+                        $flight_class = $row['flight_class'];
                         $airline_id = $row['airline_id'];
 
-                        $update_airline_sql = "UPDATE booked_flights SET airline_id = $airline_id WHERE booking_id = $booking_id";
-                        if (mysqli_query($conn, $update_airline_sql)) {
-                         
+                        // Update booked_flights table with flight class and airline_id
+                        $update_flight_info_sql = "UPDATE booked_flights SET flight_class = '$flight_class', airline_id = $airline_id WHERE booking_id = $booking_id";
+                        if (mysqli_query($conn, $update_flight_info_sql)) {
                             echo "<div class='container mt-5'>
                                     <div class='row justify-content-center'>
                                         <div class='col-md-6'>
                                             <div class='alert alert-success text-center' role='alert'>
                                                 Payment successful
                                             </div>
-                                            <a href='Ticket.php?booking_id=$booking_id' class='btn btn-primary'>View Ticket</a>
-                                        </div>
+                                            <a href='Ticket.php?booking_id=$booking_id' class='btn btn-primary'>View Ticket</a>";
+                                            
+                            // Fetch booking data for ticket download link
+                            $booking_query = "SELECT * FROM booked_flights WHERE booking_id = $booking_id";
+                            $booking_result = mysqli_query($conn, $booking_query);
+                            if ($booking_result && mysqli_num_rows($booking_result) > 0) {
+                                $booking_data = mysqli_fetch_assoc($booking_result);
+
+                                echo "<a href='ticket_pdf.php?booking_id=".$booking_data['booking_id']."' class='btn btn-primary' style='margin-left:20px;'>Download Ticket</a>";
+                            } else {
+                                echo "Booking data not found.";
+                            }
+                                            
+                            echo "</div>
                                     </div>
                                 </div>";
 
@@ -84,8 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                             if ($email_result && mysqli_num_rows($email_result) > 0) {
                                 $user_row = mysqli_fetch_assoc($email_result);
                                 $user_email = $user_row['email'];
-                                
-                               
+
+                                // Prepare email content
                                 $passenger_query = "SELECT name, seatno, gateno, pnr_no FROM passenger WHERE booking_id = $booking_id";
                                 $passenger_result = mysqli_query($conn, $passenger_query);
                                 if ($passenger_result && mysqli_num_rows($passenger_result) > 0) {
@@ -102,6 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                 } else {
                                     $seats_info = "Seat Information not available";
                                 }
+
+                                // Fetch airline name and flight code
                                 $flight_query = "SELECT a.airline_name, f.flight_code FROM airlines a INNER JOIN flights f ON a.airline_id = f.airline_id WHERE f.flight_id = $flight_id";
                                 $flight_result = mysqli_query($conn, $flight_query);
                                 if ($flight_result && mysqli_num_rows($flight_result) > 0) {
@@ -112,12 +128,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                     $airline_name = "Airline Name";
                                     $flight_code = "Flight Code";
                                 }
-                                
+
+                                // Fetch PNR number
                                 $pnr_query = "SELECT DISTINCT pnr_no FROM passenger WHERE booking_id = $booking_id LIMIT 1";
                                 $pnr_result = mysqli_query($conn, $pnr_query);
                                 $pnr_row = mysqli_fetch_assoc($pnr_result);
                                 $pnr_no = $pnr_row['pnr_no'];
-                                
+
+                                // Send email
                                 $to = $user_email;
                                 $subject = 'Flight Booking Details';
                                 $body = "Thank you for booking your flight with us!<br><br>
@@ -129,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                         Regards,<br>
                                          The SHOPFLIX Team";
                                 $email_sent = sendEmail($to, $subject, $body);
-                                
+
                                 if (!$email_sent) {
                                     echo "<div class='alert alert-danger mt-3' role='alert'>
                                             Error sending email. Please contact customer support.
@@ -141,10 +159,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['stripeToken'])) {
                                     </div>";
                             }
                         } else {
-                            echo "Error updating airline ID: " . mysqli_error($conn);
+                            echo "Error updating flight info: " . mysqli_error($conn);
                         }
                     } else {
-                        echo "No rows found for airline ID.";
+                        echo "No flight info found.";
                     }
                 } else {
                     echo "Error updating data: " . mysqli_error($conn);

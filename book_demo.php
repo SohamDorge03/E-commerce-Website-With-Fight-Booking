@@ -66,7 +66,7 @@
             $conn->close();
         }
         ?>
-        <div class="container mt-5">
+        <div class="container mt-3" style="margin-bottom:40px;">
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card-body">
@@ -108,7 +108,7 @@
                                 $user = $result_user->fetch_assoc();
                             ?>
                                 <div class="row form-group pl-2 pr-2">
-                                    <div class="form-group" style="margin-left: 8px; width: 265px;">
+                                    <div class="form-group" style="margin-left: 8px;">
                                         <label for="first_name">First Name</label>
                                         <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $user['first_name']; ?>" disabled>
                                     </div>
@@ -157,5 +157,7 @@
             });
         </script>
 </body>
-
+<?php
+include("./include/footer.php");
+?>
 </html>

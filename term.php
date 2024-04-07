@@ -7,7 +7,9 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+<?php
+include("./include/navbar.php");
+?>
 <div class="container mt-5">
   <h1>Terms and Conditions</h1>
   <p>Welcome to Shopflix! These terms and conditions outline the rules and regulations for the use of Shopflix's Website, located at www.shopflix.com.</p>

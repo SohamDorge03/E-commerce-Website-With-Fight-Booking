@@ -78,6 +78,10 @@ function showUpdateForm($product) {
                     <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="<?php echo $product['stock_quantity']; ?>" required>
                 </div>
                 <div class="mb-3">
+                    <label for="warranty" class="form-label">Warranty</label>
+                    <input type="text" class="form-control" id="warranty" name="warranty" value="<?php echo $product['warranty']; ?>">
+                </div>
+                <div class="mb-3">
                     <label for="img1" class="form-label">Image 1</label>
                     <input type="file" class="form-control" id="img1" name="img1" accept="image/*">
                 </div>
@@ -108,14 +112,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $description = $_POST['description'];
     $price = $_POST['price'];
     $stockQuantity = $_POST['stockQuantity'];
+    $warranty = $_POST['warranty']; // Added warranty field
 
-    updateProduct($productId, $name, $description, $price, $stockQuantity);
+    updateProduct($productId, $name, $description, $price, $stockQuantity, $warranty);
 }
 
-function updateProduct($productId, $name, $description, $price, $stockQuantity) {
+function updateProduct($productId, $name, $description, $price, $stockQuantity, $warranty) {
     global $conn;
 
-    $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity";
+    $sql = "UPDATE products SET name='$name', description='$description', price=$price, stock_quantity=$stockQuantity, warranty='$warranty'";
 
     $targetDir = "products/";
     for ($i = 1; $i <= 4; $i++) {
@@ -239,7 +244,7 @@ $products = getVendorProducts($vendor_id);
                             <p class="card-text"><strong>Price: <?php echo $product['price']; ?></strong></p>
                             <p class="card-text"><strong>Stock Quantity: <?php echo $product['stock_quantity']; ?></strong></p>
                             <div class="btn-group" role="group">
-                                <a href="?action=update&id=<?php echo $product['product_id']; ?>" class="btn btn-warning">Update</a>
+                                <a href="?action=update&id=<?php echo $product['product_id']; ?>" class="btn btn-warning ">Update</a>
                                 <a href="?action=delete&id=<?php echo $product['product_id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
                             </div>
                         </div>

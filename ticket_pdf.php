@@ -5,11 +5,32 @@ include('admin/vendor/autoload.php');
 
 include("./include/connection.php");
 
+function numberToWords($number) {
+    $words = array(
+        'zero',
+        'one',
+        'two',
+        'three',
+        'four',
+        'five',
+        'six',
+        'seven',
+        'eight',
+        'nine'
+    );
+    $num_arr = str_split($number);
+    $word = '';
+    foreach ($num_arr as $num) {
+        $word .= $words[$num] . ' ';
+    }
+    return trim($word);
+}
+
 if (isset($_GET['booking_id'])) {
 
     $booking_id = $_GET['booking_id'];
 
-    $sql = "SELECT bf.booking_id, bf.take_seats, bf.booked_date, bf.TransactionID, 
+    $sql = "SELECT bf.booking_id, bf.take_seats, bf.booked_date, bf.TransactionID, bf.flight_class, bf.total_amount,
     GROUP_CONCAT(p.name) AS passenger_names, 
     f.flight_code, 
     a.airline_name,
@@ -83,6 +104,8 @@ if (isset($_GET['booking_id'])) {
             <?php
             
             while ($row = $result->fetch_assoc()) {
+                // Convert total amount to words
+                $total_amount_words = numberToWords($row['total_amount']);
             ?>
                 <div class="container">
                     <div class="row">
@@ -121,6 +144,10 @@ if (isset($_GET['booking_id'])) {
                                             <div class="detail-value"><?php echo $row['flight_code']; ?></div>
                                         </div>
                                         <div class="detail-container">
+                                            <div class="detail-label"><strong>Flight Class:</strong></div>
+                                            <div class="detail-value"><?php echo $row['flight_class']; ?></div>
+                                        </div>
+                                        <div class="detail-container">
                                             <div class="detail-label"><strong>Gate Number:</strong></div>
                                             <div class="detail-value"><?php echo $row['gateno']; ?></div>
                                         </div>
@@ -128,6 +155,11 @@ if (isset($_GET['booking_id'])) {
                                             <div class="detail-label"><strong>Seat Numbers:</strong></div>
                                             <div class="detail-value"><?php echo $row['seat_numbers']; ?></div>
                                         </div>
+                                        <div class="detail-container">
+    <div class="detail-label"><strong>Total Amount:</strong></div>
+    <div class="detail-value"><?php echo $row['total_amount']; ?>/-</div>
+</div>
+
                                     </div>
                                 </div>
                             </div>

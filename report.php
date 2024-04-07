@@ -76,7 +76,7 @@
     }
     ?>
 
-    <div class="container abc" style="margin-top: 20px;">
+    <div class="container abc" style="margin-top: 20px; margin-bottom:60px;">
         <h2 class="text-center mb-6"><b>Report Issues</b></h2>
         <form class="warranty-form" method="post">
             <div class="form-group">
