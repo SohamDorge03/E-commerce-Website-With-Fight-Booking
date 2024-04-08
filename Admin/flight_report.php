@@ -85,14 +85,12 @@ include("./include/connection.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
-    $flight_class = $_POST['flight_class'];
+    
     $payment_status = $_POST['payment_status'];
 
 
     $sql = "SELECT * FROM booked_flights WHERE booked_date BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
-    if (!empty($flight_class)) {
-        $sql .= " AND flight_class = '$flight_class'";
-    }
+   
     if (!empty($payment_status)) {
         $sql .= " AND payment_status = '$payment_status'";
     }
@@ -101,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         echo '<table class="table table-striped">';
-        echo '<thead style="background-color:#5F1E30;"><tr style="color:wheat;"><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr></thead>';
+        echo '<thead style="background-color:#5F1E30;"><tr style="color:wheat;"><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr></thead>';
         echo '<tbody>';
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
@@ -109,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<td>' . $row['flight_id'] . '</td>';
             echo '<td>' . $row['user_id'] . '</td>';
             echo '<td>' . $row['take_seats'] . '</td>';
-            echo '<td>' . $row['flight_class'] . '</td>';
+            
             echo '<td>' . $row['TransactionID'] . '</td>';
             echo '<td>' . $row['total_amount'] . '</td>';
             echo '<td>' . $row['payment_status'] . '</td>';

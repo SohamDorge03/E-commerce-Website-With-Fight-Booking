@@ -295,7 +295,7 @@
             <h4>My Account</h4>
             <a href="./register.php">Sign In</a>
             <a href="./cart.php">View Cart</a>
-            <a href="Report.php">Report_issue</a>
+            <a href="Report.php">Report issue</a>
             <a href="./order.php">Track my Order</a>
             <a href="./feedback.php">Feedback</a>
         </div>

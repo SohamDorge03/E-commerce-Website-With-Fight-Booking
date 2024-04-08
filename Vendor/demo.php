@@ -55,7 +55,7 @@
                         $mail->addAddress($userEmail, 'User');
                         $mail->isHTML(true);
                         $mail->Subject = 'Demo Booking Confirmation';
-                        $mail->Body = "<h1>Your demo booking with Demo ID:</h1> <h2 style='color:green;'> $demoId has been confirmed on $currentDate. Demo Date and Time: $demoDate </h2>";
+                        $mail->Body = "<h1>Your demo booking with Demo ID:$demoId </h1> <h2 style='color:green;'> has been confirmed on $currentDate. Demo Date and Time: $demoDate </h2>";
 
 
                 

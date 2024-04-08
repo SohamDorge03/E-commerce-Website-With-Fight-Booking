@@ -31,14 +31,14 @@ if (!$res) {
     $html .= '.table th { background-color: #f2f2f2; }';
     $html .= '</style>';
     $html .= '<table class="table">';
-    $html .= '<tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Flight Class</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr>';
+    $html .= '<tr><th>Booking ID</th><th>Flight ID</th><th>User ID</th><th>Take Seats</th><th>Transaction ID</th><th>Total Amount</th><th>Payment Status</th><th>Booked Date</th></tr>';
     while ($row = mysqli_fetch_assoc($res)) {
         $html .= '<tr>';
         $html .= '<td>' . $row['booking_id'] . '</td>';
         $html .= '<td>' . $row['flight_id'] . '</td>';
         $html .= '<td>' . $row['user_id'] . '</td>';
         $html .= '<td>' . $row['take_seats'] . '</td>';
-        $html .= '<td>' . $row['flight_class'] . '</td>';
+        
         $html .= '<td>' . $row['TransactionID'] . '</td>';
         $html .= '<td>' . $row['total_amount'] . '</td>';
         $html .= '<td>' . $row['payment_status'] . '</td>';

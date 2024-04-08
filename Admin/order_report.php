@@ -36,8 +36,8 @@ include("./include/navbar.php");
                     <select class="form-control form-control-sm" id="status" name="status">
                         <option value="">All</option>
                         <option value="Pending">Pending</option>
-                        <option value="Processing">Processing</option>
-                        <option value="Completed">Completed</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Confirmed">Confirmed</option>
                     </select>
                 </div>
             </div>
