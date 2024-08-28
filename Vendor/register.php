@@ -112,7 +112,7 @@ mysqli_close($conn);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Poppins';
+            font-family: Arial, sans-serif;
             background-color: #f8f9fa;
         }
 
@@ -165,17 +165,14 @@ mysqli_close($conn);
 <body>
     <div class="container">
         <div class="image-container">
-            <img src="register.png" alt="Image">
+            <img src="login.png" alt="Image">
         </div>
         <div class="form-container">
             <h2>Vendor Registration</h2>
             <?php if (!empty($errors)) : ?>
                 <div class="alert alert-danger">
                     <?php foreach ($errors as $error) : ?>
-                        <div>
-                            <?php echo $error; ?>
-                            <button type="button" style="margin-left: 80px;" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                        <div><?php echo $error; ?></div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
@@ -202,7 +199,6 @@ mysqli_close($conn);
             </form>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -52,7 +52,7 @@ include("./include/navbar.php");
       <div class="form-group col-md-4">
         <label for="flight_class">Flight Class:</label>
         <select class="form-control" id="flight_class" name="flight_class">
-          <option value=""></option>
+          <option value="">--Select Class--</option>
           <option value="economy">Economy</option>
           <option value="business">Business</option>
           <option value="" class="new-line-option">All</option>
@@ -61,7 +61,7 @@ include("./include/navbar.php");
       <div class="form-group col-md-4">
         <label for="payment_status">Payment Status:</label>
         <select class="form-control" id="payment_status" name="payment_status">
-          <option value=""></option>
+          <option value="">--Select Status--</option>
           <option value="0">Pending</option>
           <option value="1">Completed</option>
           <option value="" class="new-line-option">All</option>

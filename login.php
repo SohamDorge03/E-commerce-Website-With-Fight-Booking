@@ -92,7 +92,7 @@ $conn->close();
 
     <div class="container d-flex justify-content-center align-items-center  " style="margin-top: 42px;">
 
-        <div class="row  rounded-5 p-0    box-area">
+        <div class="row  rounded-5 p-0 box-area">
 
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box left-box1">
                 <div class="featured-image mb-3">
